@@ -1,15 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+const initialState = {
+  products: [] as string[], // ✅ Ensure 'products' is an array
+};
 
 const pageSlice = createSlice({
   name: "page",
-  initialState: { currentPage: "product" }, 
+  initialState,
   reducers: {
-    goToProduct: (state) => {
-      state.currentPage = "product";
+    setProducts: (state, action: PayloadAction<string[]>) => {
+      state.products = action.payload;
     },
-   
   },
 });
 
-export const { goToProduct, } = pageSlice.actions;
+export const { setProducts } = pageSlice.actions;
 export default pageSlice.reducer;

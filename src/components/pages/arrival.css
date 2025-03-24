@@ -1,0 +1,73 @@
+.New-arrivals{
+border-radius: 10px;
+background: rgba(255, 255, 255, 0.637); /* Light transparent background */
+backdrop-filter: blur(10px); /* Blur effect */
+-webkit-backdrop-filter: blur(10px); /* For Safari */
+}
+.body {
+    background-color: #efeaf4;
+    background-size: cover;  
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white; 
+    padding: 20px;
+  }
+  .name{
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+  }
+  .buy-btn{
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto 15px;
+    width: 70%;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+   background-color: #6f11f5;
+    border-radius: 10px; /* Smooth corners */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Soft glow effect */
+  }
+  .buy-btn:hover{
+    background-color: #5709c4; /* Slightly lighter on hover */
+    color: white;
+    transform: scale(1); /* Slight zoom effect */
+  }
+  .stars {
+    color: #FFD700; /* Gold color */
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  .card-img{
+    height: 300px;
+    width: 300px;
+  }
+  .price{
+    color: #6f11f5;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  ion-card-content p{
+color: #6f11f5;
+font-size: 20px!important;
+font-weight: bold !important;
+  }
+  ion-card-title{
+    font-size: 20px !important;
+    font-weight: bold !important;
+  }
+  ion-icon{
+    margin: 2px;
+  }

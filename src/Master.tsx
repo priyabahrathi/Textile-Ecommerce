@@ -1,19 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "./Store/store";
-import Product from "./components/pages/Product/Product";
+import { IonApp, IonContent } from "@ionic/react";
+import { Provider } from "react-redux";
+import store from "./Store/store";
 
+import Hero from "./components/pages/Hero";
+import "@ionic/react/css/core.css";
+import "./Master.css"
+import Arrival from "./components/pages/arrival";
 
-const Master: React.FC = () => {
-  const currentPage = useSelector((state: RootState) => state.page?.currentPage); // Ensure `page` exists
-  console.log("currentpagemaster", currentPage);
-
-  switch (currentPage) {
-    
-      
-    default:
-      return <Product />; 
-  }
+const App: React.FC = () => {
+  return (
+    <Provider store={store}>
+      <IonApp >
+        <IonContent>
+          
+          <Hero />
+          <Arrival />
+          
+        </IonContent>
+      </IonApp>
+    </Provider>
+  );
 };
 
-export default Master;
+export default App;
