@@ -15,7 +15,7 @@ const Header: React.FC = () => {
           <ul className="nav-list">
             <li><IoHome />Home</li>
             <li>
-            <IoManSharp />Men’s
+            <IoManSharp />Men’s 
               <ul className="dropdown">
                 <li><IonIcon icon={shirtOutline} /> Shirts</li>
                 <li><IonIcon icon={footstepsOutline} /> Shoes</li>
