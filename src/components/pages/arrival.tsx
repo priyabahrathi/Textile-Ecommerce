@@ -49,6 +49,7 @@ const Arrival: React.FC = () => {
           {Products.map((product, index) => (
             <IonCol key={index} size="12" sizeMd="4" sizeLg="4">
               <motion.div variants={fadeUpVariant}>
+                <div className="card-container">
                 <IonCard className="New-arrivals">
                   <motion.img className="card-img"
                     alt="product images"
@@ -72,6 +73,7 @@ const Arrival: React.FC = () => {
                     Buy now
                   </motion.button>
                 </IonCard>
+                </div>
               </motion.div>
             </IonCol>
           ))}

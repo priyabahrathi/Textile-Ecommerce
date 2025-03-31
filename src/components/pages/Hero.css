@@ -6,7 +6,7 @@ body {
 
 
 .hero-section{
- height: 100% !important;
+
     background-image: url(./assets/images/ph-bg24.jpg);
     background-size: auto ;
     background-Position: center center;
@@ -103,4 +103,59 @@ margin: 5px;
   .hero-btn .arrival-btn {
     animation-delay: 1s;
   }
+  .heroimage{
+    display: none;
+  }
+  @media screen and (max-width: 1025px) {
+    .hero-content{
+     
+      height: 300px;
+      width: 300px;
+  }
+  .hero-content h2{
+   
+    font-size: 30px;
+
+  }
+  .hero-section{
+    width: 100%;
+    background: hsla(278, 88%, 83%, 1);
+
+    background: linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
+    
+    background: -moz-linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
+    
+    background: -webkit-linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
+    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#DFAFFA", endColorstr="#CFCDFE", GradientType=1 );
+    
+    height: 100%;
+}
+  .hero-content p{
+    font-size: 15px;
+    
+  }
+  .hero-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .heroimage{
+    display: block;
+    height: 400px;
+    width: auto;
+  }
+  }
+  @media screen and (max-width: 500px) {
+    .hero-content p{
+      font-size: 10px;
+      
+    }
+    .hero-content h2{
+   
+      font-size: 25px;
   
+    }
+
+
+  }

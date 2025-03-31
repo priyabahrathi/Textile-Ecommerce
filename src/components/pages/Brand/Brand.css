@@ -6,6 +6,14 @@
 .page-container{
     margin-top: 250px;
 }
+.logo{
+    height: 80px;
+    width: auto;
+    
+}
+.brand-container{
+    padding-bottom: 250px;
+}
 .page-name{
     font-family: "Poppins", sans-serif;
     font-weight: 700;

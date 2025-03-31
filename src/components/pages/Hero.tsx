@@ -22,8 +22,9 @@ const Hero: React.FC = () => {
     <div className="hero-section">
     <section className="ion-padding">
       <Header/>
-      
-      <div className="hero-content">
+      <div className="hero-container">
+       
+        <div className="hero-content">
         <h2>Fashion <span className="year">2025</span></h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, labore.</p>
         <div className="hero-btn">
@@ -31,6 +32,10 @@ const Hero: React.FC = () => {
         <div className="arrival-btn"><button>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
       </div>
       </div>
+      <span className="heroimage"><img src="./assets/images/hero.png" alt="hero image" /></span>
+      </div>
+      
+      
      
       
    
