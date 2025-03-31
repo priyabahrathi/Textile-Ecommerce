@@ -32,7 +32,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import Master from './Master';
-import "./app1.css";
+import "./App.css";
 import { goToBrand } from './Store/Slice/pageSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './Store/store';
