@@ -6,7 +6,7 @@ body {
 
 
 .hero-section{
- height: 100vh;
+ height: 100% !important;
     background-image: url(./assets/images/ph-bg24.jpg);
     background-size: auto ;
     background-Position: center center;
@@ -16,7 +16,7 @@ body {
 }
 .hero-content{
     margin-left: 12%;
-    height: 100px;
+    height: 500px;
     width: 500px;
 }
 .hero-content h2{

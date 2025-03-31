@@ -18,6 +18,7 @@
     flex-wrap: wrap;
 }
 .nav-item h3{
+    color: black;
     margin: 0px;
     font-weight: 400;
 }
@@ -152,3 +153,62 @@
 .head{
     padding: 0px 0px 200px;
 }
+/* Keep existing styles intact */
+
+/* Hamburger menu style */
+.menu-icon {
+    display: none; /* Hidden by default */
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: black;
+    z-index: 10; /* Ensure it stays on top */
+  }
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 1025px) {
+    .nav-item h3{
+        color: black;
+        margin: 0px;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .menu-icon {
+      display: block; /* Display hamburger menu */
+    }
+  
+    .nav-list {
+      display: none; /* Hide navigation items */
+      flex-direction: column;
+      gap: 10px;
+      position: absolute;
+      top: 80px; /* Below header */
+      left: 0;
+      width: 100%; /* Full width for dropdown */
+      background: rgba(255, 255, 255, 0.9); /* Keep glass style */
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 5;
+      padding: 10px;
+      text-align: center;
+    }
+  
+    .nav-list.show-menu {
+      display: flex; /* Show menu when toggled */
+    }
+  
+    .nav-icon {
+      display: none; /* Hide cart and mail icons */
+    }
+    .dropdown {
+        left: 100%; /* Moves dropdown to the right */
+        top: 0; /* Aligns to the top-right of text */
+        transform: translateX(10px); /* Slight spacing */
+        width: auto; /* Adjust width dynamically */
+        min-width: 180px; /* Set min width */
+    }
+
+  }
+  

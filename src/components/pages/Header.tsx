@@ -1,18 +1,27 @@
 import { IonIcon } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
 import { bagHandleOutline, cart, footstepsOutline, logoIonic, mail, man, pricetag, shirtOutline, woman, womanOutline } from 'ionicons/icons';
 import "./Header.css"
-import { IoCart, IoHome, IoMail, IoManSharp, IoWoman } from "react-icons/io5";
+import { IoCart, IoHome, IoMail, IoManSharp, IoMenu, IoWoman } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
 
 const Header: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
   return (
+    <>
     <header className="ion-padding head">
       <div className="container">
         <div className="nav-item">
           <h3>Textile-Ecommerce</h3>
+          <button className="menu-icon" onClick={toggleMenu}>
+            <IoMenu />
+          </button>
 
-          <ul className="nav-list">
+          <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
             <li><IoHome />Home</li>
             <li>
             <IoManSharp />Men’s 
@@ -43,6 +52,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
+    </>
   );
 };
 

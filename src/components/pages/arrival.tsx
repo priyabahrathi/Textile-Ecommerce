@@ -33,8 +33,9 @@ const Arrival: React.FC = () => {
   const Products = useSelector((state: RootState) => state.arrival.Products);
 
   return (
+    <>
     <motion.div
-      className="body"
+      className="arrival-body"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
@@ -77,6 +78,7 @@ const Arrival: React.FC = () => {
         </IonRow>
       </IonGrid>
     </motion.div>
+    </>
   );
 };
 

@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../Store/Slice/pageSlice"; // ✅ Ensure correct import
 import { RootState } from "../../Store/store";
-import Header from "./Header";
+
 import "./Hero.css"
 import { IonIcon } from "@ionic/react";
 import {  pricetags,chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
+import Header from "./Header";
+
 
 const Hero: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const Hero: React.FC = () => {
     <>
     <div className="hero-section">
     <section className="ion-padding">
-      <Header />
+      <Header/>
       
       <div className="hero-content">
         <h2>Fashion <span className="year">2025</span></h2>

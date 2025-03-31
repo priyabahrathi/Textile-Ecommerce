@@ -4,7 +4,7 @@ background: rgba(255, 255, 255, 0.637); /* Light transparent background */
 backdrop-filter: blur(10px); /* Blur effect */
 -webkit-backdrop-filter: blur(10px); /* For Safari */
 }
-.body {
+.arrival-body {
     background-color: #efeaf4;
     background-size: cover;  
     background-position: center; 

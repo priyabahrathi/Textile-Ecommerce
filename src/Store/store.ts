@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import pageReducer from "../Store/Slice/pageSlice"; 
-import arrivalReducer from "../Store/Slice/arrival"
+import pageReducer from "./Slice/pageSlice";
+import brandReducer from "./Slice/pageSlice"; // ❌ This seems incorrect. Fix below.
+import arrivalReducer from "./Slice/arrival"; 
 
 export const store = configureStore({
   reducer: {
-    page: pageReducer, 
+    page: pageReducer,
+    brand: brandReducer,  // Ensure this is the correct reducer (shouldn't reuse pageReducer)
     arrival: arrivalReducer,
   },
 });

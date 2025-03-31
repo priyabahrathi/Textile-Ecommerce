@@ -31,17 +31,24 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Master from "./Master";
+import Master from './Master';
+import "./app1.css";
+import { goToBrand } from './Store/Slice/pageSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './Store/store';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  const currentPage = useSelector((state: RootState) => state.page.currentPage);
+  const dispatch = useDispatch();
+  console.log("Current Page", currentPage);
   return (
     <IonApp>
-    <Master />
-  </IonApp>
+      {/* <button onClick={() => { dispatch(goToBrand()); }}>Brand</button> */}
+      <Master />
+    </IonApp>
   )
-
 };
 
 export default App;
