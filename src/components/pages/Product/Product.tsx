@@ -34,8 +34,8 @@ const products = [
 const Product: React.FC = () => {
   const [searchText, setSearchText] = useState('');
 
-  const [lower, setLower] = useState(20);
-  const [upper, setUpper] = useState(80);
+  const [lower, setLower] = useState(500);
+  const [upper, setUpper] = useState(5000);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
@@ -45,10 +45,10 @@ const Product: React.FC = () => {
     <div className='page-product'>
       <IonGrid>
         <IonRow>
-          <IonCol size="8">
+          <IonCol className='col-product' sizeMd='12' sizeLg='12' sizeXl='8'>
             <IonRow>
-              {products.map((product, index) => (
-                <IonCol size="6" key={product.id}>
+              {products.map((product) => (
+                <IonCol size='12'sizeMd='6' sizeLg='6' key={product.id}>
                   <IonCard className='product-card'>
                     <IonImg className='product-image' src={product.img} />
                     <IonCardContent>
@@ -76,7 +76,7 @@ const Product: React.FC = () => {
               ))}
             </IonRow>
           </IonCol>
-          <IonCol className='sidebar' size="4">
+          <IonCol className='sidebar' sizeMd='12' size='12' sizeLg='12' sizeXl='4'>
             <IonCard className='card-search'>
               <div className='search-bar'>
                 <IonInput className='search-input' placeholder="Search..." value={searchText} onIonChange={e => setSearchText(e.detail.value!)} />
@@ -85,10 +85,9 @@ const Product: React.FC = () => {
             <IonCard className='card-range'>
               <h1 className='range-title'>Price Range</h1>
               <IonRange
-                aria-label="Dual Knobs Range"
                 dualKnobs={true}
-                min={2000}
-                max={20000}
+                min={500}
+                max={5000}
                 value={{ lower, upper }}
                 onIonChange={handleRangeChange}
               ></IonRange>
@@ -158,7 +157,7 @@ const Product: React.FC = () => {
                 </div>
 
               </div>
-              <IonButton className='apply-filter-button' expand="full"><IonIcon icon={options} /> Apply Filter</IonButton>
+              <button className='apply-filter-button'><IonIcon icon={options}  /> Apply Filter</button>
             </div>
           </IonCol>
         </IonRow>
