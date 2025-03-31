@@ -18,6 +18,18 @@
     letter-spacing: .015rem;
     margin-top: 0;
 }
+@media only screen and (max-width:700px) {
+    .page-name{
+        font-size: 40px;
+    }
+    
+}
+@media only screen and (max-width:1200px) {
+    .page-name{
+        font-size: 50px;
+    }
+    
+}
 @keyframes title {
     from{
          top: -60px;
