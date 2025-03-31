@@ -30,10 +30,16 @@ const Brand: React.FC = () => {
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Autoplay]}
+          breakpoints={{
+                  1500:{slidesPerView:5},
+                  700:{slidesPerView:2},
+                  300:{slidesPerView:1}
+
+          }}
         >
           {brandList.map((logo, index) => (
             <SwiperSlide key={index}>
-              <img src={logo} alt="" />
+              <img className="logo" src={logo} alt="" />
             </SwiperSlide>
           ))}
         </Swiper>
