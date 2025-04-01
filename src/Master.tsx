@@ -6,6 +6,8 @@ import Brand from "./components/pages/Brand/Brand";
 import Header from "./components/pages/Header";
 import Hero from "./components/pages/Hero";
 import Arrival from "./components/pages/arrival";
+import Footer from "./components/pages/footer";
+
 
 const Master: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page?.currentPage);
@@ -15,8 +17,10 @@ const Master: React.FC = () => {
     <>
     <Hero/> 
     <Arrival/>
-      <Brand />
+      
       <Product />
+      <Brand />
+      <Footer/>
     </>
   );
 };

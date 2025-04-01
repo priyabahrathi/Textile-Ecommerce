@@ -1,6 +1,6 @@
 .container{
     height: 80px;
-    background: rgba(255, 255, 255, 0.418); /* Light transparent background */
+    background: rgba(255, 255, 255, 0.61); /* Light transparent background */
     backdrop-filter: blur(10px); /* Blur effect */
     -webkit-backdrop-filter: blur(10px); /* For Safari */
     border-radius: 10px; /* Smooth rounded corners */
