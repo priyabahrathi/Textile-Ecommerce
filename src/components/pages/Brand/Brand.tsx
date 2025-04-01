@@ -31,8 +31,8 @@ const Brand: React.FC = () => {
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Autoplay]}
           breakpoints={{
-                  1500:{slidesPerView:5},
-                  700:{slidesPerView:2},
+                  1300:{slidesPerView:5},
+                  700:{slidesPerView:3},
                   300:{slidesPerView:1}
 
           }}

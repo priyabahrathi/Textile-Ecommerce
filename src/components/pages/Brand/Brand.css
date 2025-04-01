@@ -1,10 +1,18 @@
 .pagebrand{
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 150vh;
         background: linear-gradient(to right bottom, #f5c6d3 0%, #fce5dc 40%, #d0effd 100%) !important;   
 }
 .page-container{
     margin-top: 250px;
+}
+.logo{
+    height: 80px;
+    width: auto;
+    
+}
+.brand-container{
+    padding-bottom: 250px;
 }
 .page-name{
     font-family: "Poppins", sans-serif;

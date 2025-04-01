@@ -1,6 +1,6 @@
 
 .page-product {
-    padding: 100px;
+    padding: 100px !important;
     background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%) !important;
 
 }
