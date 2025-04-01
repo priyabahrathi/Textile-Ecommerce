@@ -1,12 +1,12 @@
 
 .page-product {
-    padding: 100px !important;
+    padding: 100px;
     background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%) !important;
 
 }
-@media only screen and (max-width:1580px) {
+@media only screen and (max-width:1200px) {
     .page-product {
-        padding: 10px;
+        padding: 5px;
         background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%) !important;
     
     }
@@ -42,7 +42,7 @@
 
 .product-title {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     color: black;
 }

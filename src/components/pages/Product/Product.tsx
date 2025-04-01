@@ -24,11 +24,11 @@ import "./Product.css";
 
 const products = [
   { id: 1, name: 'Black Tee', price: 29.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 2, name: 'Smart Watch', price: 199.99, category: 'Accessories', img: '../assets/shoe.png' },
+  { id: 2, name: 'Watch', price: 199.99, category: 'Accessories', img: '../assets/shoe.png' },
   { id: 3, name: 'Blue Tee', price: 19.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 4, name: 'LT Bag', price: 49.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 5, name: 'Running Shoes', price: 89.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 6, name: 'CL Watch', price: 99.99, category: 'Accessories', img: '../assets/shoe.png' }
+  { id: 4, name: 'Bag', price: 49.99, category: "Women's", img: '../assets/shoe.png' },
+  { id: 5, name: 'Shoes', price: 89.99, category: "Men's", img: '../assets/shoe.png' },
+  { id: 6, name: 'Watch', price: 99.99, category: 'Accessories', img: '../assets/shoe.png' }
 ];
 
 const Product: React.FC = () => {
@@ -60,11 +60,11 @@ const Product: React.FC = () => {
                       <div className='rate-buy'>
                       <div className='ratings'>
                       <i className="bi bi-star-fill"></i>
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
+                      <IonIcon className='buy-button' size='meduim' icon={star} />
+                      <IonIcon className='buy-button' size='meduim' icon={star} />
+                      <IonIcon className='buy-button' size='meduim' icon={star} />
+                      <IonIcon className='buy-button' size='meduim' icon={star} />
+                      <IonIcon className='buy-button' size='meduim' icon={star} />
                       </div>
                       <IonButton className='btn-buy'>
                         <IonIcon className='buy-button' slot="start" icon={cart} /> Buy Now
