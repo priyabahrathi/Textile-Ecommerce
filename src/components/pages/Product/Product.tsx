@@ -128,28 +128,28 @@ const Product: React.FC = () => {
               <div className='card-size'>
                 <h1 className='filter-title'>Sizes</h1>
                 <div className='size-checkbox'>
-                  <ul>
-                    <li>
+                  <ul className='list-pack'>
+                    <li className='list'>
                       <input type="checkbox" id="category1" name="category" value="1" />
                       <label>XS</label>
                     </li>
-                    <li>
+                    <li className='list'>
                       <input type="checkbox" id="category2" name="category" value="2" />
                       <label>S</label>
                     </li>
-                    <li>
+                    <li className='list'>
                       <input type="checkbox" id="category3" name="category" value="3" />
                       <label>M</label>
                     </li>
-                    <li>
+                    <li className='list'>
                       <input type="checkbox" id="category4" name="category" value="4" />
                       <label>L</label>
                     </li>
-                    <li>
+                    <li className='list'>
                       <input type="checkbox" id="category5" name="category" value="5" />
                       <label>XL</label>
                     </li>
-                    <li>
+                    <li className='list'>
                       <input type="checkbox" id="category5" name="category" value="5" />
                       <label>XXL</label>
                     </li>
