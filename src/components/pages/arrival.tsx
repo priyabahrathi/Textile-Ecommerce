@@ -59,9 +59,9 @@ const Arrival: React.FC = () => {
                     viewport={{ once: false }}
                   />
                   <IonCardHeader>
-                    <IonCardTitle><strong>{product.title}</strong></IonCardTitle>
+                    <IonCardTitle className="card-title"><strong>{product.title}</strong></IonCardTitle>
                   </IonCardHeader>
-                  <IonCardContent>
+                  <IonCardContent className="card-para">
                     <p >{product.price}</p>
                     <div className="stars">{getStars(product.rating)}</div> {/* ✅ Fixed Star Ratings */}
                   </IonCardContent>
@@ -69,7 +69,7 @@ const Arrival: React.FC = () => {
                     type="button"
                     className="buy-btn"
                     whileTap={{ scale: 0.9 }}
-                  ><IonIcon icon={cart} />
+                  ><IonIcon icon={cart} className="card-icon" />
                     Buy now
                   </motion.button>
                 </IonCard>
