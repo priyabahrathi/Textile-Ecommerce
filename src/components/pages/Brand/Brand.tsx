@@ -6,16 +6,16 @@ import "swiper/css/autoplay";
 import "./Brand.css";
 const Brand: React.FC = () => {
   const brandList = [
-    "./assets/logo1.png",
-    "./assets/logo2.png",
-    "./assets/logo3.png",
-    "./assets/logo4.png",
-    "./assets/logo5.png",
-    "./assets/logo6.png",
-    "./assets/logo7.png",
-    "./assets/logo8.png",
     "./assets/logo9.png",
-    "./assets/logo10.png"
+    "./assets/logo11.png",
+    "./assets/logo12.png",
+    "./assets/logo13.png",
+    "./assets/logo14.png",
+    "./assets/logo15.png",
+    "./assets/logo16.png",
+    "./assets/logo17.png",
+    "./assets/logo18.png",
+    "./assets/logo19.png"
   ];
   return (
 

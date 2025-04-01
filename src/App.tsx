@@ -45,7 +45,7 @@ const App: React.FC = () => {
   console.log("Current Page", currentPage);
   return (
     <IonApp>
-      {/* <button onClick={() => { dispatch(goToBrand()); }}>Brand</button> */}
+      <button onClick={() => { dispatch(goToBrand()); }}>Brand</button>
       <Master />
     </IonApp>
   )
