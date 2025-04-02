@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
             <IonGrid>
                 <div className="container">
                     <h3 className="section-title text-center mb-100 aos-init aos-animate" data-aos="fade-down">
-                        Famous Brands
+                     Famous Brands
                     </h3>
 
                 
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
                         </SwiperSlide>
                     </Swiper>
                 </div>
-
+                
                 
                 <div className="footer-wrapper bg-gradient-body">
                     <div className="footer-widget-area bg-transparent">
