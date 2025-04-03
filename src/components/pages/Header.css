@@ -50,6 +50,7 @@
 
 .nav-list li:hover {
     background: rgba(255, 255, 255, 0.2);
+    color: blueviolet;
 }
 
 /* Dropdown Menu Styling */
@@ -138,7 +139,7 @@
     z-index: 10;
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1057px) {
     .nav-item h3 {
         font-size: 1rem;
     }

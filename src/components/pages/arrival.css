@@ -6,6 +6,7 @@
   /* Blur effect */
   -webkit-backdrop-filter: blur(10px);
   /* For Safari */
+  width: 100%;
   margin-top: 80px;
   margin-bottom: 110px;
 }
@@ -83,7 +84,7 @@ font-weight: bold !important;
         height: auto;
       }
       .card-container{
-        width: 85%;
+        width: 100%;
         margin: auto;
       }
       .buy-btn{
