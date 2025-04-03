@@ -1,14 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Logo1 from "../../assets/logo9.png";
-import Logo2 from "../../assets/logo11.png";
-import Logo3 from "../../assets/logo12.png";
-import Logo4 from "../../assets/logo13.png";
-import Logo5 from "../../assets/logo14.png";
-import Logo6 from "../../assets/logo15.png";
-import Logo7 from "../../assets/logo16.png";
-import Logo8 from "../../assets/logo17.png";
-import Logo9 from "../../assets/logo18.png";
-import Logo10 from "../../assets/logo19.png";
+const BrandLogo = (imageName: string) => {
+    return new URL(`../../assets/${imageName}`, import.meta.url).href;
+  };
 
 interface Brand {
   id: number;
@@ -22,43 +15,43 @@ interface DataState {
 const initialState: DataState = {
     Brands: [
         {
-            img: Logo1,
+            img: BrandLogo("logo9.png"),
             id: 0
         },
         {
-            img: Logo2,
+            img: BrandLogo("logo11.png"),
             id:1
         },
         {
-            img: Logo3,
+            img: BrandLogo("logo12.png"),
             id:2
         },
         {
-            img: Logo4,
+            img: BrandLogo("logo13.png"),
             id:3
         },
         {
-            img: Logo5,
+            img: BrandLogo("logo14.png"),
             id:4
         },
         {
-            img: Logo6,
+            img: BrandLogo("logo15.png"),
             id:5
         },
         {
-            img: Logo7,
+            img: BrandLogo("logo16.png"),
             id:6
         },
         {
-            img: Logo8,
+            img: BrandLogo("logo17.png"),
             id:7
         },
         {
-            img: Logo9,
+            img: BrandLogo("logo18.png"),
             id:8
         },
         {
-            img: Logo10,
+            img: BrandLogo("logo19.png"),
             id:9
         }
         
