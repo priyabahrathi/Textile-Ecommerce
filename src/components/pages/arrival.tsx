@@ -49,8 +49,8 @@ const Arrival: React.FC = () => {
           {Products.map((product, index) => (
             <IonCol key={index} size='12' sizeMd='4' sizeXl='4'>
               <motion.div variants={fadeUpVariant}>
-                <div className="">
-                <IonCard className="product-card">
+                <div className="card-body ">
+                <IonCard className="product-card ">
                   <motion.img className="product-image"
                     alt="product images"
                     src={product.image}
