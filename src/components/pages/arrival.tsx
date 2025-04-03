@@ -51,7 +51,7 @@ const Arrival: React.FC = () => {
               <motion.div variants={fadeUpVariant}>
                 <div className="card-body ">
                 <IonCard className="product-card ">
-                  <motion.img className="product-image"
+                  <motion.img className="card-img"
                     alt="product images"
                     src={product.image}
                     initial={{ opacity: 0, scale: 0.9 }}
