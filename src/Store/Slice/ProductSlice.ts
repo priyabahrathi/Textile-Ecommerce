@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Shoe from "../../assets/shoe.png";
 
+const productimg = (imageName: string) => {
+  return new URL(`../../assets/${imageName}`, import.meta.url).href;
+};
 interface Product {
   id: number;
   name: string;
@@ -15,12 +17,12 @@ interface DataState {
 
 const initialState: DataState = {
     Products: [
-        { id: 1, name: 'Black Tee', price: 29.99, category: "Men's", img: Shoe },
-        { id: 2, name: 'Watch', price: 199.99, category: 'Accessories', img: Shoe },
-        { id: 3, name: 'Blue Tee', price: 19.99, category: "Women's", img: Shoe },
-        { id: 4, name: 'Bag', price: 49.99, category: "Women's", img: Shoe },
-        { id: 5, name: 'Shoes', price: 89.99, category: "Men's", img: Shoe },
-        { id: 6, name: 'Watch', price: 99.99, category: 'Accessories', img: Shoe }
+        { id: 1, name: 'Black Tee', price: 29.99, category: "Men's", img: productimg("shoe.png") },
+        { id: 2, name: 'Watch', price: 199.99, category: 'Accessories', img:productimg("shoe.png")  },
+        { id: 3, name: 'Blue Tee', price: 19.99, category: "Women's", img:productimg("shoe.png")  },
+        { id: 4, name: 'Bag', price: 49.99, category: "Women's", img: productimg("shoe.png")  },
+        { id: 5, name: 'Shoes', price: 89.99, category: "Men's", img: productimg("shoe.png")  },
+        { id: 6, name: 'Watch', price: 99.99, category: 'Accessories', img: productimg("shoe.png")  }
     ],
 };
 
