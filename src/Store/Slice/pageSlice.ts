@@ -1,14 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 interface PageState {
   currentPage: string;
   products?: string[]; // Added 'products' field since it's used in reducers
 }
-
 const initialState: PageState = {
   currentPage: "product",
 };
-
 const pageSlice = createSlice({
   name: "page", // Fixed duplicate 'name' field
   initialState,

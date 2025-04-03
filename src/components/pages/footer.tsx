@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
                 <IonRow>
                   <IonCol size="6">
                     <ul className="menu-list">
-                      <li><a href="#">Home</a></li>
+                      <li><a href="#">Hom</a></li>
                       <li><a href="#">About</a></li>
                       <li><a href="#">Services</a></li>
                       <li><a href="#">Apps</a></li>
