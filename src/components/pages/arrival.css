@@ -1,9 +1,15 @@
-.New-arrivals{
-border-radius: 10px;
-background: rgba(255, 255, 255, 0.637); /* Light transparent background */
-backdrop-filter: blur(10px); /* Blur effect */
--webkit-backdrop-filter: blur(10px); /* For Safari */
+.New-arrivals {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.637);
+  /* Light transparent background */
+  backdrop-filter: blur(10px);
+  /* Blur effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* For Safari */
+  margin-top: 80px;
+  margin-bottom: 110px;
 }
+
 .arrival-body {
     background-color: #efeaf4;
     background-size: cover;  
@@ -118,14 +124,16 @@ font-weight: bold !important;
       }
       .card-para p{
     color: #6f11f5;
-    font-size: 10px!important;
+    font-size: 10px !important;
     font-weight: bold !important;
-      }
-      .card-title{
-        font-size: 10px !important;
-        font-weight: bold !important;
-      }
-      .card-icon{
-        margin: 2px;
-      }
   }
+
+  .card-title {
+    font-size: 10px !important;
+    font-weight: bold !important;
+  }
+
+  .card-icon {
+    margin: 2px;
+  }
+}

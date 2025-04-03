@@ -44,7 +44,7 @@ const Arrival: React.FC = () => {
         New Arrivals
       </motion.h2>
 
-      <IonGrid fixed>
+      <IonGrid>
         <IonRow>
           {Products.map((product, index) => (
             <IonCol key={index} size='12' sizeMd='4' sizeXl='4'>

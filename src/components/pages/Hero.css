@@ -14,9 +14,10 @@ body {
   height: 100vh; /* Makes the section take the full viewport height */
 }
 .hero-content{
+    margin-top: 200px;
     margin-left: 12%;
-    height: 500px;
-    width: 500px;
+    margin-bottom: 300px;
+    padding-top: 200px;
 }
 .hero-content h2{
   color:black;
