@@ -44,10 +44,10 @@ const Arrival: React.FC = () => {
         New Arrivals
       </motion.h2>
 
-      <IonGrid fixed>
+      <IonGrid>
         <IonRow>
           {Products.map((product, index) => (
-            <IonCol key={index} size="12" sizeMd="4" sizeLg="4">
+            <IonCol key={index} size='12' sizeMd='4' sizeXl='4'>
               <motion.div variants={fadeUpVariant}>
                 <div className="card-container">
                 <IonCard className="New-arrivals">

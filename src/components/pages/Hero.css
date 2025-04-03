@@ -6,7 +6,7 @@ body {
 
 
 .hero-section {
-  background-image: url(./assets/images/ph-bg24.jpg);
+  background-image: url('./assets/images/ph-bg24.jpg');
   background-size: cover;  /* Ensures the background covers the entire section */
   background-position: center center;
   background-repeat: no-repeat;
@@ -14,9 +14,10 @@ body {
   height: 100vh; /* Makes the section take the full viewport height */
 }
 .hero-content{
+    margin-top: 200px;
     margin-left: 12%;
-    height: 500px;
-    width: 500px;
+    margin-bottom: 300px;
+    padding-top: 200px;
 }
 .hero-content h2{
   color:black;

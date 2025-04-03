@@ -15,12 +15,11 @@ const Master: React.FC = () => {
 
   return (
     <>
-    <Hero/> 
-    <Arrival/>
-      
+      <Hero />
+      <Arrival />
       <Product />
       <Brand />
-      <Footer/>
+      <Footer />
     </>
   );
 };
