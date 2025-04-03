@@ -32,7 +32,6 @@ const Hero: React.FC = () => {
         <div className="arrival-btn"><button>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
       </div>
       </div>
-      <span className="heroimage"><img src="./assets/images/hero.png" alt="hero image" /></span>
       </div>
       
       
