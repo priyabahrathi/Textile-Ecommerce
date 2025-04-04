@@ -1,58 +1,10 @@
 import { IonApp, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Footer: React.FC = () => {
     return (
         <IonApp>
             <IonGrid>
-                <div className="container">
-                    <h3 className="section-title text-center mb-100 aos-init aos-animate" data-aos="fade-down">
-                        Famous Brands
-                    </h3>
-
-                
-                    <Swiper
-                        spaceBetween={50}
-                        slidesPerView={4}
-                        navigation
-                        pagination={{ clickable: true }}
-                    >
-                        
-                        <SwiperSlide>
-                            <img src="../assets/images/logo18.png" alt="Logo 18" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo19.png" alt="Logo 19" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo9.png" alt="Logo 9" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo11.png" alt="Logo 11" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo12.png" alt="Logo 12" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo13.png" alt="Logo 13" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo14.png" alt="Logo 14" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo15.png" alt="Logo 15" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo16.png" alt="Logo 16" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo17.png" alt="Logo 17" />
-                        </SwiperSlide>
-                    </Swiper>
-                </div>
-
-                
                 <div className="footer-wrapper bg-gradient-body">
                     <div className="footer-widget-area bg-transparent">
                         <div className="container">
@@ -108,10 +60,10 @@ const Footer: React.FC = () => {
                     <footer className="bg-no-gradient">
                         <div className="container">
                             <IonRow className="v-center mobile-center">
-                                <IonCol size="12"  className="footer-left-area tablet-top">
+                                <IonCol size="12" className="footer-left-area tablet-top">
                                     <p>© 2021 Glass UI by <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer">KingStudio</a></p>
                                 </IonCol>
-                                <IonCol size="12"  className="footer-right-area">
+                                <IonCol size="12" className="footer-right-area">
                                     <p className="footer-social">
                                         <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-facebook-f"></i></a>
                                         <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-twitter"></i></a>

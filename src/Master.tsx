@@ -6,7 +6,7 @@ import Brand from "./components/pages/Brand/Brand";
 import Header from "./components/pages/Header";
 import Hero from "./components/pages/Hero";
 import Arrival from "./components/pages/arrival";
-import Footer from "./components/pages/footer";
+import Footer from "./components/pages/Footer/Footer";
 
 
 const Master: React.FC = () => {
@@ -19,7 +19,7 @@ const Master: React.FC = () => {
       <Arrival />
       <Product />
       <Brand />
-      <Footer />
+      
     </>
   );
 };
