@@ -39,13 +39,13 @@
     height: 40px;
     color: white;
     font-weight: bold;
-   background-color: #6f11f5;
+    background-color: #6f11f5;
     border-radius: 10px; /* Smooth corners */
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Soft glow effect */
-  }
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); 
+  } 
   .buy-btn:hover{
     background-color: #5709c4; /* Slightly lighter on hover */
     color: white;
