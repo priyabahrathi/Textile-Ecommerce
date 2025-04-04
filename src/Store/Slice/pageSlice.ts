@@ -21,6 +21,5 @@ const pageSlice = createSlice({
     },
   },
 });
-
 export const { goToProduct, goToBrand, setProducts } = pageSlice.actions;
 export default pageSlice.reducer;

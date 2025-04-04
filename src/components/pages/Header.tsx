@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               </ul>
             </li>
             <li>
-            <IoWoman />Women’s 
+            <IoWoman />Women’s  
               <ul className="dropdown">
                 <li><IonIcon icon={shirtOutline} /> Dresses</li>
                 <li> <IonIcon icon={footstepsOutline} />Shoes</li>
@@ -45,9 +45,6 @@ const Header: React.FC = () => {
           <div className="nav-icon">
             <button><IoCart /></button>
             <button><IoMail /></button>
-
-
-
           </div>
         </div>
       </div>

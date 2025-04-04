@@ -8,7 +8,6 @@ import Hero from "./components/pages/Hero";
 import Arrival from "./components/pages/arrival";
 import Footer from "./components/pages/footer";
 
-
 const Master: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page?.currentPage);
   console.log("currentpagemaster", currentPage);
@@ -23,5 +22,4 @@ const Master: React.FC = () => {
     </>
   );
 };
-
 export default Master;

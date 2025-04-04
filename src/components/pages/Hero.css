@@ -6,7 +6,7 @@ body {
 
 
 .hero-section {
-  background-image: url('./assets/images/ph-bg24.jpg');
+  background-image: url('../../assets/images/ph-bg24.jpg');
   background-size: cover;  /* Ensures the background covers the entire section */
   background-position: center center;
   background-repeat: no-repeat;

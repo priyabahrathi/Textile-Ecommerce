@@ -9,14 +9,9 @@ import {  pricetags,chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
 import Header from "./Header";
 
-
 const Hero: React.FC = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.page.products);
-
-
-
-
   return (
     <>
     <div className="hero-section">
@@ -34,15 +29,9 @@ const Hero: React.FC = () => {
       </div>
       <span className="heroimage"><img src="./assets/images/hero.png" alt="hero image" /></span>
       </div>
-      
-      
-     
-      
-   
     </section>
     </div>
     </>
   );
 };
-
 export default Hero;

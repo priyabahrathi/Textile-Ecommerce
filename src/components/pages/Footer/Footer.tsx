@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const Footer: React.FC = () => {
     return (
         <IonApp>
-            <IonGrid>
+            <IonGrid className="aa">
                 <div className="container">
                     <h3 className="section-title text-center mb-100 aos-init aos-animate" data-aos="fade-down">
                         Famous Brands
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
                                         <div className="row">
                                             <div className="col-6">
                                                 <ul className="list-unstyled list-icon list-arrow list-primary list-has-link menu-list mb-0 tablet-lg-top">
-                                                    <li className="mb-10"><a href="#x">Hom</a></li>
+                                                    <li className="mb-10"><a href="#x">Home</a></li>
                                                     <li className="mb-10"><a href="#x">About</a></li>
                                                     <li className="mb-10"><a href="#x">Services</a></li>
                                                     <li className="mb-0"><a href="#x">Apps</a></li>

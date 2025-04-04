@@ -1,20 +1,20 @@
 import React from "react";
 import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonInput } from "@ionic/react";
 import { logoFacebook, logoTwitter, logoInstagram, paperPlaneOutline } from "ionicons/icons";
-
+import "./footer.css"
 
 const Footer: React.FC = () => {
   return (
-    <IonFooter className="footer-wrapper bg-gradient-body">
-      <div className="footer-widget-area bg-transparent">
-        <IonGrid>
+    <IonFooter >
+      <div id="zz">
+        <IonGrid id="ab">
           <IonRow>
             {/* About Us Section */}
             <IonCol size="12" sizeMd="4">
               <div className="widget">
                 <h6 className="widget-title">About Us</h6>
-                <p>Quisque sit amet velit ipsum. Ut eget pretium. Vivamus finibus dui sit amet tortor eleifend bibendum.</p>
-                <p className="mb-0">Suspendisse aliquam, tellus eget bibendum vehicula, massa magna consequat sem.</p>
+                <p className="ss">Quisque sit amet velit ipsum. Ut eget pretium. Vivamus finibus dui sit amet tortor eleifend bibendum.</p>
+                <p className="s">Suspendisse aliquam, tellus eget bibendum vehicula, massa magna consequat sem.</p>
               </div>
             </IonCol>
 
@@ -22,21 +22,21 @@ const Footer: React.FC = () => {
             <IonCol size="12" sizeMd="4">
               <div className="widget">
                 <h6 className="widget-title">Links List</h6>
-                <IonRow>
+                <IonRow id="dd">
                   <IonCol size="6">
                     <ul className="menu-list">
-                      <li><a href="#">Hom</a></li>
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Apps</a></li>
+                      <li><a id="a" href="#">Home</a></li>
+                      <li><a id="b" href="#">About</a></li>
+                      <li><a id="c" href="#">Services</a></li>
+                      <li><a id="d" href="#">Apps</a></li>
                     </ul>
                   </IonCol>
-                  <IonCol size="6">
+                  <IonCol size="5">
                     <ul className="menu-list">
-                      <li><a href="#">Shop</a></li>
-                      <li><a href="#">Team</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li><a href="#">Contact</a></li>
+                      <li><a id="e" href="#">Shop</a></li>
+                      <li><a id="f" href="#">Team</a></li>
+                      <li><a id="g" href="#">Blog</a></li>
+                      <li><a id="h" href="#">Contact</a></li>
                     </ul>
                   </IonCol>
                 </IonRow>
@@ -44,14 +44,15 @@ const Footer: React.FC = () => {
             </IonCol>
 
             {/* Newsletter Section */}
-            <IonCol size="12" sizeMd="4">
+            <IonCol size="5" sizeMd="4">
               <div className="widget">
                 <h6 className="widget-title">Newsletter</h6>
-                <p>Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
+                <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
                 <div className="newsletter-input">
                   <IonInput type="email" placeholder="Email" className="form-control" />
-                  <IonButton className="subscribe-button">
-                    <IonIcon icon={paperPlaneOutline} /> Subscribe
+                  <IonButton className="subscribe-button" >
+                    {/* <IonIcon icon={paperPlaneOutline} /> */}
+                     Subscribe
                   </IonButton>
                 </div>
               </div>
@@ -62,15 +63,15 @@ const Footer: React.FC = () => {
 
       {/* Footer Bottom */}
       <IonToolbar className="bg-no-gradient">
-        <IonGrid>
+        <IonGrid id="cc">
           <IonRow className="v-center mobile-center">
-            <IonCol size="12" sizeMd="4" className="footer-left-area">
-              <p>@textileecommerce <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
+            <IonCol size="10" sizeMd="6" className="footer-left-area">
+              <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
             </IonCol>
-            <IonCol size="12" sizeMd="8" className="footer-right-area">
+            <IonCol size="12" sizeMd="12" className="footer-right-area">
               <p className="footer-social">
                 <IonButton className="social-btn" href="#" fill="clear">
-                  <IonIcon icon={logoFacebook} />
+                  <IonIcon id="z" icon={logoFacebook} />
                 </IonButton>
                 <IonButton className="social-btn" href="#" fill="clear">
                   <IonIcon icon={logoTwitter} />

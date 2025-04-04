@@ -11,10 +11,10 @@ export const store = configureStore({
   },
 });
 
-// ✅ RootState represents the **entire Redux state**
+
 export type RootState = ReturnType<typeof store.getState>;
 
-// ✅ AppDispatch is the type for dispatch
+
 export type AppDispatch = typeof store.dispatch;
 
-export default store; // ✅ Default export
+export default store; 
