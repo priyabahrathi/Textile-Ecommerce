@@ -8,6 +8,8 @@ import { IonIcon } from "@ionic/react";
 import {  pricetags,chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
 import Header from "./Header";
+import Sample from "./head/sample";
+
 
 
 const Hero: React.FC = () => {
@@ -19,9 +21,11 @@ const Hero: React.FC = () => {
 
   return (
     <>
+    
     <div className="hero-section">
     <section className="ion-padding">
-      <Header/>
+     <Header/>
+     {/* <Sample/> */}
       <div className="hero-container">
        
         <div className="hero-content">

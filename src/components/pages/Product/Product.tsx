@@ -35,6 +35,7 @@ const Product: React.FC = () => {
     setUpper(e.detail.value.upper);
   };
   return (
+   
     <div className='page-product'>
       <IonGrid>
         <IonRow>
