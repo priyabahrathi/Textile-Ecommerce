@@ -137,7 +137,7 @@ const Header: React.FC = () => {
         <header className="ion-padding head">
           <div className="container">
             <div className="nav-item">
-              <h3>Textile-Ecommerce</h3>
+              <h3>Algo-Tex</h3>
 
               {isMediumScreen ? (
                 <IonMenuButton menu="main-menu" className="menu-icon" />
