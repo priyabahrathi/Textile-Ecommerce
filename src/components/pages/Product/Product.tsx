@@ -18,12 +18,39 @@ import {
   IonRange
 } from '@ionic/react';
 import { cart, search, options, star } from 'ionicons/icons';
-import { useState } from 'react';
+import { Children, useState } from 'react';
 import "./Product.css";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
+import {easeOut, motion,useAnimation} from "framer-motion";
+import { useEffect,useRef } from 'react';
+import { useInView } from 'framer-motion';
+
+const MotionCard =({children}:{children:React.ReactNode})=>{
+  const ref=useRef(null);
+  const inView=useInView(ref,{once:false});
+  const controls=useAnimation();
+  useEffect(()=>{
+    if(inView){
+      controls.start({opacity:1,padding:0});
+    }
+    else{
+      controls.start({opacity:0,padding:10})
+    }
+  },[inView]);
+  return(
+    <motion.div 
+    ref={ref}
+    initial={{opacity:0,padding:10}}
+    animate={controls}
+    transition={{duration:0.5,ease:"easeOut"}}
+
+    >{children}</motion.div>
+  )
+}
 
 const Product: React.FC = () => {
+  
   const Products = useSelector((state: RootState) => state.product.Products);
   const [searchText, setSearchText] = useState('');
 
@@ -37,12 +64,13 @@ const Product: React.FC = () => {
   return (
    
     <div className='page-product'>
-      <IonGrid>
+      <IonGrid >
         <IonRow>
-          <IonCol className='col-product' sizeMd='12' sizeLg='12' sizeXl='8'>
+          <IonCol className='col-product ion-padding' sizeMd='12' sizeLg='12' sizeXl='8'>
             <IonRow>
-              {Products.map((product,index) => (
-                <IonCol size='12'sizeMd='6' sizeLg='6' key={product.id}>
+              {Products.map((product) => (
+                <IonCol className='ion-padding' size='12'sizeMd='6' sizeLg='6' key={product.id}>
+                  <MotionCard>
                   <IonCard className='product-card'>
                     <IonImg className='product-image' src={product.img} />
                     <IonCardContent>
@@ -60,12 +88,13 @@ const Product: React.FC = () => {
                       <IonIcon className='buy-button' size='meduim' icon={star} />
                       <IonIcon className='buy-button' size='meduim' icon={star} />
                       </div>
-                      <IonButton className='btn-buy'>
+                      <button className='btn-buy'>
                         <IonIcon className='buy-button' slot="start" icon={cart} /> Buy Now
-                      </IonButton>
+                      </button>
                       </div>
                     </IonCardContent>
                   </IonCard>
+                  </MotionCard>
                 </IonCol>
               ))}
             </IonRow>
@@ -92,7 +121,7 @@ const Product: React.FC = () => {
             </IonCard>
             <div className='filter-section'>
               <div className='card-filter'>
-                <h1 className='filter-title'>Categories</h1>
+                <div className='filter-title'>Categories</div>
                 <div className='filter-checkbox'>
                   <ul>
                     <li>
@@ -120,7 +149,7 @@ const Product: React.FC = () => {
 
               </div>
               <div className='card-size'>
-                <h1 className='filter-title'>Sizes</h1>
+                <div className='filter-title'>Sizes</div>
                 <div className='size-checkbox'>
                   <ul className='list-pack'>
                     <li className='list'>

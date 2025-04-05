@@ -1,25 +1,10 @@
-/* Resetting Styles for Consistency */
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
 
-/* Product Page Styling */
+/*OverAll Page*/
 .page-product {
-    padding: 100px;
+    padding: 40px;
     background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%);
 }
 
-/* Responsive for Tablets & Smaller Screens */
-@media only screen and (max-width: 1200px) {
-    .page-product {
-        padding: 10px;
-    }
-    .product-category {
-        text-align: center !important;
-    }
-}
 
 /* Card Styling */
 .product-card,
@@ -27,82 +12,107 @@
 .card-range,
 .card-filter,
 .card-size {
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
     background-color: #f5f5fd;
     text-align: center;
     transition: transform 0.3s ease-in-out;
+    
 }
-
+.product-card:hover,
+.card-search:hover,
+.card-range:hover,
+.card-filter:hover,
+.card-size:hover{
+    box-shadow: none;
+    
+}
+/*Product Card*/
+.product-card{
+    animation-name: move;
+    animation-duration: 2s;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+/* @keyframes move {
+    from{
+        top: -60px;
+        opacity: 0.2;
+   }
+   to{
+       opacity: 1;
+       top: 0px;
+   }
+    
+} */
 .product-card:hover {
     transform: translateY(-5px);
 }
 
-/* Product Data Layout */
+
+
 .product-data {
     display: flex;
     justify-content: space-between;
+    
 }
 
-/* Product Title */
+
 .product-title {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     color: black;
 }
 
-/* Product Price */
+
 .product-price {
     font-size: 1.8rem;
     font-weight: bold;
     color: black;
+    font-family: "Poppins", sans-serif;
 }
 
-/* Product Category */
+
 .product-category {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Poppins", sans-serif;
     text-align: start;
 }
 
-/* Ratings and Buy Button */
+
 .rate-buy {
     display: flex;
     justify-content: space-between;
 }
 
-/* Star Ratings */
+
 .ratings {
     color: gold;
     margin: 5px 0;
 }
 
-/* Buy Button */
+
 .btn-buy {
     color: white;
-    border-radius: 20px;
+    background-color: #6f11f5;
+    border-radius: 10px;
     width: 170px !important;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    font-family: "Poppins", sans-serif;
 }
-
-/* Responsive Buy Button */
-@media screen and (max-width: 1580px) {
-    .btn-buy {
-        width: 120px;
-    }
+.btn-buy:hover{
+    background-color: rgb(41, 78, 3);
 }
+/*Product Card Ends*/
 
-/* Sidebar Filters */
+/* Sidebar Filters Starts*/
 .sidebar {
     padding: 15px;
     border-radius: 8px;
 }
 
-/* Search Box */
+/* Search Card */
 .card-search {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
@@ -110,7 +120,7 @@
     margin: 15px 0;
     padding: 30px;
     border-radius: 1rem;
-    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Search Bar */
@@ -144,43 +154,57 @@
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
     margin: 35px 0;
-    padding: 30px;
+    padding: 20px 30px;
     border-radius: 1rem;
-    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Range Title */
 .range-title {
-    text-align: start;
+    text-align: center;
     color: black;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 25px;
+    font-family: "Poppins", sans-serif;
 }
 
 /* Range Values */
 .range-values {
     display: flex;
     justify-content: space-around;
+    font-family: "Poppins", sans-serif;
 }
 
 /* Filter Section */
 .filter-section {
     margin-top: 35px;
 }
-
-/* Filter Title */
+/*Category-Card*/
+.card-filter{
+    margin: 35px 0;
+    padding: 20px 30px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+/* Category Title */
 .filter-title {
-    text-align: start;
+    text-align: center;
     color: black;
-    font-weight: 500;
-    margin-bottom: 25px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-size: 25px;
 }
 
-/* Filter Checkbox */
-.filter-checkbox ul,
-.size-checkbox ul {
+/* Category Checkbox */
+.filter-checkbox ul
+{
     list-style: none;
 }
+.filter-checkbox ul li
+{
+    padding-right: 35px;
+}
+
+
 
 /* Checkbox Styling */
 input[type="checkbox"] {
@@ -222,18 +246,21 @@ label {
     margin-left: 10px;
     font-size: 16px;
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Poppins", sans-serif;
     color: gray;
 }
 
 /* Card Size */
 .card-size {
-    margin-top: 35px;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+/*Size Checkbox*/
 .card-size .size-checkbox ul {
     display: flex;
-    justify-content: space-around;
+    justify-content:space-evenly;
+    list-style: none;
+    padding-right: 30px;
 }
 
 /* Apply Filter Button */
@@ -247,16 +274,37 @@ label {
     line-height: 1.5rem;
     letter-spacing: 0.03rem;
     min-width: 9.25rem;
-    border-radius: 0.5rem;
+    border-radius: 0.9rem;
     padding: 0.75rem 2.5rem;
     white-space: nowrap;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 10px #727274;
     width: 100%;
     margin-top: 35px;
     transition: all 0.3s ease-in-out;
 }
+.apply-filter-button:hover{
+    box-shadow: none;
 
-/* Ensure Smooth Scaling for Mobile */
+}
+
+
+/*Responsive*/
+/*Desktop*/
+@media screen and (max-width: 1580px) {
+    .btn-buy {
+        width: 120px;
+    }
+}
+/*Tablets*/
+@media only screen and (max-width: 1200px) {
+    .page-product {
+        padding: 10px;
+    }
+    .product-category {
+        text-align: center !important;
+    }
+}
+/*Mobiles*/
 @media screen and (max-width: 768px) {
     .product-data {
         flex-direction: column;
