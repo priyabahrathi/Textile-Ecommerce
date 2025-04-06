@@ -140,6 +140,10 @@
 }
 
 @media screen and (max-width: 1057px) {
+    .container{
+        max-width: 95%;
+        margin: auto;
+    }
     .nav-item h3 {
         font-size: 1rem;
     }
