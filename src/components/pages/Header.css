@@ -1,7 +1,7 @@
 /* Container Styling */
 .container {
     height: 80px;
-    background: rgba(255, 255, 255, 0.61); /* Light transparent background */
+    background: rgba(255, 255, 255, 0.726); /* Light transparent background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border-radius: 10px;
@@ -90,6 +90,7 @@
     transition: color 0.3s ease-in-out;
 }
 
+
 .dropdown li:hover {
     color: blueviolet;
     background: rgba(255, 255, 255, 0.3);
@@ -103,28 +104,21 @@
     justify-content: center;
     height: 40px;
     width: 40px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.418);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   background: none;
+  
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
-.nav-icon button ion-icon {
+.nav-icon button  {
     font-size: 22px;
     color: black;
     transition: color 0.3s ease;
 }
 
-.nav-icon button:hover {
-    background: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
 
-.nav-icon button:hover ion-icon {
+
+.nav-icon button:hover  {
     color: blueviolet;
 }
 
@@ -139,6 +133,68 @@
     z-index: 10;
 }
 
+  ion-menu {
+    --ion-background-color: white !important;
+    --ion-text-color: black !important;
+  }
+  
+  ion-menu .menu-menu {
+    --background: white !important;
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+  }
+  ion-menu .menu-menu:hover{
+    color: blueviolet;
+  }
+  .head-list{
+   background:  #ffffff;
+   --ion-text-color: black !important;
+  }
+
+
+  
+  .new:hover{
+    /* --color: blueviolet !important; */
+    --color: blueviolet !important;
+  }
+  .head-list .head-item{
+    --background: white !important;
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+  }
+ 
+  
+  .ion-icon {
+    color: rgba(0, 0, 0, 0.753) !important;
+  }
+
+  .color{
+    --background:#ffffff;
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+}
+.custom-item{
+    font-size: 0.8rem;
+}
+
+.custom-item:hover {
+    --background: rgba(0, 0, 0, 0.05);  /* Light gray background on hover */
+    --color: blueviolet;                /* This affects ion-label text */
+    transition: background-color 0.2s ease;
+  }
+  
+  /* To target the ion-icon */
+  .custom-item:hover ion-icon {
+    color: blueviolet !important;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
 @media screen and (max-width: 1057px) {
     .container{
         max-width: 95%;
@@ -182,5 +238,7 @@
         transform: translateX(10px);
         width: auto;
         min-width: 180px;
+       
     }
+   
 }
