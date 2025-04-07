@@ -20,18 +20,11 @@ import {
 import { cart, search, options, star } from 'ionicons/icons';
 import { useState } from 'react';
 import "./Product.css";
-
-
-const products = [
-  { id: 1, name: 'Black Tee', price: 29.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 2, name: 'Watch', price: 199.99, category: 'Accessories', img: '../assets/shoe.png' },
-  { id: 3, name: 'Blue Tee', price: 19.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 4, name: 'Bag', price: 49.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 5, name: 'Shoes', price: 89.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 6, name: 'Watch', price: 99.99, category: 'Accessories', img: '../assets/shoe.png' }
-];
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Store/store';
 
 const Product: React.FC = () => {
+  const Products = useSelector((state: RootState) => state.product.Products);
   const [searchText, setSearchText] = useState('');
 
   const [lower, setLower] = useState(500);
@@ -47,7 +40,7 @@ const Product: React.FC = () => {
         <IonRow>
           <IonCol className='col-product' sizeMd='12' sizeLg='12' sizeXl='8'>
             <IonRow>
-              {products.map((product) => (
+              {Products.map((product,index) => (
                 <IonCol size='12'sizeMd='6' sizeLg='6' key={product.id}>
                   <IonCard className='product-card'>
                     <IonImg className='product-image' src={product.img} />

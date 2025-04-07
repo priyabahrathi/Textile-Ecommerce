@@ -14,10 +14,11 @@ body {
   height: 100vh; /* Makes the section take the full viewport height */
 }
 .hero-content{
-    margin-top: 200px;
-    margin-left: 12%;
-    margin-bottom: 300px;
-    padding-top: 200px;
+   
+  height: 100vh;
+  width: 50%;
+  margin: 10% 0% 0% 10%;
+    
 }
 .hero-content h2{
   color:black;
@@ -112,6 +113,11 @@ margin: 5px;
   }
   @media screen and (max-width: 1025px) {
     .hero-content{
+      margin: 50px auto 0px;
+      margin-bottom: 300px;
+      padding-top: 20px;
+  }
+    .hero-content{
      
       height: 300px;
       width: 300px;
@@ -144,11 +150,7 @@ margin: 5px;
     justify-content: space-around;
     align-items: center;
   }
-  .heroimage{
-    display: block;
-    height: 400px;
-    width: auto;
-  }
+  
   }
   @media screen and (max-width: 500px) {
     .hero-content p{

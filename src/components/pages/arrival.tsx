@@ -49,8 +49,8 @@ const Arrival: React.FC = () => {
           {Products.map((product, index) => (
             <IonCol key={index} size='12' sizeMd='4' sizeXl='4'>
               <motion.div variants={fadeUpVariant}>
-                <div className="card-container">
-                <IonCard className="New-arrivals">
+                <div className="card-body ">
+                <IonCard className="product-card ">
                   <motion.img className="card-img"
                     alt="product images"
                     src={product.image}
@@ -59,7 +59,7 @@ const Arrival: React.FC = () => {
                     viewport={{ once: false }}
                   />
                   <IonCardHeader>
-                    <IonCardTitle className="card-title"><strong>{product.title}</strong></IonCardTitle>
+                    <IonCardTitle className="product-title"><strong>{product.title}</strong></IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent className="card-para">
                     <p >{product.price}</p>

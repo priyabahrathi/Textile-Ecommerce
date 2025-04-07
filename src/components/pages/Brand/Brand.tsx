@@ -4,19 +4,10 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "./Brand.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store/store";
 const Brand: React.FC = () => {
-  const brandList = [
-    "./assets/logo9.png",
-    "./assets/logo11.png",
-    "./assets/logo12.png",
-    "./assets/logo13.png",
-    "./assets/logo14.png",
-    "./assets/logo15.png",
-    "./assets/logo16.png",
-    "./assets/logo17.png",
-    "./assets/logo18.png",
-    "./assets/logo19.png"
-  ];
+  const Brands = useSelector((state: RootState) => state.brand.Brands);
   return (
 
 
@@ -37,9 +28,9 @@ const Brand: React.FC = () => {
 
           }}
         >
-          {brandList.map((logo, index) => (
+          {Brands.map((logo, index) => (
             <SwiperSlide key={index}>
-              <img className="logo" src={logo} alt="" />
+              <img className="logo" src={logo.img} alt="" />
             </SwiperSlide>
           ))}
         </Swiper>

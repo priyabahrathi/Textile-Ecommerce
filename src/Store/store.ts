@@ -1,16 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pageReducer from "./Slice/pageSlice";
-import brandReducer from "./Slice/pageSlice"; // ❌ This seems incorrect. Fix below.
 import arrivalReducer from "./Slice/arrival"; 
-
+import productReducer from"./Slice/ProductSlice";
+import brandReducer from "./Slice/BrandSlice";
 export const store = configureStore({
   reducer: {
-    page: pageReducer,
-    brand: brandReducer,  // Ensure this is the correct reducer (shouldn't reuse pageReducer)
+    page: pageReducer, 
     arrival: arrivalReducer,
+    product:productReducer,
+    brand:brandReducer,
   },
 });
 
+<<<<<<< HEAD
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -18,3 +20,10 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store; 
+=======
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
+>>>>>>> b165f74808ecac9a270b6a032e95e97fb197a864

@@ -34,7 +34,7 @@ const Header: React.FC = () => {
             <li>
             <IoWoman />Women’s  
               <ul className="dropdown">
-                <li><IonIcon icon={shirtOutline} /> Dresses</li>
+                <li><IonIcon icon={shirtOutline} /> </li>
                 <li> <IonIcon icon={footstepsOutline} />Shoes</li>
                 <li><IonIcon icon={bagHandleOutline} /> Accessories</li>
               </ul>
