@@ -4,7 +4,9 @@
   padding:  5px 10px;
   margin: 0px 0px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
- }
+  margin-top: 0px;
+  margin-bottom: -60px;
+}
  .sss
  {
   opacity: 0.5;
@@ -43,8 +45,19 @@
 #cc
 {
   background-color: #e6e6fa;
-  padding: 10px 10px;
-  
+  padding: 0px 10px;
+  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: -150px;
+  font-size: 15px;
+}
+.qq
+{
+  margin-top: 20px;
+  margin: 20px;  
+  padding: -20px;
+  margin-bottom: 45px;
+  font-size: 15px;
 }
 #dd
 {
@@ -53,12 +66,12 @@
 }
  #a 
 {
-  
-  
   text-decoration: none;
-  opacity: 0.5;
-  color: black;
-   
+  opacity:0.5;
+  transition: none;
+   color: black;
+  --background-hover: transparent;
+  --background-focused: transparent; 
   
 }
 #b
@@ -66,6 +79,13 @@
   text-decoration: none;
   color: black;
   opacity: 0.5;
+}
+.subscribe-button
+{
+  /* background-color:#6f11f5; */
+  /* padding: 10px 20px; */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --ion-color-custom: #6f11f5;
 }
 #c
 {
@@ -104,33 +124,20 @@
   opacity: 0.5;
 } 
 .menu-list {
-  
-  list-style: none; /* Removes default bullets */
+   list-style: none; /* Removes default bullets */
   padding: 0;
   font-size: 18px;
-  
 }
 .menu-list li {
-  
   position: relative;
   padding-left: 15px; /* Space for the ">" symbol */
-  
 }
 .menu-list li::before {
-  
   content: ">"; /* Adds ">" before each link */
   position: absolute;
   left: 0;
   color: #7115f5; /* Change color as needed */
   font-weight: bold;
-  
-}
-.qq
-{
-  margin-top: 20px;
-  margin: 10px;  
-  padding: 10px;
-  margin-bottom: 1px;
 }
 #oo
 {
@@ -165,8 +172,7 @@
   display: flex;
   
 }
-
- .social-btn:hover {
+.social-btn:hover {
   background-color: #6f11f5;
   /* color: white;
   opacity: 0.8;
@@ -176,42 +182,34 @@
   width: 50px;              /* Increases button size */
   height: 50px;
   border-radius: 50%;
-  
-  
-  
-  /* display: flex;
+     /* display: flex;
   align-items: center;
-  justify-content: center; */
+  justify-content: center;  */
 }
-
 .social-btn ion-icon {
   font-size: xx-large;
-  color: white; 
+  color: rgb(238, 231, 231);
+   
          
   /* Increases icon size */
   /* color: #007bff;
   transition: all 0.3s ease; */
 }
-
-
 .newsletter-input {
   display: flex;
   gap: 10px; /* Space between input and button */
   align-items: center;
   flex-wrap: wrap; /* Allows wrapping on smaller screens */
   background-color: white;
-  border-radius: 10px;
+  border-radius: 20px;
 }
-
 .form-control {
   flex: 1; 
   max-width: 300px;
 }
-
 .subscribe-button {
   white-space: nowrap;
 }
-
 .footer-left-area
 {
   margin-inline-start: 3pc;
@@ -227,7 +225,22 @@
 {
   margin-top: 80px; 
 } */
- .form-control
- {
+.form-control
+{
   background-color: white;
- }
+  
+}
+/* .bg-no-gradient
+{
+  display: none;
+  visibility: hidden;
+} */
+.v-center 
+{
+  margin-top: -10px;
+}
+ .subscribe-button
+{
+  font-size: 15px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+} 
