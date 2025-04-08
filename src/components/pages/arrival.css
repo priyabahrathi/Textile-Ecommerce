@@ -14,10 +14,7 @@
 .card-img{
   width: 300px;
 }
-.product-title{
-  color: white;
-  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-}
+
 
 .name {
   font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
@@ -28,7 +25,15 @@
   margin-top: 5px;
 }
 .arr-product{
-  background-color: #00a69877;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    margin: 15px 0;
+}
+.arr-product:hover{
+  transform: translateY(-5px);
 }
 
 .buy-btn {
@@ -39,9 +44,10 @@
   margin: 5px auto 15px;
   width: 70%;
   height: 40px;
-  color: white;
+  
   font-weight: bold;
-  background-color: #6f11f5;
+  color: #00a698;
+  background-color: #002642;
   border-radius: 10px;
   /* Smooth corners */
   cursor: pointer;
@@ -53,9 +59,9 @@
 
 
 .buy-btn:hover {
-  background-color: #5709c4;
-  /* Slightly lighter on hover */
-  color: white;
+  background-color: #00a698;
+  color: #002642;
+
   transform: scale(1);
   /* Slight zoom effect */
 }
@@ -67,15 +73,10 @@
   margin-top: 5px;
 }
 
-.price {
-  color: #6f11f5;
-  font-size: 20px;
-  font-weight: 700;
-}
 
 .card-para p {
   font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-  color: #6f11f5;
+  color: #00a698;
   font-size: 20px !important;
   font-weight: bold !important;
 }

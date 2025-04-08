@@ -17,12 +17,14 @@ const getStars = (rating: number) => {
   return stars;
 };
 
-const Sample: React.FC = () => {
+const Arrival: React.FC = () => {
   const Products = useSelector((state: RootState) => state.arrival.Products);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
+  const [cardWidth, setCardWidth] = useState(300);
   const sliderRef = useRef<HTMLDivElement>(null);
 
+  // Update cardsPerView based on screen size
   useEffect(() => {
     const updateCardsPerView = () => {
       const width = window.innerWidth;
@@ -36,6 +38,20 @@ const Sample: React.FC = () => {
     return () => window.removeEventListener("resize", updateCardsPerView);
   }, []);
 
+  // Update card width based on ref and cards per view
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (sliderRef.current) {
+        const width = sliderRef.current.offsetWidth;
+        setCardWidth(width / cardsPerView);
+      }
+    };
+
+    updateCardWidth();
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, [cardsPerView]);
+
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + cardsPerView) % Products.length);
   };
@@ -44,49 +60,47 @@ const Sample: React.FC = () => {
     setCurrentIndex((prev) => (prev - cardsPerView + Products.length) % Products.length);
   };
 
-  const cardWidth = sliderRef.current
-    ? sliderRef.current.offsetWidth / cardsPerView
-    : 300;
-
   return (
     <div className="arrival-body">
       <h2 className="name">New Arrivals</h2>
       <div className="slider-container">
         <button className="arrow left" onClick={prevSlide}>‹</button>
         <div className="slider-viewport" ref={sliderRef}>
-          <motion.div
-            className="slider-track"
-            style={{
-              width: `${Products.length * cardWidth}px`,
-              transform: `translateX(-${currentIndex * cardWidth}px)`,
-            }}
-            transition={{ type: "spring", stiffness: 100 }}
-          >
-            {Products.map((product, index) => (
-              <div
-                key={index}
-                className="slider-card"
-                style={{ width: `${cardWidth}px` }}
-              >
-                <IonCard className="arr-product">
-                  <img className="card-img" src={product.image} alt={product.title} />
-                  <IonCardHeader>
-                    <IonCardTitle className="product-title">
-                      <strong>{product.title}</strong>
-                    </IonCardTitle>
-                  </IonCardHeader>
-                  <IonCardContent className="card-para">
-                    <p>{product.price}</p>
-                    <div className="stars">{getStars(product.rating)}</div>
-                  </IonCardContent>
-                  <button type="button" className="buy-btn">
-                    <IonIcon icon={cart} className="card-icon" />
-                    Buy now
-                  </button>
-                </IonCard>
-              </div>
-            ))}
-          </motion.div>
+          {cardWidth > 0 && (
+            <motion.div
+              className="slider-track"
+              style={{
+                width: `${Products.length * cardWidth}px`,
+                transform: `translateX(-${currentIndex * cardWidth}px)`,
+              }}
+              transition={{ type: "spring", stiffness: 100 }}
+            >
+              {Products.map((product, index) => (
+                <div
+                  key={index}
+                  className="slider-card"
+                  style={{ width: `${cardWidth}px` }}
+                >
+                  <IonCard className="arr-product">
+                    <img className="card-img" src={product.image} alt={product.title} />
+                    <IonCardHeader>
+                      <IonCardTitle className="product-title">
+                        <strong>{product.title}</strong>
+                      </IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent className="card-para">
+                      <p> &#8377;{product.price}</p>
+                      <div className="stars">{getStars(product.rating)}</div>
+                    </IonCardContent>
+                    <button type="button" className="buy-btn">
+                      <IonIcon icon={cart} className="card-icon" />
+                      Buy now
+                    </button>
+                  </IonCard>
+                </div>
+              ))}
+            </motion.div>
+          )}
         </div>
         <button className="arrow right" onClick={nextSlide}>›</button>
       </div>
@@ -94,4 +108,4 @@ const Sample: React.FC = () => {
   );
 };
 
-export default Sample;
+export default Arrival;
