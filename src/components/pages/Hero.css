@@ -44,15 +44,15 @@ body {
     
 }
 .hero-content h2{
-  font-size: 35px !important; /* Adjust size as needed */
+  font-size: 50px !important; /* Adjust size as needed */
         margin-bottom: 0.5rem;
         color: black;
-        font-weight: bold;
+        font-weight: 800;
 }
 .hero-content p{
   font-size: 18px !important;
   margin-bottom: 1.5rem;
-  color:black;
+  color:rgba(0, 0, 0, 0.76);
 }
 .year{
     color: #6f11f5;
@@ -77,7 +77,7 @@ margin: 5px;
 
 .arrival-btn button {
     margin: 5px;
-    background: rgba(255, 255, 255, 0.418); /* Semi-transparent background */
+    background: #cfb4f5; /* Semi-transparent background */
     backdrop-filter: blur(10px); /* Glass effect */
     -webkit-backdrop-filter: blur(10px); /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
@@ -136,24 +136,25 @@ margin: 5px;
   }
   
    /* Responsive adjustments for smaller screens */
-   @media (max-width: 768px) {
+   @media (max-width: 991px) {
     .hero {
       justify-content: center; /* Center content horizontally */
-      text-align: center; /* Center text within the content block */
+      text-align: start; /* Center text within the content block */
       min-height: 50vh;
       padding: 2rem 1rem; /* Adjust padding */
     }
     
 
     .hero-section::before {
-      filter: blur(5px); /* Apply blur effect */
+      filter: blur(10px); /* Apply blur effect */
       /* Optional: Add a slight darkening overlay for better text contrast on blurred bg */
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.767);
       /* background-blend-mode: overlay; */
     }
 
     .hero-content {
        max-width: 90%; /* Allow content to take more width */
+       
     }
 
     .hero h2 {
@@ -167,8 +168,8 @@ margin: 5px;
     .hero-buttons {
       display: flex;
       flex-direction: row; /* Stack buttons vertically */
-      justify-content: center;
-      align-items: center; /* Center buttons */
+      
+      align-items: start; /* Center buttons */
       gap: 0.5rem; /* Add space between stacked buttons */
     }
 

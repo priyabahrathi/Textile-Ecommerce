@@ -1,132 +1,82 @@
-import { IonApp, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
-import Swiper from "swiper";
-import { SwiperSlide } from "swiper/react";
-
+import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonInput } from "@ionic/react";
+import { logoFacebook, logoTwitter, logoInstagram, paperPlaneOutline } from "ionicons/icons";
+import "./footer.css"
 const Footer: React.FC = () => {
-    return (
-        <IonApp>
-            <IonGrid className="aa">
-                <div className="container">
-                    <h3 className="section-title text-center mb-100 aos-init aos-animate" data-aos="fade-down">
-                        Famous Brands
-                    </h3>
-
-                
-                    <Swiper
-                        spaceBetween={50}
-                        slidesPerView={4}
-                        navigation
-                        pagination={{ clickable: true }}
-                    >
-                        
-                        <SwiperSlide>
-                            <img src="../assets/images/logo18.png" alt="Logo 18" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo19.png" alt="Logo 19" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo9.png" alt="Logo 9" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo11.png" alt="Logo 11" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo12.png" alt="Logo 12" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo13.png" alt="Logo 13" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo14.png" alt="Logo 14" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo15.png" alt="Logo 15" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo16.png" alt="Logo 16" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="../assets/images/logo17.png" alt="Logo 17" />
-                        </SwiperSlide>
-                    </Swiper>
+  return (
+    <IonFooter >
+      <div id="zz" size-md="6" size-lg="4">
+        <IonGrid id="ab" >
+          <IonRow>
+            <IonCol size="12" sizeMd="4">
+              <div className="widget">
+               <h6 className="widget-title">About Us</h6>
+                <p className="ss">Quisque sit amet velit ipsum. Ut eget pretium. Vivamus finibus dui sit amet tortor eleifend bibendum.</p>
+                <p className="s">Suspendisse aliquam, tellus eget bibendum vehicula, massa magna consequat sem.</p>
+              </div>
+            </IonCol>
+            <IonCol size="12" sizeMd="4">
+              <div className="widget">
+                <h6 className="widget-title">Links List</h6>
+                <IonRow id="dd">
+                  <IonCol size="6">
+                    <ul className="menu-list">
+                      <li><a id="a" href="#">Home</a></li>
+                      <li><a id="b" href="#">About</a></li>
+                      <li><a id="c" href="#">Services</a></li>
+                      <li><a id="d" href="#">Apps</a></li>
+                    </ul>
+                  </IonCol>
+                  <IonCol size="5">
+                    <ul className="menu-list">
+                      <li><a id="e" href="#">Shop</a></li>
+                      <li><a id="f" href="#">Team</a></li>
+                      <li><a id="g" href="#">Blog</a></li>
+                      <li><a id="h" href="#">Contact</a></li>
+                    </ul>
+                  </IonCol>
+                </IonRow>
+              </div>
+            </IonCol>
+            <IonCol size="5" sizeMd="4">
+               <div className="widget"> 
+                <h6 className="widget-title">Newsletter</h6>
+                <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
+                <div className="newsletter-input">
+                  <IonInput type="email" placeholder="Email" className="rect-btn" id="form-control" />
+                  <IonButton  className="subscribe-button" >
+                     <IonIcon icon={paperPlaneOutline} /> 
+                     Subscribe
+                  </IonButton>
                 </div>
-
-                
-            <IonGrid>
-                <div className="footer-wrapper bg-gradient-body">
-                    <div className="footer-widget-area bg-transparent">
-                        <div className="container">
-                            <IonRow>
-                                <IonCol size="12" >
-                                    <div className="widget">
-                                        <h6 className="widget-title">About Us</h6>
-                                        <p>Quisque sit amet velit ipsum. Ut eget pretiun. Vivamus finibus dui sit amet tortor eleifend bibendum. Sed ut diam sollicitudin.</p>
-                                        <p className="mb-0">Suspendisse aliquam, tellus eget bibendum vehicula, massa magna consequat sem.</p>
-                                    </div>
-                                </IonCol>
-
-                                <IonCol size="12" >
-                                    <div className="widget">
-                                        <h6 className="widget-title">Links List</h6>
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <ul className="list-unstyled list-icon list-arrow list-primary list-has-link menu-list mb-0 tablet-lg-top">
-                                                    <li className="mb-10"><a href="#x">Home</a></li>
-                                                    <li className="mb-10"><a href="#x">About</a></li>
-                                                    <li className="mb-10"><a href="#x">Services</a></li>
-                                                    <li className="mb-0"><a href="#x">Apps</a></li>
-                                                </ul>
-                                            </div>
-
-                                            <div className="col-6">
-                                                <ul className="list-unstyled list-icon list-arrow list-primary list-has-link menu-list mb-0">
-                                                    <li className="mb-10"><a href="#x">Shop</a></li>
-                                                    <li className="mb-10"><a href="#x">Team</a></li>
-                                                    <li className="mb-10"><a href="#x">Blog</a></li>
-                                                    <li className="mb-0"><a href="#x">Contact</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </IonCol>
-
-                                <IonCol size="12">
-                                    <div className="widget">
-                                        <h6 className="widget-title">Newsletter</h6>
-                                        <p className="mb-20">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
-                                        <div className="input-group input-w-overlap-btn mb-0">
-                                            <input type="text" className="form-control rounded-sm" placeholder="Email" />
-                                            <span className="input-group-btn">
-                                                <button className="btn btn-sm btn-primary lh-0 overlapping-btn big-btn rounded-sm" type="button"><i className="fas fa-paper-plane mr-5"></i> Subscribe</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </IonCol>
-                            </IonRow>
-                        </div>
-                    </div>
-                    <footer className="bg-no-gradient">
-                        <div className="container">
-                            <IonRow className="v-center mobile-center">
-                                <IonCol size="12" className="footer-left-area tablet-top">
-                                    <p>© 2021 Glass UI by <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer">KingStudio</a></p>
-                                </IonCol>
-                                <IonCol size="12" className="footer-right-area">
-                                    <p className="footer-social">
-                                        <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-facebook-f"></i></a>
-                                        <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-twitter"></i></a>
-                                        <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary"><i className="fab fa-instagram"></i></a>
-                                    </p>
-                                </IonCol>
-                            </IonRow>
-                        </div>
-                    </footer>
-                </div>
-            </IonGrid>
-        </IonApp>
-    );
+               </div> 
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </div>
+      <IonToolbar className="bg-no-gradient">
+        <IonGrid  id="cc">
+           <IonRow className="v-center mobile-center"> 
+            <IonCol size="10" sizeMd="6" className="footer-left-area">
+              <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
+            </IonCol>
+            <IonCol size="12" sizeMd="12" className="footer-right-area">
+              <p className="footer-social">
+                <IonButton className="social-btn" href="#" fill="clear">
+                  <IonIcon id="z" icon={logoFacebook} />
+                </IonButton>
+                <IonButton className="social-btn" href="#" fill="clear">
+                  <IonIcon icon={logoTwitter} />
+                </IonButton>
+                <IonButton className="social-btn" href="#" fill="clear">
+                  <IonIcon icon={logoInstagram} />
+                </IonButton>
+              </p>
+            </IonCol>
+          </IonRow> 
+        </IonGrid>
+      </IonToolbar>
+    </IonFooter>
+  );
 };
-
 export default Footer;

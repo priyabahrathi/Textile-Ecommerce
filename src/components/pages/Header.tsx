@@ -10,8 +10,7 @@ import {
   IonLabel,
   IonAccordionGroup,
   IonAccordion,
-  IonItemDivider,
-  IonListHeader,
+ 
 } from "@ionic/react";
 import { menuController } from "@ionic/core";
 import {
@@ -23,9 +22,7 @@ import {
   IoWoman,
 } from "react-icons/io5";
 import {
-  shirtOutline,
-  footstepsOutline,
-  bagHandleOutline,
+  
   close,
   home,
   pricetag,
@@ -33,17 +30,23 @@ import {
   woman,
   cart,
   mail,
+  bagHandle,
+  footsteps,
+  shirt,
 } from "ionicons/icons";
 import { FaTag } from "react-icons/fa";
+import { IonMenuToggle } from "@ionic/react";
 import "./Header.css";
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth <= 1057);
-  const [showMen, setShowMen] = useState(false);
-  const [showWomen, setShowWomen] = useState(false);
+
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  
+
   useEffect(() => {
     const handleResize = () => {
       setIsMediumScreen(window.innerWidth <= 1057);
@@ -53,150 +56,113 @@ const Header: React.FC = () => {
   }, []);
   return (
     <>
-      <header className="ion-padding head">
-        <div className="container">
-          <div className="nav-item">
-            <h3>Textile-Ecommerce</h3>
-            <button className="menu-icon" onClick={toggleMenu}>
-              <IoMenu />
-            </button>
-            <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
-              <li><IoHome />Home</li>
-              <li>
-                <IoManSharp />Men’s
-                <ul className="dropdown">
-                  <li><IonIcon icon={shirtOutline} /> Shirts</li>
-                  <li><IonIcon icon={footstepsOutline} /> Shoes</li>
-                  <li><IonIcon icon={bagHandleOutline} /> Accessories</li>
-                </ul>
-              </li>
-              <li>
-                <IoWoman />Women’s
-                <ul className="dropdown">
-                  <li><IonIcon icon={shirtOutline} /> </li>
-                  <li> <IonIcon icon={footstepsOutline} />Shoes</li>
-                  <li><IonIcon icon={bagHandleOutline} /> Accessories</li>
-                </ul>
-              </li>
-              <li>on sale <FaTag /></li>
-            </ul>
-            <div className="nav-icon">
-              <button><IoCart /></button>
-              <button><IoMail /></button>
-              {/* Ionic Side Menu */}
-              <IonMenu side="end" menuId="main-menu" contentId="main-content">
-                <IonContent>
-                  <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
-                    <IonButton
-                      fill="clear"
-                      onClick={async () => await menuController.close()}
-                    >
-                      <IonIcon icon={close} />
-                    </IonButton>
-                  </div>
-                  <IonList>
-                    <IonItem button>
-                      <IonIcon icon={home} slot="start" />
-                      Home
-                    </IonItem>
-                    {/* Men’s Dropdown */}
-                    <IonItem button onClick={() => setShowMen(!showMen)}>
-                      <IonIcon icon={man} slot="start" />
-                      Men’s
-                    </IonItem>
-                    {showMen && (
-                      <>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={shirtOutline} slot="start" /> Shirts
-                        </IonItem>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={footstepsOutline} slot="start" /> Shoes
-                        </IonItem>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={bagHandleOutline} slot="start" /> Accessories
-                        </IonItem>
-                      </>
-                    )}
-                    {/* Women’s Dropdown */}
-                    <IonItem button onClick={() => setShowWomen(!showWomen)}>
-                      <IonIcon icon={woman} slot="start" />
-                      Women’s
-                    </IonItem>
-                    {showWomen && (
-                      <>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={shirtOutline} slot="start" /> Tops
-                        </IonItem>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={footstepsOutline} slot="start" /> Shoes
-                        </IonItem>
-                        <IonItem button style={{ paddingLeft: "2rem" }}>
-                          <IonIcon icon={bagHandleOutline} slot="start" /> Accessories
-                        </IonItem>
-                      </>
-                    )}
-                    <IonItem button>
-                      <IonIcon icon={pricetag} slot="start" />
-                      On Sale
-                    </IonItem>
-                  </IonList>
-                  {/* Right Icons */}
-                  <div className="right-icons" style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "20px" }}>
-                    <IonButton fill="clear">
-                      <IonIcon icon={cart} size="large" />
-                    </IonButton>
-                    <IonButton fill="clear">
-                      <IonIcon icon={mail} size="large" />
-                    </IonButton>
-                  </div>
-                </IonContent>
-              </IonMenu>
-              <div id="main-content">
-                <header className="ion-padding head">
-                  <div className="container">
-                    <div className="nav-item">
-                      <h3>Algo-Tex</h3>
+      {/* Ionic Side Menu */}
+      <IonMenu side="end" menuId="main-menu" contentId="main-content"  >
+        <IonContent style={{ background: "white" }} className="menu-menu">
+          <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
+            <IonMenuToggle>
+              <IonButton fill="clear">
+                <IonIcon icon={close} />
+              </IonButton>
+            </IonMenuToggle>
+          </div>
+          <IonList className="head-list">
+            <IonItem button className="head-item custom-item">
+              <IonIcon className="ion-icon" icon={home} slot="start" />
+              Home
+            </IonItem>
 
-                      {isMediumScreen ? (
-                        <IonMenuButton menu="main-menu" className="menu-icon" />
-                      ) : (
-                        <button className="menu-icon" onClick={toggleMenu}>
-                          <IoMenu />
-                        </button>
-                      )}
-                      {!isMediumScreen && (
-                        <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
-                          <li><IoHome /> Home</li>
-                          <li>
-                            <IoManSharp /> Men’s
-                            <ul className="dropdown">
-                              <li><IonIcon icon={shirtOutline} /> Shirts</li>
-                              <li><IonIcon icon={footstepsOutline} /> Shoes</li>
-                              <li><IonIcon icon={bagHandleOutline} /> Accessories</li>
-                            </ul>
-                          </li>
-                          <li>
-                            <IoWoman /> Women’s
-                            <ul className="dropdown">
-                              <li><IonIcon icon={shirtOutline} /> Tops</li>
-                              <li><IonIcon icon={footstepsOutline} /> Shoes</li>
-                              <li><IonIcon icon={bagHandleOutline} /> Accessories</li>
-                            </ul>
-                          </li>
-                          <li>On Sale <FaTag /></li>
-                        </ul>
-                      )}
-                      {!isMediumScreen && (
-                        <div className="nav-icon">
-                          <button><IoCart /></button>
-                          <button><IoMail /></button>
-                        </div>
-                      )}
-                    </div>
+            <IonAccordionGroup className="head-item " >
+              <IonAccordion value="men"  >
+                <IonItem slot="header" className="head-item custom-item">
+                  <IonIcon className="ion-icon" icon={man} slot="start" />
+                  <IonLabel>Men's</IonLabel>
+                </IonItem>
+                <div className="ion-padding item" slot="content">
+                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={shirt} slot="start" /> Shirts</IonItem>
+                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                </div>
+              </IonAccordion>
+              <IonAccordion value="women">
+                <IonItem slot="header" className="head-item custom-item">
+                  <IonIcon className="ion-icon" icon={woman} slot="start" />
+                  <IonLabel>Women's</IonLabel>
+                </IonItem>
+                <div className="ion-padding " slot="content">
+                  <div className="drop-btn">
+                  <IonItem button className="color custom-item"><IonIcon className="ion-icon"  icon={shirt} slot="start" /> Tops</IonItem>
+
                   </div>
-                </header>
-              </div>
-            </>
-            );
+                  <IonItem button className="color custom-item" ><IonIcon className="ion-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                </div>
+              </IonAccordion>
+            </IonAccordionGroup>
+
+
+            <IonItem button className="head-item custom-item">
+              <IonIcon className="ion-icon" icon={pricetag} slot="start" />
+              On Sale
+            </IonItem>
+          </IonList>
+
+          {/* Right Icons */}
+          <div className="right-icons" style={{ display: "flex", gap: "1px", marginTop: "5px", marginLeft:"30px" }}>
+            <IonButton  className="custom-item " fill="clear">
+              <IonIcon className="ion-icon" icon={cart} size="medium" />
+            </IonButton>
+            <IonButton className="custom-item" fill="clear">
+              <IonIcon className="ion-icon" icon={mail} size="medium" />
+            </IonButton>
+          </div>
+        </IonContent>
+      </IonMenu>
+      <div id="main-content">
+        <header className="ion-padding head">
+          <div className="container">
+            <div className="nav-item">
+              <h3>Algo-Tex</h3>
+              {isMediumScreen ? (
+                <IonMenuButton menu="main-menu" className="menu-icon" />
+              ) : (
+                <button className="menu-icon" onClick={toggleMenu}>
+                  <IoMenu />
+                </button>
+              )}
+              {!isMediumScreen && (
+                <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
+                  <li style={{ color: 'black' }} ><IoHome /> Home</li>
+                  <li>
+                    <IoManSharp /> Men’s
+                    <ul className="dropdown">
+                      <li><IonIcon icon={shirt} /> Shirts</li>
+                      <li><IonIcon icon={footsteps} /> Shoes</li>
+                      <li><IonIcon icon={bagHandle} /> Accessories</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <IoWoman /> Women’s
+                    <ul className="dropdown">
+                      <li><IonIcon icon={shirt} /> Tops</li>
+                      <li><IonIcon icon={footsteps} /> Shoes</li>
+                      <li><IonIcon icon={bagHandle} /> Accessories</li>
+                    </ul>
+                  </li>
+                  <li>On Sale <FaTag /></li>
+                </ul>
+              )}
+              {!isMediumScreen && (
+                <div className="nav-icon">
+                  <button><IoCart /></button>
+                  <button><IoMail /></button>
+                </div>
+              )}
+            </div>
+          </div>
+        </header>
+      </div>
+    </>
+  );
 };
 export default Header;

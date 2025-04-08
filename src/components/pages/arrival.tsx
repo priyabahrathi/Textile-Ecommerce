@@ -28,13 +28,10 @@ const fadeUpVariant = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 1 } },
 };
-
 const Arrival: React.FC = () => {
   const Products = useSelector((state: RootState) => state.arrival.Products);
-
   return (
     <>
-    
     <motion.div
       className="arrival-body"
       initial="hidden"
@@ -84,5 +81,4 @@ const Arrival: React.FC = () => {
     </>
   );
 };
-
 export default Arrival;
