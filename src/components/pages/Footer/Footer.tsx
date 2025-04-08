@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-      </div>
+      
       <IonToolbar className="bg-no-gradient">
         <IonGrid id="cc">
            <IonRow className="v-center mobile-center"> 
@@ -76,6 +76,8 @@ const Footer: React.FC = () => {
           </IonRow> 
         </IonGrid>
       </IonToolbar>
+      </div>
+
     </IonFooter>
   );
 };

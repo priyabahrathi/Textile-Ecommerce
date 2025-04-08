@@ -34,9 +34,9 @@
   }
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+  /* ::-webkit-scrollbar-thumb:hover {
      
-  }
+  } */
 /* Card Styling */
 .product-card,
 .card-search,
@@ -348,9 +348,9 @@ label {
     .page-product {
         padding: 10px;
     }
-    .product-category {
+    /* .product-category {
         text-align: center !important;
-    }
+    } */
     .product-head{
         color: #00a698;
         text-shadow: 0 0 2px #002642;
