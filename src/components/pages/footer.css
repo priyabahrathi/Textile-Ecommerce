@@ -124,7 +124,7 @@
   opacity: 0.5;
 } 
 .menu-list {
-   list-style: none; /* Removes default bullets */
+  list-style: none; /* Removes default bullets */
   padding: 0;
   font-size: 18px;
 }
@@ -179,7 +179,7 @@
   margin-top:25px;  */
 }
 .social-btn {
-  width: 50px;              /* Increases button size */
+  width: 50px;     /* Increases button size */
   height: 50px;
   border-radius: 50%;
      /* display: flex;
@@ -189,8 +189,6 @@
 .social-btn ion-icon {
   font-size: xx-large;
   color: rgb(238, 231, 231);
-   
-         
   /* Increases icon size */
   /* color: #007bff;
   transition: all 0.3s ease; */
@@ -200,7 +198,7 @@
   gap: 10px; /* Space between input and button */
   align-items: center;
   flex-wrap: wrap; /* Allows wrapping on smaller screens */
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 20px;
 }
 .form-control {

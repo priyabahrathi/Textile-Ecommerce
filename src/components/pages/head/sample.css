@@ -1,0 +1,62 @@
+/* Header.css */
+
+.head {
+    --background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-header {
+    padding: 0 1rem;
+  }
+  
+  .header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .menu-items {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .menu-items ion-button {
+    font-size: 1rem;
+    --color: #333;
+  }
+  
+  .right-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .custom-close-btn {
+    font-size: 1.2rem;
+    --color: #333;
+  }
+  
+  .custom-popover {
+    --min-width: 180px;
+    --width: auto;
+  }
+  
+  .custom-popover ion-list {
+    padding: 0;
+  }
+  
+  .custom-popover ion-item {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    font-size: 0.95rem;
+  }
+  

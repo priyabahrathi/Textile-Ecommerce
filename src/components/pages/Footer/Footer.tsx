@@ -1,6 +1,5 @@
 import { IonApp, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Footer: React.FC = () => {
     return (
@@ -53,6 +52,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 
+            <IonGrid>
                 <div className="footer-wrapper bg-gradient-body">
                     <div className="footer-widget-area bg-transparent">
                         <div className="container">
@@ -108,10 +108,10 @@ const Footer: React.FC = () => {
                     <footer className="bg-no-gradient">
                         <div className="container">
                             <IonRow className="v-center mobile-center">
-                                <IonCol size="12"  className="footer-left-area tablet-top">
+                                <IonCol size="12" className="footer-left-area tablet-top">
                                     <p>© 2021 Glass UI by <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer">KingStudio</a></p>
                                 </IonCol>
-                                <IonCol size="12"  className="footer-right-area">
+                                <IonCol size="12" className="footer-right-area">
                                     <p className="footer-social">
                                         <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-facebook-f"></i></a>
                                         <a href="#x" className="btn btn-xs btn-icon btn-circle btn-primary mr-10"><i className="fab fa-twitter"></i></a>

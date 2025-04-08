@@ -34,6 +34,7 @@ const Arrival: React.FC = () => {
 
   return (
     <>
+    
     <motion.div
       className="arrival-body"
       initial="hidden"
