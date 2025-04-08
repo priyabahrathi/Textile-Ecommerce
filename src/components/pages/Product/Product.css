@@ -4,12 +4,39 @@
     padding: 40px;
     background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
 }
+.product-head{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 45px;
+    font-weight: bold;
+    color: #002642;
+    text-shadow: 0 0 2px #00a698;
+}
 
 .col-card{
     overflow-y: scroll;
     height: 750px;
 }
-z
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #002642; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #002642; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+     
+  }
 /* Card Styling */
 .product-card,
 .card-search,
@@ -32,7 +59,7 @@ z
 .product-card{
     animation-name: move;
     animation-duration: 2s;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 25px #002642;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
@@ -135,7 +162,7 @@ z
     margin: 15px 0;
     padding: 30px;
     border-radius: 1rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px #002642;
 }
 
 /* Search Bar */
@@ -157,13 +184,16 @@ z
 
 /* Search Button */
 .search-button {
-    color: #002642;
-    background-color: #00a698;
+    color: #00a698;
+    background-color: #002642;
     border-radius: 10px;
     padding: 14px;
     cursor: pointer;
 }
-
+.search-button:hover{
+    color: #002642;
+    background-color: #00a698;
+}
 /* Price Range Card */
 .card-range {
     background: rgba(255, 255, 255, 0.6);
@@ -172,7 +202,7 @@ z
     margin: 35px 0;
     padding: 20px 30px;
     border-radius: 1rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px #002642;
 }
 
 /* Range Title */
@@ -205,7 +235,7 @@ z
     margin: 15px 0;
     padding: 30px;
     border-radius: 1rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px #002642;
 }
 /* Category Title */
 .filter-title {
@@ -252,7 +282,7 @@ input[type="checkbox"] {
 input[type="checkbox"]::after {
     content: "✔";
     font-size: 16px;
-    color: white;
+    color: #002642;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -262,7 +292,7 @@ input[type="checkbox"]::after {
 
 /* Checkbox Checked */
 input[type="checkbox"]:checked {
-    background: #6f11f5;
+    background: #00a698;
 }
 
 input[type="checkbox"]:checked::after {
@@ -274,27 +304,15 @@ label {
     margin-left: 10px;
     font-size: 16px;
     cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    color: gray;
-}
-
-/* Card Size */
-.card-size {
-    padding: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-/*Size Checkbox*/
-.card-size .size-checkbox ul {
-    display: flex;
-    justify-content:space-evenly;
-    list-style: none;
-    padding-right: 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #00a698;
+    font-weight: 700;
 }
 
 /* Apply Filter Button */
 .apply-filter-button {
-    color: #fff;
-    background-color: #6f11f5;
+    color: #00a698;
+    background-color:#002642;
     border: 2px solid transparent;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
@@ -305,12 +323,13 @@ label {
     border-radius: 0.9rem;
     padding: 0.75rem 2.5rem;
     white-space: nowrap;
-    box-shadow: 0 6px 10px #727274;
     width: 100%;
     transition: all 0.3s ease-in-out;
 }
 .apply-filter-button:hover{
     box-shadow: none;
+    color: #002642;
+    background-color: #00a698;
 
 }
 
@@ -332,6 +351,10 @@ label {
     .product-category {
         text-align: center !important;
     }
+    .product-head{
+        color: #00a698;
+        text-shadow: 0 0 2px #002642;
+    }
 }
 /*Mobiles*/
 @media screen and (max-width: 768px) {
@@ -343,5 +366,10 @@ label {
     .rate-buy {
         flex-direction: column;
         align-items: center;
+    }
+    .product-head{
+        color: #00a698;
+        text-shadow: 0 0 2px #002642;
+        font-size: 30px;
     }
 }

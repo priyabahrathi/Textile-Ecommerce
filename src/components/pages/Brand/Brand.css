@@ -1,6 +1,6 @@
 /*OverAll page*/
 .pagebrand {
-    background: linear-gradient(to right bottom, #f5c6d3 0%, #fce5dc 40%, #d0effd 100%) !important;
+    background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important;
 }
 
 .page-container {
@@ -17,17 +17,17 @@
 
 /*Page Title*/
 .page-name {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
     text-align: center;
     font-size: 54px;
     padding-bottom: 20px;
     animation: title 3s ease;
     position: relative;
-    color: #141A38;
+    color: #002642;
     letter-spacing: .015rem;
     margin-top: 0;
-    text-shadow: 0 5px 10px #141A38;
+    text-shadow: 0 0 15px #002642;
 }
 
 /*Logos Styling*/
@@ -40,8 +40,6 @@
 .logo-img {
     width: 100%;
     height: 50px;
-    /* Adjust based on your design */
-    
     object-fit: contain;
 }
 
