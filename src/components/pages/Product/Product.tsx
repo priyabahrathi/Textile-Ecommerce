@@ -16,7 +16,7 @@ import {
   IonLabel,
   IonInput,
   IonRange
-} from '@ionic/react';
+}from '@ionic/react';
 import { cart, search, options, star } from 'ionicons/icons';
 import { Children, useState } from 'react';
 import "./Product.css";
@@ -25,7 +25,6 @@ import { RootState } from '../../../Store/store';
 import {easeOut, motion,useAnimation} from "framer-motion";
 import { useEffect,useRef } from 'react';
 import { useInView } from 'framer-motion';
-
 const MotionCard =({children}:{children:React.ReactNode})=>{
   const ref=useRef(null);
   const inView=useInView(ref,{once:false});
@@ -48,22 +47,17 @@ const MotionCard =({children}:{children:React.ReactNode})=>{
     >{children}</motion.div>
   )
 }
-
 const Product: React.FC = () => {
-  
   const Products = useSelector((state: RootState) => state.product.Products);
   const [searchText, setSearchText] = useState('');
-
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
-
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
     setUpper(e.detail.value.upper);
   };
   return (
-   
-    <div className='page-product'>
+      <div className='page-product'>
       <IonGrid >
         <IonRow>
           <IonCol className='col-product ion-padding' sizeMd='12' sizeLg='12' sizeXl='8'>
@@ -146,7 +140,6 @@ const Product: React.FC = () => {
                     </li>
                   </ul>
                 </div>
-
               </div>
               <div className='card-size'>
                 <div className='filter-title'>Sizes</div>
@@ -186,9 +179,6 @@ const Product: React.FC = () => {
         </IonRow>
       </IonGrid>
     </div>
-
-
-
   );
 };
 

@@ -1,5 +1,7 @@
 import { IonApp, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
+import Swiper from "swiper";
+import { SwiperSlide } from "swiper/react";
 
 const Footer: React.FC = () => {
     return (
