@@ -2,18 +2,20 @@
 /*OverAll Page*/
 .page-product {
     padding: 40px;
-    background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%);
+    background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
 }
 
-
+.col-card{
+    overflow-y: scroll;
+    height: 750px;
+}
+z
 /* Card Styling */
 .product-card,
 .card-search,
 .card-range,
 .card-filter,
 .card-size {
-    border-radius: 20px;
-    background-color: #f5f5fd;
     text-align: center;
     transition: transform 0.3s ease-in-out;
     
@@ -31,6 +33,12 @@
     animation-name: move;
     animation-duration: 2s;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    margin: 15px 0;
+    
 }
 /* @keyframes move {
     from{
@@ -47,7 +55,10 @@
     transform: translateY(-5px);
 }
 
-
+.product-image{
+    height: 300px;
+    
+}
 
 .product-data {
     display: flex;
@@ -57,24 +68,26 @@
 
 
 .product-title {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.5rem;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: black;
+    color: #002642;
 }
 
 
 .product-price {
     font-size: 1.8rem;
     font-weight: bold;
-    color: black;
-    font-family: "Poppins", sans-serif;
+    color: #002642;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 .product-category {
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: start;
+    color: #ffffff;
+    text-shadow: 0 0 10px #002642;
 }
 
 
@@ -91,18 +104,20 @@
 
 
 .btn-buy {
-    color: white;
-    background-color: #6f11f5;
+    color: #00a698;
+    background-color: #002642;
     border-radius: 10px;
-    width: 170px !important;
+    width: 130px !important;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 700;
 }
 .btn-buy:hover{
-    background-color: rgb(41, 78, 3);
+    background-color: #00a698;
+    color: #002642;
 }
 /*Product Card Ends*/
 
@@ -127,7 +142,7 @@
 .search-bar {
     display: flex;
     align-items: center;
-    border-radius: 15px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.6);
 }
 
@@ -142,9 +157,10 @@
 
 /* Search Button */
 .search-button {
-    color: white;
-    border-radius: 50%;
-    padding: 8px;
+    color: #002642;
+    background-color: #00a698;
+    border-radius: 10px;
+    padding: 14px;
     cursor: pointer;
 }
 
@@ -162,17 +178,19 @@
 /* Range Title */
 .range-title {
     text-align: center;
-    color: black;
+    color: #002642;
     font-weight: 700;
     margin-bottom: 25px;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 /* Range Values */
 .range-values {
     display: flex;
     justify-content: space-around;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #00a698;
+    font-weight: 700;
 }
 
 /* Filter Section */
@@ -181,23 +199,33 @@
 }
 /*Category-Card*/
 .card-filter{
-    margin: 35px 0;
-    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    margin: 15px 0;
+    padding: 30px;
+    border-radius: 1rem;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 /* Category Title */
 .filter-title {
     text-align: center;
-    color: black;
+    color: #002642;
     font-weight: 700;
-    font-family: "Poppins", sans-serif;
-    font-size: 25px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 26px;
 }
 
 /* Category Checkbox */
 .filter-checkbox ul
 {
     list-style: none;
+    
+    
+}
+.left-align{
+    padding-left: 80px;
+    text-align: left;
 }
 .filter-checkbox ul li
 {
@@ -212,7 +240,7 @@ input[type="checkbox"] {
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    background: #fff;
+    color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     position: relative;
@@ -279,7 +307,6 @@ label {
     white-space: nowrap;
     box-shadow: 0 6px 10px #727274;
     width: 100%;
-    margin-top: 35px;
     transition: all 0.3s ease-in-out;
 }
 .apply-filter-button:hover{
@@ -290,11 +317,13 @@ label {
 
 /*Responsive*/
 /*Desktop*/
+
 @media screen and (max-width: 1580px) {
     .btn-buy {
         width: 120px;
     }
 }
+
 /*Tablets*/
 @media only screen and (max-width: 1200px) {
     .page-product {
