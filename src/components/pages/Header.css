@@ -141,11 +141,13 @@
 }
 
   ion-menu {
+    --width:250px;
     
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
     --ion-background-color: #00a698 !important;
     --ion-text-color: rgb(255, 255, 255) !important;
   }
+  
   
   ion-menu .menu-menu {
     
