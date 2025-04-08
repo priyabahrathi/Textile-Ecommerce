@@ -11,6 +11,8 @@ import {
   IonInput,
   IonRange,
 } from '@ionic/react';
+import { SiGooglelens } from "react-icons/si";
+
 import { cart, search, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -95,25 +97,36 @@ const Product: React.FC = () => {
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
                       <IonCard className="product-card">
-                        <IonImg className="product-image" src={product.img} />
-                        <IonCardContent>
-                          <div className="product-data">
-                            <div className="product-title">{product.name}</div>
-                            <div className="product-price">&#8377;{product.price}</div>
-                          </div>
-                          <p className="product-category">{product.category}</p>
-                          <div className="rate-buy">
-                            <div className="ratings">
-                              {[...Array(5)].map((_, i) => (
-                                <IonIcon key={i} icon={star} className="buy-button" />
-                              ))}
+                        <div className="card-wrapper">
+                          <button
+                            className="google-lens-button"
+                            onClick={() => console.log(product.img)}
+                          >
+                            <SiGooglelens className="google-lens-icon" />
+                          </button>
+
+                          <IonImg className="product-image" src={product.img} />
+                          <IonCardContent>
+                            <div className="product-data">
+                              <div className="product-title">{product.name}</div>
+                              <div className="product-price">&#8377;{product.price}</div>
                             </div>
-                            <button className="btn-buy">
-                              <IonIcon icon={cart} /> Buy Now
-                            </button>
-                          </div>
-                        </IonCardContent>
+                            <p className="product-category">{product.category}</p>
+                            <div className="rate-buy">
+                              <div className="ratings">
+                                {[...Array(5)].map((_, i) => (
+                                  <IonIcon key={i} icon={star} className="buy-button" />
+                                ))}
+                              </div>
+                              <button className="btn-buy">
+                                <IonIcon icon={cart} /> Buy Now
+                              </button>
+                            </div>
+                          </IonCardContent>
+                        </div>
                       </IonCard>
+
+
                     </MotionCard>
                   </IonCol>
                 ))
@@ -159,7 +172,7 @@ const Product: React.FC = () => {
                 <div className="filter-title">Categories</div>
                 <div className="filter-checkbox">
                   <ul className="left-align">
-                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women','Casuals Men','Casuals Women'].map((cat) => (
+                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
                       <li key={cat}>
                         <input
                           type="checkbox"
