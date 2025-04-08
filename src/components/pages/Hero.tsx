@@ -8,6 +8,8 @@ import { IonIcon } from "@ionic/react";
 import {  pricetags,chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
 import Header from "./Header";
+import Sample from "./head/sample";
+
 
 
 const Hero: React.FC = () => {
@@ -19,15 +21,17 @@ const Hero: React.FC = () => {
 
   return (
     <>
+    
     <div className="hero-section">
     <section className="ion-padding">
-      <Header/>
-      <div className="hero-container">
+     <Header/>
+     {/* <Sample/> */}
+      <div className="hero">
        
         <div className="hero-content">
         <h2>Fashion <span className="year">2025</span></h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, labore.</p>
-        <div className="hero-btn">
+        <div className="hero-buttons">
         <button className="icon-btn" ><FaTags /></button>
         <div className="arrival-btn"><button>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
       </div>
