@@ -1,8 +1,6 @@
 .arrival-body {
-  background-color: #efeaf4;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+  background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,13 +14,21 @@
 .card-img{
   width: 300px;
 }
+.product-title{
+  color: white;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+}
 
 .name {
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
   font-size: 40px;
   font-weight: bold;
-  color: black;
+  color: rgb(255, 255, 255);
   margin-bottom: 0px;
   margin-top: 5px;
+}
+.arr-product{
+  background-color: #00a69877;
 }
 
 .buy-btn {
@@ -44,6 +50,7 @@
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
   /* Soft glow effect */
 }
+
 
 .buy-btn:hover {
   background-color: #5709c4;
@@ -67,6 +74,7 @@
 }
 
 .card-para p {
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
   color: #6f11f5;
   font-size: 20px !important;
   font-weight: bold !important;
@@ -80,6 +88,49 @@
 .card-icon {
   margin: 2px;
 }
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slider-card {
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #6f11f5;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
 
 @media screen and (max-width:1025px) {
   .arrival-body {
@@ -87,7 +138,7 @@
     height: auto;
   }
 
-  .card-container {
+  .product-card {
     width: 100%;
     margin: auto;
   }
@@ -137,7 +188,7 @@
 
   .card-para p {
     color: #6f11f5;
-    font-size: 10px !important;
+    font-size: 15px !important;
     font-weight: bold !important;
   }
 
@@ -148,5 +199,16 @@
 
   .card-icon {
     margin: 2px;
+  }
+}
+
+/* Ensure the cards and buttons scale nicely on different screens */
+@media screen and (max-width: 768px) {
+  .arrow {
+    font-size: 1.5rem;
+  }
+
+  .buy-btn {
+    font-size: 0.9rem;
   }
 }

@@ -1,7 +1,7 @@
 /* Container Styling */
 .container {
     height: 80px;
-    background: rgba(255, 255, 255, 0.726); /* Light transparent background */
+    background: #00a69880; /* Light transparent background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border-radius: 10px;
@@ -21,7 +21,8 @@
 }
 
 .nav-item h3 {
-    color: black;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    color: rgb(255, 255, 255);
     margin: 0;
     font-weight: 400;
     font-size: 1.2rem;
@@ -35,22 +36,27 @@
     padding: 0;
     margin: 0;
 }
-
+.head-list{
+    color: #ffffff;
+}
 .nav-list li {
     position: relative;
     padding: 10px 15px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    color: #000;
+    color: #ffffff;
     background: transparent;
     border-radius: 5px;
     transition: background 0.3s ease-in-out;
 }
 
+.main-content h3,li{
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+}
 .nav-list li:hover {
     background: rgba(255, 255, 255, 0.2);
-    color: blueviolet;
+    color: #002642;
 }
 
 /* Dropdown Menu Styling */
@@ -58,7 +64,7 @@
     position: absolute;
     top: 40px;
     left: 0;
-    background: rgba(255, 255, 255, 0.808);
+    background: #72becb;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -85,14 +91,14 @@
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
-    color: black;
+    color: rgb(255, 255, 255);
     background: transparent;
     transition: color 0.3s ease-in-out;
 }
 
 
 .dropdown li:hover {
-    color: blueviolet;
+    color: #002642;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
 }
@@ -112,55 +118,60 @@
 
 .nav-icon button  {
     font-size: 22px;
-    color: black;
+    color: rgb(255, 255, 255);
     transition: color 0.3s ease;
 }
 
 
 
 .nav-icon button:hover  {
-    color: blueviolet;
+    color: #002642;
 }
 
 /* Mobile Navigation */
 .menu-icon {
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
     display: none;
     font-size: 24px;
     cursor: pointer;
     background: none;
     border: none;
-    color: black;
+    color: rgb(255, 255, 255);
     z-index: 10;
 }
 
   ion-menu {
-    --ion-background-color: white !important;
-    --ion-text-color: black !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    --ion-background-color: #00a698 !important;
+    --ion-text-color: rgb(255, 255, 255) !important;
   }
   
   ion-menu .menu-menu {
-    --background: white !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    --background: #00a698  !important;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
   }
   ion-menu .menu-menu:hover{
-    color: blueviolet;
+    color: #002642;
   }
   .head-list{
-   background:  #ffffff;
-   --ion-text-color: black !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+   background:  #00a698 ;
+   --ion-text-color: rgb(255, 255, 255) !important;
   }
 
 
   
   .new:hover{
     /* --color: blueviolet !important; */
-    --color: blueviolet !important;
+    --color: #002642 !important;
   }
   .head-list .head-item{
-    --background: white !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    --background: #00a698  !important;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
@@ -169,11 +180,13 @@
  
   
   .ion-icon {
-    color: rgba(0, 0, 0, 0.753) !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    color: rgba(255, 255, 255, 0.753) !important;
   }
 
   .color{
-    --background:#ffffff;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    --background:#00a698 ;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
@@ -184,14 +197,15 @@
 }
 
 .custom-item:hover {
-    --background: rgba(0, 0, 0, 0.05);  /* Light gray background on hover */
-    --color: blueviolet;                /* This affects ion-label text */
+    --background: rgba(255, 255, 255, 0.05);  /* Light gray background on hover */
+    --color: #002642;                /* This affects ion-label text */
     transition: background-color 0.2s ease;
   }
   
   /* To target the ion-icon */
   .custom-item:hover ion-icon {
-    color: blueviolet !important;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    color: #002642 !important;
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }

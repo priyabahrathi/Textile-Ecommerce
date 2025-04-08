@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif;
 }
 
 
@@ -30,7 +30,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../../assets/images/ph-bg24.jpg'); /* Replace with your hero image URL */
+  background-image: url('../../assets/images/2.png'); /* Replace with your hero image URL */
   background-size: cover;
   background-position: center;
   z-index: -1; /* Place the background behind the content */
@@ -46,19 +46,20 @@ body {
 .hero-content h2{
   font-size: 50px !important; /* Adjust size as needed */
         margin-bottom: 0.5rem;
-        color: black;
+        color: rgb(255, 255, 255);
         font-weight: 800;
 }
 .hero-content p{
   font-size: 18px !important;
   margin-bottom: 1.5rem;
-  color:rgba(0, 0, 0, 0.76);
+  color:rgba(255, 255, 255, 0.76);
 }
 .year{
-    color: #6f11f5;
+    color: #72becb;
 }
 .hero-buttons .icon-btn{
-background-color:#6f11f5 ;
+  color: white;
+background-color:#073e66 ;
 height: 50px;
 border-radius: 50%;
 width: 50px;
@@ -66,9 +67,11 @@ padding: 3px;
 margin: 5px;
 }
 .icon-btn:hover{
-    background-color: #470b9c;
+  color: white;
+    background-color: #002642;
 }
 .hero-buttons{
+
     display: flex;
     justify-content: start;
     align-items: center;
@@ -77,23 +80,22 @@ margin: 5px;
 
 .arrival-btn button {
     margin: 5px;
-    background: #cfb4f5; /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    background: #72becb; /* Semi-transparent background */
+  
     border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
     padding: 12px 24px;
     font-size: 18px;
     font-weight: bold;
-    color: #6f11f5;
+    color: #ffffff;
     border-radius: 25px; /* Smooth corners */
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Soft glow effect */
+ 
   }
   
   .arrival-btn button:hover {
-    background: #6f11f5; /* Slightly lighter on hover */
+    background: #002642; /* Slightly lighter on hover */
     color: white;
     transform: scale(1); /* Slight zoom effect */
   }

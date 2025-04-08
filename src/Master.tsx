@@ -27,9 +27,10 @@ const Master: React.FC = () => {
       
       <Hero />
           <Arrival />
+          {/* <Sample /> */}
           <Product />
           <Brand />
-          {/* <Footer /> */}
+          <Footer />
     </>
   );
 };
