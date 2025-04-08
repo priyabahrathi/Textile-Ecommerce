@@ -17,9 +17,18 @@ interface DataState {
 
 const initialState: DataState = {
   Products: [
-    { id: 1, title: "Hoodie", price: "$350", image:  productimg("square3.png"),rating: 4.5 },
-    { id: 2, title: "Black Cap", price: "$250", image: productimg("square25.png"),rating: 3.5 },
-    { id: 3, title: "LT Bag", price: "$120", image: productimg("square27.png"),rating: 5 },
+    { id: 1, title: "shoes", price: "350", image:  productimg("3.png"),rating: 4.5 },
+    { id: 2, title: "T-Shirt", price: "250", image: productimg("4.png"),rating: 3.5 },
+    { id: 3, title: "Hoodie", price: "120", image: productimg("5.png"),rating: 5 },
+    { id: 1, title: "T-shirt", price: "350", image:  productimg("6.png"),rating: 4.5 },
+    { id: 2, title: "Hoodie", price: "250", image: productimg("5.png"),rating: 3.5 },
+    { id: 3, title: "T-shirt", price: "120", image: productimg("4.png"),rating: 5 },
+    { id: 1, title: "shoes", price: "350", image:  productimg("3.png"),rating: 4.5 },
+    { id: 2, title: "T-shirt", price: "250", image: productimg("4.png"),rating: 3.5 },
+    { id: 3, title: "Hoodie", price: "120", image: productimg("5.png"),rating: 5 },
+    { id: 1, title: "T-shirt", price: "350", image:  productimg("6.png"),rating: 4.5 },
+    { id: 2, title: "Hoodie", price: "250", image: productimg("5.png"),rating: 3.5 },
+    { id: 3, title: "shoes", price: "120", image: productimg("3.png"),rating: 5 },
   ],
 };
 

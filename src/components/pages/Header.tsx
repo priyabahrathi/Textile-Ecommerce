@@ -140,7 +140,7 @@ const Header: React.FC = () => {
 
               {!isMediumScreen && (
                 <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
-                  <li style={{ color: 'black' }} ><IoHome /> Home</li>
+                  <li style={{ color: 'white' }} ><IoHome /> Home</li>
                   <li>
                     <IoManSharp /> Men’s
                     <ul className="dropdown">

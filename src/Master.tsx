@@ -26,11 +26,11 @@ const Master: React.FC = () => {
       </IonApp> */}
       
       <Hero />
-      <Arrival />
-      <Product />
-      <Brand />
-      <Footer/>
-      
+          <Arrival />
+          {/* <Sample /> */}
+          <Product />
+          <Brand />
+          <Footer />
     </>
   );
 };
