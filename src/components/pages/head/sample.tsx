@@ -1,138 +1,117 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store/store";
+import { motion } from "framer-motion";
 import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonMenuButton,
-  IonTitle,
-  IonMenu,
-  IonContent,
-  IonList,
-  IonItem,
-  IonButton,
-  IonPopover,
-  IonIcon,
+  IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon,
 } from "@ionic/react";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { cart } from 'ionicons/icons';
+import "./sample.css";
 
-import { menuController } from "@ionic/core"; // ✅ Required for manual menu control
-import { personCircle, cart, home, pricetag, man, woman, close } from "ionicons/icons";
+const getStars = (rating: number) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars.push(<FaStar key={i} color="#FFD700" />);
+    } else if (i - 0.5 === rating) {
+      stars.push(<FaStarHalfAlt key={i} color="#FFD700" />);
+    } else {
+      stars.push(<FaRegStar key={i} color="#FFD700" />);
+    }
+  }
+  return stars;
+};
 
-import "./sample.css"; // Your custom styling
+const Sample: React.FC = () => {
+  const Products = useSelector((state: RootState) => state.arrival.Products);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [currentScroll, setCurrentScroll] = useState(0);
 
-const Header: React.FC = () => {
-  const [dropdown1Event, setDropdown1Event] = useState<MouseEvent | null>(null);
-  const [dropdown2Event, setDropdown2Event] = useState<MouseEvent | null>(null);
-  const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth <= 991);
+  const calculateCardWidth = () => {
+    const card = trackRef.current?.querySelector(".carousel-card-wrapper") as HTMLElement;
+    const style = window.getComputedStyle(trackRef.current as HTMLElement);
+    const gap = parseFloat(style.columnGap || "20");
+    if (card) setCardWidth(card.offsetWidth + gap);
+  };
+
+  const scrollTo = (pos: number) => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({ left: pos, behavior: "smooth" });
+      setCurrentScroll(pos);
+    }
+  };
+
+  const handleNext = () => {
+    if (containerRef.current && trackRef.current) {
+      const maxScroll = trackRef.current.scrollWidth - containerRef.current.offsetWidth;
+      const newPos = Math.min(currentScroll + cardWidth, maxScroll);
+      scrollTo(newPos);
+    }
+  };
+
+  const handlePrev = () => {
+    if (containerRef.current) {
+      const newPos = Math.max(currentScroll - cardWidth, 0);
+      scrollTo(newPos);
+    }
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMediumScreen(window.innerWidth <= 991);
+    calculateCardWidth();
+    window.addEventListener("resize", calculateCardWidth);
+  
+    const interval = setInterval(() => {
+      handleNext();
+    }, 3000); // every 3 seconds
+  
+    return () => {
+      window.removeEventListener("resize", calculateCardWidth);
+      clearInterval(interval);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [cardWidth, currentScroll]); 
 
   return (
-    <>
-      {/* Side Menu */}
-      <IonMenu side="end" menuId="main-menu" contentId="main-content">
-        <IonContent>
-          {/* Close Button */}
-          <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
-            <IonButton
-              fill="clear"
-              className="custom-close-btn"
-              onClick={async () => await menuController.close()}
-            >
-              <IonIcon icon={close} />
-            </IonButton>
+    <div className="arrival-body">
+      <h2 className="name">New Arrivals</h2>
+      <div className="carousel-wrapper">
+        <button className="arrow left" onClick={handlePrev}>←</button>
+
+        <div className="card-carousel-container" ref={containerRef}>
+          <div className="carousel-track" ref={trackRef}>
+            {Products.map((product, index) => (
+              <div className="carousel-card-wrapper" key={index}>
+                <IonCard className="product-card">
+                  <motion.img
+                    className="card-img"
+                    alt="product"
+                    src={product.image}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1, transition: { duration: 1 } }}
+                    viewport={{ once: false }}
+                  />
+                  <IonCardHeader>
+                    <IonCardTitle className="product-title"><strong>{product.title}</strong></IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent className="card-para">
+                    <p style={{ color: "#6A0DAD", fontWeight: "bold" }}>${product.price}</p>
+                    <div className="stars">{getStars(product.rating)}</div>
+                  </IonCardContent>
+                  <motion.button type="button" className="buy-btn" whileTap={{ scale: 0.9 }}>
+                    <IonIcon icon={cart} className="card-icon" /> Buy now
+                  </motion.button>
+                </IonCard>
+              </div>
+            ))}
           </div>
+        </div>
 
-          {/* Menu Items */}
-          <IonList>
-            <IonItem button routerLink="/home">Home</IonItem>
-            <IonItem button>Men’s</IonItem>
-            <IonItem button>Women’s</IonItem>
-            <IonItem button routerLink="/sale">On Sale</IonItem>
-          </IonList>
-
-          {/* Right Icons Inside Menu */}
-          <div className="right-icons" style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "20px" }}>
-            <IonButton fill="clear">
-              <IonIcon icon={cart} size="large" />
-            </IonButton>
-            <IonButton fill="clear">
-              <IonIcon icon={personCircle} size="large" />
-            </IonButton>
-          </div>
-        </IonContent>
-      </IonMenu>
-
-      <div id="main-content">
-        {/* Header */}
-        <IonHeader className="head">
-          <IonToolbar className="custom-header">
-            <div className="header-flex">
-              {/* Brand */}
-              <IonTitle className="brand">Algo-tex</IonTitle>
-
-              {/* Centered Menus */}
-              {!isMediumScreen && (
-                <div className="menu-items">
-                  <IonButton fill="clear" routerLink="/home">
-                    <IonIcon icon={home} /> Home
-                  </IonButton>
-                  <IonButton fill="clear" onClick={(e) => setDropdown1Event(e.nativeEvent)}>
-                    <IonIcon icon={man} /> Men’s
-                  </IonButton>
-                  <IonButton fill="clear" onClick={(e) => setDropdown2Event(e.nativeEvent)}>
-                    <IonIcon icon={woman} /> Women’s
-                  </IonButton>
-                  <IonButton fill="clear" routerLink="/sale">
-                    <IonIcon icon={pricetag} /> On Sale
-                  </IonButton>
-                </div>
-              )}
-
-              {/* Menu Button for Mobile */}
-              {isMediumScreen && (
-                <IonButtons slot="end">
-                  <IonMenuButton menu="main-menu" />
-                </IonButtons>
-              )}
-            </div>
-          </IonToolbar>
-        </IonHeader>
+        <button className="arrow right" onClick={handleNext}>→</button>
       </div>
-
-      {/* Dropdown Menus */}
-      <IonPopover
-        isOpen={!!dropdown1Event}
-        event={dropdown1Event!}
-        onDidDismiss={() => setDropdown1Event(null)}
-      >
-        <IonContent>
-          <IonList>
-            <IonItem button>Shirts</IonItem>
-            <IonItem button>Pants</IonItem>
-          </IonList>
-        </IonContent>
-      </IonPopover>
-
-      <IonPopover
-        isOpen={!!dropdown2Event}
-        event={dropdown2Event!}
-        onDidDismiss={() => setDropdown2Event(null)}
-      >
-        <IonContent>
-          <IonList>
-            <IonItem button>Dresses</IonItem>
-            <IonItem button>Skirts</IonItem>
-          </IonList>
-        </IonContent>
-      </IonPopover>
-    </>
+    </div>
   );
 };
 
-export default Header;
+export default Sample;
