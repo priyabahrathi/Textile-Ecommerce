@@ -86,7 +86,6 @@ const Product: React.FC = () => {
 
   return (
     <div className="page-product">
-      <div className='product-head'>Find Your Choice</div>
       <IonGrid>
         <IonRow>
           <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
@@ -134,9 +133,9 @@ const Product: React.FC = () => {
                   value={searchText}
                   onIonChange={(e) => setSearchText(e.detail.value!)}
                 />
-                <button className="search-button">
+                <IonButton className="search-button">
                   <IonIcon icon={search} />
-                </button>
+                </IonButton>
               </div>
             </IonCard>
 
@@ -148,14 +147,7 @@ const Product: React.FC = () => {
                 max={5000}
                 value={{ lower, upper }}
                 onIonChange={handleRangeChange}
-                style={{
-                  '--bar-background': '#00a698',
-                  '--bar-background-active': '#002642',
-                  '--knob-background': '#002642',
-                  '--pin-background': '#002642',
-                }}
               />
-
               <div className="range-values">
                 <IonLabel>Min Price: {lower}</IonLabel>
                 <IonLabel>Max Price: {upper}</IonLabel>
@@ -167,7 +159,7 @@ const Product: React.FC = () => {
                 <div className="filter-title">Categories</div>
                 <div className="filter-checkbox">
                   <ul className="left-align">
-                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
+                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women','Casuals Men','Casuals Women'].map((cat) => (
                       <li key={cat}>
                         <input
                           type="checkbox"
