@@ -11,6 +11,8 @@ import {
   IonInput,
   IonRange,
 } from '@ionic/react';
+import { SiGooglelens } from "react-icons/si";
+
 import { cart, search, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -167,6 +169,7 @@ const Product: React.FC = () => {
                 <div className="filter-title">Categories</div>
                 <div className="filter-checkbox">
                   <ul className="left-align">
+                    
                     {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
                       <li key={cat}>
                         <input

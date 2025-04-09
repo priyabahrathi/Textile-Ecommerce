@@ -141,6 +141,7 @@
 }
 
   ion-menu {
+    --width:250px;
     
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
     --ion-background-color: #FFF5ED !important;
@@ -149,6 +150,7 @@
   .close-icon{
     --color:black;
   }
+  
   
   ion-menu .menu-menu {
     
