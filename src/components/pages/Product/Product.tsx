@@ -86,6 +86,7 @@ const Product: React.FC = () => {
 
   return (
     <div className="page-product">
+      <div className='product-head'>Find Your Match</div>
       <IonGrid>
         <IonRow>
           <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
@@ -94,7 +95,7 @@ const Product: React.FC = () => {
                 filteredItems.map((product) => (
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
-                      <IonCard className="product-card">
+                      <div className="product-card">
                         <IonImg className="product-image" src={product.img} />
                         <IonCardContent>
                           <div className="product-data">
@@ -113,7 +114,7 @@ const Product: React.FC = () => {
                             </button>
                           </div>
                         </IonCardContent>
-                      </IonCard>
+                      </div>
                     </MotionCard>
                   </IonCol>
                 ))
@@ -125,7 +126,7 @@ const Product: React.FC = () => {
 
           {/* Sidebar */}
           <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">
-            <IonCard className="card-search">
+            <div className="card-search">
               <div className="search-bar">
                 <IonInput
                   className="search-input"
@@ -133,13 +134,13 @@ const Product: React.FC = () => {
                   value={searchText}
                   onIonChange={(e) => setSearchText(e.detail.value!)}
                 />
-                <IonButton className="search-button">
+                <button className="search-button">
                   <IonIcon icon={search} />
-                </IonButton>
+                </button>
               </div>
-            </IonCard>
+            </div>
 
-            <IonCard className="card-range">
+            <div className="card-range">
               <h1 className="range-title">Price Range</h1>
               <IonRange
                 dualKnobs={true}
@@ -147,19 +148,26 @@ const Product: React.FC = () => {
                 max={5000}
                 value={{ lower, upper }}
                 onIonChange={handleRangeChange}
+                style={{
+                  '--bar-background': '#F5CBA7',
+                  '--bar-background-active': '#E59866',
+                  '--knob-background': '#E59866',
+                  '--pin-background': '#F5CBA7'
+
+                }}
               />
               <div className="range-values">
                 <IonLabel>Min Price: {lower}</IonLabel>
                 <IonLabel>Max Price: {upper}</IonLabel>
               </div>
-            </IonCard>
+            </div>
 
             <div className="filter-section">
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
                 <div className="filter-checkbox">
                   <ul className="left-align">
-                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women','Casuals Men','Casuals Women'].map((cat) => (
+                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
                       <li key={cat}>
                         <input
                           type="checkbox"

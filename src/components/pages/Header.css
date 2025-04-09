@@ -1,15 +1,15 @@
 /* Container Styling */
 .container {
     height: 80px;
-    background: #00a69880; /* Light transparent background */
+    background: #e59966cc; /* Light transparent background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border-radius: 10px;
     border: 0px solid rgba(255, 255, 255, 0.2);
     padding: 20px;
-    max-width: 80%;
+    max-width: 90%;
     margin: auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 2px #7d7e7e;
 }
 
 /* Navigation Styling */
@@ -22,12 +22,12 @@
 
 .nav-item h3 {
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     margin: 0;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 2.5rem;
 }
-
+ 
 .nav-list {
     display: flex;
     gap: 20px;
@@ -42,29 +42,29 @@
 .nav-list li {
     position: relative;
     padding: 10px 15px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer;
     color: #ffffff;
     background: transparent;
     border-radius: 5px;
-    transition: background 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .main-content h3,li{
-    font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .nav-list li:hover {
     background: rgba(255, 255, 255, 0.2);
-    color: #002642;
+    
 }
 
 /* Dropdown Menu Styling */
+
 .dropdown {
     position: absolute;
     top: 40px;
     left: 0;
-    background: #72becb;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -91,16 +91,16 @@
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
-    color: rgb(255, 255, 255);
-    background: transparent;
+    color: #E59866;
+    /* background: transparent; */
     transition: color 0.3s ease-in-out;
 }
 
 
 .dropdown li:hover {
-    color: #002642;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
+    text-decoration: underline;
 }
 
 /* Navigation Icon Button */
@@ -108,8 +108,8 @@
     margin: 3px;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
    background: none;
   
     cursor: pointer;
@@ -117,22 +117,22 @@
 }
 
 .nav-icon button  {
-    font-size: 22px;
+    font-size: 30px;
     color: rgb(255, 255, 255);
     transition: color 0.3s ease;
 }
 
 
 
-.nav-icon button:hover  {
+/* .nav-icon button:hover  {
     color: #002642;
-}
+} */
 
 /* Mobile Navigation */
 .menu-icon {
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
     display: none;
-    font-size: 24px;
+    font-size: 40px;
     cursor: pointer;
     background: none;
     border: none;
@@ -143,71 +143,80 @@
   ion-menu {
     
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    --ion-background-color: #00a698 !important;
-    --ion-text-color: rgb(255, 255, 255) !important;
+    --ion-background-color: #FFF5ED !important;
+    --ion-text-color: #E59866 ;
+  }
+  .close-icon{
+    --color:black;
   }
   
   ion-menu .menu-menu {
     
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    --background: #00a698  !important;
+    --background: #FFF5ED  !important;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
   }
   ion-menu .menu-menu:hover{
-    color: #002642;
+    color: #FFF5ED ;
   }
   .head-list{
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-   background:  #00a698 ;
-   --ion-text-color: rgb(255, 255, 255) !important;
+   /* background:  #00a698 ; */
+   /* --ion-text-color: #E59866 !important; */
   }
 
 
   
-  .new:hover{
-    /* --color: blueviolet !important; */
+  /* .new:hover{
     --color: #002642 !important;
-  }
+  } */
   .head-list .head-item{
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    --background: #00a698  !important;
+    /* --background: #00a698  !important; */
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
   }
- 
+ .item{
+    background-color: #E59866;
+ }
   
   .ion-icon {
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    color: rgba(255, 255, 255, 0.753) !important;
+    color:#E59866 !important;
   }
 
   .color{
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    --background:#00a698 ;
+    --background:transparent;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
+    color: #ffffff;
 }
+
 .custom-item{
     font-size: 0.8rem;
 }
+.inner-icon{
+    color: #ffffff;
+}
 
 .custom-item:hover {
-    --background: rgba(255, 255, 255, 0.05);  /* Light gray background on hover */
-    --color: #002642;                /* This affects ion-label text */
-    transition: background-color 0.2s ease;
+    --background: #a7a2a2;  /* Light gray background on hover */
+    --color: #ffffff;                /* This affects ion-label text */
+    /* transition: background-color 0.2s ease; */
   }
   
   /* To target the ion-icon */
   .custom-item:hover ion-icon {
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-    color: #002642 !important;
+    color: #ffffff !important;
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }

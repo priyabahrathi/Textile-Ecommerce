@@ -1,6 +1,8 @@
 .arrival-body {
   font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
-  background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
+  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
+  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+  background-color: #FFF5ED;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,11 +204,33 @@
 
 /* Ensure the cards and buttons scale nicely on different screens */
 @media screen and (max-width: 768px) {
+  .arrival-body {
+    padding: 10px;
+  }
+
+  .slider-card {
+    width: calc(50% - 20px); /* 2 cards visible */
+  }
+
   .arrow {
     font-size: 1.5rem;
   }
 
   .buy-btn {
     font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .slider-card {
+    width: 100%; /* 1 card visible */
+  }
+
+  .buy-btn {
+    font-size: 0.8rem;
+  }
+
+  .arrow {
+    font-size: 1.2rem;
   }
 }

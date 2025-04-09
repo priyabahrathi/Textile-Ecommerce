@@ -1,6 +1,8 @@
 /*OverAll page*/
 .pagebrand {
-    background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important;
+    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important; */
+    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+    background-color: #FFF5ED;
 }
 
 .page-container {
@@ -24,10 +26,10 @@
     padding-bottom: 20px;
     animation: title 3s ease;
     position: relative;
-    color: #002642;
+    color: #E59866;
     letter-spacing: .015rem;
     margin-top: 0;
-    text-shadow: 0 0 15px #002642;
+    /* text-shadow: 0 0 15px #002642; */
 }
 
 /*Logos Styling*/
