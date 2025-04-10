@@ -64,7 +64,7 @@ const Product: React.FC = () => {
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
-      const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
+      const matchSearch = searchText ? product.name.toLowerCase().includes(searchText.toLowerCase()):[];
       const matchPrice = product.price >= lower && product.price <= upper;
       const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
       return matchSearch && matchPrice && matchCategory;
@@ -98,7 +98,7 @@ const Product: React.FC = () => {
                               ))}
                             </div>
                             <button className="btn-buy">
-                              <IonIcon icon={cart} /> Buy Now
+                              <IonIcon icon={cart} /><span>Buy Now</span> 
                             </button>
                           </div>
                         </IonCardContent>
@@ -165,7 +165,7 @@ const Product: React.FC = () => {
                 </IonList>
               </div>
               <button className="apply-filter-button" onClick={applyFilter}>
-                <IonIcon icon={options} /> Apply Filter
+                 Apply Filter
               </button>
             </div>
           </IonCol>
