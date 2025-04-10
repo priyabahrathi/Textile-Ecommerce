@@ -43,6 +43,7 @@ const Brand: React.FC = () => {
         <div className="brand-container">
           <Swiper
             slidesPerView={5}
+            spaceBetween={20}
             loop={true}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             modules={[Autoplay]}
@@ -54,8 +55,8 @@ const Brand: React.FC = () => {
             }}
           >
             {Brands.map((logo, index) => (
-              <SwiperSlide key={index} className="logo-slide">
-                <img className="logo-img" src={logo.img} alt="" />
+              <SwiperSlide key={index} className="logo">
+                <img className="logo" src={logo.img} alt="" />
               </SwiperSlide>
             ))}
           </Swiper>

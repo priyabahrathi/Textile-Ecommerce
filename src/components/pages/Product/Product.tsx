@@ -11,7 +11,10 @@ import {
   IonRange,
   IonList,
   IonItem
+  IonList,
+  IonItem
 } from '@ionic/react';
+import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -34,6 +37,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
+    <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
       {children}
     </motion.div>
   );
@@ -48,6 +52,8 @@ const Product: React.FC = () => {
   const [filteredItems, setFilteredItems] = useState(Products);
 
   useEffect(() => {
+    applyFilter();
+  }, [searchText, lower, upper, selectedCategory, Products]);
     applyFilter();
   }, [searchText, lower, upper, selectedCategory, Products]);
 
@@ -118,8 +124,12 @@ const Product: React.FC = () => {
               <div className="search-bar">
                 <input
                   type="text"
+                <input
+                  type="text"
                   placeholder="Search..."
                   value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="search-input"
                   onChange={(e) => setSearchText(e.target.value)}
                   className="search-input"
                 />
@@ -163,6 +173,19 @@ const Product: React.FC = () => {
                     </IonItem>
                   ))}
                 </IonList>
+                <IonList className='category-list'>
+                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
+                    <IonItem className='category-item' key={cat}>
+                      <input
+                    
+                        type="checkbox"
+                        checked={selectedCategory.includes(cat)}
+                        onChange={(e) => handleCheckBox(cat, e.target.checked)}
+                      />
+                      <IonLabel>{cat}</IonLabel>
+                    </IonItem>
+                  ))}
+                </IonList>
               </div>
               <button className="apply-filter-button" onClick={applyFilter}>
                  Apply Filter
@@ -176,3 +199,4 @@ const Product: React.FC = () => {
 };
 
 export default Product;
+
