@@ -10,11 +10,9 @@ interface Product {
   image: any;
   rating:number;
 }
-
 interface DataState {
   Products: Product[];
 }
-
 const initialState: DataState = {
   Products: [
     { id: 1, title: "shoes", price: "350", image:  productimg("3.png"),rating: 4.5 },
@@ -31,7 +29,6 @@ const initialState: DataState = {
     { id: 3, title: "shoes", price: "120", image: productimg("3.png"),rating: 5 },
   ],
 };
-
 const arrivalSlice = createSlice({
   name: "arrival",
   initialState,

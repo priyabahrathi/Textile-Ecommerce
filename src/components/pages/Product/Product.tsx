@@ -41,6 +41,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
+
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
