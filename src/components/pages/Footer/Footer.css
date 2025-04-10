@@ -1,6 +1,9 @@
 #zz
 {
-  background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
+  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+
+  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
+  background-color: #FFF5ED;
   padding:  5px 10px;
   margin: 0px 0px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -250,10 +253,6 @@
 {
   font-size: 15px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
-}
-#ab
-{
-  /* background-color: #00a698; */
 }
 .widget
 {

@@ -58,7 +58,7 @@ const Header: React.FC = () => {
         <IonContent style={{ background: "white" }} className="menu-menu">
           <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
             <IonMenuToggle>
-              <IonButton fill="clear">
+              <IonButton className="close-icon" fill="clear" size="large" >
                 <IonIcon icon={close} />
               </IonButton>
             </IonMenuToggle>
@@ -76,10 +76,10 @@ const Header: React.FC = () => {
                   <IonIcon className="ion-icon" icon={man} slot="start" />
                   <IonLabel>Men's</IonLabel>
                 </IonItem>
-                <div className="ion-padding item" slot="content">
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={shirt} slot="start" /> Shirts</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                <div className=" item " slot="content">
+                  <IonItem button className="color  custom-item "><IonIcon className="inner-icon" icon={shirt} slot="start" /> Shirts</IonItem>
+                  <IonItem button className="color custom-item "><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item "><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
                 </div>
               </IonAccordion>
 
@@ -88,10 +88,10 @@ const Header: React.FC = () => {
                   <IonIcon className="ion-icon" icon={woman} slot="start" />
                   <IonLabel>Women's</IonLabel>
                 </IonItem>
-                <div className="ion-padding" slot="content">
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={shirt} slot="start" /> Tops</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="ion-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                <div className="item" slot="content">
+                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={shirt} slot="start" /> Tops</IonItem>
+                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
                 </div>
               </IonAccordion>
             </IonAccordionGroup>
@@ -118,7 +118,7 @@ const Header: React.FC = () => {
         <header className="head">
           <div className="container">
             <div className="nav-item">
-              <h3>Algo-Tex</h3>
+              <h3 className="nav-logo">Algo-Tex</h3>
 
               {isMediumScreen ? (
                 <IonMenuButton menu="main-menu" className="menu-icon" />
@@ -147,7 +147,7 @@ const Header: React.FC = () => {
                       <li><IonIcon icon={bagHandle} /> Accessories</li>
                     </ul>
                   </li>
-                  <li>On Sale <FaTag /></li>
+                  <li> <FaTag /> On Sale</li>
                 </ul>
               )}
 

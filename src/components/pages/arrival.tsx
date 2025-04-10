@@ -28,9 +28,9 @@ const Arrival: React.FC = () => {
   useEffect(() => {
     const updateCardsPerView = () => {
       const width = window.innerWidth;
-      if (width >= 1024) setCardsPerView(3);
-      else if (width >= 768) setCardsPerView(2);
-      else setCardsPerView(1);
+      if (width >= 1024) setCardsPerView(3);  // 3 cards for large screens
+      else if (width >= 768) setCardsPerView(2);  // 2 cards for medium screens
+      else setCardsPerView(1);  // 1 card for small screens
     };
 
     updateCardsPerView();
@@ -84,7 +84,7 @@ const Arrival: React.FC = () => {
                   <IonCard className="arr-product">
                     <img className="card-img" src={product.image} alt={product.title} />
                     <IonCardHeader>
-                      <IonCardTitle className="product-title">
+                      <IonCardTitle className="card-title">
                         <strong>{product.title}</strong>
                       </IonCardTitle>
                     </IonCardHeader>
