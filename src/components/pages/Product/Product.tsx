@@ -2,7 +2,6 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonCard,
   IonCardContent,
   IonImg,
   IonButton,
@@ -10,10 +9,10 @@ import {
   IonLabel,
   IonInput,
   IonRange,
+  IonList,
+  IonItem
 } from '@ionic/react';
-import { SiGooglelens } from "react-icons/si";
-
-import { cart, search, options, star } from 'ionicons/icons';
+import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
 import { useSelector } from 'react-redux';
@@ -34,12 +33,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
   }, [inView]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={controls}
-      transition={{ duration: 1, ease: 'easeOut' }}
-    >
+    <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
       {children}
     </motion.div>
   );
@@ -47,7 +41,6 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
-
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
@@ -55,8 +48,8 @@ const Product: React.FC = () => {
   const [filteredItems, setFilteredItems] = useState(Products);
 
   useEffect(() => {
-    setFilteredItems(Products);
-  }, [Products]);
+    applyFilter();
+  }, [searchText, lower, upper, selectedCategory, Products]);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
@@ -71,18 +64,11 @@ const Product: React.FC = () => {
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
-      const matchSearch = product.name
-        .toLowerCase()
-        .includes(searchText.toLowerCase());
-      const matchPrice =
-        product.price >= lower && product.price <= upper;
-      const matchCategory =
-        selectedCategory.length === 0 ||
-        selectedCategory.includes(product.category);
-
+      const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
+      const matchPrice = product.price >= lower && product.price <= upper;
+      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
       return matchSearch && matchPrice && matchCategory;
     });
-
     setFilteredItems(result);
   };
 
@@ -130,15 +116,13 @@ const Product: React.FC = () => {
           <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">
             <div className="card-search">
               <div className="search-bar">
-                <IonInput
-                  className="search-input"
+                <input
+                  type="text"
                   placeholder="Search..."
                   value={searchText}
-                  onIonChange={(e) => setSearchText(e.detail.value!)}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="search-input"
                 />
-                <button className="search-button">
-                  <IonIcon icon={search} />
-                </button>
               </div>
             </div>
 
@@ -155,7 +139,6 @@ const Product: React.FC = () => {
                   '--bar-background-active': '#E59866',
                   '--knob-background': '#E59866',
                   '--pin-background': '#F5CBA7'
-
                 }}
               />
               <div className="range-values">
@@ -167,23 +150,20 @@ const Product: React.FC = () => {
             <div className="filter-section">
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
-                <div className="filter-checkbox">
-                  <ul className="left-align">
+                <IonList className='category-list'>
+                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
+                    <IonItem className='category-item' key={cat}>
+                      <input
                     
-                    {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
-                      <li key={cat}>
-                        <input
-                          type="checkbox"
-                          checked={selectedCategory.includes(cat)}
-                          onChange={(e) => handleCheckBox(cat, e.target.checked)}
-                        />
-                        <label>{cat}</label>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                        type="checkbox"
+                        checked={selectedCategory.includes(cat)}
+                        onChange={(e) => handleCheckBox(cat, e.target.checked)}
+                      />
+                      <IonLabel>{cat}</IonLabel>
+                    </IonItem>
+                  ))}
+                </IonList>
               </div>
-
               <button className="apply-filter-button" onClick={applyFilter}>
                 <IonIcon icon={options} /> Apply Filter
               </button>

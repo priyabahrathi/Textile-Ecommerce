@@ -190,17 +190,20 @@
     flex: 1;
     border: none;
     outline: none;
-    padding: 5px;
+    /* padding: 5px; */
     font-size: 14px;
     --highlight-color: #0054e900;
+    caret-color: #E59866;
+    color: #E59866;
+    
     
 }
-.search-input:active{
+/* .search-input:active{
     outline: none;
  
     box-shadow: none;
     border: 1px solid #838686;
-}
+} */
 
 /* Search Button */
 .search-button {
@@ -261,6 +264,13 @@
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
+}
+.category-list{
+    --background: transparent;
+}
+.category-item{
+    
+
 }
 /* Category Title */
 .filter-title {
