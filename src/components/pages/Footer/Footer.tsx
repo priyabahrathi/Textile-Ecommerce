@@ -1,11 +1,30 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonInput } from "@ionic/react";
 import { logoFacebook, logoTwitter, logoInstagram, paperPlaneOutline } from "ionicons/icons";
 import "./footer.css"
 const Footer: React.FC = () => {
+  const footerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && footerRef.current) {
+          footerRef.current.classList.add("visible");
+        }
+      },
+      { threshold: 0.20 }
+    );
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
   return (
     <IonFooter >
-      <div id="zz">
+      <div id="zz" ref={footerRef}>
         <IonGrid id="ab">
           <IonRow>
             <IonCol size="12" sizeMd="4">
@@ -43,7 +62,7 @@ const Footer: React.FC = () => {
                 <h6 className="widget-title">Newsletter</h6>
                 <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
                 <div className="newsletter-input">
-                  <IonInput type="email" placeholder="Email" className="form-control" />
+                  <IonInput type="email" placeholder="Mail" className="form-control" />
                   <IonButton  className="subscribe-button" >
                      <IonIcon icon={paperPlaneOutline} /> 
                      Subscribe
