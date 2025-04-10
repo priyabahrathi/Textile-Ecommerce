@@ -30,6 +30,47 @@ const fadeUpVariant = {
 };
 const Arrival: React.FC = () => {
   const Products = useSelector((state: RootState) => state.arrival.Products);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
+  const [cardWidth, setCardWidth] = useState(300);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Update cardsPerView based on screen size
+  useEffect(() => {
+    const updateCardsPerView = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) setCardsPerView(3);  // 3 cards for large screens
+      else if (width >= 768) setCardsPerView(2);  // 2 cards for medium screens
+      else setCardsPerView(1);  // 1 card for small screens
+    };
+
+    updateCardsPerView();
+    window.addEventListener("resize", updateCardsPerView);
+    return () => window.removeEventListener("resize", updateCardsPerView);
+  }, []);
+
+  // Update card width based on ref and cards per view
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (sliderRef.current) {
+        const width = sliderRef.current.offsetWidth;
+        setCardWidth(width / cardsPerView);
+      }
+    };
+
+    updateCardWidth();
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, [cardsPerView]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + cardsPerView) % Products.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - cardsPerView + Products.length) % Products.length);
+  };
+
   return (
     <>
     <motion.div

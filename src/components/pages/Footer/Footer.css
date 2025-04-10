@@ -1,6 +1,9 @@
 #zz
 {
-  background-color: #e6e6fa;
+  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+
+  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
+  background-color: #FFF5ED;
   padding:  5px 10px;
   margin: 0px 0px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -47,17 +50,15 @@
 }
 #cc
 {
-  background-color: #e6e6fa;
+
   padding: 0px 10px;
   margin: 0px;
   margin-top: 0px;
   margin-bottom: -150px;
   font-size: 15px;
-  /* height: 100%; */
-  /* overflow: auto; */
   min-height: 30vh;
-  overflow: auto;
-  padding-bottom: 50px;
+  overflow:auto;
+  padding-bottom: 60px;
 }
 .qq
 {
@@ -242,7 +243,13 @@
 #form-control
 {
   background-color: white;
-   
+  --border-radius: 0px;
+}
+.newsletter-input
+{
+  --border-radius: 0px;
+  max-width: 1000px;
+  border-radius: 0px
 }
 /* .bg-no-gradient
 {
@@ -257,7 +264,37 @@
 {
 
   font-size: 15px;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
-  margin: 0px auto;
-  padding: 0px 0px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+}
+.widget
+{
+  /* background-color: #00a698; */
+  background: transparent;
+}
+.bg-no-gradient
+{
+  /* background-color: #00a698; */
+  --background: transparent;
+}
+#cc
+{
+  /* background-color: #00a698; */
+  background: transparent;
+ 
+}
+.subscribe-button
+{
+  text-align: right;
+  justify-content: flex-end;
+}
+.v-center 
+{
+  background-color: #00a698; 
+  background: transparent;
+}
+
+.footer--area
+{
+  /* background-color: #00a698;  */
+  background: transparent;
 }

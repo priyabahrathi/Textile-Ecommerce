@@ -2,10 +2,43 @@
 /*OverAll Page*/
 .page-product {
     padding: 40px;
-    background: linear-gradient(175deg, #e8ecff 0%, #e6e4f9 40%, #e5d7f6 100%);
+    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+    background-color: #FFF5ED;
+    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
+}
+.product-head{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 45px;
+    font-weight: bold;
+    color: #E59866;
+    text-shadow: 0 0 2px #2f4644;
 }
 
-
+.col-card{
+    overflow-y: scroll;
+    height: 750px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #E59866; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #FFF5ED; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  /* ::-webkit-scrollbar-thumb:hover {
+     
+  } */
 /* Card Styling */
 .product-card,
 .card-search,
@@ -18,8 +51,8 @@
     transition: transform 0.3s ease-in-out;
     
 }
-.product-card:hover,
-.card-search:hover,
+
+
 .card-range:hover,
 .card-filter:hover,
 .card-size:hover{
@@ -30,7 +63,18 @@
 .product-card{
     animation-name: move;
     animation-duration: 2s;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 5px #a1a09f;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    margin: 15px 0;
+    
+}
+
+.product-card:hover{
+    border: 1px solid #E59866;
+    box-shadow: none;
 }
 /* @keyframes move {
     from{
@@ -60,21 +104,23 @@
     font-family: "Poppins", sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
-    color: black;
+    color: #863905;
 }
 
 
 .product-price {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: black;
-    font-family: "Poppins", sans-serif;
+    color: #909192;
+  font-size: 25px !important;
+  font-weight: bold !important;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 .product-category {
     font-family: "Poppins", sans-serif;
     text-align: start;
+    /* color: #E59866; */
+    /* text-shadow: 0 0 10px #002642; */
 }
 
 
@@ -91,19 +137,25 @@
 
 
 .btn-buy {
-    color: white;
-    background-color: #6f11f5;
+    color: #ffffff;
+    background-color: #E59866;
     border-radius: 10px;
     width: 170px !important;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: 20px;
 }
 .btn-buy:hover{
-    background-color: rgb(41, 78, 3);
+    border: 1px solid #E59866;
+    background-color: #ffffff;
+    color: #E59866;
+
 }
+
 /*Product Card Ends*/
 
 /* Sidebar Filters Starts*/
@@ -120,7 +172,8 @@
     margin: 15px 0;
     padding: 30px;
     border-radius: 1rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E59866;
+    /* box-shadow: 0 0 20px #002642; */
 }
 
 /* Search Bar */
@@ -138,16 +191,29 @@
     outline: none;
     padding: 5px;
     font-size: 14px;
+    --highlight-color: #0054e900;
+    
+}
+.search-input:active{
+    outline: none;
+ 
+    box-shadow: none;
+    border: 1px solid #838686;
 }
 
 /* Search Button */
 .search-button {
-    color: white;
-    border-radius: 50%;
-    padding: 8px;
+    color: #ffffff;
+    background-color: #E59866;
+    border-radius: 10px;
+    padding: 20px;
     cursor: pointer;
 }
-
+.search-button:hover{
+    color: #E59866;
+    background-color: #ffffff;
+    border: 1px solid #E59866;
+}
 /* Price Range Card */
 .card-range {
     background: rgba(255, 255, 255, 0.6);
@@ -156,13 +222,15 @@
     margin: 35px 0;
     padding: 20px 30px;
     border-radius: 1rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E59866;
+    /* box-shadow: 0 0 20px #002642; */
 }
 
 /* Range Title */
 .range-title {
     text-align: center;
-    color: black;
+    color: #863905;
+    font-size: 35px;
     font-weight: 700;
     margin-bottom: 25px;
     font-family: "Poppins", sans-serif;
@@ -172,7 +240,10 @@
 .range-values {
     display: flex;
     justify-content: space-around;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #E59866;
+    font-weight: 700;
+    font-size: 20px;
 }
 
 /* Filter Section */
@@ -181,17 +252,22 @@
 }
 /*Category-Card*/
 .card-filter{
-    margin: 35px 0;
-    padding: 20px 30px;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    margin: 15px 0;
+    padding: 30px;
+    border-radius: 1rem;
+    border: 1px solid #E59866;
+    /* box-shadow: 0 0 20px #002642; */
 }
 /* Category Title */
 .filter-title {
     text-align: center;
-    color: black;
+    color: #863905;
     font-weight: 700;
-    font-family: "Poppins", sans-serif;
-    font-size: 25px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 35px;
 }
 
 /* Category Checkbox */
@@ -202,6 +278,7 @@
 .filter-checkbox ul li
 {
     padding-right: 35px;
+
 }
 
 
@@ -224,7 +301,7 @@ input[type="checkbox"] {
 input[type="checkbox"]::after {
     content: "✔";
     font-size: 16px;
-    color: white;
+    color: #E59866;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -234,7 +311,7 @@ input[type="checkbox"]::after {
 
 /* Checkbox Checked */
 input[type="checkbox"]:checked {
-    background: #6f11f5;
+    background: #F5CBA7;
 }
 
 input[type="checkbox"]:checked::after {
@@ -244,33 +321,21 @@ input[type="checkbox"]:checked::after {
 /* Labels */
 label {
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    color: gray;
-}
-
-/* Card Size */
-.card-size {
-    padding: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-/*Size Checkbox*/
-.card-size .size-checkbox ul {
-    display: flex;
-    justify-content:space-evenly;
-    list-style: none;
-    padding-right: 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #E59866;
+    font-weight: 700;
 }
 
 /* Apply Filter Button */
 .apply-filter-button {
-    color: #fff;
-    background-color: #6f11f5;
+    color: #ffffff;
+    background-color:#E59866;
     border: 2px solid transparent;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 1.5rem;
     letter-spacing: 0.03rem;
     min-width: 9.25rem;
@@ -284,6 +349,9 @@ label {
 }
 .apply-filter-button:hover{
     box-shadow: none;
+    border: 1px solid #E59866;
+    background-color: #ffffff;
+    color: #E59866;
 
 }
 
@@ -300,9 +368,10 @@ label {
     .page-product {
         padding: 10px;
     }
-    .product-category {
+    /* .product-category {
         text-align: center !important;
-    }
+    } */
+    
 }
 /*Mobiles*/
 @media screen and (max-width: 768px) {
@@ -314,5 +383,9 @@ label {
     .rate-buy {
         flex-direction: column;
         align-items: center;
+    }
+    .product-head{
+        
+        font-size: 30px;
     }
 }

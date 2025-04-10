@@ -1,6 +1,8 @@
 /*OverAll page*/
-.pagebrand{
-        background: linear-gradient(to right bottom, #f5c6d3 0%, #fce5dc 40%, #d0effd 100%) !important;   
+.pagebrand {
+    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important; */
+    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+    background-color: #FFF5ED;
 }
 .page-container{
     margin-top: 210px;
@@ -22,10 +24,10 @@
     padding-bottom: 20px;
     animation: title 3s ease;
     position: relative;
-    color: #141A38;
+    color: #E59866;
     letter-spacing: .015rem;
     margin-top: 0;
-    text-shadow: 0 5px 10px #141A38;
+    /* text-shadow: 0 0 15px #002642; */
 }
 /*Logos Styling*/
 .logo{

@@ -1,8 +1,8 @@
 .arrival-body {
-  background-color: #efeaf4;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
+  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+  background-color: #fde3ca;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,24 +18,39 @@
 }
 
 .name {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
   font-size: 40px;
   font-weight: bold;
-  color: black;
+  color: #E59866;
   margin-bottom: 0px;
   margin-top: 5px;
 }
+.arr-product{
+ 
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    box-shadow: 5px 5px 5px #a1a09f;
+    margin: 15px 0;
+}
+.arr-product:hover{
+  transform: translateY(-5px);
+  box-shadow: none;
+}
 
 .buy-btn {
-
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 5px auto 15px;
   width: 70%;
   height: 40px;
-  color: white;
+  font-size: 20px;
   font-weight: bold;
-  background-color: #6f11f5;
+  color: #ffffff;
+  background-color: #E59866;
   border-radius: 10px;
   /* Smooth corners */
   cursor: pointer;
@@ -46,9 +61,10 @@
 }
 
 .buy-btn:hover {
-  background-color: #5709c4;
-  /* Slightly lighter on hover */
-  color: white;
+  background-color: #ffffff;
+  color: #E59866;
+  border: 1px solid #E59866;
+
   transform: scale(1);
   /* Slight zoom effect */
 }
@@ -67,8 +83,9 @@
 }
 
 .card-para p {
-  color: #6f11f5;
-  font-size: 20px !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  color: #909192;
+  font-size: 25px !important;
   font-weight: bold !important;
 }
 
@@ -80,6 +97,49 @@
 .card-icon {
   margin: 2px;
 }
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slider-card {
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #002642;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
 
 @media screen and (max-width:1025px) {
   .arrival-body {
@@ -100,9 +160,10 @@
     margin: 5px auto 15px;
     width: 70%;
     height: 40px;
-    color: white;
+  
     font-weight: bold;
-    background-color: #6f11f5;
+    color: #00a698;
+    background-color: #002642;
     border-radius: 10px;
     /* Smooth corners */
     cursor: pointer;
@@ -113,9 +174,8 @@
   }
 
   .buy-btn:hover {
-    background-color: #5709c4;
-    /* Slightly lighter on hover */
-    color: white;
+    background-color: #00a698;
+    color: #002642;
     transform: scale(1);
     /* Slight zoom effect */
   }
@@ -129,11 +189,6 @@
 
  
 
-  .price {
-    color: #6f11f5;
-    font-size: 20px;
-    font-weight: 700;
-  }
 
   .card-para p {
     color: #6f11f5;
@@ -148,5 +203,38 @@
 
   .card-icon {
     margin: 2px;
+  }
+}
+
+/* Ensure the cards and buttons scale nicely on different screens */
+@media screen and (max-width: 768px) {
+  .arrival-body {
+    padding: 10px;
+  }
+
+  .slider-card {
+    width: calc(50% - 20px); /* 2 cards visible */
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+  }
+
+  .buy-btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .slider-card {
+    width: 100%; /* 1 card visible */
+  }
+
+  .buy-btn {
+    font-size: 0.8rem;
+  }
+
+  .arrow {
+    font-size: 1.2rem;
   }
 }
