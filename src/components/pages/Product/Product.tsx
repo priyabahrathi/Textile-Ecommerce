@@ -11,10 +11,7 @@ import {
   IonRange,
   IonList,
   IonItem
-  IonList,
-  IonItem
 } from '@ionic/react';
-import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -37,7 +34,6 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
-    <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
       {children}
     </motion.div>
   );
@@ -54,8 +50,6 @@ const Product: React.FC = () => {
   useEffect(() => {
     applyFilter();
   }, [searchText, lower, upper, selectedCategory, Products]);
-    applyFilter();
-  }, [searchText, lower, upper, selectedCategory, Products]);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
@@ -70,7 +64,7 @@ const Product: React.FC = () => {
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
-      const matchSearch = searchText ? product.name.toLowerCase().includes(searchText.toLowerCase()):[];
+      const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchPrice = product.price >= lower && product.price <= upper;
       const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
       return matchSearch && matchPrice && matchCategory;
@@ -104,7 +98,7 @@ const Product: React.FC = () => {
                               ))}
                             </div>
                             <button className="btn-buy">
-                              <IonIcon icon={cart} /><span>Buy Now</span> 
+                              <IonIcon icon={cart} /> Buy Now
                             </button>
                           </div>
                         </IonCardContent>
@@ -124,12 +118,8 @@ const Product: React.FC = () => {
               <div className="search-bar">
                 <input
                   type="text"
-                <input
-                  type="text"
                   placeholder="Search..."
                   value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  className="search-input"
                   onChange={(e) => setSearchText(e.target.value)}
                   className="search-input"
                 />
@@ -173,22 +163,9 @@ const Product: React.FC = () => {
                     </IonItem>
                   ))}
                 </IonList>
-                <IonList className='category-list'>
-                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
-                    <IonItem className='category-item' key={cat}>
-                      <input
-                    
-                        type="checkbox"
-                        checked={selectedCategory.includes(cat)}
-                        onChange={(e) => handleCheckBox(cat, e.target.checked)}
-                      />
-                      <IonLabel>{cat}</IonLabel>
-                    </IonItem>
-                  ))}
-                </IonList>
               </div>
               <button className="apply-filter-button" onClick={applyFilter}>
-                 Apply Filter
+                <IonIcon icon={options} /> Apply Filter
               </button>
             </div>
           </IonCol>
@@ -199,4 +176,3 @@ const Product: React.FC = () => {
 };
 
 export default Product;
-

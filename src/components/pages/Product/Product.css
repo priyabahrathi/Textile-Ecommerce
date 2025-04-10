@@ -4,12 +4,7 @@
     /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
     background-color: #FFF5ED;
     /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
-    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
-    background-color: #FFF5ED;
-    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
 }
-
-.product-head {
 
 .product-head {
     text-align: center;
@@ -18,16 +13,12 @@
     font-weight: bold;
     color: #E59866;
     text-shadow: 0 0 2px #2f4644;
-    color: #E59866;
-    text-shadow: 0 0 2px #2f4644;
 }
 
-.col-card {
 .col-card {
     overflow-y: scroll;
     height: 750px;
 }
-
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -36,27 +27,13 @@
 /* Track */
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px #E59866;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #E59866;
     border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #FFF5ED;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #FFF5ED;
     border-radius: 10px;
-}
-
-/* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
 }
 
 /* Handle on hover */
@@ -69,33 +46,23 @@
 .card-range,
 .card-filter,
 .card-size {
-    border-radius: 20px;
-    background-color: #f5f5fd;
     text-align: center;
     transition: transform 0.3s ease-in-out;
 
-
 }
-
-
 
 
 .card-range:hover,
 .card-filter:hover,
 .card-size:hover {
-.card-size:hover {
     box-shadow: none;
-
 
 }
 
-
 /*Product Card*/
-.product-card {
 .product-card {
     animation-name: move;
     animation-duration: 2s;
-    box-shadow: 5px 5px 5px #a1a09f;
     box-shadow: 5px 5px 5px #a1a09f;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.6);
@@ -103,15 +70,12 @@
     -webkit-backdrop-filter: blur(4.5px);
     margin: 15px 0;
 
-
 }
 
-.product-card:hover {
 .product-card:hover {
     border: 1px solid #E59866;
     box-shadow: none;
 }
-
 
 /* @keyframes move {
     from{
@@ -129,9 +93,7 @@
 }
 
 .product-image {
-.product-image {
     height: 300px;
-
 
 }
 
@@ -139,16 +101,13 @@
     display: flex;
     justify-content: space-between;
 
-
 }
 
 
 .product-title {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 1.8rem;
     font-weight: bold;
-    color: #863905;
     color: #863905;
 }
 
@@ -158,18 +117,12 @@
     font-size: 25px !important;
     font-weight: bold !important;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 25px !important;
-    font-weight: bold !important;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 .product-category {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: start;
-    /* color: #E59866; */
-    /* text-shadow: 0 0 10px #002642; */
     /* color: #E59866; */
     /* text-shadow: 0 0 10px #002642; */
 }
@@ -188,24 +141,18 @@
 
 
 .btn-buy {
-    display: flex;
-    justify-content: space-around;
     color: #ffffff;
     background-color: #E59866;
     border-radius: 10px;
-    width: 170px !important;
+    width: 130px !important;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 700;
     font-size: 20px;
-    
 }
-
-.btn-buy:hover {
 
 .btn-buy:hover {
     border: 1px solid #E59866;
@@ -232,15 +179,13 @@
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
-    border: 1px solid #E59866;
-    /* box-shadow: 0 0 20px #002642; */
 }
 
 /* Search Bar */
 .search-bar {
     display: flex;
     align-items: center;
-    border-radius: 15px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.6);
 }
 
@@ -249,9 +194,8 @@
     flex: 1;
     border: none;
     border-radius: 10px;
-    border-radius: 10px;
     outline: none;
-    padding: 20px;
+    padding: 15px;
     font-size: 14px;
     --highlight-color: #0054e900;
     caret-color: #E59866;
@@ -260,12 +204,7 @@
 
 .search-input::placeholder {
     color: #E59866;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: 700;
-    font-size: 18px;
 }
-
-/* .search-input:active{
 
 /* .search-input:active{
     outline: none;
@@ -273,28 +212,21 @@
     box-shadow: none;
     border: 1px solid #838686;
 } */
-} */
 
 /* Search Button */
 .search-button {
     color: #ffffff;
     background-color: #E59866;
-    color: #ffffff;
-    background-color: #E59866;
     border-radius: 10px;
-    padding: 20px;
     padding: 20px;
     cursor: pointer;
 }
-
-.search-button:hover {
 
 .search-button:hover {
     color: #E59866;
     background-color: #ffffff;
     border: 1px solid #E59866;
 }
-
 
 /* Price Range Card */
 .card-range {
@@ -306,8 +238,6 @@
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
-    border: 1px solid #E59866;
-    /* box-shadow: 0 0 20px #002642; */
 }
 
 /* Range Title */
@@ -315,11 +245,8 @@
     text-align: center;
     color: #863905;
     font-size: 35px;
-    color: #863905;
-    font-size: 35px;
     font-weight: 700;
     margin-bottom: 25px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
@@ -328,10 +255,8 @@
     display: flex;
     justify-content: space-around;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #E59866;
     font-weight: 700;
-    font-size: 20px;
     font-size: 20px;
 }
 
@@ -340,9 +265,7 @@
     margin-top: 35px;
 }
 
-
 /*Category-Card*/
-.card-filter {
 .card-filter {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
@@ -360,35 +283,21 @@
 
 .category-item {}
 
-
-.category-list {
-    --background: transparent;
-}
-
-.category-item {}
-
 /* Category Title */
 .filter-title {
     text-align: center;
     color: #863905;
-    color: #863905;
     font-weight: 700;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 35px;
 }
 
 /* Category Checkbox */
 .filter-checkbox ul {
-.filter-checkbox ul {
     list-style: none;
 
 
-
-
 }
-
-.left-align {
 
 .left-align {
     padding-left: 80px;
@@ -396,10 +305,7 @@
 }
 
 .filter-checkbox ul li {
-
-.filter-checkbox ul li {
     padding-right: 35px;
-
 
 }
 
@@ -411,7 +317,7 @@ input[type="checkbox"] {
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     position: relative;
@@ -424,7 +330,6 @@ input[type="checkbox"]::after {
     content: "✔";
     font-size: 16px;
     color: #E59866;
-    color: #E59866;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -434,7 +339,6 @@ input[type="checkbox"]::after {
 
 /* Checkbox Checked */
 input[type="checkbox"]:checked {
-    background: #F5CBA7;
     background: #F5CBA7;
 }
 
@@ -446,9 +350,7 @@ input[type="checkbox"]:checked::after {
 label {
     margin-left: 10px;
     font-size: 20px;
-    font-size: 20px;
     cursor: pointer;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #E59866;
     font-weight: 700;
@@ -456,30 +358,24 @@ label {
 
 /* Apply Filter Button */
 .apply-filter-button {
-    
     color: #ffffff;
     background-color: #E59866;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 2px solid transparent;
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 20px;
-    /* line-height: 1.5rem; */
+    line-height: 1.5rem;
     letter-spacing: 0.03rem;
-    /* min-width: 9.25rem; */
+    min-width: 9.25rem;
     border-radius: 0.9rem;
-    padding: 0.75rem 2.7rem;
-    /* white-space: nowrap; */
+    padding: 0.75rem 2.5rem;
+    white-space: nowrap;
     width: 100%;
-    margin-top: 35px;
     transition: all 0.3s ease-in-out;
 }
 
 .apply-filter-button:hover {
-
-.apply-filter-button:hover {
     box-shadow: none;
-    border: 1px solid #E59866;
-    background-color: #ffffff;
-    color: #E59866;
     border: 1px solid #E59866;
     background-color: #ffffff;
     color: #E59866;
@@ -489,25 +385,24 @@ label {
 
 /*Responsive*/
 /*Desktop*/
+
 @media screen and (max-width: 1580px) {
     .btn-buy {
         width: 120px;
     }
 }
+
 /*Tablets*/
 @media only screen and (max-width: 1200px) {
     .page-product {
         padding: 10px;
     }
 
-
     /* .product-category {
         text-align: center !important;
     } */
 
-
 }
-
 
 /*Mobiles*/
 @media screen and (max-width: 768px) {
@@ -520,9 +415,6 @@ label {
         flex-direction: column;
         align-items: center;
     }
-
-    .product-head {
-
 
     .product-head {
 
