@@ -1,8 +1,6 @@
 .arrival-body {
-  background-color: #efeaf4;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+  background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,13 +14,21 @@
 .card-img{
   width: 300px;
 }
+.product-title{
+  color: white;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+}
 
 .name {
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
   font-size: 40px;
   font-weight: bold;
-  color: black;
+  color: rgb(255, 255, 255);
   margin-bottom: 0px;
   margin-top: 5px;
+}
+.arr-product{
+  background-color: #00a69877;
 }
 
 .buy-btn {
@@ -68,6 +74,7 @@
 }
 
 .card-para p {
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
   color: #6f11f5;
   font-size: 20px !important;
   font-weight: bold !important;
@@ -81,6 +88,48 @@
 .card-icon {
   margin: 2px;
 }
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slider-card {
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #6f11f5;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
 
 
 @media screen and (max-width:1025px) {
@@ -89,7 +138,7 @@
     height: auto;
   }
 
-  .card-container {
+  .product-card {
     width: 100%;
     margin: auto;
   }
@@ -139,7 +188,7 @@
 
   .card-para p {
     color: #6f11f5;
-    font-size: 10px !important;
+    font-size: 15px !important;
     font-weight: bold !important;
   }
 
@@ -152,95 +201,14 @@
     margin: 2px;
   }
 }
-.arrival-body {
-  padding: 1rem;
-  position: relative;
-}
 
-.name {
-  font-size: 24px;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-/* --- Carousel Wrapper Enhancements --- */
-.carousel-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 20px;
-  overflow: hidden;
-}
-
-/* --- Card Container --- */
-.card-carousel-container {
-  overflow: hidden;
-  scroll-behavior: smooth;
-  width: 100%;
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* --- Carousel Track --- */
-.carousel-track {
-  display: flex;
-  column-gap: 20px;
-  transition: transform 0.5s ease-in-out;
-  will-change: transform;
-}
-
-/* --- Card Wrapper (3 Cards at a Time) --- */
-.carousel-card-wrapper {
-  flex: 0 0 calc(100% / 3 - 14px);
-  min-width: 250px;
-  scroll-snap-align: center;
-}
-
-/* --- Arrows with Icon Style --- */
-.arrow {
-  background-color: rgba(106, 13, 173, 0.9);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 0.5rem 0.8rem;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: background 0.3s ease;
-}
-
-.arrow:hover {
-  background-color: rgba(87, 9, 196, 0.95);
-}
-
-.arrow.left {
-  left: 0;
-}
-
-.arrow.right {
-  right: 0;
-}
-
-/* --- Mobile Responsive Card Count --- */
-@media (max-width: 768px) {
-  .carousel-card-wrapper {
-    flex: 0 0 calc(100% / 2 - 10px);
-  }
-
+/* Ensure the cards and buttons scale nicely on different screens */
+@media screen and (max-width: 768px) {
   .arrow {
     font-size: 1.5rem;
-    padding: 8px;
   }
-}
 
-@media (max-width: 480px) {
-  .carousel-card-wrapper {
-    flex: 0 0 80%;
+  .buy-btn {
+    font-size: 0.9rem;
   }
 }

@@ -12,6 +12,7 @@ import { IonApp, IonPage } from "@ionic/react";
 import "./Master.css"
 import Footer from "./components/pages/Footer/Footer";
 
+
 const Master: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page?.currentPage);
   console.log("currentpagemaster", currentPage);
@@ -26,10 +27,12 @@ const Master: React.FC = () => {
       
       <Hero />
           <Arrival />
+          {/* <Sample /> */}
           <Product />
           <Brand />
-           <Footer /> 
+          <Footer />
     </>
   );
 };
+
 export default Master;

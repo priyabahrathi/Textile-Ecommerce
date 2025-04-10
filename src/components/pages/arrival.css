@@ -12,9 +12,11 @@
   padding: 40px;
 
 }
+
 .card-img{
   width: 300px;
 }
+
 
 .name {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
@@ -59,6 +61,7 @@
   /* Soft glow effect */
 }
 
+
 .buy-btn:hover {
   background-color: #ffffff;
   color: #E59866;
@@ -75,11 +78,6 @@
   margin-top: 5px;
 }
 
-.price {
-  color: #6f11f5;
-  font-size: 20px;
-  font-weight: 700;
-}
 
 .card-para p {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
@@ -146,7 +144,7 @@
     height: auto;
   }
 
-  .card-container {
+  .product-card {
     width: 100%;
     margin: auto;
   }
@@ -191,7 +189,7 @@
 
   .card-para p {
     color: #6f11f5;
-    font-size: 10px !important;
+    font-size: 15px !important;
     font-weight: bold !important;
   }
 
