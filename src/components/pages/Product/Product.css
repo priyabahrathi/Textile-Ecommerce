@@ -278,10 +278,14 @@
 }
 
 .category-list {
-    --background: transparent;
+/* --background: transparent; */
+background: none;
 }
 
-.category-item {}
+.category-item {
+    --background: transparent;
+    
+}
 
 /* Category Title */
 .filter-title {
