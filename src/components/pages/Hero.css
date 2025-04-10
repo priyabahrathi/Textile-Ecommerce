@@ -79,7 +79,6 @@ body {
   background: #d45907;
   /* Slightly lighter on hover */
   color: #ffffff;
-  font-size: 22px;
   height: 50px;
   border-radius: 50%;
   width: 50px;
@@ -101,15 +100,15 @@ body {
   align-items: center;
 }
 
-.arr-btn {
-  height: 50px;
+
+.arrival-btn button {
   margin: 5px;
   /* Semi-transparent background */
 
   border: 1px solid rgba(255, 255, 255, 0.3);
   /* Subtle border */
   padding: 12px 24px;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: bold;
 
   background: #d45907;
@@ -120,10 +119,10 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
+
 }
-.arr-btn:hover {
+
+.arrival-btn button:hover {
   color: #d45907;
   background: #ffffff;
   border: 1px solid #d45907;

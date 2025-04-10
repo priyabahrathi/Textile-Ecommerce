@@ -87,10 +87,6 @@
 }
 
 .card-title {
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
- 
-  font-weight: bold;
-  color: #863905;
   font-size: 20px !important;
   font-weight: bold !important;
 }
@@ -212,10 +208,7 @@
   .arrival-body {
     padding: 10px;
   }
-  .card-img{
-    width: 200px;
-  }
-  
+
   .slider-card {
     width: calc(50% - 20px); /* 2 cards visible */
   }
@@ -233,18 +226,12 @@
   .slider-card {
     width: 100%; /* 1 card visible */
   }
-  .slider-container {
-   
-    padding: 10px 20px;
-    
-  }
 
   .buy-btn {
     font-size: 0.8rem;
   }
 
   .arrow {
-    padding: 10px 20px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }

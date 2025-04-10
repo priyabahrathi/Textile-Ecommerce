@@ -4,6 +4,7 @@ const productimg = (imageName: string) => {
   return new URL(`../../assets/Product/${imageName}`, import.meta.url).href;
 };
 interface Product {
+  toLowerCase(): unknown;
   id: number,
   name: string;
   price: number;
