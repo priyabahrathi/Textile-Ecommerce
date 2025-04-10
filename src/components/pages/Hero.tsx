@@ -10,15 +10,9 @@ import { FaTags } from "react-icons/fa";
 import Header from "./Header";
 import Sample from "./head/sample";
 
-
-
 const Hero: React.FC = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.page.products);
-
-
-
-
   return (
     <>
     
@@ -27,7 +21,6 @@ const Hero: React.FC = () => {
      <Header/>
      {/* <Sample/> */}
       <div className="hero">
-       
         <div className="hero-content">
         <h2>Fashion <span className="year">2025</span></h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, labore.</p>
@@ -37,15 +30,9 @@ const Hero: React.FC = () => {
       </div>
       </div>
       </div>
-      
-      
-     
-      
-   
     </section>
     </div>
     </>
   );
 };
-
 export default Hero;

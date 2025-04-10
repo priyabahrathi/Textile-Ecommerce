@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 const BrandLogo = (imageName: string) => {
     return new URL(`../../assets/Brand/${imageName}`, import.meta.url).href;
-  };
-
+};
 interface Brand {
   id: number;
   img: any;
 }
-
 interface DataState {
   Brands: Brand[];
 }
-
 const initialState: DataState = {
     Brands: [
         {
@@ -54,7 +51,6 @@ const initialState: DataState = {
             img: BrandLogo("logo19.png"),
             id:9
         }
-        
       ],
 };
 
