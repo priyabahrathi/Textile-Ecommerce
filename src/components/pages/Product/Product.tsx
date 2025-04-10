@@ -84,8 +84,8 @@ const Product: React.FC = () => {
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
                       <div className="product-card">
-                        <IonImg className="product-image" src={product.img} />
-                        <IonCardContent>
+                        <img className="product-image" src={product.img} />
+                        <IonCardContent className='data'>
                           <div className="product-data">
                             <div className="product-title">{product.name}</div>
                             <div className="product-price">&#8377;{product.price}</div>
@@ -98,7 +98,7 @@ const Product: React.FC = () => {
                               ))}
                             </div>
                             <button className="btn-buy">
-                              <IonIcon icon={cart} /> Buy Now
+                              <IonIcon icon={cart} /> <span>Buy Now</span>
                             </button>
                           </div>
                         </IonCardContent>
@@ -150,23 +150,23 @@ const Product: React.FC = () => {
             <div className="filter-section">
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
-                <IonList className='category-list'>
+                <ul className='category-list'>
                   {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
-                    <IonItem className='category-item' key={cat}>
+                    <li className='category-item' key={cat}>
                       <input
-                    
+                        className='cat-input'
                         type="checkbox"
                         checked={selectedCategory.includes(cat)}
                         onChange={(e) => handleCheckBox(cat, e.target.checked)}
                       />
-                      <IonLabel>{cat}</IonLabel>
-                    </IonItem>
+                      <IonLabel className='cat-label'>{cat}</IonLabel>
+                    </li>
                   ))}
-                </IonList>
+                </ul>
               </div>
-              <button className="apply-filter-button" onClick={applyFilter}>
-                <IonIcon icon={options} /> Apply Filter
-              </button>
+              {/* <button className="apply-filter-button" onClick={applyFilter}>
+                 Apply Filter
+              </button> */}
             </div>
           </IonCol>
         </IonRow>

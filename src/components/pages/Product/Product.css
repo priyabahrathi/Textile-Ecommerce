@@ -13,6 +13,7 @@
     font-weight: bold;
     color: #E59866;
     text-shadow: 0 0 2px #2f4644;
+    margin-bottom: 30px;
 }
 
 .col-card {
@@ -65,7 +66,8 @@
     animation-duration: 2s;
     box-shadow: 5px 5px 5px #a1a09f;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.6);
+    /* background: rgba(255, 255, 255, 0.6); */
+    
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
     margin: 15px 0;
@@ -91,9 +93,13 @@
 .product-card:hover {
     transform: translateY(-5px);
 }
-
+.data{
+    
+}
 .product-image {
     height: 300px;
+    width: auto;
+    
 
 }
 
@@ -141,6 +147,8 @@
 
 
 .btn-buy {
+    display: flex;
+    justify-content: space-evenly;
     color: #ffffff;
     background-color: #E59866;
     border-radius: 10px;
@@ -213,20 +221,8 @@
     border: 1px solid #838686;
 } */
 
-/* Search Button */
-.search-button {
-    color: #ffffff;
-    background-color: #E59866;
-    border-radius: 10px;
-    padding: 20px;
-    cursor: pointer;
-}
 
-.search-button:hover {
-    color: #E59866;
-    background-color: #ffffff;
-    border: 1px solid #E59866;
-}
+
 
 /* Price Range Card */
 .card-range {
@@ -278,13 +274,25 @@
 }
 
 .category-list {
-/* --background: transparent; */
-background: none;
+    list-style-type: none;
+    width:250px;
+    margin: auto;
+    padding-top: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #E59866;
 }
 
 .category-item {
-    --background: transparent;
-    
+    display: flex;
+    padding-bottom: 5px;
+}
+.cat-input{
+    padding-right: 5px;
+}
+.cat-label{
+    padding-left: 5px;
 }
 
 /* Category Title */
@@ -319,7 +327,7 @@ background: none;
 input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    width: 20px;
+    width:20px;
     height: 20px;
     background: #ffffff;
     border-radius: 5px;
@@ -351,21 +359,21 @@ input[type="checkbox"]:checked::after {
 }
 
 /* Labels */
-label {
+/* label {
     margin-left: 10px;
     font-size: 20px;
     cursor: pointer;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #E59866;
     font-weight: 700;
-}
+} */
 
 /* Apply Filter Button */
-.apply-filter-button {
+/* .apply-filter-button {
     color: #ffffff;
     background-color: #E59866;
     border: 2px solid transparent;
-    font-family: "Poppins", sans-serif;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
     font-size: 20px;
     line-height: 1.5rem;
@@ -384,7 +392,7 @@ label {
     background-color: #ffffff;
     color: #E59866;
 
-}
+} */
 
 
 /*Responsive*/
