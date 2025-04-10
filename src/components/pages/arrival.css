@@ -12,11 +12,9 @@
   padding: 40px;
 
 }
-
 .card-img{
   width: 300px;
 }
-
 
 .name {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
@@ -61,7 +59,6 @@
   /* Soft glow effect */
 }
 
-
 .buy-btn:hover {
   background-color: #ffffff;
   color: #E59866;
@@ -78,6 +75,11 @@
   margin-top: 5px;
 }
 
+.price {
+  color: #6f11f5;
+  font-size: 20px;
+  font-weight: 700;
+}
 
 .card-para p {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
@@ -87,10 +89,6 @@
 }
 
 .card-title {
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
- 
-  font-weight: bold;
-  color: #863905;
   font-size: 20px !important;
   font-weight: bold !important;
 }
@@ -148,7 +146,7 @@
     height: auto;
   }
 
-  .product-card {
+  .card-container {
     width: 100%;
     margin: auto;
   }
@@ -193,7 +191,7 @@
 
   .card-para p {
     color: #6f11f5;
-    font-size: 15px !important;
+    font-size: 10px !important;
     font-weight: bold !important;
   }
 
@@ -212,10 +210,7 @@
   .arrival-body {
     padding: 10px;
   }
-  .card-img{
-    width: 200px;
-  }
-  
+
   .slider-card {
     width: calc(50% - 20px); /* 2 cards visible */
   }
@@ -233,18 +228,12 @@
   .slider-card {
     width: 100%; /* 1 card visible */
   }
-  .slider-container {
-   
-    padding: 10px 20px;
-    
-  }
 
   .buy-btn {
     font-size: 0.8rem;
   }
 
   .arrow {
-    padding: 10px 20px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
