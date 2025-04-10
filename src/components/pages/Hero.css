@@ -72,13 +72,13 @@ body {
 }
 
 .year {
-  color: #ffffff;
+  color: #555352;
 }
 
 .hero-buttons .icon-btn {
-  background: #FFF5ED;
+  background: #d45907;
   /* Slightly lighter on hover */
-  color: #E59866;
+  color: #ffffff;
   height: 50px;
   border-radius: 50%;
   width: 50px;
@@ -88,8 +88,9 @@ body {
 
 .icon-btn:hover {
 
-  color: #FFF5ED;
-  background-color: #E59866;
+  color: #d45907;
+  background-color: #ffffff;
+  border: 1px solid #d45907;
 }
 
 .hero-buttons {
@@ -110,9 +111,9 @@ body {
   font-size: 18px;
   font-weight: bold;
 
-  background: #FFF5ED;
+  background: #d45907;
   /* Slightly lighter on hover */
-  color: #E59866;
+  color: #ffffff;
   border-radius: 25px;
   /* Smooth corners */
   cursor: pointer;
@@ -122,10 +123,10 @@ body {
 }
 
 .arrival-btn button:hover {
-  color: #FFF5ED;
-  background: #E59866;
+  color: #d45907;
+  background: #ffffff;
+  border: 1px solid #d45907;
   transform: scale(1);
-  /* Slight zoom effect */
 }
 
 @keyframes slideDown {

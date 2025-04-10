@@ -159,7 +159,7 @@ const Product: React.FC = () => {
                 }}
               />
               <div className="range-values">
-                <IonLabel>Min Price: {lower}</IonLabel>
+                <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
                 <IonLabel>Max Price: {upper}</IonLabel>
               </div>
             </div>
