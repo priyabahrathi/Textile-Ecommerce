@@ -7,8 +7,6 @@
 .page-container{
     margin-top: 210px;
 }
-
-
 /*Brand Container*/
 .brand-container{
     padding-bottom: 250px;
@@ -44,15 +42,12 @@
     .page-container{
         margin-top: 600px;
     }
-    
-    
     /*Brand Container*/
     .brand-container{
         padding-bottom: 600px;
         margin-left: 50px;
         margin-right: 50px;
     }
-    
 }
 /*Mobiles*/
 @media only screen and (max-width:700px) {
@@ -67,8 +62,7 @@
         padding-bottom: 260px;
         margin-left: 50px;
         margin-right: 50px;
-    }
-    
+    }   
 }
 @media only screen and (max-height:900px) {
     

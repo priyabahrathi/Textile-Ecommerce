@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
             </IonCol>
             <IonCol size="12" sizeMd="4">
               <div className="widget">
-                <h6 className="widget-title">Links List</h6>
+                <h6 className="widget-title" id="ii">Links List</h6>
                 <IonRow id="dd">
                   <IonCol size="6">
                     <ul className="menu-list">
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                 </IonRow>
               </div>
             </IonCol>
-            <IonCol size="5" sizeMd="4">
+            <IonCol size="12" sizeMd="4">
                <div className="widget"> 
                 <h6 className="widget-title">Newsletter</h6>
                 <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
@@ -53,14 +53,13 @@ const Footer: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-      
       <IonToolbar className="bg-no-gradient">
         <IonGrid  id="cc">
-           <IonRow className="v-center mobile-center"> 
+           <IonRow className="v-center mobile-center" > 
             <IonCol size="10" sizeMd="6" className="footer-left-area">
               <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
             </IonCol>
-            <IonCol size="12" sizeMd="12" className="footer-right-area">
+            <IonCol size="12" sizeMd="12" className="footer-right-area" >
               <p className="footer-social">
                 <IonButton className="social-btn" href="#" fill="clear">
                   <IonIcon id="z" icon={logoFacebook} />
@@ -77,7 +76,6 @@ const Footer: React.FC = () => {
         </IonGrid>
       </IonToolbar>
       </div>
-
     </IonFooter>
   );
 };

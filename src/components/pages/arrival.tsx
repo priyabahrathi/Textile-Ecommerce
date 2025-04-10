@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store/store";
 import { motion } from "framer-motion"; // ✅ Import Framer Motion

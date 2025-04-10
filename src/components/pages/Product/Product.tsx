@@ -1,9 +1,4 @@
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonGrid,
   IonRow,
   IonCol,
@@ -12,7 +7,6 @@ import {
   IonImg,
   IonButton,
   IonIcon,
-  IonCheckbox,
   IonLabel,
   IonInput,
   IonRange,
@@ -20,50 +14,84 @@ import {
 import { SiGooglelens } from "react-icons/si";
 
 import { cart, search, options, star } from 'ionicons/icons';
-import { Children, useState } from 'react';
-import "./Product.css";
+import { useState, useEffect, useRef } from 'react';
+import './Product.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
-import {easeOut, motion,useAnimation} from "framer-motion";
-import { useEffect,useRef } from 'react';
-import { useInView } from 'framer-motion';
-const MotionCard =({children}:{children:React.ReactNode})=>{
-  const ref=useRef(null);
-  const inView=useInView(ref,{once:false});
-  const controls=useAnimation();
-  useEffect(()=>{
-    if(inView){
-      controls.start({opacity:1,padding:0});
-    }
-    else{
-      controls.start({opacity:0,padding:10})
-    }
-  },[inView]);
-  return(
-    <motion.div 
-    ref={ref}
-    initial={{opacity:0,padding:10}}
-    animate={controls}
-    transition={{duration:0.5,ease:"easeOut"}}
+import { motion, useAnimation, useInView } from 'framer-motion';
 
-    >{children}</motion.div>
-  )
-}
+const MotionCard = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start({ opacity: 0, y: 50 });
+    }
+  }, [inView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={controls}
+      transition={{ duration: 1, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
+
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  const [filteredItems, setFilteredItems] = useState(Products);
+
+  useEffect(() => {
+    setFilteredItems(Products);
+  }, [Products]);
+
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
     setUpper(e.detail.value.upper);
   };
+
+  const handleCheckBox = (category: string, checked: boolean) => {
+    setSelectedCategory((prev) =>
+      checked ? [...prev, category] : prev.filter((c) => c !== category)
+    );
+  };
+
+  const applyFilter = () => {
+    const result = Products.filter((product) => {
+      const matchSearch = product.name
+        .toLowerCase()
+        .includes(searchText.toLowerCase());
+      const matchPrice =
+        product.price >= lower && product.price <= upper;
+      const matchCategory =
+        selectedCategory.length === 0 ||
+        selectedCategory.includes(product.category);
+
+      return matchSearch && matchPrice && matchCategory;
+    });
+
+    setFilteredItems(result);
+  };
+
   return (
     <div className="page-product">
       <div className='product-head'>Find Your Match</div>
       <IonGrid>
         <IonRow>
-          <IonCol className='col-product ion-padding' sizeMd='12' sizeLg='12' sizeXl='8'>
+          <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
             <IonRow>
               {filteredItems.length > 0 ? (
                 filteredItems.map((product) => (
@@ -155,39 +183,10 @@ const Product: React.FC = () => {
                   </ul>
                 </div>
               </div>
-              <div className='card-size'>
-                <div className='filter-title'>Sizes</div>
-                <div className='size-checkbox'>
-                  <ul className='list-pack'>
-                    <li className='list'>
-                      <input type="checkbox" id="category1" name="category" value="1" />
-                      <label>XS</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category2" name="category" value="2" />
-                      <label>S</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category3" name="category" value="3" />
-                      <label>M</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category4" name="category" value="4" />
-                      <label>L</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category5" name="category" value="5" />
-                      <label>XL</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category5" name="category" value="5" />
-                      <label>XXL</label>
-                    </li>
-                  </ul>
-                </div>
 
-              </div>
-              <button className='apply-filter-button'><IonIcon icon={options}  /> Apply Filter</button>
+              <button className="apply-filter-button" onClick={applyFilter}>
+                <IonIcon icon={options} /> Apply Filter
+              </button>
             </div>
           </IonCol>
         </IonRow>
