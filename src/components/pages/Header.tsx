@@ -34,6 +34,7 @@ import {
 } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
 import "./Header.css";
+
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth <= 1057);
@@ -49,6 +50,7 @@ const Header: React.FC = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <>
       {/* Ionic Side Menu (Now on Left Side) */}
@@ -61,6 +63,7 @@ const Header: React.FC = () => {
               </IonButton>
             </IonMenuToggle>
           </div>
+
           <IonList className="head-list">
             <IonItem button className="head-item custom-item">
               <IonIcon className="ion-icon" icon={home} slot="start" />
@@ -79,6 +82,7 @@ const Header: React.FC = () => {
                   <IonItem button className="color custom-item "><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
                 </div>
               </IonAccordion>
+
               <IonAccordion value="women">
                 <IonItem slot="header" className="head-item custom-item">
                   <IonIcon className="ion-icon" icon={woman} slot="start" />
@@ -109,6 +113,7 @@ const Header: React.FC = () => {
           </div>
         </IonContent>
       </IonMenu>
+
       <div id="main-content">
         <header className="head">
           <div className="container">
@@ -122,6 +127,7 @@ const Header: React.FC = () => {
                   <IoMenu />
                 </button>
               )}
+
               {!isMediumScreen && (
                 <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
                   <li style={{ color: 'white' }}><IoHome /> Home</li>
@@ -144,6 +150,7 @@ const Header: React.FC = () => {
                   <li> <FaTag /> On Sale</li>
                 </ul>
               )}
+
               {!isMediumScreen && (
                 <div className="nav-icon">
                   <button><IoCart /></button>
@@ -157,4 +164,5 @@ const Header: React.FC = () => {
     </>
   );
 };
+
 export default Header;

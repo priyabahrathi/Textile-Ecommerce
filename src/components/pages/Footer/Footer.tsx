@@ -5,8 +5,8 @@ import "./footer.css"
 const Footer: React.FC = () => {
   return (
     <IonFooter >
-      <div id="zz" size-md="6" size-lg="4">
-        <IonGrid id="ab" >
+      <div id="zz">
+        <IonGrid id="ab">
           <IonRow>
             <IonCol size="12" sizeMd="4">
               <div className="widget">
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                 <h6 className="widget-title">Newsletter</h6>
                 <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
                 <div className="newsletter-input">
-                  <IonInput type="email" placeholder="Email" className="rect-btn" id="form-control" />
+                  <IonInput type="email" placeholder="Email" className="form-control" />
                   <IonButton  className="subscribe-button" >
                      <IonIcon icon={paperPlaneOutline} /> 
                      Subscribe
@@ -54,8 +54,8 @@ const Footer: React.FC = () => {
           </IonRow>
         </IonGrid>
       <IonToolbar className="bg-no-gradient">
-        <IonGrid  id="cc">
-           <IonRow className="v-center mobile-center" > 
+        <IonGrid id="cc">
+           <IonRow className="v-center mobile-center"> 
             <IonCol size="10" sizeMd="6" className="footer-left-area">
               <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
             </IonCol>

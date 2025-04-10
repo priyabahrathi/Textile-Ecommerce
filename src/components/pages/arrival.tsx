@@ -1,33 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store/store";
-import { motion } from "framer-motion"; // ✅ Import Framer Motion
-import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@ionic/react";
+import { motion } from "framer-motion";
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@ionic/react";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { cart } from "ionicons/icons";
 import "./arrival.css";
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa"; // ✅ Import star icons
-import {  card, cart,  } from 'ionicons/icons';
 
-
-// ✅ Correct getStars() function
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
-    if (i <= rating) {
-      stars.push(<FaStar key={i} color="#FFD700" />); // Full star
-    } else if (i - 0.5 === rating) {
-      stars.push(<FaStarHalfAlt key={i} color="#FFD700" />); // Half star
-    } else {
-      stars.push(<FaRegStar key={i} color="#FFD700" />); // Empty star
-    }
+    if (i <= rating) stars.push(<FaStar key={i} color="#FFD700" />);
+    else if (i - 0.5 === rating) stars.push(<FaStarHalfAlt key={i} color="#FFD700" />);
+    else stars.push(<FaRegStar key={i} color="#FFD700" />);
   }
   return stars;
 };
 
-// Animation Variants
-const fadeUpVariant = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-};
 const Arrival: React.FC = () => {
   const Products = useSelector((state: RootState) => state.arrival.Products);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -72,54 +61,51 @@ const Arrival: React.FC = () => {
   };
 
   return (
-    <>
-    <motion.div
-      className="arrival-body"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.3 }}
-    >
-      <motion.h2 className="name" variants={fadeUpVariant}>
-        New Arrivals
-      </motion.h2>
-
-      <IonGrid>
-        <IonRow>
-          {Products.map((product, index) => (
-            <IonCol key={index} size='12' sizeMd='4' sizeXl='4'>
-              <motion.div variants={fadeUpVariant}>
-                <div className="card-body ">
-                <IonCard className="product-card ">
-                  <motion.img className="card-img"
-                    alt="product images"
-                    src={product.image}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1, transition: { duration: 1 } }}
-                    viewport={{ once: false }}
-                  />
-                  <IonCardHeader>
-                    <IonCardTitle className="product-title"><strong>{product.title}</strong></IonCardTitle>
-                  </IonCardHeader>
-                  <IonCardContent className="card-para">
-                    <p >{product.price}</p>
-                    <div className="stars">{getStars(product.rating)}</div> {/* ✅ Fixed Star Ratings */}
-                  </IonCardContent>
-                  <motion.button
-                    type="button"
-                    className="buy-btn"
-                    whileTap={{ scale: 0.9 }}
-                  ><IonIcon icon={cart} className="card-icon" />
-                    Buy now
-                  </motion.button>
-                </IonCard>
+    <div className="arrival-body">
+      <h2 className="name">New Arrivals</h2>
+      <div className="slider-container">
+        <button className="arrow left" onClick={prevSlide}>‹</button>
+        <div className="slider-viewport" ref={sliderRef}>
+          {cardWidth > 0 && (
+            <motion.div
+              className="slider-track"
+              style={{
+                width: `${Products.length * cardWidth}px`,
+                transform: `translateX(-${currentIndex * cardWidth}px)`,
+              }}
+              transition={{ type: "spring", stiffness: 100 }}
+            >
+              {Products.map((product, index) => (
+                <div
+                  key={index}
+                  className="slider-card"
+                  style={{ width: `${cardWidth}px` }}
+                >
+                  <IonCard className="arr-product">
+                    <img className="card-img" src={product.image} alt={product.title} />
+                    <IonCardHeader>
+                      <IonCardTitle className="product-title">
+                        <strong>{product.title}</strong>
+                      </IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent className="card-para">
+                      <p> &#8377;{product.price}</p>
+                      <div className="stars">{getStars(product.rating)}</div>
+                    </IonCardContent>
+                    <button type="button" className="buy-btn">
+                      <IonIcon icon={cart} className="card-icon" />
+                      Buy now
+                    </button>
+                  </IonCard>
                 </div>
-              </motion.div>
-            </IonCol>
-          ))}
-        </IonRow>
-      </IonGrid>
-    </motion.div>
-    </>
+              ))}
+            </motion.div>
+          )}
+        </div>
+        <button className="arrow right" onClick={nextSlide}>›</button>
+      </div>
+    </div>
   );
 };
+
 export default Arrival;

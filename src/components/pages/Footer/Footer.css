@@ -6,12 +6,9 @@
   background-color: #FFF5ED;
   padding:  5px 10px;
   margin: 0px 0px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  margin-top: -50px;
-  margin-bottom: -50px;
-  justify-content: center;
-  width: 100%;
-  
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-top: 0px;
+  margin-bottom: -60px;
 }
  .sss
  {
@@ -26,9 +23,9 @@
  .ss
  {
   opacity: 0.5;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 19px;
-}
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ }
+
  .widget
  {
   padding: 12%;
@@ -38,7 +35,7 @@
  {
   color: #141a38;
   font-size: 26px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
  }
 #ii
 {
@@ -78,7 +75,7 @@
 }
 #dd
 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-decoration: none;
 }
  #a 
@@ -89,8 +86,8 @@
    color: black;
   --background-hover: transparent;
   --background-focused: transparent; 
-  font-size: 19px;
-  }
+  
+}
 #b
 {
   text-decoration: none;
@@ -102,7 +99,7 @@
 {
   /* background-color:#6f11f5; */
   /* padding: 10px 20px; */
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   --ion-color-custom: #6f11f5;
 }
 #c
@@ -210,7 +207,6 @@
   /* color: white;
   opacity: 0.8;
   margin-top:25px;  */
-  margin-top: 25px;
 }
 .social-btn {
   width: 50px;              /* Increases button size */
@@ -233,29 +229,11 @@
   align-items: center;
   /* flex-wrap: wrap; Allows wrapping on smaller screens */
   background-color: white;
-  border-radius: 0pc;
-  /* width: 100%;
-  max-width: 400px; */
-  padding:  -20px;
-  /* box-sizing: border-box; */
-  width: 250px;
+  border-radius: 20px;
 }
-#form-control {
+.form-control {
   flex: 1; 
-  max-width: 170px;
-  -moz-box-align: center;
-  --border-radius: 0pc;
-  border-radius: 0pc;
-  margin-block-end: -0pc;
-   /* margin: 0px auto;  */
-   --padding-start: 0px;
-  /*--padding-end: 12px; */ 
-}
-@media(max-width: 768px) {
-  input {
-    font-size: 16px;
-    padding: 10px;
-  }
+  max-width: 300px;
 }
 .subscribe-button {
   white-space: nowrap;
@@ -266,16 +244,17 @@
   margin-top: 10px;
   margin-bottom: 0%;
 }
-#ab
+/* #ab
 {
-  margin-bottom:  0%;
-  margin-top: 0%;
-} 
+  margin-bottom:  5%;
+  margin-top: 5px;
+} */
+
 /* .newsletter-input
 {
   margin-top: 80px; 
 } */
-#form-control
+.form-control
 {
   background-color: white;
   --border-radius: 0px;
