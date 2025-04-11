@@ -290,6 +290,7 @@
 }
 .cat-input{
     padding-right: 5px;
+    border: 1px solid #E59866;
 }
 .cat-label{
     padding-left: 5px;
