@@ -77,9 +77,9 @@ const Header: React.FC = () => {
                   <IonLabel>Men's</IonLabel>
                 </IonItem>
                 <div className=" item " slot="content">
-                  <IonItem button className="color  custom-item "><IonIcon className="inner-icon" icon={shirt} slot="start" /> Shirts</IonItem>
-                  <IonItem button className="color custom-item "><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item "><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                  <IonItem button className="color  custom-item menu-drop "><IonIcon className="inner-icon" icon={shirt} slot="start" /> Shirts</IonItem>
+                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
                 </div>
               </IonAccordion>
 
@@ -89,9 +89,9 @@ const Header: React.FC = () => {
                   <IonLabel>Women's</IonLabel>
                 </IonItem>
                 <div className="item" slot="content">
-                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={shirt} slot="start" /> Tops</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
+                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={shirt} slot="start" /> Tops</IonItem>
+                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
+                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
                 </div>
               </IonAccordion>
             </IonAccordionGroup>
@@ -130,24 +130,24 @@ const Header: React.FC = () => {
 
               {!isMediumScreen && (
                 <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
-                  <li style={{ color: 'white' }}><IoHome /> Home</li>
-                  <li>
+                  <li className="nav-li" style={{ color: 'white' }}><IoHome /> Home</li>
+                  <li className="nav-li">
                     <IoManSharp /> Men’s
                     <ul className="dropdown">
-                      <li><IonIcon icon={shirt} /> Shirts</li>
-                      <li><IonIcon icon={footsteps} /> Shoes</li>
-                      <li><IonIcon icon={bagHandle} /> Accessories</li>
+                      <li className="nav-drop"><IonIcon icon={shirt} /> Shirts</li>
+                      <li className="nav-drop"><IonIcon icon={footsteps} /> Shoes</li>
+                      <li className="nav-drop"><IonIcon icon={bagHandle} /> Accessories</li>
                     </ul>
                   </li>
-                  <li>
+                  <li className="nav-li">
                     <IoWoman /> Women’s
                     <ul className="dropdown">
-                      <li><IonIcon icon={shirt} /> Tops</li>
-                      <li><IonIcon icon={footsteps} /> Shoes</li>
-                      <li><IonIcon icon={bagHandle} /> Accessories</li>
+                      <li className="nav-drop"><IonIcon icon={shirt} /> Tops</li>
+                      <li className="nav-drop"><IonIcon icon={footsteps} /> Shoes</li>
+                      <li className="nav-drop"><IonIcon icon={bagHandle} /> Accessories</li>
                     </ul>
                   </li>
-                  <li> <FaTag /> On Sale</li>
+                  <li className="nav-li"> <FaTag /> On Sale</li>
                 </ul>
               )}
 

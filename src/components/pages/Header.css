@@ -22,10 +22,11 @@
 
 .nav-item h3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: #ffffff;
+    color: #d45907;
     margin: 0;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 2.5rem;
+    text-shadow: 2px solid black !important;
 }
 
 .nav-list {
@@ -87,7 +88,18 @@
     visibility: visible;
     transform: translateY(0);
 }
-
+.nav-li{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.nav-drop{
+    display:flex;
+    align-items: center;
+    justify-content: start;
+    gap: 4px; 
+}
 .dropdown li {
     display: flex;
     align-items: center;
@@ -150,7 +162,7 @@
     --ion-text-color: #E59866 ;
   }
   .close-icon{
-    --color:black;
+    --color:#E59866;
   }
   
   
@@ -186,14 +198,21 @@
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
+   
   }
  .item{
     background-color: #E59866;
+   
+ }
+ .menu-drop{
+    position:relative;
+    left:20%;
  }
   
   .ion-icon {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     color:#E59866 !important;
+    font-size: 20px;
   }
 
   .color{
@@ -207,8 +226,10 @@
 }
 
 .custom-item{
+    
     font-size: 0.8rem;
 }
+
 .inner-icon{
     color: #ffffff;
 }
