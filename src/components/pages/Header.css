@@ -42,7 +42,7 @@
 .nav-list li {
     position: relative;
     padding: 10px 15px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 500;
     cursor: pointer;
     color: #ffffff;
@@ -168,19 +168,21 @@
   }
   .head-list{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-   /* background:  #00a698 ; */
+   --background:  white;
    /* --ion-text-color: #E59866 !important; */
   }
-
+  .head-list.list-md { background: #eee; }
 
   
   /* .new:hover{
     --color: #002642 !important;
   } */
+   
   .head-list .head-item{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     /* --background: #00a698  !important; */
     --inner-border-width: 0px;
+    --background:#ffffff;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;

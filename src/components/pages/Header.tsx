@@ -64,7 +64,7 @@ const Header: React.FC = () => {
             </IonMenuToggle>
           </div>
 
-          <IonList className="head-list">
+          <IonList className="head-list list-md">
             <IonItem button className="head-item custom-item">
               <IonIcon className="ion-icon" icon={home} slot="start" />
               Home
