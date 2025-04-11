@@ -198,10 +198,10 @@
   }
   .head-list{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-   --background:  white;
+   --background:  #FFF5ED;
    /* --ion-text-color: #E59866 !important; */
   }
-  .head-list.list-md { background: #eee; }
+  .head-list.list-md { background: #FFF5ED; }
 
   
   /* .new:hover{
@@ -212,7 +212,7 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     /* --background: #00a698  !important; */
     --inner-border-width: 0px;
-    --background:#ffffff;
+    --background:#FFF5ED;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
