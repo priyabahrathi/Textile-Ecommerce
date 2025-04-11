@@ -30,10 +30,10 @@ const Hero: React.FC = () => {
        
         <div className="hero-content">
         <h2>Fashion <span className="year">2025</span></h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, labore.</p>
+        <p>One good outfit can make your confident level high,Have a good day with good deals</p>
         <div className="hero-buttons">
         <button className="icon-btn" ><FaTags /></button>
-        <div className="arrival-btn"><button>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
+        <div className="arr-btn"><button className="arrival-btn">New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
       </div>
       </div>
       </div>

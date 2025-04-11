@@ -79,6 +79,7 @@ body {
   background: #d45907;
   /* Slightly lighter on hover */
   color: #ffffff;
+  font-size: 1.2rem;
   height: 50px;
   border-radius: 50%;
   width: 50px;
@@ -101,28 +102,26 @@ body {
 }
 
 
-.arrival-btn button {
-  margin: 5px;
-  /* Semi-transparent background */
 
+.arrival-btn  {
+  margin: 5px;
+  display: flex;
+  align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  /* Subtle border */
   padding: 12px 24px;
   font-size: 18px;
+  height:50px;
   font-weight: bold;
-
   background: #d45907;
-  /* Slightly lighter on hover */
   color: #ffffff;
   border-radius: 25px;
-  /* Smooth corners */
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
 
 }
 
-.arrival-btn button:hover {
+.arrival-btn:hover {
   color: #d45907;
   background: #ffffff;
   border: 1px solid #d45907;
@@ -171,8 +170,24 @@ body {
   animation-delay: 1s;
 }
 
+@media screen and (max-width:1025) {
+
+  .hero-content {
+    max-width: 60%;
+    /* Allow content to take more width */
+
+  }
+  .hero h2 {
+    font-size: 3.2rem;
+  }
+
+  .hero p {
+    font-size: 2.2rem;
+  }
+
+}
 /* Responsive adjustments for smaller screens */
-@media (max-width: 991px) {
+@media screen and (max-width: 720px) {
   .hero {
     justify-content: center;
     /* Center content horizontally */
@@ -182,6 +197,7 @@ body {
     padding: 2rem 1rem;
     /* Adjust padding */
   }
+  
 
 
   .hero-section::before {
@@ -199,11 +215,11 @@ body {
   }
 
   .hero h2 {
-    font-size: 2rem;
+    font-size: 2.9rem !important;
   }
 
   .hero p {
-    font-size: 1rem;
+    font-size: 1.9rem !important;
   }
 
   .hero-buttons {
@@ -224,4 +240,10 @@ body {
     /* Make buttons wider */
     max-width: 250px;
   }
+}
+@media screen and (max-width:500) {
+  .hero p {
+    font-size: 1.5rem !important;
+  }
+  
 }

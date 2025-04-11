@@ -39,7 +39,7 @@ const Brand: React.FC = () => {
 
     <div className="pagebrand">
       <div className="page-container">
-        <MotionCard><div className="page-name">Famous Brands</div></MotionCard>
+        <div className="page-name">Famous Brands</div>
         <div className="brand-container">
           <Swiper
             slidesPerView={5}

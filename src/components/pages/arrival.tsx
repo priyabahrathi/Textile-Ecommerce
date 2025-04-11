@@ -83,8 +83,8 @@ const Arrival: React.FC = () => {
                 >
                   <IonCard className="arr-product">
                     <img className="card-img" src={product.image} alt={product.title} />
-                    <IonCardHeader>
-                      <IonCardTitle className="product-title">
+                    <IonCardHeader className="card-head">
+                      <IonCardTitle className="card-title">
                         <strong>{product.title}</strong>
                       </IonCardTitle>
                     </IonCardHeader>
