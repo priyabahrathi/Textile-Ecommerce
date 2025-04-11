@@ -1,3 +1,22 @@
+/* Works in Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  /* Track (the area behind the scrollbar thumb) */
+  ::-webkit-scrollbar-track {
+    /* background: #f1f1f100; */
+    border-radius: 10px;
+  }
+  
+  /* Handle (the draggable part) */
+  ::-webkit-scrollbar-thumb {
+    /* background: #88888800; */
+    border-radius: 10px;
+  }
+  
+
+
 /* Container Styling */
 .container {
     
@@ -22,10 +41,11 @@
 
 .nav-item h3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: #ffffff;
+    color: #d45907;
     margin: 0;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 2.5rem;
+    text-shadow: 2px solid black !important;
 }
 
 .nav-list {
@@ -42,7 +62,7 @@
 .nav-list li {
     position: relative;
     padding: 10px 15px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 500;
     cursor: pointer;
     color: #ffffff;
@@ -87,7 +107,18 @@
     visibility: visible;
     transform: translateY(0);
 }
-
+.nav-li{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.nav-drop{
+    display:flex;
+    align-items: center;
+    justify-content: start;
+    gap: 4px; 
+}
 .dropdown li {
     display: flex;
     align-items: center;
@@ -150,7 +181,7 @@
     --ion-text-color: #E59866 ;
   }
   .close-icon{
-    --color:black;
+    --color:#E59866;
   }
   
   
@@ -168,30 +199,39 @@
   }
   .head-list{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-   /* background:  #00a698 ; */
+   --background:  white;
    /* --ion-text-color: #E59866 !important; */
   }
-
+  .head-list.list-md { background: #eee; }
 
   
   /* .new:hover{
     --color: #002642 !important;
   } */
+   
   .head-list .head-item{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     /* --background: #00a698  !important; */
     --inner-border-width: 0px;
+    --background:#ffffff;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
+   
   }
  .item{
     background-color: #E59866;
+   
+ }
+ .menu-drop{
+    position:relative;
+    left:20%;
  }
   
   .ion-icon {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     color:#E59866 !important;
+    font-size: 20px;
   }
 
   .color{
@@ -205,8 +245,10 @@
 }
 
 .custom-item{
+    
     font-size: 0.8rem;
 }
+
 .inner-icon{
     color: #ffffff;
 }

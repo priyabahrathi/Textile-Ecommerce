@@ -200,14 +200,15 @@
 /* Search Input */
 .search-input {
     flex: 1;
-    border: none;
+    border: 1px solid rgba(229, 153, 102, 0.562);
     border-radius: 10px;
     outline: none;
     padding: 15px;
     font-size: 14px;
-    --highlight-color: #0054e900;
     caret-color: #E59866;
     color: #E59866;
+    background: none;
+
 }
 
 .search-input::placeholder {
@@ -286,6 +287,7 @@
 
 .category-item {
     display: flex;
+    align-items: center;
     padding-bottom: 5px;
 }
 .cat-input{
@@ -294,6 +296,7 @@
 }
 .cat-label{
     padding-left: 5px;
+   
 }
 
 /* Category Title */

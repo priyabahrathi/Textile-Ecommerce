@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
                 <h6 className="widget-title">Newsletter</h6>
                 <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
                 <div className="newsletter-input">
-                  <IonInput type="email" placeholder="Mail" className="form-control" />
+                  <IonInput type="email" placeholder="E-Mail" className="form-control" />
                   <IonButton  className="subscribe-button" >
                      <IonIcon icon={paperPlaneOutline} /> 
                      Subscribe
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
         <IonGrid id="cc">
            <IonRow className="v-center mobile-center"> 
             <IonCol size="10" sizeMd="6" className="footer-left-area">
-              <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
+              <p className="qq">© 2025 Ecommerce website by <a id="oo" href="aa">Algo-Tex</a> <a href="https://Algo-tex.com" target="_blank" rel="noopener noreferrer"></a></p>
             </IonCol>
             <IonCol size="12" sizeMd="12" className="footer-right-area" >
               <p className="footer-social">
