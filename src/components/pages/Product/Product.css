@@ -11,8 +11,8 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 45px;
     font-weight: bold;
-    color: #E59866;
-    text-shadow: 0 0 2px #2f4644;
+    color: #d45907;
+    text-shadow: 0 0 2px black;
     margin-bottom: 30px;
 }
 
@@ -129,7 +129,8 @@
 .product-category {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: start;
-    /* color: #E59866; */
+    color: #E59866;
+    font-weight: bold !important;
     /* text-shadow: 0 0 10px #002642; */
 }
 
@@ -207,7 +208,7 @@
     font-size: 14px;
     caret-color: #E59866;
     color: #E59866;
-    background: none;
+    /* background: none; */
 
 }
 
@@ -296,7 +297,7 @@
 }
 .cat-label{
     padding-left: 5px;
-   
+    letter-spacing: 0.5px;
 }
 
 /* Category Title */
@@ -436,4 +437,7 @@ input[type="checkbox"]:checked::after {
 
         font-size: 30px;
     }
+    .product-category {
+        text-align: center !important;
+    } 
 }

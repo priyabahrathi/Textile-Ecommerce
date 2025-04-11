@@ -29,12 +29,20 @@
     padding-bottom: 20px;
     animation: title 3s ease;
     position: relative;
-    color: #E59866;
     letter-spacing: .015rem;
     margin-top: 0;
+    color: #d45907;
+    text-shadow: 0 0 2px black;
     /* text-shadow: 0 0 15px #002642; */
 }
-
+/* @keyframes title {
+    from{
+        margin-top: 10px;
+    }
+    to{
+        margin-top: 20px;
+    }
+} */
 /*Logos Styling*/
 .logo-slide {
     display: flex;

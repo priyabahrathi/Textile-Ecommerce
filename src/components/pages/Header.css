@@ -253,8 +253,8 @@
 }
 
 .custom-item:hover {
-    --background: #a7a2a2;  /* Light gray background on hover */
-    --color: #ffffff;                /* This affects ion-label text */
+    --background: #ffffff36;  
+    --color: #ffffff;                
     /* transition: background-color 0.2s ease; */
   }
   

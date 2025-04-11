@@ -62,7 +62,7 @@ const Arrival: React.FC = () => {
 
   return (
     <div className="arrival-body">
-      <h2 className="name">New Arrivals</h2>
+      <h2 className="product-head">New Arrivals</h2>
       <div className="slider-container">
         <button className="arrow left" onClick={prevSlide}>‹</button>
         <div className="slider-viewport" ref={sliderRef}>
