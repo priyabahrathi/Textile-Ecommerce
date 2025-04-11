@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
         <IonGrid id="cc">
            <IonRow className="v-center mobile-center"> 
             <IonCol size="10" sizeMd="6" className="footer-left-area">
-              <p className="qq">© 2021 Glass UI by <a id="oo" href="aa">KingStudio</a> <a href="https://kingstudio.ro" target="_blank" rel="noopener noreferrer"></a></p>
+              <p className="qq">© 2025 Ecommerce website by <a id="oo" href="aa">Algo-Tex</a> <a href="https://Algo-tex.com" target="_blank" rel="noopener noreferrer"></a></p>
             </IonCol>
             <IonCol size="12" sizeMd="12" className="footer-right-area" >
               <p className="footer-social">
