@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
                 <h6 className="widget-title">Newsletter</h6>
                 <p className="sss">Quisque aliquet lorem nec dui posuere des et, scelerisque ultrices metus aliquam mattisiu:</p>
                 <div className="newsletter-input">
-                  <IonInput type="email" placeholder="Mail" className="form-control" />
+                  <IonInput type="email" placeholder="E-Mail" className="form-control" />
                   <IonButton  className="subscribe-button" >
                      <IonIcon icon={paperPlaneOutline} /> 
                      Subscribe
