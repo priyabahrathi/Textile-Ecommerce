@@ -399,6 +399,50 @@ input[type="checkbox"]:checked::after {
 
 } */
 
+.inline-modal {
+    position: absolute;
+    /* top: 0px;
+    left: 0; */
+    bottom: 100px;
+    z-index: 999;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .inline-modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .inline-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .inline-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .inline-modal-body {
+    margin-top: 1rem;
+  }
+  
+  
+
+
+
 
 /*Responsive*/
 /*Desktop*/

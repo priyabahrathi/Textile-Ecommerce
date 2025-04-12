@@ -58,9 +58,12 @@ const Product: React.FC = () => {
   const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    const el = document.getElementById('product-section');
-    if (el) setPresentingEl(el);
+    setTimeout(() => {
+      const el = document.getElementById('product-section');
+      if (el) setPresentingEl(el);
+    }, 0);
   }, []);
+
 
   useEffect(() => {
     applyFilter();
@@ -192,10 +195,31 @@ const Product: React.FC = () => {
               </div>
             </div>
           </IonCol>
+          <IonCol>
+            <IonRow>
+              {selectedProduct && (
+                <div className="inline-modal">
+                  <div className="inline-modal-content">
+                    <div className="inline-modal-header">
+                      <h3>{selectedProduct.name}</h3>
+                      <button className="inline-modal-close" onClick={() => setSelectedProduct(null)}>&times;</button>
+                    </div>
+                    <div className="inline-modal-body">
+                      <p><strong>Price:</strong> ₹{selectedProduct.price}</p>
+                      <p><strong>Category:</strong> {selectedProduct.category}</p>
+                      <p>You can add more actions here...</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
+            </IonRow>
+          </IonCol>
         </IonRow>
       </IonGrid>
 
-      {selectedProduct && (
+      {/* {selectedProduct && (
         <IonModal
           isOpen={!!selectedProduct}
           onDidDismiss={() => setSelectedProduct(null)}
@@ -220,7 +244,7 @@ const Product: React.FC = () => {
             <p>More actions can go here...</p>
           </IonContent>
         </IonModal>
-      )}
+      )} */}
     </div>
   );
 };
