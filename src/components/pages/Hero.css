@@ -1,164 +1,249 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 .hero-section {
-  background-image: url(./assets/images/ph-bg24.jpg);
-  background-size: cover;  /* Ensures the background covers the entire section */
-  background-position: center center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100vh; /* Makes the section take the full viewport height */
+  position: relative;
+  /* Needed for pseudo-element positioning */
+  min-height: 100vh;
+  /* Adjust height as needed */
+
+
 }
-.hero-content{
-    margin-left: 12%;
-    height: 500px;
-    width: 500px;
+
+.hero {
+  position: relative;
+  /* Needed for pseudo-element positioning */
+  min-height: 60vh;
+  /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Align content left by default */
+  padding: 5rem 5%;
+  /* Add some padding */
+  margin-top: 60px;
+  overflow: hidden;
+  /* Hide overflowing pseudo-element */
+
 }
-.hero-content h2{
-  color:black;
-    font-size: 50px;
-    font-weight: bold;
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../assets/images/bg-hero.jpg');
+  /* Replace with your hero image URL */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  /* Place the background behind the content */
+  transition: filter 0.3s ease;
+  /* Smooth transition for blur */
 }
-.hero-content p{
-  color:black;
+
+.hero-content {
+
+  max-width: 500px;
+  /* Limit content width */
+  z-index: 1;
+  /* Ensure content is above the pseudo-element */
+
 }
-.year{
-    color: #6f11f5;
+
+.hero-content h2 {
+  font-size: 50px !important;
+  /* Adjust size as needed */
+  margin-bottom: 0.5rem;
+  color: #d45907;
+  font-weight: 800;
 }
-.hero-btn .icon-btn{
-background-color:#6f11f5 ;
-height: 50px;
-border-radius: 50%;
-width: 50px;
-padding: 3px;
-margin: 5px;
+
+.hero-content p {
+  font-size: 25px !important;
+  margin-bottom: 1.5rem;
+  color: #555352;
 }
-.icon-btn:hover{
-    background-color: #470b9c;
+
+.year {
+  color: #555352;
 }
-.hero-btn{
+
+.hero-buttons .icon-btn {
+  background: #d45907;
+  /* Slightly lighter on hover */
+  color: #ffffff;
+  font-size: 1.2rem;
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
+  padding: 3px;
+  margin: 5px;
+}
+
+.icon-btn:hover {
+
+  color: #d45907;
+  background-color: #ffffff;
+  border: 1px solid #d45907;
+}
+
+.hero-buttons {
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+
+
+.arrival-btn  {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  font-size: 18px;
+  height:50px;
+  font-weight: bold;
+  background: #d45907;
+  color: #ffffff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  letter-spacing: 1px;
+
+}
+
+.arrival-btn:hover {
+  color: #d45907;
+  background: #ffffff;
+  border: 1px solid #d45907;
+  transform: scale(1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+    /* Start slightly above */
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    /* Move to normal position */
+  }
+}
+
+/* Apply the animation to each div with different delays */
+.hero-content>* {
+  opacity: 0;
+  /* Start hidden */
+  animation: slideDown 0.8s ease-in-out forwards;
+}
+
+/* Delay each child div for a staggered effect */
+.hero-content h2 {
+  animation-delay: 0.2s;
+}
+
+.hero-content p {
+  animation-delay: 0.4s;
+}
+
+.hero-buttons {
+  animation-delay: 0.6s;
+}
+
+.hero-buttons .icon-btn {
+  animation-delay: 0.8s;
+}
+
+.hero-buttons .arrival-btn {
+  animation-delay: 1s;
+}
+
+@media screen and (max-width:1025) {
+
+  .hero-content {
+    max-width: 60%;
+    /* Allow content to take more width */
+
+  }
+  .hero h2 {
+    font-size: 3.2rem;
+  }
+
+  .hero p {
+    font-size: 2.2rem;
+  }
+
+}
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 720px) {
+  .hero {
+    justify-content: center;
+    /* Center content horizontally */
+    text-align: start;
+    /* Center text within the content block */
+    min-height: 50vh;
+    padding: 2rem 1rem;
+    /* Adjust padding */
+  }
+  
+
+
+  .hero-section::before {
+    filter: blur(10px);
+    /* Apply blur effect */
+    /* Optional: Add a slight darkening overlay for better text contrast on blurred bg */
+    background-color: rgba(255, 255, 255, 0.767);
+    /* background-blend-mode: overlay; */
+  }
+
+  .hero-content {
+    max-width: 90%;
+    /* Allow content to take more width */
+
+  }
+
+  .hero h2 {
+    font-size: 2.9rem !important;
+  }
+
+  .hero p {
+    font-size: 1.9rem !important;
+  }
+
+  .hero-buttons {
     display: flex;
-    justify-content: start;
-    align-items: center;
+    flex-direction: row;
+    /* Stack buttons vertically */
+
+    align-items: start;
+    /* Center buttons */
+    gap: 0.5rem;
+    /* Add space between stacked buttons */
+  }
+
+  .hero-buttons .btn {
+    margin-right: 0;
+    /* Remove right margin */
+    width: 80%;
+    /* Make buttons wider */
+    max-width: 250px;
+  }
 }
-
-
-.arrival-btn button {
-    margin: 5px;
-    background: rgba(255, 255, 255, 0.418); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #6f11f5;
-    border-radius: 25px; /* Smooth corners */
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Soft glow effect */
+@media screen and (max-width:500) {
+  .hero p {
+    font-size: 1.5rem !important;
   }
   
-  .arrival-btn button:hover {
-    background: #6f11f5; /* Slightly lighter on hover */
-    color: white;
-    transform: scale(1); /* Slight zoom effect */
-  }
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-30px); /* Start slightly above */
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0); /* Move to normal position */
-    }
-  }
-  
-  /* Apply the animation to each div with different delays */
-  .hero-content > * {
-    opacity: 0; /* Start hidden */
-    animation: slideDown 0.8s ease-in-out forwards;
-  }
-  
-  /* Delay each child div for a staggered effect */
-  .hero-content h2 {
-    animation-delay: 0.2s;
-  }
-  
-  .hero-content p {
-    animation-delay: 0.4s;
-  }
-  
-  .hero-btn {
-    animation-delay: 0.6s;
-  }
-  
-  .hero-btn .icon-btn {
-    animation-delay: 0.8s;
-  }
-  
-  .hero-btn .arrival-btn {
-    animation-delay: 1s;
-  }
-  .heroimage{
-    display: none;
-  }
-  @media screen and (max-width: 1025px) {
-    .hero-content{
-     
-      height: 300px;
-      width: 300px;
-  }
-  .hero-content h2{
-   
-    font-size: 30px;
-
-  }
-  .hero-section{
-    width: 100%;
-    background: hsla(278, 88%, 83%, 1);
-
-    background: linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
-    
-    background: -moz-linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
-    
-    background: -webkit-linear-gradient(90deg, hsla(278, 88%, 83%, 1) 0%, hsla(242, 96%, 90%, 1) 50%, hsla(202, 96%, 71%, 1) 100%);
-    
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#DFAFFA", endColorstr="#CFCDFE", GradientType=1 );
-    
-    height: 100%;
 }
-  .hero-content p{
-    font-size: 15px;
-    
-  }
-  .hero-container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .heroimage{
-    display: block;
-    height: 400px;
-    width: auto;
-  }
-  }
-  @media screen and (max-width: 500px) {
-    .hero-content p{
-      font-size: 10px;
-      
-    }
-    .hero-content h2{
-   
-      font-size: 25px;
-  
-    }
-
-
-  }

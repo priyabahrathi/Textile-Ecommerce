@@ -1,8 +1,6 @@
 .arrival-body {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
-  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
-  background-color: #fde3ca;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+  background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,44 +14,34 @@
 .card-img{
   width: 300px;
 }
-
+.product-title{
+  color: white;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+}
 
 .name {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
   font-size: 40px;
   font-weight: bold;
-  color: #E59866;
+  color: rgb(255, 255, 255);
   margin-bottom: 0px;
   margin-top: 5px;
 }
 .arr-product{
- 
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(4.5px);
-    -webkit-backdrop-filter: blur(4.5px);
-    box-shadow: 5px 5px 5px #a1a09f;
-    margin: 15px 0;
-}
-.arr-product:hover{
-  transform: translateY(-5px);
- 
-  border: 1px solid #E59866;
-  box-shadow: none;
+  background-color: #00a69877;
 }
 
 .buy-btn {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 5px auto 15px;
   width: 70%;
   height: 40px;
-  font-size: 20px;
+  color: white;
   font-weight: bold;
-  color: #ffffff;
-  background-color: #E59866;
+  background-color: #6f11f5;
   border-radius: 10px;
   /* Smooth corners */
   cursor: pointer;
@@ -65,10 +53,9 @@
 
 
 .buy-btn:hover {
-  background-color: #ffffff;
-  color: #E59866;
-  border: 1px solid #E59866;
-
+  background-color: #5709c4;
+  /* Slightly lighter on hover */
+  color: white;
   transform: scale(1);
   /* Slight zoom effect */
 }
@@ -80,19 +67,22 @@
   margin-top: 5px;
 }
 
+.price {
+  color: #6f11f5;
+  font-size: 20px;
+  font-weight: 700;
+}
 
 .card-para p {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-  color: #909192;
-  font-size: 25px !important;
+  font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif !important;
+  color: #6f11f5;
+  font-size: 20px !important;
   font-weight: bold !important;
 }
 
 .card-title {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #863905;
+  font-size: 20px !important;
+  font-weight: bold !important;
 }
 
 .card-icon {
@@ -129,7 +119,7 @@
   font-size: 2rem;
   background: none;
   border: none;
-  color: #E59866;
+  color: #6f11f5;
   cursor: pointer;
 }
 
@@ -161,10 +151,9 @@
     margin: 5px auto 15px;
     width: 70%;
     height: 40px;
-  
+    color: white;
     font-weight: bold;
-    color: #ffffff;
-    background-color: #E59866;
+    background-color: #6f11f5;
     border-radius: 10px;
     /* Smooth corners */
     cursor: pointer;
@@ -175,9 +164,11 @@
   }
 
   .buy-btn:hover {
-    background-color: #ffffff;
-  color: #E59866;
-  border: 1px solid #E59866;
+    background-color: #5709c4;
+    /* Slightly lighter on hover */
+    color: white;
+    transform: scale(1);
+    /* Slight zoom effect */
   }
 
   .stars {
@@ -189,66 +180,35 @@
 
  
 
+  .price {
+    color: #6f11f5;
+    font-size: 20px;
+    font-weight: 700;
+  }
 
   .card-para p {
-    color: #909192;
-    font-size: 25px !important;
+    color: #6f11f5;
+    font-size: 15px !important;
     font-weight: bold !important;
   }
-.card-head{
-  padding: 5px;
-}
+
   .card-title {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #863905;
+    font-size: 10px !important;
+    font-weight: bold !important;
   }
 
   .card-icon {
     margin: 2px;
   }
-  .card-img{
-    width: 200px;
-  }
-  .slider-container{
-    padding: 5px;
-  }
-  .arrow {
-    font-size: 2.5rem;
-  }
-  
 }
 
 /* Ensure the cards and buttons scale nicely on different screens */
 @media screen and (max-width: 768px) {
-  .arrival-body {
-    padding: 10px;
-  }
-
-  .slider-card {
-    width: calc(50% - 20px); /* 2 cards visible */
-  }
-
   .arrow {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 
   .buy-btn {
     font-size: 0.9rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .slider-card {
-    width: 100%; /* 1 card visible */
-  }
-
-  .buy-btn {
-    font-size: 0.8rem;
-  }
-
-  .arrow {
-    font-size: 2.5rem;
   }
 }

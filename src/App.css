@@ -1,7 +1,9 @@
-body {
-    background-color: #1a1a2e; /* Dark blue background */
-    color: white; /* Text color */
-  }
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
   ion-app{
     overflow-y: auto;
 }

@@ -1,0 +1,22 @@
+
+ion-app{
+    overflow-y: auto;
+}
+/* Works in Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  /* Track (the area behind the scrollbar thumb) */
+  ::-webkit-scrollbar-track {
+    /* background: #f1f1f100; */
+    border-radius: 10px;
+  }
+  
+  /* Handle (the draggable part) */
+  ::-webkit-scrollbar-thumb {
+    /* background: #88888800; */
+    border-radius: 10px;
+  }
+  
+  

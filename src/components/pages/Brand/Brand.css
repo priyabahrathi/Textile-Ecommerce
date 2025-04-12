@@ -1,54 +1,85 @@
-.pagebrand{
-        width: 100%;
-        height: 150vh;
-        background: linear-gradient(to right bottom, #f5c6d3 0%, #fce5dc 40%, #d0effd 100%) !important;   
-}
-.page-container{
-    margin-top: 250px;
-}
-.logo{
-    height: 80px;
-    width: auto;
+/*OverAll page*/
+.pagebrand {
+    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important; */
+    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+    background-color: #fde3ca;
+    /* height: 100% !important; */
     
 }
-.brand-container{
-    padding-bottom: 250px;
+
+.page-container {
+    margin-top: 250px;
 }
-.page-name{
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
+/*Brand Container*/
+.brand-container {
+    height: 400px;
+    margin-top: 40px;
+    
+}
+/* .brand-container {
+    margin-top: 30px;
+} */
+
+/*Page Title*/
+.page-name {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
     text-align: center;
-    font-size: 60px;
+    font-size: 54px;
     padding-bottom: 20px;
     animation: title 3s ease;
     position: relative;
-    color: #141a38;
     letter-spacing: .015rem;
     margin-top: 0;
+    color: #d45907;
+    text-shadow: 0 0 2px black;
+    /* text-shadow: 0 0 15px #002642; */
 }
-@media only screen and (max-width:700px) {
-    .page-name{
-        font-size: 40px;
-    }
-    
-}
-@media only screen and (max-width:1200px) {
-    .page-name{
-        font-size: 50px;
-    }
-    
-}
-@keyframes title {
+/* @keyframes title {
     from{
-         top: -60px;
-         opacity: 0.2;
+        margin-top: 10px;
     }
     to{
-        opacity: 1;
-        top: 0px;
+        margin-top: 20px;
+    }
+} */
+/*Logos Styling*/
+.logo-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    width: 100%;
+    height: 60px;
+    object-fit: contain;
+}
+
+/*Responsive*/
+@media screen and (max-width:1024px)  {
+    .page-container {
+    
+        margin-top: 200px;
+     
+     }
+    .page-name{
+        font-size: 60px;
     }
 }
-.brand-container{
-    margin-left: 50px;
-    margin-right: 50px;
+@media screen and (max-width:500px)  {
+    .page-container {
+    
+       margin-top: 100px;
+    
+     
+     }
+     .brand-container {
+        height: 200px;
+        margin-top: 40px;
+        
+    }
+    .page-name{
+        font-size: 35px;
+    }
 }

@@ -1,171 +1,227 @@
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonGrid,
   IonRow,
   IonCol,
-  IonCard,
   IonCardContent,
   IonImg,
   IonButton,
   IonIcon,
-  IonCheckbox,
   IonLabel,
   IonInput,
-  IonRange
+  IonRange,
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonContent,
+  IonList,
+  IonItem
 } from '@ionic/react';
-import { cart, search, options, star } from 'ionicons/icons';
-import { useState } from 'react';
-import "./Product.css";
+import { closeOutline, ellipsisVertical } from "ionicons/icons";
+import { cart, searchOutline, options, star } from 'ionicons/icons';
+import { useState, useEffect, useRef } from 'react';
+import './Product.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Store/store';
+import { motion, useAnimation, useInView } from 'framer-motion';
 
+const MotionCard = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false });
+  const controls = useAnimation();
 
-const products = [
-  { id: 1, name: 'Black Tee', price: 29.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 2, name: 'Smart Watch', price: 199.99, category: 'Accessories', img: '../assets/shoe.png' },
-  { id: 3, name: 'Blue Tee', price: 19.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 4, name: 'LT Bag', price: 49.99, category: "Women's", img: '../assets/shoe.png' },
-  { id: 5, name: 'Running Shoes', price: 89.99, category: "Men's", img: '../assets/shoe.png' },
-  { id: 6, name: 'CL Watch', price: 99.99, category: 'Accessories', img: '../assets/shoe.png' }
-];
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start({ opacity: 0, y: 50 });
+    }
+  }, [inView]);
+
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
+      {children}
+    </motion.div>
+  );
+};
 
 const Product: React.FC = () => {
-  const [searchText, setSearchText] = useState('');
+  const Products = useSelector((state: RootState) => state.product.Products);
 
+  const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  const [filteredItems, setFilteredItems] = useState(Products);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = document.getElementById('product-section');
+    if (el) setPresentingEl(el);
+  }, []);
+
+  useEffect(() => {
+    applyFilter();
+  }, [searchText, lower, upper, selectedCategory, Products]);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
     setUpper(e.detail.value.upper);
   };
+
+  const handleCheckBox = (category: string, checked: boolean) => {
+    setSelectedCategory((prev) =>
+      checked ? [...prev, category] : prev.filter((c) => c !== category)
+    );
+  };
+
+  const applyFilter = () => {
+    const result = Products.filter((product) => {
+      const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
+      const matchPrice = product.price >= lower && product.price <= upper;
+      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
+      return matchSearch && matchPrice && matchCategory;
+    });
+    setFilteredItems(result);
+  };
+
   return (
-    <div className='page-product'>
+    <div id="product-section" className="page-product">
+      <div className='product-head'>Find Your Match</div>
       <IonGrid>
         <IonRow>
-          <IonCol className='col-product' sizeMd='12' sizeLg='12' sizeXl='8'>
+          <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
             <IonRow>
-              {products.map((product) => (
-                <IonCol size='12'sizeMd='6' sizeLg='6' key={product.id}>
-                  <IonCard className='product-card'>
-                    <IonImg className='product-image' src={product.img} />
-                    <IonCardContent>
-                      <div className='product-data'>
-                        <div className='product-title'>{product.name}</div>
-                        <div className='product-price'>${product.price}</div>
+              {filteredItems.length > 0 ? (
+                filteredItems.map((product) => (
+                  <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
+                    <MotionCard>
+                      <div className="product-card">
+                        <div className="card-top-right">
+                          <IonButton
+                            fill="clear"
+                            size="small"
+                            onClick={() => setSelectedProduct(product)}
+                            className="options-btn"
+                          >
+                            <IonIcon icon={ellipsisVertical} />
+                          </IonButton>
+                        </div>
+
+                        <img className="product-image" src={product.img} />
+                        <IonCardContent className="data">
+                          <div className="product-data">
+                            <div className="product-title">{product.name}</div>
+                            <div className="product-price">&#8377;{product.price}</div>
+                          </div>
+                          <p className="product-category">{product.category}</p>
+                          <div className="rate-buy">
+                            <div className="ratings">
+                              {[...Array(5)].map((_, i) => (
+                                <IonIcon key={i} icon={star} className="buy-button" />
+                              ))}
+                            </div>
+                            <button className="btn-buy">
+                              <IonIcon icon={cart} /> <span>Buy Now</span>
+                            </button>
+                          </div>
+                        </IonCardContent>
                       </div>
-                      <p className='product-category' style={{fontFamily:"sans-serif",fontSize:"20px"}}>{product.category}</p>
-                      <div className='rate-buy'>
-                      <div className='ratings'>
-                      <i className="bi bi-star-fill"></i>
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      <IonIcon className='buy-button' size='large' icon={star} />
-                      </div>
-                      <IonButton className='btn-buy'>
-                        <IonIcon className='buy-button' slot="start" icon={cart} /> Buy Now
-                      </IonButton>
-                      </div>
-                    </IonCardContent>
-                  </IonCard>
-                </IonCol>
-              ))}
+                    </MotionCard>
+                  </IonCol>
+                ))
+              ) : (
+                <IonCol size="12"><p>No products found.</p></IonCol>
+              )}
             </IonRow>
           </IonCol>
-          <IonCol className='sidebar' sizeMd='12' size='12' sizeLg='12' sizeXl='4'>
-            <IonCard className='card-search'>
-              <div className='search-bar'>
-                <IonInput className='search-input' placeholder="Search..." value={searchText} onIonChange={e => setSearchText(e.detail.value!)} />
-                <IonButton className='search-button'><IonIcon icon={search} /></IonButton></div>
-            </IonCard>
-            <IonCard className='card-range'>
-              <h1 className='range-title'>Price Range</h1>
+
+          {/* Sidebar */}
+          <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">
+            <div className="card-search">
+              <div className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="search-input"
+                />
+              </div>
+            </div>
+
+            <div className="card-range">
+              <h1 className="range-title">Price Range</h1>
               <IonRange
                 dualKnobs={true}
                 min={500}
                 max={5000}
                 value={{ lower, upper }}
                 onIonChange={handleRangeChange}
-              ></IonRange>
-              <div className='range-values'>
-                <IonLabel>Min Price: {lower}</IonLabel>
+                style={{
+                  '--bar-background': '#F5CBA7',
+                  '--bar-background-active': '#E59866',
+                  '--knob-background': '#E59866',
+                  '--pin-background': '#F5CBA7'
+                }}
+              />
+              <div className="range-values">
+                <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
                 <IonLabel>Max Price: {upper}</IonLabel>
               </div>
-            </IonCard>
-            <div className='filter-section'>
-              <div className='card-filter'>
-                <h1 className='filter-title'>Categories</h1>
-                <div className='filter-checkbox'>
-                  <ul>
-                    <li>
-                      <input type="checkbox" id="category1" name="category" value="1" />
-                      <label>Category 1</label>
-                    </li>
-                    <li>
-                      <input type="checkbox" id="category2" name="category" value="2" />
-                      <label>Category 2</label>
-                    </li>
-                    <li>
-                      <input type="checkbox" id="category3" name="category" value="3" />
-                      <label>Category 3</label>
-                    </li>
-                    <li>
-                      <input type="checkbox" id="category4" name="category" value="4" />
-                      <label>Category 4</label>
-                    </li>
-                    <li>
-                      <input type="checkbox" id="category5" name="category" value="5" />
-                      <label>Category 5</label>
-                    </li>
-                  </ul>
-                </div>
+            </div>
 
+            <div className="filter-section">
+              <div className="card-filter">
+                <div className="filter-title">Categories</div>
+                <ul className='category-list'>
+                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
+                    <li className='category-item' key={cat}>
+                      <input
+                        className='cat-input'
+                        type="checkbox"
+                        checked={selectedCategory.includes(cat)}
+                        onChange={(e) => handleCheckBox(cat, e.target.checked)}
+                      />
+                      <IonLabel className='cat-label'>{cat}</IonLabel>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className='card-size'>
-                <h1 className='filter-title'>Sizes</h1>
-                <div className='size-checkbox'>
-                  <ul className='list-pack'>
-                    <li className='list'>
-                      <input type="checkbox" id="category1" name="category" value="1" />
-                      <label>XS</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category2" name="category" value="2" />
-                      <label>S</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category3" name="category" value="3" />
-                      <label>M</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category4" name="category" value="4" />
-                      <label>L</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category5" name="category" value="5" />
-                      <label>XL</label>
-                    </li>
-                    <li className='list'>
-                      <input type="checkbox" id="category5" name="category" value="5" />
-                      <label>XXL</label>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-              <button className='apply-filter-button'><IonIcon icon={options}  /> Apply Filter</button>
             </div>
           </IonCol>
         </IonRow>
       </IonGrid>
+
+      {selectedProduct && (
+        <IonModal
+          isOpen={!!selectedProduct}
+          onDidDismiss={() => setSelectedProduct(null)}
+          breakpoints={[0, 0.4, 0.75]}
+          initialBreakpoint={0.4}
+          presentingElement={presentingEl!}
+        >
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Product Options</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setSelectedProduct(null)}>
+                  <IonIcon icon={closeOutline} />
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <h3>{selectedProduct.name}</h3>
+            <p>Price: &#8377;{selectedProduct.price}</p>
+            <p>Category: {selectedProduct.category}</p>
+            <p>More actions can go here...</p>
+          </IonContent>
+        </IonModal>
+      )}
     </div>
-
-
-
   );
 };
 
