@@ -9,9 +9,16 @@ import {
   IonLabel,
   IonInput,
   IonRange,
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonContent,
   IonList,
   IonItem
 } from '@ionic/react';
+import { closeOutline, ellipsisVertical } from "ionicons/icons";
 import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -47,6 +54,13 @@ const Product: React.FC = () => {
   const [upper, setUpper] = useState(5000);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState(Products);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = document.getElementById('product-section');
+    if (el) setPresentingEl(el);
+  }, []);
 
   useEffect(() => {
     applyFilter();
@@ -74,7 +88,7 @@ const Product: React.FC = () => {
   };
 
   return (
-    <div className="page-product">
+    <div id="product-section" className="page-product">
       <div className='product-head'>Find Your Match</div>
       <IonGrid>
         <IonRow>
@@ -85,8 +99,19 @@ const Product: React.FC = () => {
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
                       <div className="product-card">
+                        <div className="card-top-right">
+                          <IonButton
+                            fill="clear"
+                            size="small"
+                            onClick={() => setSelectedProduct(product)}
+                            className="options-btn"
+                          >
+                            <IonIcon icon={ellipsisVertical} />
+                          </IonButton>
+                        </div>
+
                         <img className="product-image" src={product.img} />
-                        <IonCardContent className='data'>
+                        <IonCardContent className="data">
                           <div className="product-data">
                             <div className="product-title">{product.name}</div>
                             <div className="product-price">&#8377;{product.price}</div>
@@ -165,13 +190,37 @@ const Product: React.FC = () => {
                   ))}
                 </ul>
               </div>
-              {/* <button className="apply-filter-button" onClick={applyFilter}>
-                 Apply Filter
-              </button> */}
             </div>
           </IonCol>
         </IonRow>
       </IonGrid>
+
+      {selectedProduct && (
+        <IonModal
+          isOpen={!!selectedProduct}
+          onDidDismiss={() => setSelectedProduct(null)}
+          breakpoints={[0, 0.4, 0.75]}
+          initialBreakpoint={0.4}
+          presentingElement={presentingEl!}
+        >
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Product Options</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setSelectedProduct(null)}>
+                  <IonIcon icon={closeOutline} />
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <h3>{selectedProduct.name}</h3>
+            <p>Price: &#8377;{selectedProduct.price}</p>
+            <p>Category: {selectedProduct.category}</p>
+            <p>More actions can go here...</p>
+          </IonContent>
+        </IonModal>
+      )}
     </div>
   );
 };
