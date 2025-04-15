@@ -6,7 +6,9 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { cart } from "ionicons/icons";
 import "./arrival.css";
-
+import { useDispatch } from 'react-redux';
+import { fetchProductsFromFirebase } from '../../Store/Slice/arrival';
+import { AppDispatch } from '../../Store/store';
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -23,7 +25,12 @@ const Arrival: React.FC = () => {
   const [cardsPerView, setCardsPerView] = useState(3);
   const [cardWidth, setCardWidth] = useState(300);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    dispatch(fetchProductsFromFirebase());
+  }, [dispatch]);
+  
   // Update cardsPerView based on screen size
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -82,10 +89,10 @@ const Arrival: React.FC = () => {
                   style={{ width: `${cardWidth}px` }}
                 >
                   <IonCard className="arr-product">
-                    <img className="card-img" src={product.image} alt={product.title} />
+                    <img className="card-img" src={product.img} alt={product.name} />
                     <IonCardHeader className="card-head">
                       <IonCardTitle className="card-title">
-                        <strong>{product.title}</strong>
+                        <strong>{product.name}</strong>
                       </IonCardTitle>
                     </IonCardHeader>
                     <IonCardContent className="card-para">
