@@ -40,6 +40,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
       controls.start({ opacity: 0, y: 50 });
     }
   }, [inView]);
+  
 
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
@@ -201,6 +202,7 @@ const Product: React.FC = () => {
           <IonCol>
             <IonRow>
               {selectedProduct && (
+                
                 <div className="inline-modal">
                   <div className="inline-modal-content">
                     <div className="inline-modal-header">
