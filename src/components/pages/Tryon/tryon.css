@@ -66,6 +66,7 @@
 
 /* Styled input */
 .tryon-input {
+  background-color: beige;
   width: 100%;
   padding: 0.5rem 1rem;
   border: 1px solid #d1d5db;
@@ -75,9 +76,10 @@
 }
 
 .tryon-input:focus {
+  background-color: beige;
   outline: none;
   border-color: transparent;
-  box-shadow: 0 0 0 2px #d45907;
+  box-shadow: 0 0 0 1px #d45907;
 }
 
 /* Container for displayed images */
@@ -206,6 +208,7 @@
 
 /* Styled input */
 .tryon-input {
+  background-color: beige;
   width: 100%;
   padding: 0.5rem 1rem;
   border: 1px solid #d1d5db;
@@ -215,9 +218,10 @@
 }
 
 .tryon-input:focus {
+  background-color: beige;
   outline: none;
   border-color: transparent;
-  box-shadow: 0 0 0 2px #d45907;
+  box-shadow: 0 0 0 1px #d45907;
 }
 /* Container for displayed images */
 .img-container {
