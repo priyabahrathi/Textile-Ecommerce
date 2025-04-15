@@ -25,6 +25,8 @@ import './Product.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import TryOn from '../Tryon/Tryon';
+import { RiCameraLensAiLine } from "react-icons/ri";
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -102,17 +104,18 @@ const Product: React.FC = () => {
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
                       <div className="product-card">
-                        <div className="card-top-right">
+                        <div className="card-top-left">
                           <IonButton
                             fill="clear"
-                            size="small"
+                            size="large"
                             onClick={() => setSelectedProduct(product)}
-                            className="options-btn"
+                            className="try-btn"
                           >
-                            <IonIcon icon={ellipsisVertical} />
+                            
+                            <RiCameraLensAiLine />
                           </IonButton>
+                          <div className='try-hide'>Try this</div>
                         </div>
-
                         <img className="product-image" src={product.img} />
                         <IonCardContent className="data">
                           <div className="product-data">
@@ -201,14 +204,11 @@ const Product: React.FC = () => {
                 <div className="inline-modal">
                   <div className="inline-modal-content">
                     <div className="inline-modal-header">
-                      <h3>{selectedProduct.name}</h3>
+                      <h3 className='tryon-head'>Virtual TryOn</h3>
                       <button className="inline-modal-close" onClick={() => setSelectedProduct(null)}>&times;</button>
                     </div>
-                    <div className="inline-modal-body">
-                      <p><strong>Price:</strong> ₹{selectedProduct.price}</p>
-                      <p><strong>Category:</strong> {selectedProduct.category}</p>
-                      <p>You can add more actions here...</p>
-                    </div>
+                    <TryOn garmentImageFromProduct={selectedProduct?.img || ""} />
+
                   </div>
                 </div>
               )}
@@ -219,32 +219,7 @@ const Product: React.FC = () => {
         </IonRow>
       </IonGrid>
 
-      {/* {selectedProduct && (
-        <IonModal
-          isOpen={!!selectedProduct}
-          onDidDismiss={() => setSelectedProduct(null)}
-          breakpoints={[0, 0.4, 0.75]}
-          initialBreakpoint={0.4}
-          presentingElement={presentingEl!}
-        >
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Product Options</IonTitle>
-              <IonButtons slot="end">
-                <IonButton onClick={() => setSelectedProduct(null)}>
-                  <IonIcon icon={closeOutline} />
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent className="ion-padding">
-            <h3>{selectedProduct.name}</h3>
-            <p>Price: &#8377;{selectedProduct.price}</p>
-            <p>Category: {selectedProduct.category}</p>
-            <p>More actions can go here...</p>
-          </IonContent>
-        </IonModal>
-      )} */}
+
     </div>
   );
 };
