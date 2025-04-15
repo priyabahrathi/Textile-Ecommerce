@@ -206,7 +206,7 @@ const Product: React.FC = () => {
                 <div className="inline-modal">
                   <div className="inline-modal-content">
                     <div className="inline-modal-header">
-                      <h3 className='tryon-head'>Virtual TryOn</h3>
+                      <h3 className='tryon-head'>Virtual TryOn's</h3>
                       <button className="inline-modal-close" onClick={() => setSelectedProduct(null)}>&times;</button>
                     </div>
                     <TryOn garmentImageFromProduct={selectedProduct?.img || ""} />
