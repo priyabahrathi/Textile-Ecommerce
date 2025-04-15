@@ -18,6 +18,9 @@ import './Product.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import { useDispatch } from 'react-redux';
+import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
+import { AppDispatch } from '../../../Store/store';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -47,6 +50,13 @@ const Product: React.FC = () => {
   const [upper, setUpper] = useState(5000);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState(Products);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchProductsFromFirebase());
+  }, [dispatch]);
+  
 
   useEffect(() => {
     applyFilter();

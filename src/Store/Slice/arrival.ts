@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const productimg = (imageName: string) => {
-  return new URL(`../../assets/images/${imageName}`, import.meta.url).href;
+  return new URL(`../../../public/assets/images/${imageName}`, import.meta.url).href;
 };
 interface Product {
   id: number;
