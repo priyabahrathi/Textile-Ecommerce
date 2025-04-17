@@ -1,30 +1,21 @@
-export interface TryOnResponse {
-    file_path: string;
-  }
-  
-  export interface TryOnRequest {
-    model_image_url: string;
-    garment_image_url: string;
-    steps: number;
-    customized_model: boolean;
-  }
-  
-  export interface SampleImage {
-    url: string;
-    title: string;
-    description?: string;
-  }
-  
-  export interface GalleryProps {
-    images: SampleImage[];
-    onSelect: (url: string) => void;
-    selectedUrl: string;
-  }
-  
-  export interface ImageUploadResponse {
-    data: {
-      url: string;
-    };
-    success: boolean;
-    status: number;
-  }
+export interface TryOnDiffusionAPIResponse {
+  statusCode: number;
+  image?: Blob;
+  responseData?: ArrayBuffer;
+  errorDetails?: string;
+  seed?: number;
+}
+
+export interface TryOnDiffusionRequestParams {
+  clothingImage?: File;
+  clothingPrompt?: string;
+  avatarImage?: File;
+  avatarPrompt?: string;
+  avatarSex?: string;
+  backgroundImage?: File;
+  backgroundPrompt?: string;
+  seed?: number;
+  rawResponse?: boolean;
+  clothingBase64?: string;  // <-- Add this property
+  avatarBase64?: string; 
+}

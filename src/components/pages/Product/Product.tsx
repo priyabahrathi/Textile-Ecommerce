@@ -61,11 +61,11 @@ const Product: React.FC = () => {
   const [filteredItems, setFilteredItems] = useState(Products);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
-    const dispatch = useDispatch<AppDispatch>();
-  
-    useEffect(() => {
-      dispatch(fetchProductsFromFirebase());
-    }, [dispatch]);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchProductsFromFirebase());
+  }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,7 +73,6 @@ const Product: React.FC = () => {
       if (el) setPresentingEl(el);
     }, 0);
   }, []);
-
 
   useEffect(() => {
     applyFilter();
@@ -119,7 +118,6 @@ const Product: React.FC = () => {
                             onClick={() => setSelectedProduct(product)}
                             className="try-btn"
                           >
-                            
                             <RiCameraLensAiLine />
                           </IonButton>
                           <div className='try-hide'>Try this</div>
@@ -206,30 +204,26 @@ const Product: React.FC = () => {
               </div>
             </div>
           </IonCol>
+
+          {/* Modal section */}
           <IonCol>
             <IonRow>
               {selectedProduct && (
-                
                 <div className="inline-modal">
                   <div className="inline-modal-content">
                     <div className="inline-modal-header">
                       <h3 className='tryon-head'>Virtual TryOn's</h3>
                       <button className="inline-modal-close" onClick={() => setSelectedProduct(null)}>&times;</button>
                     </div>
-                    <TryOn garmentImageFromProduct={selectedProduct?.img || ""} />
-
+                    <TryOn clothingImage={selectedProduct.img} />
                   </div>
                 </div>
               )}
-
-
             </IonRow>
           </IonCol>
+
         </IonRow>
-        
       </IonGrid>
-
-
     </div>
   );
 };
