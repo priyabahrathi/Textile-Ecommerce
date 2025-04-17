@@ -19,6 +19,4 @@ ion-app{
     border-radius: 10px;
   }
   
-  @tailwind base;
-@tailwind components;
-@tailwind utilities;
+  

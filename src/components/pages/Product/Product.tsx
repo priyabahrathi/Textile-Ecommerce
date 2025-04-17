@@ -27,7 +27,9 @@ import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import TryOn from '../Tryon/Tryon';
 import { RiCameraLensAiLine } from "react-icons/ri";
-
+import { useDispatch } from 'react-redux';
+import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
+import { AppDispatch } from '../../../Store/store';
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false });
@@ -59,6 +61,11 @@ const Product: React.FC = () => {
   const [filteredItems, setFilteredItems] = useState(Products);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
+    const dispatch = useDispatch<AppDispatch>();
+  
+    useEffect(() => {
+      dispatch(fetchProductsFromFirebase());
+    }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -219,6 +226,7 @@ const Product: React.FC = () => {
             </IonRow>
           </IonCol>
         </IonRow>
+        
       </IonGrid>
 
 

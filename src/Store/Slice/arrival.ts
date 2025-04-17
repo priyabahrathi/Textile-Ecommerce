@@ -1,38 +1,52 @@
-import { createSlice } from "@reduxjs/toolkit";
+// ProductSlice.ts
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { database } from '../Slice/firebase';
+import { ref, onValue } from 'firebase/database';
 
-const productimg = (imageName: string) => {
-  return new URL(`../../assets/images/${imageName}`, import.meta.url).href;
-};
-interface Product {
-  id: number;
-  title: string;
-  price: string;
-  image: any;
+interface Arrival {
   rating:number;
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  img: string;
 }
-interface DataState {
-  Products: Product[];
+
+interface ArrivalState {
+  Products: Arrival[];
 }
-const initialState: DataState = {
-  Products: [
-    { id: 1, title: "shoes", price: "350", image:  productimg("3.png"),rating: 4.5 },
-    { id: 2, title: "T-Shirt", price: "250", image: productimg("4.png"),rating: 3.5 },
-    { id: 3, title: "Hoodie", price: "120", image: productimg("5.png"),rating: 5 },
-    { id: 1, title: "T-shirt", price: "350", image:  productimg("6.png"),rating: 4.5 },
-    { id: 2, title: "Hoodie", price: "250", image: productimg("5.png"),rating: 3.5 },
-    { id: 3, title: "T-shirt", price: "120", image: productimg("4.png"),rating: 5 },
-    { id: 1, title: "shoes", price: "350", image:  productimg("3.png"),rating: 4.5 },
-    { id: 2, title: "T-shirt", price: "250", image: productimg("4.png"),rating: 3.5 },
-    { id: 3, title: "Hoodie", price: "120", image: productimg("5.png"),rating: 5 },
-    { id: 1, title: "T-shirt", price: "350", image:  productimg("6.png"),rating: 4.5 },
-    { id: 2, title: "Hoodie", price: "250", image: productimg("5.png"),rating: 3.5 },
-    { id: 3, title: "shoes", price: "120", image: productimg("3.png"),rating: 5 },
-  ],
+
+const initialState: ArrivalState = {
+  Products: []
 };
+
+// Async thunk to fetch data
+export const fetchProductsFromFirebase = createAsyncThunk(
+  'arrival/fetchArrivals',
+  async () => {
+    return new Promise<Arrival[]>((resolve) => {
+      const arrivalRef = ref(database, 'arrival');
+      onValue(arrivalRef, (snapshot) => {
+        const data = snapshot.val();
+        const products: Arrival[] = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key]
+        }));
+        resolve(products);
+      });
+    });
+  }
+);
+
 const arrivalSlice = createSlice({
-  name: "arrival",
+  name: 'arrival',
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchProductsFromFirebase.fulfilled, (state, action) => {
+      state.Products = action.payload;
+    });
+  }
 });
 
 export default arrivalSlice.reducer;
