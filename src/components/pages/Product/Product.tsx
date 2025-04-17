@@ -226,6 +226,7 @@ const Product: React.FC = () => {
             </IonRow>
           </IonCol>
         </IonRow>
+        
       </IonGrid>
 
 

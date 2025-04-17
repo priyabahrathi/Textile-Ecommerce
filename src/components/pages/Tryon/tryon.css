@@ -156,6 +156,27 @@
   height: 1.25rem;
   width: 1.25rem;
 }
+
+.suggest-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.btn-suggest{
+  padding: 10px 20px;
+  background-color: #E59866;
+  color: #ffffff;
+  border-radius: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid #E59866;
+}
+.btn-suggest:hover{
+  background-color: #ffffff;
+  color: #E59866;
+
+}
 @media screen and (max-width:768px) {
 
   .tryon-page-wrapper {
