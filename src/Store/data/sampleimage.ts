@@ -1,24 +1,111 @@
-// Using Picsum Photos API for consistent, high-quality model images
-export const modelImages = [
-    {
-      url: 'https://lh7-us.googleusercontent.com/N2Ay8ndjwAcO_aTbXvNay6FEpqKHFT93tJHaHaYKxByzCYi9gYG8oLrfc25Jps7ccsoRcdFjvrokvQsN3WWWM0aaDrmevnTg6QguV0evBX9ZbaAWX7lklHxvCU5tYlsY7Fzg6MZd_zWZO3UUb3mfIZ3eVKosmNfPYRsoI1X3iML2DT9JV1_pUXPR9ib4qKxEjj2N-HX8?key=UJ-1eupNXtTCj-DxvzVheg',
-      title: 'Professional Model 1',
+import { TryOnDiffusionRequestParams, TryOnDiffusionAPIResponse } from "./types";
+
+export class TryOnDiffusionClient {
+  private baseUrl: string;
+  private apiKey: string;
+  private rapidApiHost: string | null;
+
+  constructor(
+    baseUrl: string = "https://try-on-diffusion.p.rapidapi.com",
+    apiKey: string = "86113fc065msh1c23b18c617356fp134dbfjsn7f9977529893"
+  ) {
+    this.baseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+    this.apiKey = apiKey;
+
+    const parsedUrl = new URL(this.baseUrl);
+    this.rapidApiHost = parsedUrl.hostname.endsWith(".rapidapi.com")
+      ? parsedUrl.hostname
+      : null;
+
+    if (this.rapidApiHost) {
+      console.info(`Using RapidAPI proxy: ${this.rapidApiHost}`);
     }
-  ];
-  
-  // Using FakeStoreAPI for realistic product images
-  export const garmentImages = [
-    {
-      url: 'https://lh7-us.googleusercontent.com/4ZCAI7q_TOFQwlPH0zIFVcuZjwpL6ISCPZ6yqYdn4pZGkerYF3SItuUcS8vvHSNzHJtlRPHHIktYkbqKrLyPSp-uU6IPASDYf6Ayw-0Yg4Sr2wt_tBJgEyxjQuWUPHaGWvNMg3jrIkiKA5om1RSEPICvaApb9WZG8EEAXbNYhONvGxc0qge9fxzByoftPOtyPgWBB2yE?key=UJ-1eupNXtTCj-DxvzVheg',
-      title: 'Mens Casual Premium Slim Fit T-Shirts',
-    },
-    {
-      url: 'https://lh7-us.googleusercontent.com/a_7ryKVzMM6foHJboQI-I2skh2ELwct-CbmO3G-ogt3vrTnTk4wz-hCADJU-qm9ezGIvnFJvH8Rgu_zVUI_jkU122FWQhPxA_cmNtXIZh9igH80pD2TIRhxRC9PDyWmwTbbjMUpWnayBE8eUbdIqsnJBASOSeU0_NCVMI3nf6VH_hnvZ4XQhvFuFf1pvX3RNcv03Ycgx?key=UJ-1eupNXtTCj-DxvzVheg',
-      title: 'Mens Cotton Jacket',
-    },
-    {
-      url: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-      title: 'Mens Casual Slim Fit',
-    },
-   
-  ];
+  }
+
+  async tryOnFile({
+    clothingImage,
+    clothingPrompt,
+    avatarImage,
+    avatarPrompt,
+    avatarSex,
+    backgroundImage,
+    backgroundPrompt,
+    seed = -1,
+    rawResponse = false,
+  }: TryOnDiffusionRequestParams): Promise<TryOnDiffusionAPIResponse> {
+    const url = `${this.baseUrl}/try-on-file`;
+    console.log(`API URL: ${url}`);
+
+    const formData = new FormData();
+    formData.append("seed", seed.toString());
+
+    if (clothingImage) {
+      formData.append("clothing_image", clothingImage);
+    }
+    if (clothingPrompt) {
+      formData.append("clothing_prompt", clothingPrompt);
+    }
+    if (avatarImage) {
+      formData.append("avatar_image", avatarImage);
+    }
+    if (avatarPrompt) {
+      formData.append("avatar_prompt", avatarPrompt);
+    }
+    if (avatarSex) {
+      formData.append("avatar_sex", avatarSex);
+    }
+    if (backgroundImage) {
+      formData.append("background_image", backgroundImage);
+    }
+    if (backgroundPrompt) {
+      formData.append("background_prompt", backgroundPrompt);
+    }
+
+    const headers: HeadersInit = {};
+    if (this.rapidApiHost) {
+      headers["X-RapidAPI-Key"] = this.apiKey;
+      headers["X-RapidAPI-Host"] = this.rapidApiHost;
+    } else {
+      headers["X-API-Key"] = this.apiKey;
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+        headers,
+      });
+
+      const result: TryOnDiffusionAPIResponse = {
+        statusCode: response.status,
+      };
+
+      if (response.status === 200) {
+        if (!rawResponse) {
+          result.image = await response.blob();
+        } else {
+          result.responseData = await response.arrayBuffer();
+        }
+
+        const seedHeader = response.headers.get("X-Seed");
+        if (seedHeader) {
+          result.seed = parseInt(seedHeader, 10);
+        }
+      } else {
+        try {
+          const errorData = await response.json();
+          if (errorData.detail) {
+            result.errorDetails = errorData.detail;
+          }
+        } catch (e) {
+          console.error("Error parsing response JSON:", e);
+        }
+      }
+
+      return result;
+    } catch (e) {
+      console.error(e);
+      return { statusCode: 0 };
+    }
+  }
+}
