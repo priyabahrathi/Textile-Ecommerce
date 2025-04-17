@@ -11,6 +11,7 @@ import { IonGrid, IonRow, IonCol } from "@ionic/react";
 import { Gallery } from "./Tryon-set/Gallery";
 import { modelImages, garmentImages } from "../../../Store/data/sampleimage";
 import "./tryon.css"
+import { extractPersonColors, RGB } from "../../../Store/Slice/colorExtrator";
 interface TryOnProps {
   garmentImageFromProduct?: string;
 }
@@ -22,12 +23,30 @@ function TryOn({ garmentImageFromProduct }: TryOnProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showGallery, setShowGallery] = useState(true);
+  const [skinTones, setSkinTones] = useState<RGB[]>([]);
+
 
   useEffect(() => {
     if (garmentImageFromProduct) {
       setGarmentImage(garmentImageFromProduct);
     }
   }, [garmentImageFromProduct]);
+  const handleSuggestionsClick = async () => {
+    if (!modelImage) {
+      setError("Please enter a model image URL first.");
+      return;
+    }
+
+    try {
+      const result = await extractPersonColors(modelImage);
+      setSkinTones(result.skinTones || []);
+      console.log("Skin tones extracted:", result.skinTones);
+    } catch (err) {
+      console.error("Extraction failed:", err);
+      setError("Could not extract skin tones.");
+    }
+  };
+
 
   const handleTryOn = async () => {
     if (!modelImage || !garmentImage) {
@@ -60,6 +79,7 @@ function TryOn({ garmentImageFromProduct }: TryOnProps) {
 
       const data: TryOnResponse = await response.json();
       const resultUrl = `https://clothes-tryon-6-0.onrender.com/download_image?file_path=${data.file_path}`;
+
       setResultImage(resultUrl);
     } catch (err) {
       setError("Failed to process the try-on request. Please try again.");
@@ -164,9 +184,27 @@ function TryOn({ garmentImageFromProduct }: TryOnProps) {
             </IonCol>
 
           </IonRow>
-          <div className='suggest-container'>
-            <button className='btn-suggest'>Provide Me Suggestions</button>
+          <button className='btn-suggest' onClick={handleSuggestionsClick}>
+            Provide Me Suggestions
+          </button>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+            {skinTones.map((tone, idx) => (
+              <div key={idx} className="flex items-center space-x-4">
+                <div
+                  className="w-10 h-10 rounded-full border"
+                  style={{ backgroundColor: `rgb(${tone.r}, ${tone.g}, ${tone.b})` }}
+                />
+                <h3 className="text-sm font-medium">
+                  rgb({tone.r}, {tone.g}, {tone.b})
+                </h3>
+                
+              </div>
+            ))}
           </div>
+
+
+
         </IonGrid>
       </div>
     </div>

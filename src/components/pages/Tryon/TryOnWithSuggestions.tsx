@@ -19,6 +19,12 @@ const TryOnWithSuggestions: React.FC = () => {
     setError("");
     try {
       const result = await extractPersonColors(modelImageUrl);
+      console.log("Extracted color result:", result);
+       if (!result || !result.skinTones || result.skinTones.length === 0) {
+        setError("No skin tones extracted. Please try a different image.");
+        return;
+      }
+      
       setColors({ skinTones: result.skinTones });
     } catch (err) {
       console.error(err);
