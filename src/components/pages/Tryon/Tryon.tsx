@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/react';
 import { ImageUpload } from './Tryon-set/imageuplode';
 import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
+import { extractPersonColors } from '../../../Store/Slice/colorExtrator';
+import type { RGB } from '../../../Store/Slice/colorExtrator'; // ✅ better typing
 import "./tryon.css";
 
 interface TryOnProps {
@@ -9,21 +11,25 @@ interface TryOnProps {
 }
 
 const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
+  const [skinTones, setSkinTones] = useState<RGB[]>([]);
+
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const [previews, setPreviews] = useState<{ [key: string]: string }>({
-    clothing: clothingImage,
+  const [previews, setPreviews] = useState<{ clothing: string; avatar: string }>({
+    clothing: '',
     avatar: '',
   });
-
   const [prompts, setPrompts] = useState<{ [key: string]: string }>({
     clothing: '',
     avatar: '',
   });
 
+
+
+  const clothingInputRef = useRef<HTMLInputElement>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
+
   const client = new TryOnDiffusionClient();
 
   useEffect(() => {
@@ -35,35 +41,41 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }
   }, [clothingImage]);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
+        const imageDataUrl = reader.result as string;
+
         setPreviews((prev) => ({
           ...prev,
-          [type]: reader.result as string,
+          [type]: imageDataUrl,
         }));
+
+        // Extract skin tones if it's an avatar
+        if (type === 'avatar') {
+          try {
+            const result = await extractPersonColors(imageDataUrl);
+            console.log('Extracted Skin Colors:', result.skinTones);
+            if (result && result.skinTones) {
+              setSkinTones(result.skinTones.map(item => item.rgb)); // ✅ FIX HERE
+            }
+          } catch (error) {
+            console.error('Failed to extract skin tones:', error);
+          }
+        }
       };
       reader.readAsDataURL(file);
     }
   };
+
 
   const handlePromptChange = (value: string, type: string) => {
     setPrompts((prev) => ({
       ...prev,
       [type]: value,
     }));
-  };
-
-  const handleRemove = (type: string) => {
-    setPreviews((prev) => ({
-      ...prev,
-      [type]: '',
-    }));
-    if (type === 'avatar' && avatarInputRef.current) {
-      avatarInputRef.current.value = ''; // clear input value
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,7 +91,7 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
         clothingPrompt: prompts.clothing || undefined,
         avatarImage: avatarFile,
         avatarPrompt: prompts.avatar || undefined,
-        clothingBase64: previews.clothing,
+        clothingBase64: previews.clothing, // ✅ Fixed here
       });
 
       if (response.statusCode === 200 && response.image) {
@@ -96,32 +108,29 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }
   };
 
+
   return (
     <div className="tryon-page-wrapper">
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <IonRow className="tryon-row">
-
-            {/* Clothing Image (Preloaded) */}
-            <IonCol size="4" className="tryon-col" >
-              <div className="tryon-card">
+            {/* Clothing Card */}
+            <IonCol size="4" className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Clothing</h2>
                 <ImageUpload
                   type="clothing"
-                  inputRef={undefined}
+                  inputRef={clothingInputRef}
                   preview={previews.clothing || null}
-                  onFileChange={() => {}}
+                  onFileChange={handleFileChange}
                   onPromptChange={handlePromptChange}
                   disabled={true}
                 />
               </div>
-              </div>
             </IonCol>
 
-            {/* Avatar Upload */}
-            <IonCol size="4" className="tryon-col">
-            <div className="tryon-card">
+            {/* Model Card */}
+            <IonCol size="4" className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Model</h2>
                 <ImageUpload
@@ -130,15 +139,13 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                   preview={previews.avatar || null}
                   onFileChange={handleFileChange}
                   onPromptChange={handlePromptChange}
-                  onRemove={handleRemove} // ✅ Added
                 />
-              </div>
+                
               </div>
             </IonCol>
 
-            {/* Output Result */}
-            <IonCol size="4" className="tryon-col">
-            <div className="tryon-card">
+            {/* Output Card */}
+            <IonCol size="4" className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Generated Result</h2>
                 {result && (
@@ -149,29 +156,49 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                   </div>
                 )}
               </div>
-              </div>
             </IonCol>
           </IonRow>
 
           <IonRow>
-            <IonCol className="tryon-col">
-              <button
+            <IonCol className="ion-text-center">
+              <IonButton
                 onClick={handleSubmit}
+                expand="block"
                 className="try-button"
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Try now'}
-              </button>
+                {loading ? 'Processing...' : 'Generate Try-On'}
+              </IonButton>
             </IonCol>
           </IonRow>
 
           {error && (
             <IonRow>
               <IonCol className="ion-text-center">
-                <div className="error-message">{error}</div>
+                <div className="error-message">
+                  {error}
+                </div>
               </IonCol>
             </IonRow>
           )}
+          {skinTones.length > 0 && (
+            <div className="skin-tone-palette" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '20px' }}>
+              {skinTones.map((color, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
+                    border: '2px solid #fff',
+                    boxShadow: '0 0 5px rgba(0,0,0,0.2)',
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
         </IonGrid>
       </div>
     </div>
