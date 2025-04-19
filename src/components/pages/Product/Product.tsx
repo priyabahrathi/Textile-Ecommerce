@@ -42,7 +42,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
       controls.start({ opacity: 0, y: 50 });
     }
   }, [inView]);
-  
+
 
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>

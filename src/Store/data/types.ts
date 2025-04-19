@@ -19,3 +19,10 @@ export interface TryOnDiffusionRequestParams {
   clothingBase64?: string;  // <-- Add this property
   avatarBase64?: string; 
 }
+export const imageResizeConfig = {
+  quality: 0.9, // Adjust quality (0 to 1)
+  maxWidth: 768,
+  maxHeight: 1024,
+  autoRotate: true,
+  debug: false,
+};

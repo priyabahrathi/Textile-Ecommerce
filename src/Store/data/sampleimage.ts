@@ -7,7 +7,7 @@ export class TryOnDiffusionClient {
 
   constructor(
     baseUrl: string = "https://try-on-diffusion.p.rapidapi.com",
-    apiKey: string = "86113fc065msh1c23b18c617356fp134dbfjsn7f9977529893"
+    apiKey: string = "39c5abde50msh667a5608dcf3f6ep143c9ajsn80676c84d1d1"
   ) {
     this.baseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
     this.apiKey = apiKey;

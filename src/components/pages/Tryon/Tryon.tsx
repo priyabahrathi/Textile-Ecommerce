@@ -12,15 +12,18 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [previews, setPreviews] = useState<{ [key: string]: string }>({});
+
+  const [previews, setPreviews] = useState<{ [key: string]: string }>({
+    clothing: clothingImage,
+    avatar: '',
+  });
+
   const [prompts, setPrompts] = useState<{ [key: string]: string }>({
     clothing: '',
     avatar: '',
   });
 
-  const clothingInputRef = useRef<HTMLInputElement>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
-
   const client = new TryOnDiffusionClient();
 
   useEffect(() => {
@@ -53,6 +56,16 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }));
   };
 
+  const handleRemove = (type: string) => {
+    setPreviews((prev) => ({
+      ...prev,
+      [type]: '',
+    }));
+    if (type === 'avatar' && avatarInputRef.current) {
+      avatarInputRef.current.value = ''; // clear input value
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -62,11 +75,11 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       const avatarFile = avatarInputRef.current?.files?.[0];
 
       const response = await client.tryOnFile({
-        clothingImage: undefined, // We'll handle the base64 image directly on server, if needed
+        clothingImage: undefined,
         clothingPrompt: prompts.clothing || undefined,
         avatarImage: avatarFile,
         avatarPrompt: prompts.avatar || undefined,
-        clothingBase64: clothingImage, // Send image as base64 if your API accepts it
+        clothingBase64: previews.clothing,
       });
 
       if (response.statusCode === 200 && response.image) {
@@ -88,39 +101,44 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <IonRow className="tryon-row">
-            {/* Clothing Card */}
-            <IonCol size="4" className="tryon-card">
+
+            {/* Clothing Image (Preloaded) */}
+            <IonCol size="4" className="tryon-col" >
+              <div className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Clothing</h2>
                 <ImageUpload
                   type="clothing"
-                  inputRef={clothingInputRef}
+                  inputRef={undefined}
                   preview={previews.clothing || null}
-                  // prompt={prompts.clothing}
-                  onFileChange={handleFileChange}
+                  onFileChange={() => {}}
                   onPromptChange={handlePromptChange}
-                  disabled={true} // Disabling clothing input since it's pre-loaded
+                  disabled={true}
                 />
+              </div>
               </div>
             </IonCol>
 
-            {/* Model Card */}
-            <IonCol size="4" className="tryon-card">
+            {/* Avatar Upload */}
+            <IonCol size="4" className="tryon-col">
+            <div className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Model</h2>
                 <ImageUpload
                   type="avatar"
                   inputRef={avatarInputRef}
                   preview={previews.avatar || null}
-                  // prompt={prompts.avatar}
                   onFileChange={handleFileChange}
                   onPromptChange={handlePromptChange}
+                  onRemove={handleRemove} // ✅ Added
                 />
+              </div>
               </div>
             </IonCol>
 
-            {/* Output Card */}
-            <IonCol size="4" className="tryon-card">
+            {/* Output Result */}
+            <IonCol size="4" className="tryon-col">
+            <div className="tryon-card">
               <div className="tryon-content">
                 <h2 className="tryon-card-title">Generated Result</h2>
                 {result && (
@@ -131,28 +149,26 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                   </div>
                 )}
               </div>
+              </div>
             </IonCol>
           </IonRow>
 
           <IonRow>
-            <IonCol className="ion-text-center">
-              <IonButton
+            <IonCol className="tryon-col">
+              <button
                 onClick={handleSubmit}
-                expand="block"
                 className="try-button"
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Generate Try-On'}
-              </IonButton>
+                {loading ? 'Processing...' : 'Try now'}
+              </button>
             </IonCol>
           </IonRow>
 
           {error && (
             <IonRow>
               <IonCol className="ion-text-center">
-                <div className="error-message">
-                  {error}
-                </div>
+                <div className="error-message">{error}</div>
               </IonCol>
             </IonRow>
           )}

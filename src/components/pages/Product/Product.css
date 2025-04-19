@@ -408,7 +408,7 @@ input[type="checkbox"]:checked::after {
   border-radius: 20px;
   padding: 20px;
   width: 80%;
-  min-height: 90vh;
+  min-height: auto;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   color: #8c3c0c;
 overflow-y: auto;
@@ -489,7 +489,7 @@ overflow-y: auto;
       border-radius: 20px;
       padding: 5px;
       width: 100%;
-      min-height: 40vh;
+      min-height: auto;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       color: #8c3c0c;
     overflow-y: auto;
@@ -515,22 +515,36 @@ overflow-y: auto;
       }
       
 }
-/*Desktop*/
 
-@media screen and (max-width: 1580px) {
-    .btn-buy {
-        width: 120px;
-    }
-}
+
+
 
 /*Tablets*/
 @media only screen and (max-width: 1200px) {
     .page-product {
         padding: 10px;
     }
+    .inline-modal {
+        position: absolute;
+        /* top: 0px;
+        left: 0; */
+        bottom: 940px;
+        z-index: 999;
+        width: 100%;
+        min-height: 30vh;
+        background-color: rgba(0, 0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+      }
 
-    /* .product-category {
-        text-align: center !important;
-    } */
+  
 
+}
+/*Desktop*/
+@media screen and (max-width: 1580px) {
+    .btn-buy {
+        width: 120px;
+    }
 }
