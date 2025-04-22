@@ -201,7 +201,7 @@
   background-color: #ffffff;
   color: #E59866;
 }@media screen and (max-width: 1200px) {
-  .tryon-card {
+  .-card {
     padding: 1rem;
     height:250px;
   }

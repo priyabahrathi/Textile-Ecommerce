@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import TryOn from "./Tryon";
+import Tryon from "./Tryon";
 import { extractPersonColors } from "../../../Store/Slice/colorExtrator";
 import type { RGB } from "../../../Store/Slice/colorExtrator";
 
 const TryOnWithSuggestions: React.FC = () => {
   const [modelImageUrl, setModelImageUrl] = useState("");
-  const [colors, setColors] = useState<{ skinTones: RGB[] } | null>(null);
+  const [skinTones, setSkinTones] = useState<RGB[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,13 +19,13 @@ const TryOnWithSuggestions: React.FC = () => {
     setError("");
     try {
       const result = await extractPersonColors(modelImageUrl);
-      console.log("Extracted color result:", result);
-       if (!result || !result.skinTones || result.skinTones.length === 0) {
+      console.log("Extracted skin tones:", result.skinTones);
+      if (!result || !result.skinTones || result.skinTones.length === 0) {
         setError("No skin tones extracted. Please try a different image.");
         return;
       }
-      
-      setColors({ skinTones: result.skinTones });
+
+      setSkinTones(result.skinTones.map(item => item.rgb));
     } catch (err) {
       console.error(err);
       setError("Failed to extract colors.");
@@ -55,26 +55,11 @@ const TryOnWithSuggestions: React.FC = () => {
         {error && <p className="text-red-500 mt-2">{error}</p>}
       </div>
 
-      <TryOn garmentImageFromProduct={modelImageUrl} />
+      <Tryon clothingImage={""} avatarImage={modelImageUrl} extractedSkinTones={skinTones} />
 
-      {colors && colors.skinTones.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Extracted Skin Tones</h2>
-          <div className="flex gap-4">
-            {colors.skinTones.map((skin, idx) => (
-              <div
-                key={idx}
-                className="w-16 h-16 rounded-full shadow border"
-                style={{
-                  backgroundColor: `rgb(${skin.r}, ${skin.g}, ${skin.b})`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
 export default TryOnWithSuggestions;
+

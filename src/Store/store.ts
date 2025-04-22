@@ -3,12 +3,14 @@ import pageReducer from "./Slice/pageSlice";
 import arrivalReducer from "./Slice/arrival"; 
 import productReducer from"./Slice/ProductSlice";
 import brandReducer from "./Slice/BrandSlice";
+import suggestionsReducer from "../Store/Slice/suggestions"
 export const store = configureStore({
   reducer: {
     page: pageReducer, 
     arrival: arrivalReducer,
     product:productReducer,
     brand:brandReducer,
+    suggestions: suggestionsReducer,
   },
 });
 
