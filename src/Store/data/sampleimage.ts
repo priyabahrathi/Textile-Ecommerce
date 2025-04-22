@@ -1,4 +1,4 @@
-import { TryOnDiffusionRequestParams, TryOnDiffusionAPIResponse } from "./types";
+import { TryOnDiffusionRequestParams, TryOnDiffusionAPIResponse } from "../data/types";
 
 export class TryOnDiffusionClient {
   private baseUrl: string;
@@ -6,17 +6,17 @@ export class TryOnDiffusionClient {
   private rapidApiHost: string | null;
 
   constructor(
-    baseUrl: string = "https://try-on-diffusion.p.rapidapi.com",
-    apiKey: string = "39c5abde50msh667a5608dcf3f6ep143c9ajsn80676c84d1d1"
+    baseUrl: string = "https://try-on-diffusion.p.rapidapi.com/",
+    apiKey: string = "abfb56901bmsh42a01919aabe9e0p1d0a61jsn0879f273aaff"
   ) {
     this.baseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
     this.apiKey = apiKey;
-
+  
     const parsedUrl = new URL(this.baseUrl);
     this.rapidApiHost = parsedUrl.hostname.endsWith(".rapidapi.com")
       ? parsedUrl.hostname
-      : null;
-
+      : "try-on-diffusion.p.rapidapi.com"; // fallback if parsing fails or hostname doesn't match
+  
     if (this.rapidApiHost) {
       console.info(`Using RapidAPI proxy: ${this.rapidApiHost}`);
     }

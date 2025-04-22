@@ -30,6 +30,7 @@ import { RiCameraLensAiLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
+
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false });
@@ -42,7 +43,6 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
       controls.start({ opacity: 0, y: 50 });
     }
   }, [inView]);
-
 
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={controls} transition={{ duration: 1, ease: 'easeOut' }}>
@@ -77,6 +77,12 @@ const Product: React.FC = () => {
   useEffect(() => {
     applyFilter();
   }, [searchText, lower, upper, selectedCategory, Products]);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      console.log("🧥 Selected Product Image URL:", selectedProduct.img);
+    }
+  }, [selectedProduct]);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
