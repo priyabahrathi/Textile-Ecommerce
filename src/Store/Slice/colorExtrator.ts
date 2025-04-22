@@ -13,41 +13,41 @@ export interface SkinToneCategory {
 
 export const SKIN_TONE_CATEGORIES: SkinToneCategory[] = [
   {
-    name: "Type I",
-    description: "Very fair, always burns, never tans",
-    minRGB: { r: 255, g: 218, b: 185 },
-    maxRGB: { r: 255, g: 236, b: 204 }
+    name: "Fair Skin",
+    description: "Fair, always burns, never tans",
+    minRGB: { r: 200, g: 170, b: 160 },
+    maxRGB: { r: 255, g: 230, b: 210 }
   },
   {
-    name: "Type II",
-    description: "Fair, burns easily, tans minimally",
-    minRGB: { r: 241, g: 194, b: 125 },
-    maxRGB: { r: 255, g: 218, b: 185 }
+    name: "Dusky Skin",
+    description: "Dusky, burns easily, tans minimally",
+    minRGB: { r: 140, g: 100, b: 80 },
+    maxRGB: { r: 200, g: 170, b: 140 }
   },
   {
-    name: "Type III",
-    description: "Medium, burns moderately, tans gradually",
-    minRGB: { r: 224, g: 172, b: 105 },
-    maxRGB: { r: 241, g: 194, b: 125 }
+    name: "Dark Skin",
+    description: "Dark, burns moderately, tans gradually",
+    minRGB: { r: 60, g: 40, b: 30 },
+    maxRGB: { r: 130, g: 100, b: 90 }
   },
-  {
-    name: "Type IV",
-    description: "Olive, burns minimally, tans well",
-    minRGB: { r: 198, g: 134, b: 66 },
-    maxRGB: { r: 224, g: 172, b: 105 }
-  },
-  {
-    name: "Type V",
-    description: "Brown, rarely burns, tans profusely",
-    minRGB: { r: 141, g: 85, b: 36 },
-    maxRGB: { r: 198, g: 134, b: 66 }
-  },
-  {
-    name: "Type VI",
-    description: "Dark brown to black, never burns",
-    minRGB: { r: 70, g: 39, b: 23 },
-    maxRGB: { r: 141, g: 85, b: 36 }
-  }
+  // {
+  //   name: "Type IV",
+  //   description: "Olive, burns minimally, tans well",
+  //   minRGB: { r: 198, g: 134, b: 66 },
+  //   maxRGB: { r: 224, g: 172, b: 105 }
+  // },
+  // {
+  //   name: "Type V",
+  //   description: "Brown, rarely burns, tans profusely",
+  //   minRGB: { r: 141, g: 85, b: 36 },
+  //   maxRGB: { r: 198, g: 134, b: 66 }
+  // },
+  // {
+  //   name: "Type VI",
+  //   description: "Dark brown to black, never burns",
+  //   minRGB: { r: 70, g: 39, b: 23 },
+  //   maxRGB: { r: 141, g: 85, b: 36 }
+  // }
 ];
 
 export function rgbToHex({ r, g, b }: RGB): string {

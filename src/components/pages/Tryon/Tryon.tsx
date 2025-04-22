@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonGrid, IonRow, IonCol, IonButton, IonIcon, IonCardContent, IonCard } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard } from '@ionic/react';
 import { ImageUpload } from './Tryon-set/imageuplode';
 import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
+import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../Store/store';
 import {
   extractPersonColors,
   getSkinToneCategory,
@@ -9,6 +12,8 @@ import {
   type SkinToneCategory,
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
+import { cart, star } from 'ionicons/icons';
+import suggestions from '../../../Store/Slice/suggestions';
 
 interface TryOnProps {
   clothingImage: string;
@@ -28,6 +33,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const [skinTones, setSkinTones] = useState<{ rgb: RGB; category: SkinToneCategory | null }[]>([]);
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
+
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
     clothing: clothingImage,
@@ -42,63 +49,46 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const client = new TryOnDiffusionClient();
 
-  // useEffect(() => {
-  //   if (clothingImage) {
-  //     setPreviews((prev) => ({
-  //       ...prev,
-  //       clothing: clothingImage,
-  //     }));
-  //   }
-  // }, [clothingImage]);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { suggestions, loading: suggestionsLoading } = useSelector((state: RootState) => state.suggestions);
+
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const handleSuggestClick = () => {
+    if (!selectedSkinTone || !('name' in selectedSkinTone)) {
+      alert('Please upload a model image and select a skin tone first.');
+      return;
+    }
+  
+    dispatch(fetchSuggestedProducts()).then((res) => {
+      setTimeout(() => {
+        const allSuggestions = (res as any)?.payload || [];
+  
+        const matched = allSuggestions.filter((product: any) => {
+          return (
+            product.skinTone &&
+            product.skinTone.toLowerCase() === selectedSkinTone.name.toLowerCase()
+          );
+        });
+  
+        setShowSuggestions(true);
+        setFilteredSuggestions(matched);
+      }, 300);
+    });
+  };
+  
+
+
 
   useEffect(() => {
     if (clothingImage) {
-      setPreviews((prev) => ({ ...prev, clothing: clothingImage }));
+      setPreviews((prev) => ({
+        ...prev,
+        clothing: clothingImage,
+      }));
     }
-    if (avatarImage) {
-      setPreviews((prev) => ({ ...prev, avatar: avatarImage }));
-    }
-  }, [clothingImage, avatarImage]);
-
-  useEffect(() => {
-    if (extractedSkinTones && extractedSkinTones.length > 0) {
-      setSkinTones(extractedSkinTones);
-    }
-  }, [extractedSkinTones]);
-
-  const handleSkinToneClick = (color: RGB) => {
-    console.log('Selected skin tone:', color);
-    // Example: you could update some state here or use it for filtering
-  };
-
-  const SKIN_TONE_LABELS = {
-    FAIR: 'Fair Skin',
-    OLIVE: 'Olive',
-    LIGHT_BROWN: 'Light Brown Skin',
-    BROWN: 'Brown Skin',
-    DARK_BROWN: 'Dark Brown Skin',
-  };
-
-  const classifySkinTone = (rgb: RGB): string => {
-    const { r, g, b } = rgb;
-    const brightness = (r + g + b) / 3;
-
-    if (brightness > 200) return SKIN_TONE_LABELS.FAIR;
-    if (brightness > 160 && r > g && g > b) return SKIN_TONE_LABELS.OLIVE;
-    if (brightness > 130) return SKIN_TONE_LABELS.LIGHT_BROWN;
-    if (brightness > 90) return SKIN_TONE_LABELS.BROWN;
-    return SKIN_TONE_LABELS.DARK_BROWN;
-  };
-
-  const groupedSkinTones: { [category: string]: RGB[] } = {};
-
-  skinTones.forEach((color) => {
-    const category = classifySkinTone(color);
-    if (!groupedSkinTones[category]) {
-      groupedSkinTones[category] = [];
-    }
-    groupedSkinTones[category].push(color);
-  });
+  }, [clothingImage]);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -281,6 +271,52 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </IonCol>
             </IonRow>
           )}
+
+
+          {showSuggestions && filteredSuggestions.length > 0 && (
+            <IonRow>
+              <IonCol size="12">
+                <h3 className="suggestion-heading">Suggested Products</h3>
+                <IonGrid>
+                  <IonRow>
+                    {filteredSuggestions.map(product => (
+                      <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
+                        <IonCard className="product-card">
+                          <img src={product.img} className="product-image" alt={product.name} />
+                          <IonCardContent>
+                            <div className='product-data'>
+                              <div className="product-title">{product.name}</div>
+                              <div className="product-price">{product.price}</div>
+                            </div>
+                            <div className="rate-buy">
+                              <div className="ratings">
+                                {[...Array(5)].map((_, i) => (
+                                  <IonIcon key={i} icon={star} className="star-icon" />
+                                ))}
+                              </div>
+                              <button className="btn-buy">
+                                <IonIcon icon={cart} slot="start" />
+                                Buy Now
+                              </button>
+                            </div>
+                          </IonCardContent>
+                        </IonCard>
+                      </IonCol>
+                    ))}
+                  </IonRow>
+                </IonGrid>
+              </IonCol>
+            </IonRow>
+          )}
+
+
+          <div className='suggest-container'>
+            <button className='btn-suggest' onClick={handleSuggestClick}>
+              {suggestionsLoading ? 'Loading...' : 'Provide Me Suggestions'}
+            </button>
+          </div>
+
+
         </IonGrid>
       </div>
     </div>

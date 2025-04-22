@@ -37,6 +37,7 @@ const suggestionSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
+      
       .addCase(fetchSuggestedProducts.pending, state => {
         state.loading = true;
         state.error = null;
