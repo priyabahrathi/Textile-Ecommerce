@@ -2,19 +2,32 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/react';
 import { ImageUpload } from './Tryon-set/imageuplode';
 import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
-import ColorExtractor from '../../../common/tsx/colorExtractor'; // Import the skin tone analyzer
+import {
+  extractPersonColors,
+  getSkinToneCategory,
+  type RGB,
+  type SkinToneCategory,
+} from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
 
 interface TryOnProps {
   clothingImage: string;
 }
 
+const getSimpleSkinToneName = (rgb: RGB): string => {
+  const brightness = (rgb.r + rgb.g + rgb.b) / 3;
+  if (brightness < 85) return 'Dark';
+  if (brightness <= 170) return 'Medium';
+  return 'Fair';
+};
+
 const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [skinTones, setSkinTones] = useState<string[]>([]);
-  const [dominantTone, setDominantTone] = useState<string | null>(null);
+  const [skinTones, setSkinTones] = useState<{ rgb: RGB; category: SkinToneCategory | null }[]>([]);
+  const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
     clothing: clothingImage,
@@ -26,7 +39,6 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     avatar: '',
   });
 
-  const [isProcessed, setIsProcessed] = useState(false);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const client = new TryOnDiffusionClient();
 
@@ -39,15 +51,34 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }
   }, [clothingImage]);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
+        const imageDataUrl = reader.result as string;
         setPreviews((prev) => ({
           ...prev,
-          [type]: reader.result as string,
+          [type]: imageDataUrl,
         }));
+
+        if (type === 'avatar') {
+          try {
+            const result = await extractPersonColors(imageDataUrl);
+            if (result && result.skinTones) {
+              const enrichedSkinTones = result.skinTones.map((item) => ({
+                rgb: item.rgb,
+                category: getSkinToneCategory(item.rgb) ?? null,
+              }));
+              setSkinTones(enrichedSkinTones);
+            }
+          } catch (err) {
+            console.error('Skin tone extraction failed:', err);
+          }
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -58,16 +89,6 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       ...prev,
       [type]: value,
     }));
-  };
-
-  const handleRemove = (type: string) => {
-    setPreviews((prev) => ({
-      ...prev,
-      [type]: '',
-    }));
-    if (type === 'avatar' && avatarInputRef.current) {
-      avatarInputRef.current.value = '';
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,27 +111,14 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
         const imageUrl = URL.createObjectURL(response.image);
         setResult(imageUrl);
       } else {
-        setError(response.errorDetails || 'An error occurred');
+        setError(response.errorDetails || 'Something went wrong.');
       }
     } catch (err) {
-      setError('Failed to process the request');
       console.error(err);
+      setError('Try-on process failed.');
     } finally {
       setLoading(false);
-      setIsProcessed(true);
     }
-  };
-
-  const scrollToSkinToneSection = () => {
-    const skinToneSection = document.getElementById('skin-tone-section');
-    if (skinToneSection) {
-      skinToneSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleSkinTonesExtracted = (tones: string[]) => {
-    setSkinTones(tones);
-    setDominantTone(tones[1] || tones[0]); // Use the 2nd closest if available, else fallback to the 1st
   };
 
   return (
@@ -118,84 +126,103 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <IonRow className="tryon-row">
-            {/* Clothing Image (Before) */}
             <IonCol size="4" className="tryon-col">
               <div className="tryon-card">
-                <div className="tryon-content">
-                  <h2 className="tryon-card-title">Before (Clothing)</h2>
-                  <ImageUpload
-                    type="clothing"
-                    inputRef={undefined}
-                    preview={previews.clothing || null}
-                    onFileChange={() => {}}
-                    onPromptChange={handlePromptChange}
-                    disabled={true}
-                  />
-                </div>
+                <h2 className="tryon-card-title">Clothing</h2>
+                <ImageUpload
+                  type="clothing"
+                  inputRef={undefined}
+                  preview={previews.clothing || null}
+                  onFileChange={() => { }}
+                  onPromptChange={handlePromptChange}
+                  disabled={true}
+                />
               </div>
             </IonCol>
 
-            {/* Avatar Upload */}
             <IonCol size="4" className="tryon-col">
               <div className="tryon-card">
-                <div className="tryon-content">
-                  <h2 className="tryon-card-title">Model</h2>
-                  <ImageUpload
-                    type="avatar"
-                    inputRef={avatarInputRef}
-                    preview={previews.avatar || null}
-                    onFileChange={handleFileChange}
-                    onPromptChange={handlePromptChange}
-                    onRemove={handleRemove}
-                  />
-                </div>
+                <h2 className="tryon-card-title">Model</h2>
+                <ImageUpload
+                  type="avatar"
+                  inputRef={avatarInputRef}
+                  preview={previews.avatar || null}
+                  onFileChange={handleFileChange}
+                  onPromptChange={handlePromptChange}
+                />
               </div>
             </IonCol>
 
-            {/* Output Result (After) */}
             <IonCol size="4" className="tryon-col">
               <div className="tryon-card">
-                <div className="tryon-content">
-                  <h2 className="tryon-card-title">After (Generated Result)</h2>
-                  {result && (
-                    <div
-                      className="result-section"
-                      style={{
-                        backgroundColor: dominantTone || '#fff',
-                        padding: '10px',
-                        borderRadius: '12px',
-                      }}
-                    >
-                      <div className="result-image-wrapper">
-                        <img src={result} alt="Try-on result" className="result-image" />
-                      </div>
+                <h2 className="tryon-card-title">Result</h2>
+                {result && (
+                  <div className="result-section">
+                    <div className="result-image-wrapper">
+                      <img src={result} alt="Result" className="result-image" />
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </IonCol>
           </IonRow>
 
           <IonRow>
-            <IonCol className="tryon-col">
-              <button
+            <IonCol className="ion-text-center">
+              <IonButton
                 onClick={handleSubmit}
                 className="try-button"
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Try now'}
-              </button>
+                {loading ? 'Processing...' : 'Try On'}
+              </IonButton>
             </IonCol>
           </IonRow>
 
-          {isProcessed && (
-            <IonRow>
-              <IonCol className="ion-text-center">
-                <IonButton onClick={scrollToSkinToneSection} className="down-arrow-button">
-                  ↓ Scroll Down
-                </IonButton>
-              </IonCol>
-            </IonRow>
+          {skinTones.length > 0 && (
+            <>
+              <IonRow className="ion-justify-content-center ion-padding-top">
+                {skinTones.map((tone, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      setSelectedSkinTone(
+                        tone.category ?? {
+                          name: getSimpleSkinToneName(tone.rgb),
+                          description: 'Custom detected skin tone based on brightness.',
+                        }
+                      );
+                      setSelectedIndex(index);
+                    }}
+                    style={{
+                      backgroundColor: `rgb(${tone.rgb.r}, ${tone.rgb.g}, ${tone.rgb.b})`,
+                      width: '40px',
+                      height: '40px',
+                      margin: '0 10px',
+                      borderRadius: '50%',
+                      border: selectedIndex === index ? '3px solid #000' : '2px solid #fff',
+                      boxShadow: '0 0 5px rgba(0,0,0,0.2)',
+                      cursor: 'pointer',
+                      transition: 'transform 0.2s ease-in-out',
+                    }}
+                    title={tone.category?.name || 'Unknown'}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
+                  />
+                ))}
+              </IonRow>
+
+              {selectedSkinTone && (
+                <IonRow className="ion-padding-top">
+                  <IonCol className="ion-text-center">
+                    <div className="skin-tone-info">
+                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
+                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
+                    </div>
+                  </IonCol>
+                </IonRow>
+              )}
+            </>
           )}
 
           {error && (
@@ -206,22 +233,6 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
             </IonRow>
           )}
         </IonGrid>
-      </div>
-
-      {/* Skin Tone Section */}
-      <div id="skin-tone-section">
-        <h3>Skin Tone Analysis</h3>
-        {previews.avatar && (
-          <ColorExtractor
-            avatarImage={previews.avatar}
-            // onTonesExtracted={handleSkinTonesExtracted}
-          />
-        )}
-        {dominantTone && (
-          <p style={{ marginTop: '10px' }}>
-            <strong>Applied Skin Tone:</strong> {dominantTone}
-          </p>
-        )}
       </div>
     </div>
   );

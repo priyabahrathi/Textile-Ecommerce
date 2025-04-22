@@ -10,51 +10,70 @@ interface SkinToneAnalyzerProps {
   avatarImage: string;
 }
 
-export default function ColorExtractor({ avatarImage }: SkinToneAnalyzerProps) {
+const SkinToneAnalyzer: React.FC<SkinToneAnalyzerProps> = ({ avatarImage }) => {
   const [skinTone, setSkinTone] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // ✔️ Updated skin tone level function without "Cool" detection
-  function getSkinToneLevel(rgb: { r: number; g: number; b: number }): string {
+  // ✅ Determine tone by brightness
+  const getSkinToneLevel = (rgb: RGB): string => {
     const brightness = (rgb.r + rgb.g + rgb.b) / 3;
-    if (brightness < 85) {
-      return 'Dark Skin Tone';
-    } else if (brightness >= 85 && brightness <= 170) {
-      return 'Medium Skin Tone';
-    } else {
-      return 'Fair Skin Tone';
+    if (brightness < 85) return 'Dark Skin Tone';
+    if (brightness <= 170) return 'Medium Skin Tone';
+    return 'Fair Skin Tone';
+  };
+
+  // ✅ Average pixels in center area
+  const getAverageRGB = (ctx: CanvasRenderingContext2D, width: number, height: number): RGB => {
+    const sampleSize = 10;
+    const startX = width / 2 - sampleSize / 2;
+    const startY = height / 3 - sampleSize / 2;
+    const imgData = ctx.getImageData(startX, startY, sampleSize, sampleSize);
+    const data = imgData.data;
+
+    let r = 0, g = 0, b = 0, count = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      r += data[i];
+      g += data[i + 1];
+      b += data[i + 2];
+      count++;
     }
-  }
+
+    return { r: Math.round(r / count), g: Math.round(g / count), b: Math.round(b / count) };
+  };
 
   useEffect(() => {
     if (!avatarImage) return;
-
-    setSkinTone('');
+    setLoading(true);
     setError('');
+    setSkinTone('');
 
     const img = new Image();
     img.crossOrigin = 'anonymous';
 
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        setError('Canvas not supported.');
-        return;
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('Canvas not supported.');
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const avgRGB = getAverageRGB(ctx, img.width, img.height);
+        const tone = getSkinToneLevel(avgRGB);
+        setSkinTone(tone);
+      } catch (err: any) {
+        setError(err.message || 'Failed to analyze image.');
+      } finally {
+        setLoading(false);
       }
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-
-      const { data } = ctx.getImageData(img.width / 2, img.height / 3, 1, 1);
-      const [r, g, b] = data;
-      const skinResult = getSkinToneLevel({ r, g, b });
-      setSkinTone(skinResult);
     };
 
     img.onerror = () => {
       setError('Failed to load image.');
+      setLoading(false);
     };
 
     img.src = avatarImage;
@@ -65,13 +84,15 @@ export default function ColorExtractor({ avatarImage }: SkinToneAnalyzerProps) {
   return (
     <div className="mt-4 p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
       <p className="text-lg font-semibold">Detected Skin Tone:</p>
-      {skinTone ? (
-        <p className="text-2xl text-yellow-800">{skinTone}</p>
+      {loading ? (
+        <p className="text-gray-500">Analyzing...</p>
       ) : error ? (
         <p className="text-red-600">{error}</p>
       ) : (
-        <p className="text-gray-500">Analyzing...</p>
+        <p className="text-2xl text-yellow-800">{skinTone}</p>
       )}
     </div>
   );
-}
+};
+
+export default SkinToneAnalyzer;

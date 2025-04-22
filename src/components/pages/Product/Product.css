@@ -392,7 +392,7 @@ input[type="checkbox"]:checked::after {
     bottom: 170px;
     z-index: 999;
     width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
     background-color: rgba(0, 0, 0, 0);
     display: flex;
     justify-content: center;
@@ -408,7 +408,8 @@ input[type="checkbox"]:checked::after {
   border-radius: 20px;
   padding: 20px;
   width: 80%;
-  min-height: auto;
+  max-height: 90vh;   /* ✅ allow it to grow responsively */
+  min-height: 50vh;   /* ✅ fallback height */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   color: #8c3c0c;
 overflow-y: auto;
@@ -438,6 +439,38 @@ overflow-y: auto;
 
 
 /*Responsive*/
+/*Desktop*/
+@media screen and (max-width: 1580px) {
+    .btn-buy {
+        width: 120px;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .page-product {
+        padding: 10px;
+    }
+    .inline-modal {
+        position: absolute;
+        /* top: 0px;
+        left: 0; */
+        bottom: 940px;
+        z-index: 999;
+        width: 100%;
+        min-height: 30vh;
+        background-color: rgba(0, 0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+      }
+      .inline-modal-content{
+        min-height: 40vh;
+    max-height: 70vh;
+      }
+
+  
+
+}
 /*Mobiles*/
 @media screen and (max-width: 768px) {
     .product-data {
@@ -489,7 +522,8 @@ overflow-y: auto;
       border-radius: 20px;
       padding: 5px;
       width: 100%;
-      min-height: auto;
+      max-height: 70vh;
+    min-height: 40vh;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       color: #8c3c0c;
     overflow-y: auto;
@@ -517,34 +551,13 @@ overflow-y: auto;
 }
 
 
-
-
-/*Tablets*/
-@media only screen and (max-width: 1200px) {
-    .page-product {
-        padding: 10px;
+@media screen and (max-width: 480px) {
+    .inline-modal-content {
+      max-height: 75vh;
+      min-height: 35vh;
     }
-    .inline-modal {
-        position: absolute;
-        /* top: 0px;
-        left: 0; */
-        bottom: 940px;
-        z-index: 999;
-        width: 100%;
-        min-height: 30vh;
-        background-color: rgba(0, 0, 0, 0);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-      }
-
+  }
   
 
-}
-/*Desktop*/
-@media screen and (max-width: 1580px) {
-    .btn-buy {
-        width: 120px;
-    }
-}
+/*Tablets*/
+
