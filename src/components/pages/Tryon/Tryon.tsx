@@ -165,9 +165,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <IonRow className="tryon-row">
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Clothing</h2>
+                <h2 className="tryon-card-title">Your Outfit</h2>
                 <ImageUpload
                   type="clothing"
                   inputRef={undefined}
@@ -179,9 +179,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </div>
             </IonCol>
 
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col"  sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Model</h2>
+                <h2 className="tryon-card-title">Your Picture</h2>
                 <ImageUpload
                   type="avatar"
                   inputRef={avatarInputRef}
@@ -192,9 +192,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </div>
             </IonCol>
 
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col"  sizeXl='4' sizeLg='12' sizeMd='12' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Result</h2>
+                <h2 className="tryon-card-title">Your Look</h2>
                 {result && (
                   <div className="result-section">
                     <div className="result-image-wrapper">
@@ -213,26 +213,29 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                 className="try-button"
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Try On'}
+                {loading ? 'Processing...' : 'Try It'}
               </IonButton>
             </IonCol>
           </IonRow>
-
           {skinTones.length > 0 && (
             <>
-              <IonRow className="ion-justify-content-center ion-padding-top">
+            
+              <IonRow className="ion-justify-content-center ion-padding-top skintone-container">
+              <div className='tone-selection'>Select Your Exact Skintone</div>
                 {skinTones.map((tone, index) => (
                   <div
+                  className='color-circle'
                     key={index}
                     onClick={() => {
                       setSelectedSkinTone(
                         tone.category ?? {
                           name: getSimpleSkinToneName(tone.rgb),
                           description: 'Custom detected skin tone based on brightness.',
+                          
                         }
                       );
                       setSelectedIndex(index);
-                    }}
+                    } }
                     style={{
                       backgroundColor: `rgb(${tone.rgb.r}, ${tone.rgb.g}, ${tone.rgb.b})`,
                       width: '40px',
@@ -246,8 +249,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     }}
                     title={tone.category?.name || 'Unknown'}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
-                  />
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
+
                 ))}
               </IonRow>
 
@@ -255,8 +258,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                 <IonRow className="ion-padding-top">
                   <IonCol className="ion-text-center">
                     <div className="skin-tone-info">
-                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
-                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
+
+                      {/* <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
+                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p> */}
                     </div>
                   </IonCol>
                 </IonRow>
@@ -276,7 +280,7 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
           {showSuggestions && filteredSuggestions.length > 0 && (
             <IonRow>
               <IonCol size="12">
-                <h3 className="suggestion-heading">Suggested Products</h3>
+                <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
                 <IonGrid>
                   <IonRow>
                     {filteredSuggestions.map(product => (
