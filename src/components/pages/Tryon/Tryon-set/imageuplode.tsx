@@ -1,7 +1,7 @@
 import React from 'react';
 import { Upload, X } from 'lucide-react';
 import { readAndCompressImage } from 'browser-image-resizer';
-import { imageResizeConfig } from "../../../../Store/data/types"; // Make sure this config exists
+import { imageResizeConfig } from "../../../../Store/data/types";
 import "./imageuplode.css";
 
 interface ImageUploadProps {
@@ -12,7 +12,7 @@ interface ImageUploadProps {
   required?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>, type: string) => void;
   onPromptChange: (value: string, type: string) => void;
-  onRemove?: (type: string) => void; // ✅ Added
+  onRemove?: (type: string) => void;
   disabled?: boolean;
 }
 

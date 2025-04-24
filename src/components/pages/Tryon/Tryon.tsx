@@ -6,6 +6,7 @@ import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../Store/store';
 import {
+  extractGender,
   extractPersonColors,
   getSkinToneCategory,
   type RGB,
@@ -13,7 +14,6 @@ import {
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
 import { cart, star } from 'ionicons/icons';
-import suggestions from '../../../Store/Slice/suggestions';
 
 interface TryOnProps {
   clothingImage: string;
@@ -34,6 +34,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
+  const [gender, setGender] = useState<string | null>(null);
+
 
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
@@ -60,24 +62,24 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       alert('Please upload a model image and select a skin tone first.');
       return;
     }
-  
+
     dispatch(fetchSuggestedProducts()).then((res) => {
       setTimeout(() => {
         const allSuggestions = (res as any)?.payload || [];
-  
+
         const matched = allSuggestions.filter((product: any) => {
           return (
             product.skinTone &&
             product.skinTone.toLowerCase() === selectedSkinTone.name.toLowerCase()
           );
         });
-  
+
         setShowSuggestions(true);
         setFilteredSuggestions(matched);
       }, 300);
     });
   };
-  
+
 
 
 
@@ -107,17 +109,24 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
         if (type === 'avatar') {
           try {
             const result = await extractPersonColors(imageDataUrl);
-            if (result && result.skinTones) {
+            if (result?.skinTones) {
               const enrichedSkinTones = result.skinTones.map((item) => ({
                 rgb: item.rgb,
                 category: getSkinToneCategory(item.rgb) ?? null,
               }));
               setSkinTones(enrichedSkinTones);
             }
+
+
+            const genderDetected = await extractGender(imageDataUrl);
+            if (genderDetected) {
+              setGender(genderDetected);
+            }
           } catch (err) {
-            console.error('Skin tone extraction failed:', err);
+            console.error('Skin tone or gender extraction failed:', err);
           }
         }
+
       };
       reader.readAsDataURL(file);
     }
@@ -139,14 +148,14 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       const avatarFile = new File([Uint8Array.from(atob(previews.avatar.split(',')[1]), c => c.charCodeAt(0))], 'avatar.png', { type: 'image/png' });
       const clothing = await fetch(clothingImage); // e.g., /assets/Product/shirt1.png
       const clothingImageblob = await clothing.blob();
-    
+
       const clothingFile = new File([clothingImageblob], `clothingImage.png`, { type: clothingImageblob.type });
       const response = await client.tryOnFile({
         clothingImage: clothingFile,
         avatarImage: avatarFile,
-        
+
       });
-console.log(clothingFile,avatarFile);
+      console.log(clothingFile, avatarFile);
 
       if (response.statusCode === 200 && response.image) {
         const imageUrl = URL.createObjectURL(response.image);
@@ -181,7 +190,7 @@ console.log(clothingFile,avatarFile);
               </div>
             </IonCol>
 
-            <IonCol className="tryon-col"  sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
               <div className="tryon-card">
                 <h2 className="tryon-card-title">Your Picture</h2>
                 <ImageUpload
@@ -194,7 +203,7 @@ console.log(clothingFile,avatarFile);
               </div>
             </IonCol>
 
-            <IonCol className="tryon-col"  sizeXl='4' sizeLg='12' sizeMd='12' sizeXs='12'>
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='12' sizeMd='12' sizeXs='12'>
               <div className="tryon-card">
                 <h2 className="tryon-card-title">Your Look</h2>
                 {result && (
@@ -221,23 +230,23 @@ console.log(clothingFile,avatarFile);
           </IonRow>
           {skinTones.length > 0 && (
             <>
-            
+
               <IonRow className="ion-justify-content-center ion-padding-top skintone-container">
-              <div className='tone-selection'>Select Your Exact Skintone</div>
+                <div className='tone-selection'>Select Your Exact Skintone</div>
                 {skinTones.map((tone, index) => (
                   <div
-                  className='color-circle'
+                    className='color-circle'
                     key={index}
                     onClick={() => {
                       setSelectedSkinTone(
                         tone.category ?? {
                           name: getSimpleSkinToneName(tone.rgb),
                           description: 'Custom detected skin tone based on brightness.',
-                          
+
                         }
                       );
                       setSelectedIndex(index);
-                    } }
+                    }}
                     style={{
                       backgroundColor: `rgb(${tone.rgb.r}, ${tone.rgb.g}, ${tone.rgb.b})`,
                       width: '40px',
@@ -314,6 +323,21 @@ console.log(clothingFile,avatarFile);
               </IonCol>
             </IonRow>
           )}
+
+          {gender && gender !== 'unknown' && (
+            <IonRow className="ion-padding-top">
+              <IonCol className="ion-text-center">
+                <div className="gender-info">
+                  <h5 className="text-xl font-semibold">
+                    Detected Gender: {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  </h5>
+                </div>
+              </IonCol>
+            </IonRow>
+          )}
+
+
+
 
 
           <div className='suggest-container'>
