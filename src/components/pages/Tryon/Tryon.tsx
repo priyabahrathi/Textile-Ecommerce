@@ -136,15 +136,17 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     setError(null);
 
     try {
-      const avatarFile = avatarInputRef.current?.files?.[0];
-
+      const avatarFile = new File([Uint8Array.from(atob(previews.avatar.split(',')[1]), c => c.charCodeAt(0))], 'avatar.png', { type: 'image/png' });
+      const clothing = await fetch(clothingImage); // e.g., /assets/Product/shirt1.png
+      const clothingImageblob = await clothing.blob();
+    
+      const clothingFile = new File([clothingImageblob], `clothingImage.png`, { type: clothingImageblob.type });
       const response = await client.tryOnFile({
-        clothingImage: undefined,
-        clothingPrompt: prompts.clothing || undefined,
+        clothingImage: clothingFile,
         avatarImage: avatarFile,
-        avatarPrompt: prompts.avatar || undefined,
-        clothingBase64: previews.clothing,
+        
       });
+console.log(clothingFile,avatarFile);
 
       if (response.statusCode === 200 && response.image) {
         const imageUrl = URL.createObjectURL(response.image);
