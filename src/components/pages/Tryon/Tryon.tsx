@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText } from '@ionic/react';
 import { ImageUpload } from './Tryon-set/imageuplode';
 import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
 import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
@@ -14,6 +14,7 @@ import {
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
 import { cart, star } from 'ionicons/icons';
+import { tryOnWithFal } from '../../../new-api/utils/falApi';
 
 interface TryOnProps {
   clothingImage: string;
@@ -27,8 +28,26 @@ const getSimpleSkinToneName = (rgb: RGB): string => {
 };
 
 const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
-  const [result, setResult] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+
+    const [modelImage, setModelImage] = useState<string | null>(null);
+
+
+    const [garmentImage, setGarmentImage] = useState<string | null>(null);
+
+
+    const [resultImage, setResultImage] = useState<string | null>(null);
+    const [result, setResult] = useState<string | null>(null);
+
+
+    const [loading, setLoading] = useState(false);
+  
+    const modelInputRef = useRef<HTMLInputElement>(null);
+    const garmentInputRef = useRef<HTMLInputElement>(null);
+
+    const avatarInputRef = useRef<HTMLInputElement>(null);
+    const client = new TryOnDiffusionClient();
+
+  
   const [error, setError] = useState<string | null>(null);
   const [skinTones, setSkinTones] = useState<{ rgb: RGB; category: SkinToneCategory | null }[]>([]);
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
@@ -48,8 +67,12 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     avatar: '',
   });
 
-  const avatarInputRef = useRef<HTMLInputElement>(null);
-  const client = new TryOnDiffusionClient();
+  useEffect(() => {
+    if (clothingImage) {
+      setGarmentImage(clothingImage); 
+    }
+  }, [clothingImage]);
+  
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -92,45 +115,63 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }
   }, [clothingImage]);
 
-  const handleFileChange = async (
+  // const handleImageUpload = async (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   type: string
+  // ) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = async () => {
+  //       const imageDataUrl = reader.result as string;
+  //       setPreviews((prev) => ({
+  //         ...prev,
+  //         [type]: imageDataUrl,
+  //       }));
+
+  //       if (type === 'avatar') {
+  //         try {
+  //           const result = await extractPersonColors(imageDataUrl);
+  //           if (result?.skinTones) {
+  //             const enrichedSkinTones = result.skinTones.map((item) => ({
+  //               rgb: item.rgb,
+  //               category: getSkinToneCategory(item.rgb) ?? null,
+  //             }));
+  //             setSkinTones(enrichedSkinTones);
+  //           }
+
+
+  //           const genderDetected = await extractGender(imageDataUrl);
+  //           if (genderDetected) {
+  //             setGender(genderDetected);
+  //           }
+  //         } catch (err) {
+  //           console.error('Skin tone or gender extraction failed:', err);
+  //         }
+  //       }
+
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+
+  const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
-    type: string
+    setImage: React.Dispatch<React.SetStateAction<string | null>>
   ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const imageDataUrl = reader.result as string;
-        setPreviews((prev) => ({
-          ...prev,
-          [type]: imageDataUrl,
-        }));
-
-        if (type === 'avatar') {
-          try {
-            const result = await extractPersonColors(imageDataUrl);
-            if (result?.skinTones) {
-              const enrichedSkinTones = result.skinTones.map((item) => ({
-                rgb: item.rgb,
-                category: getSkinToneCategory(item.rgb) ?? null,
-              }));
-              setSkinTones(enrichedSkinTones);
-            }
-
-
-            const genderDetected = await extractGender(imageDataUrl);
-            if (genderDetected) {
-              setGender(genderDetected);
-            }
-          } catch (err) {
-            console.error('Skin tone or gender extraction failed:', err);
-          }
-        }
-
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result as string;
+      setImage(base64); // <-- this sets base64 into garmentImage or modelImage
+      console.log('Base64 string:', base64); // optional: check what it looks like
+    };
+    reader.readAsDataURL(file); // <-- This converts the image to Base64
   };
+  
 
   const handlePromptChange = (value: string, type: string) => {
     setPrompts((prev) => ({
@@ -139,88 +180,92 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
 
-    try {
-      const avatarFile = new File([Uint8Array.from(atob(previews.avatar.split(',')[1]), c => c.charCodeAt(0))], 'avatar.png', { type: 'image/png' });
-      const clothing = await fetch(clothingImage); // e.g., /assets/Product/shirt1.png
-      const clothingImageblob = await clothing.blob();
 
-      const clothingFile = new File([clothingImageblob], `clothingImage.png`, { type: clothingImageblob.type });
-      const response = await client.tryOnFile({
-        clothingImage: clothingFile,
-        avatarImage: avatarFile,
 
-      });
-      console.log(clothingFile, avatarFile);
-
-      if (response.statusCode === 200 && response.image) {
-        const imageUrl = URL.createObjectURL(response.image);
-        setResult(imageUrl);
-      } else {
-        setError(response.errorDetails || 'Something went wrong.');
+  const handleTryOn = async () => {
+      if (!modelImage || !garmentImage) {
+        alert("Please upload both images.");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      setError('Try-on process failed.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  
+      setLoading(true);
+      setResultImage(null);
+  
+      try {
+        const response = await tryOnWithFal(modelImage, garmentImage);
+        setResultImage(response.imageUrl);
+      } catch (error) {
+        console.error("Try-On failed", error);
+        alert("Failed to process Try-On.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <div className="tryon-page-wrapper">
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
-          <IonRow className="tryon-row">
-            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
-              <div className="tryon-card">
-                <h2 className="tryon-card-title">Your Outfit</h2>
-                <ImageUpload
-                  type="clothing"
-                  inputRef={undefined}
-                  preview={previews.clothing || null}
-                  onFileChange={() => { }}
-                  onPromptChange={handlePromptChange}
-                  disabled={true}
-                />
+          <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
+                {/* Model Image Card */}
+                <IonCard style={{ width: 300 }}>
+                  <IonCardHeader>
+                    <IonCardTitle>Upload Model Image</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={modelInputRef}
+                      onChange={(e) => handleImageUpload(e, setModelImage)}
+                    />
+                    {modelImage && <IonImg src={modelImage} alt="Model Preview" />}
+                  </IonCardContent>
+                </IonCard>
+          
+                {/* Garment Image Card */}
+                <IonCard style={{ width: 300 }}>
+                  <IonCardHeader>
+                    <IonCardTitle>Upload Garment Image</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={garmentInputRef}
+                      onChange={(e) => handleImageUpload(e, setGarmentImage)}
+                    />
+                    {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
+                  </IonCardContent>
+                </IonCard>
+          
+                {/* Result Card */}
+                <IonCard style={{ width: 300 }}>
+                  <IonCardHeader>
+                    <IonCardTitle>Result</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent>
+                    {loading && <IonSpinner name="dots" />}
+                    {resultImage && (
+                      <>
+                        <IonText color="primary">Try-On Result:</IonText>
+                        <img src={resultImage} alt="Try-On Output" />
+                      </>
+                    )}
+                  </IonCardContent>
+                </IonCard>
+          
+                {/* Try On Button */}
+                <IonButton onClick={handleTryOn} expand="block" disabled={loading}>
+                  {loading ? "Processing..." : "Try On"}
+                </IonButton>
               </div>
-            </IonCol>
-
-            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
-              <div className="tryon-card">
-                <h2 className="tryon-card-title">Your Picture</h2>
-                <ImageUpload
-                  type="avatar"
-                  inputRef={avatarInputRef}
-                  preview={previews.avatar || null}
-                  onFileChange={handleFileChange}
-                  onPromptChange={handlePromptChange}
-                />
-              </div>
-            </IonCol>
-
-            <IonCol className="tryon-col" sizeXl='4' sizeLg='12' sizeMd='12' sizeXs='12'>
-              <div className="tryon-card">
-                <h2 className="tryon-card-title">Your Look</h2>
-                {result && (
-                  <div className="result-section">
-                    <div className="result-image-wrapper">
-                      <img src={result} alt="Result" className="result-image" />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </IonCol>
-          </IonRow>
 
           <IonRow>
             <IonCol className="ion-text-center">
               <IonButton
-                onClick={handleSubmit}
+                onClick={handleTryOn}
                 className="try-button"
                 disabled={loading}
               >
