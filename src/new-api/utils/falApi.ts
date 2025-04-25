@@ -14,15 +14,18 @@ export interface TryonOutput {
   [key: string]: any;
 }
 
-export const tryOnWithFal = async (): Promise<{ imageUrl: string; requestId: string }> => {
+export const tryOnWithFal = async (
+  modelImage: string,
+  garmentImage: string
+): Promise<{ imageUrl: string; requestId: string }> => {
   fal.config({
     credentials: import.meta.env.VITE_FAL_KEY || "",
   });
 
   const result = await fal.subscribe("fashn/tryon", {
     input: {
-      model_image: "https://utfs.io/f/wXFHUNfTHmLj4prvqbRMQ6JXFyUr3IT0avK2HSOmZWiAsxg9",
-      garment_image: "https://utfs.io/f/wXFHUNfTHmLjtkhepmqOUnkr8XxZbNIFmRWldShDLu320TeC",
+      model_image: modelImage,
+      garment_image: garmentImage,
       category: "tops",
     },
     logs: true,
