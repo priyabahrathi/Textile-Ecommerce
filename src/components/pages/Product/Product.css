@@ -453,7 +453,7 @@ overflow-y: auto;
         position: absolute;
         /* top: 0px;
         left: 0; */
-        bottom: 940px;
+        bottom: 140px;
         z-index: 999;
         width: 100%;
         min-height: 30vh;
