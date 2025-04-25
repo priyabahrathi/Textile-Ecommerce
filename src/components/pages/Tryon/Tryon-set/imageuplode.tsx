@@ -12,7 +12,7 @@ interface ImageUploadProps {
   required?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>, type: string) => void;
   onPromptChange: (value: string, type: string) => void;
-  onRemove?: (type: string) => void; // ✅ Added
+  onRemove?: (type: string) => void; 
   disabled?: boolean;
 }
 
@@ -23,7 +23,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   required = true,
   onFileChange,
   onPromptChange,
-  onRemove, // ✅ Added
+  onRemove, 
   disabled = false,
 }) => {
 
