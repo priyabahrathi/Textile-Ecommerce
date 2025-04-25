@@ -155,6 +155,19 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   //   }
   // };
 
+  const convertImageToBase64 = async (imagePath: string): Promise<string> => {
+    const response = await fetch(imagePath);
+    const blob = await response.blob();
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+ 
+  
+
 
   const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -184,24 +197,27 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
 
 
   const handleTryOn = async () => {
-      if (!modelImage || !garmentImage) {
-        alert("Please upload both images.");
-        return;
-      }
+    if (!modelImage || !garmentImage) {
+      alert("Please upload both images.");
+      return;
+    }
   
-      setLoading(true);
-      setResultImage(null);
+    setLoading(true);
+    setResultImage(null);
   
-      try {
-        const response = await tryOnWithFal(modelImage, garmentImage);
-        setResultImage(response.imageUrl);
-      } catch (error) {
-        console.error("Try-On failed", error);
-        alert("Failed to process Try-On.");
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      const base64Garment = await convertImageToBase64(garmentImage); // Convert path to base64
+  
+      const response = await tryOnWithFal(modelImage, base64Garment); // modelImage is already base64
+      setResultImage(response.imageUrl);
+    } catch (error) {
+      console.error("Try-On failed", error);
+      alert("Failed to process Try-On.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <div className="tryon-page-wrapper">
@@ -209,7 +225,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
         <IonGrid className="tryon-grid">
           <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
                 {/* Model Image Card */}
-                <IonCard style={{ width: 300 }}>
+                <IonRow>
+                <div className='card-model' style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle>Upload Model Image</IonCardTitle>
                   </IonCardHeader>
@@ -222,10 +239,10 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     />
                     {modelImage && <IonImg src={modelImage} alt="Model Preview" />}
                   </IonCardContent>
-                </IonCard>
+                </div>
           
                 {/* Garment Image Card */}
-                <IonCard style={{ width: 300 }}>
+                <div className='card-garment' style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle>Upload Garment Image</IonCardTitle>
                   </IonCardHeader>
@@ -238,10 +255,10 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     />
                     {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
                   </IonCardContent>
-                </IonCard>
+                </div>
           
                 {/* Result Card */}
-                <IonCard style={{ width: 300 }}>
+                <div style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle>Result</IonCardTitle>
                   </IonCardHeader>
@@ -254,7 +271,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                       </>
                     )}
                   </IonCardContent>
-                </IonCard>
+                </div>
+                </IonRow>
           
                 {/* Try On Button */}
                 <IonButton onClick={handleTryOn} expand="block" disabled={loading}>
