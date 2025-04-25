@@ -30,22 +30,13 @@ const getSimpleSkinToneName = (rgb: RGB): string => {
 const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
 
     const [modelImage, setModelImage] = useState<string | null>(null);
-
-
     const [garmentImage, setGarmentImage] = useState<string | null>(null);
-
-
     const [resultImage, setResultImage] = useState<string | null>(null);
-    const [result, setResult] = useState<string | null>(null);
-
-
     const [loading, setLoading] = useState(false);
-  
     const modelInputRef = useRef<HTMLInputElement>(null);
     const garmentInputRef = useRef<HTMLInputElement>(null);
 
-    const avatarInputRef = useRef<HTMLInputElement>(null);
-    const client = new TryOnDiffusionClient();
+
 
   
   const [error, setError] = useState<string | null>(null);
@@ -226,41 +217,67 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
           <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
                 {/* Model Image Card */}
                 <IonRow>
-                <div className='card-model' style={{ width: 300 }}>
+              <IonCol>
+              <div className='card-model' style={{ width: 300 }}>
                   <IonCardHeader>
-                    <IonCardTitle>Upload Model Image</IonCardTitle>
+                    <IonCardTitle className='card-name'>Your Picture</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent>
-                    <input
+                    {!modelImage && (
+                      <input
                       type="file"
                       accept="image/*"
                       ref={modelInputRef}
                       onChange={(e) => handleImageUpload(e, setModelImage)}
                     />
-                    {modelImage && <IonImg src={modelImage} alt="Model Preview" />}
+                    )}
+                    {modelImage && <><IonImg src={modelImage} alt="Model Preview" />
+                    <button style={{
+                          position: 'absolute',
+                          top: 5,
+                          right: 20,
+                          backgroundColor: '#fff',
+                          border: 'none',
+                          borderRadius: '50%',
+                          cursor: 'pointer',
+                          padding: '4px 8px',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          color: '#333',
+                          boxShadow: '0 0 4px rgba(0,0,0,0.3)'
+                        }} onClick={()=>setModelImage('')}>X</button>
+                    </>
+                    }
+                    
                   </IonCardContent>
                 </div>
+              </IonCol>
           
                 {/* Garment Image Card */}
+                <IonCol>
                 <div className='card-garment' style={{ width: 300 }}>
                   <IonCardHeader>
-                    <IonCardTitle>Upload Garment Image</IonCardTitle>
+                    <IonCardTitle className='card-name'>Your Garments</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent>
-                    <input
+                    {!garmentImage && (
+                      <input
                       type="file"
                       accept="image/*"
                       ref={garmentInputRef}
                       onChange={(e) => handleImageUpload(e, setGarmentImage)}
                     />
+                    )}
                     {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
                   </IonCardContent>
                 </div>
+                </IonCol>
           
                 {/* Result Card */}
-                <div style={{ width: 300 }}>
+                <IonCol>
+                <div className='card-result' style={{ width: 300 }}>
                   <IonCardHeader>
-                    <IonCardTitle>Result</IonCardTitle>
+                    <IonCardTitle className='card-name'>Your Look</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent>
                     {loading && <IonSpinner name="dots" />}
@@ -272,15 +289,16 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     )}
                   </IonCardContent>
                 </div>
+                </IonCol>
                 </IonRow>
           
                 {/* Try On Button */}
-                <IonButton onClick={handleTryOn} expand="block" disabled={loading}>
-                  {loading ? "Processing..." : "Try On"}
-                </IonButton>
+                <button className='try-button' onClick={handleTryOn} disabled={loading}>
+                  {loading ? "Processing..." : "Try It"}
+                </button>
               </div>
 
-          <IonRow>
+          {/* <IonRow>
             <IonCol className="ion-text-center">
               <IonButton
                 onClick={handleTryOn}
@@ -290,7 +308,7 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                 {loading ? 'Processing...' : 'Try It'}
               </IonButton>
             </IonCol>
-          </IonRow>
+          </IonRow> */}
           {skinTones.length > 0 && (
             <>
 
