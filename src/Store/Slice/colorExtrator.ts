@@ -1,3 +1,24 @@
+import * as faceapi from 'face-api.js';
+
+export async function extractGender(imageDataUrl: string): Promise<'male' | 'female' | null> {
+  
+  // Load the models (only once)
+  await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+  await faceapi.nets.ageGenderNet.loadFromUri('/models');
+
+  const image = await faceapi.fetchImage(imageDataUrl);
+
+  const result = await faceapi
+    .detectSingleFace(image, new faceapi.TinyFaceDetectorOptions())
+    .withAgeAndGender();
+
+    
+
+  return result?.gender ?? null;
+}
+
+
+
 export interface RGB {
   r: number;
   g: number;
@@ -50,6 +71,25 @@ export const SKIN_TONE_CATEGORIES: SkinToneCategory[] = [
   // }
 ];
 
+async function detectGenderFromImage(base64: string): Promise<string | undefined> {
+  const formData = new FormData();
+  const blob = await (await fetch(base64)).blob();
+  formData.append('image', blob);
+
+  const res = await fetch('https://api.deepai.org/api/gender-detection', {
+    method: 'POST',
+    headers: {
+      'api-key': '2192ee34-6c87-40f8-9246-e7423d48a720', // Replace with your actual API key
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+  return data?.output?.gender;
+}
+
+
+
 export function rgbToHex({ r, g, b }: RGB): string {
   const toHex = (c: number) => {
     const hex = c.toString(16);
@@ -98,12 +138,13 @@ export function isClothingColor(r: number, g: number, b: number): boolean {
 export async function extractPersonColors(imageUrl: string): Promise<{
   skinTones: Array<{ rgb: RGB; category?: SkinToneCategory }>;
   clothingColors: RGB[];
+  gender?: string;
 }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     
-    img.onload = () => {
+    img.onload = async () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
@@ -167,9 +208,12 @@ export async function extractPersonColors(imageUrl: string): Promise<{
         .map(item => item.rgb)
         .slice(0, 3);
       
+        const gender = await detectGenderFromImage(imageUrl);
+
       resolve({
         skinTones: topSkinTones,
-        clothingColors: topClothingColors
+        clothingColors: topClothingColors,
+        gender
       });
     };
     

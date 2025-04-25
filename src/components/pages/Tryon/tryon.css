@@ -199,7 +199,33 @@
 .btn-suggest:hover{
   background-color: #ffffff;
   color: #E59866;
-}@media screen and (max-width: 1200px) {
+}
+.skintone-container{
+ position: relative;
+ margin-top: 20px;
+}
+.tone-selection{
+  position: absolute;
+  bottom: 50px;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #E59866;
+}
+.color-circle{
+ 
+}
+
+.suggestion-heading{
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+
+@media screen and (max-width: 1200px) {
   .-card {
     padding: 1rem;
     height:250px;

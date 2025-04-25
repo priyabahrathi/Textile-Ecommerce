@@ -6,6 +6,7 @@ import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../Store/store';
 import {
+  extractGender,
   extractPersonColors,
   getSkinToneCategory,
   type RGB,
@@ -13,7 +14,6 @@ import {
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
 import { cart, star } from 'ionicons/icons';
-import suggestions from '../../../Store/Slice/suggestions';
 
 interface TryOnProps {
   clothingImage: string;
@@ -34,6 +34,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
+  const [gender, setGender] = useState<string | null>(null);
+
 
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
@@ -60,24 +62,24 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       alert('Please upload a model image and select a skin tone first.');
       return;
     }
-  
+
     dispatch(fetchSuggestedProducts()).then((res) => {
       setTimeout(() => {
         const allSuggestions = (res as any)?.payload || [];
-  
+
         const matched = allSuggestions.filter((product: any) => {
           return (
             product.skinTone &&
             product.skinTone.toLowerCase() === selectedSkinTone.name.toLowerCase()
           );
         });
-  
+
         setShowSuggestions(true);
         setFilteredSuggestions(matched);
       }, 300);
     });
   };
-  
+
 
 
 
@@ -107,17 +109,24 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
         if (type === 'avatar') {
           try {
             const result = await extractPersonColors(imageDataUrl);
-            if (result && result.skinTones) {
+            if (result?.skinTones) {
               const enrichedSkinTones = result.skinTones.map((item) => ({
                 rgb: item.rgb,
                 category: getSkinToneCategory(item.rgb) ?? null,
               }));
               setSkinTones(enrichedSkinTones);
             }
+
+
+            const genderDetected = await extractGender(imageDataUrl);
+            if (genderDetected) {
+              setGender(genderDetected);
+            }
           } catch (err) {
-            console.error('Skin tone extraction failed:', err);
+            console.error('Skin tone or gender extraction failed:', err);
           }
         }
+
       };
       reader.readAsDataURL(file);
     }
@@ -136,15 +145,17 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
     setError(null);
 
     try {
-      const avatarFile = avatarInputRef.current?.files?.[0];
+      const avatarFile = new File([Uint8Array.from(atob(previews.avatar.split(',')[1]), c => c.charCodeAt(0))], 'avatar.png', { type: 'image/png' });
+      const clothing = await fetch(clothingImage); // e.g., /assets/Product/shirt1.png
+      const clothingImageblob = await clothing.blob();
 
+      const clothingFile = new File([clothingImageblob], `clothingImage.png`, { type: clothingImageblob.type });
       const response = await client.tryOnFile({
-        clothingImage: undefined,
-        clothingPrompt: prompts.clothing || undefined,
+        clothingImage: clothingFile,
         avatarImage: avatarFile,
-        avatarPrompt: prompts.avatar || undefined,
-        clothingBase64: previews.clothing,
+
       });
+      console.log(clothingFile, avatarFile);
 
       if (response.statusCode === 200 && response.image) {
         const imageUrl = URL.createObjectURL(response.image);
@@ -165,9 +176,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <IonRow className="tryon-row">
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Clothing</h2>
+                <h2 className="tryon-card-title">Your Outfit</h2>
                 <ImageUpload
                   type="clothing"
                   inputRef={undefined}
@@ -179,9 +190,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </div>
             </IonCol>
 
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='6' sizeMd='6' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Model</h2>
+                <h2 className="tryon-card-title">Your Picture</h2>
                 <ImageUpload
                   type="avatar"
                   inputRef={avatarInputRef}
@@ -192,9 +203,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </div>
             </IonCol>
 
-            <IonCol size="4" className="tryon-col">
+            <IonCol className="tryon-col" sizeXl='4' sizeLg='12' sizeMd='12' sizeXs='12'>
               <div className="tryon-card">
-                <h2 className="tryon-card-title">Result</h2>
+                <h2 className="tryon-card-title">Your Look</h2>
                 {result && (
                   <div className="result-section">
                     <div className="result-image-wrapper">
@@ -213,22 +224,25 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                 className="try-button"
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Try On'}
+                {loading ? 'Processing...' : 'Try It'}
               </IonButton>
             </IonCol>
           </IonRow>
-
           {skinTones.length > 0 && (
             <>
-              <IonRow className="ion-justify-content-center ion-padding-top">
+
+              <IonRow className="ion-justify-content-center ion-padding-top skintone-container">
+                <div className='tone-selection'>Select Your Exact Skintone</div>
                 {skinTones.map((tone, index) => (
                   <div
+                    className='color-circle'
                     key={index}
                     onClick={() => {
                       setSelectedSkinTone(
                         tone.category ?? {
                           name: getSimpleSkinToneName(tone.rgb),
                           description: 'Custom detected skin tone based on brightness.',
+
                         }
                       );
                       setSelectedIndex(index);
@@ -246,8 +260,8 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     }}
                     title={tone.category?.name || 'Unknown'}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
-                  />
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
+
                 ))}
               </IonRow>
 
@@ -255,8 +269,9 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                 <IonRow className="ion-padding-top">
                   <IonCol className="ion-text-center">
                     <div className="skin-tone-info">
-                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
-                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
+
+                      {/* <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
+                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p> */}
                     </div>
                   </IonCol>
                 </IonRow>
@@ -276,7 +291,7 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
           {showSuggestions && filteredSuggestions.length > 0 && (
             <IonRow>
               <IonCol size="12">
-                <h3 className="suggestion-heading">Suggested Products</h3>
+                <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
                 <IonGrid>
                   <IonRow>
                     {filteredSuggestions.map(product => (
@@ -308,6 +323,21 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
               </IonCol>
             </IonRow>
           )}
+
+          {gender && gender !== 'unknown' && (
+            <IonRow className="ion-padding-top">
+              <IonCol className="ion-text-center">
+                <div className="gender-info">
+                  <h5 className="text-xl font-semibold">
+                    Detected Gender: {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  </h5>
+                </div>
+              </IonCol>
+            </IonRow>
+          )}
+
+
+
 
 
           <div className='suggest-container'>

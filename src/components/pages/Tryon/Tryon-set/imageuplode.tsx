@@ -1,7 +1,7 @@
 import React from 'react';
 import { Upload, X } from 'lucide-react';
 import { readAndCompressImage } from 'browser-image-resizer';
-import { imageResizeConfig } from "../../../../Store/data/types"; // Make sure this config exists
+import { imageResizeConfig } from "../../../../Store/data/types";
 import "./imageuplode.css";
 
 interface ImageUploadProps {
@@ -12,7 +12,7 @@ interface ImageUploadProps {
   required?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>, type: string) => void;
   onPromptChange: (value: string, type: string) => void;
-  onRemove?: (type: string) => void; 
+  onRemove?: (type: string) => void;
   disabled?: boolean;
 }
 
@@ -30,24 +30,30 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const img = new Image();
-      const objectUrl = URL.createObjectURL(file);
+      try {
+        const resizedBlob = await readAndCompressImage(file, imageResizeConfig);
+        const resizedFile = new File([resizedBlob], file.name, { type: file.type, lastModified: Date.now() });
   
-      img.onload = async () => {
-        let resizedFile = file;
+        // Create a new input element to simulate a file change event
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(resizedFile);
   
-        // Resize the image if it's smaller than required dimensions
-        if (img.width < 256 || img.height < 256 || img.width < 768 || img.height < 1024) {
-          const resizedBlob = await readAndCompressImage(file, imageResizeConfig);
-          resizedFile = new File([resizedBlob], file.name, { type: file.type, lastModified: Date.now() });
-        }
+        const fakeEvent = {
+          ...event,
+          target: {
+            ...event.target,
+            files: dataTransfer.files,
+          }
+        };
   
-        onFileChange(event, type);
-      };
-  
-      img.src = objectUrl;
+        onFileChange(fakeEvent as React.ChangeEvent<HTMLInputElement>, type);
+      } catch (error) {
+        console.error("Error resizing image:", error);
+      }
     }
   };
+  
+  
 
   const handleRemove = () => {
     if (inputRef?.current) inputRef.current.value = '';
