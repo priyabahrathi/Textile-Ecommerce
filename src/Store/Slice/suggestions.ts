@@ -4,6 +4,7 @@ import { ref, get } from 'firebase/database';
 import { database } from '../Slice/firebase'; // Adjust if needed
 
 export interface Product {
+  skinTone: any;
   id: string;
   name: string;
   img: string;

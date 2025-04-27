@@ -18,7 +18,12 @@ import { tryOnWithFal } from '../../../new-api/utils/falApi';
 
 interface TryOnProps {
   clothingImage: string;
+  modelImage?: string;
+  extractedSkinTones?: RGB[];
+  extractedGender?: string;
 }
+
+
 
 const getSimpleSkinToneName = (rgb: RGB): string => {
   const brightness = (rgb.r + rgb.g + rgb.b) / 3;
@@ -27,18 +32,20 @@ const getSimpleSkinToneName = (rgb: RGB): string => {
   return 'Fair';
 };
 
-const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
-
-    const [modelImage, setModelImage] = useState<string | null>(null);
-    const [garmentImage, setGarmentImage] = useState<string | null>(null);
-    const [resultImage, setResultImage] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
-    const modelInputRef = useRef<HTMLInputElement>(null);
-    const garmentInputRef = useRef<HTMLInputElement>(null);
+const Tryon: React.FC<TryOnProps> = ({
+  clothingImage,
+  modelImage: modelImageProp,
+  extractedSkinTones,
+  extractedGender,
+}) => {
 
 
-
-  
+  const [modelImage, setModelImage] = useState<string | null>(null);
+  const [garmentImage, setGarmentImage] = useState<string | null>(null);
+  const [resultImage, setResultImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const modelInputRef = useRef<HTMLInputElement>(null);
+  const garmentInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [skinTones, setSkinTones] = useState<{ rgb: RGB; category: SkinToneCategory | null }[]>([]);
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
@@ -60,39 +67,92 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
 
   useEffect(() => {
     if (clothingImage) {
-      setGarmentImage(clothingImage); 
+      setGarmentImage(clothingImage);
     }
   }, [clothingImage]);
+
+  useEffect(() => {
+    if (modelImageProp) {
+      setModelImage(modelImageProp);
+    }
+  }, [modelImageProp]);
+
+  
+  useEffect(() => {
+    if (filteredSuggestions.length > 0) {
+      setShowSuggestions(true);
+    }
+  }, [filteredSuggestions]);
   
 
+  useEffect(() => {
+    if (extractedGender) {
+      setGender(extractedGender);
+    }
+  }, [extractedGender]);
+  
+  useEffect(() => {
+    if (extractedSkinTones && extractedSkinTones.length > 0) {
+      const enrichedSkinTones = extractedSkinTones.map((rgb) => ({
+        rgb,
+        category: getSkinToneCategory(rgb) ?? null,
+      }));
+      setSkinTones(enrichedSkinTones);
+      if (enrichedSkinTones.length > 0) {
+        setSelectedSkinTone(
+          enrichedSkinTones[0].category ?? {
+            name: getSimpleSkinToneName(enrichedSkinTones[0].rgb),
+            description: 'Auto-selected skin tone',
+          }
+        );
+        setSelectedIndex(0); // to visually highlight the selection
+      }
+      
+    }
+  }, [extractedSkinTones]);
+  
   const dispatch = useDispatch<AppDispatch>();
 
   const { suggestions, loading: suggestionsLoading } = useSelector((state: RootState) => state.suggestions);
 
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  useEffect(() => {
+    setShowSuggestions(false);
+  }, [selectedSkinTone]);
+  
+  useEffect(() => {
+    dispatch(fetchSuggestedProducts());
+    console.log("Fetching suggestions...")
+  }, [dispatch]);
+  
+
   const handleSuggestClick = () => {
-    if (!selectedSkinTone || !('name' in selectedSkinTone)) {
-      alert('Please upload a model image and select a skin tone first.');
+    console.log("Button clicked");
+    console.log("Selected Skin Tone:", selectedSkinTone);
+    console.log("All Suggestions:", suggestions);
+  
+    // Check if skin tone is selected and has a valid name
+    if (!selectedSkinTone?.name) {
+      console.log("Skin tone not detected or no name available.");
       return;
     }
-
-    dispatch(fetchSuggestedProducts()).then((res) => {
-      setTimeout(() => {
-        const allSuggestions = (res as any)?.payload || [];
-
-        const matched = allSuggestions.filter((product: any) => {
-          return (
-            product.skinTone &&
-            product.skinTone.toLowerCase() === selectedSkinTone.name.toLowerCase()
-          );
-        });
-
-        setShowSuggestions(true);
-        setFilteredSuggestions(matched);
-      }, 300);
-    });
+  
+    // Filter products based on skin tone
+    const filtered = suggestions.filter(product =>
+      product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())
+    );
+  
+    console.log("Filtered Suggestions:", filtered);
+    setFilteredSuggestions(filtered);
+    setShowSuggestions(true);
+    console.log("Filtered Suggestions:", filtered);
   };
+  
+  
+  
+  
+  
 
 
 
@@ -155,27 +215,50 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       reader.onerror = reject;
       reader.readAsDataURL(blob);
     });
+
   };
- 
-  
 
 
-  const handleImageUpload = (
+
+
+  const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
-    setImage: React.Dispatch<React.SetStateAction<string | null>>
+    setImage: React.Dispatch<React.SetStateAction<string | null>>,
+    type?: string
   ) => {
+
     const file = event.target.files?.[0];
     if (!file) return;
-  
+
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       const base64 = reader.result as string;
       setImage(base64); // <-- this sets base64 into garmentImage or modelImage
       console.log('Base64 string:', base64); // optional: check what it looks like
+      if (type === 'avatar') {
+        try {
+          const result = await extractPersonColors(base64);
+          if (result?.skinTones) {
+            const enrichedSkinTones = result.skinTones.map((item) => ({
+              rgb: item.rgb,
+              category: getSkinToneCategory(item.rgb) ?? null,
+            }));
+            setSkinTones(enrichedSkinTones);
+          }
+
+
+          const genderDetected = await extractGender(base64);
+          if (genderDetected) {
+            setGender(genderDetected);
+          }
+        } catch (err) {
+          console.error('Skin tone or gender extraction failed:', err);
+        }
+      }
     };
     reader.readAsDataURL(file); // <-- This converts the image to Base64
   };
-  
+
 
   const handlePromptChange = (value: string, type: string) => {
     setPrompts((prev) => ({
@@ -192,13 +275,16 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       alert("Please upload both images.");
       return;
     }
-  
+
     setLoading(true);
     setResultImage(null);
-  
+
     try {
-      const base64Garment = await convertImageToBase64(garmentImage); // Convert path to base64
-  
+      const base64Garment = garmentImage.startsWith('data:image')
+  ? garmentImage
+  : await convertImageToBase64(garmentImage);
+// Convert path to base64
+
       const response = await tryOnWithFal(modelImage, base64Garment); // modelImage is already base64
       setResultImage(response.imageUrl);
     } catch (error) {
@@ -208,53 +294,53 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
       setLoading(false);
     }
   };
-  
+
 
   return (
     <div className="tryon-page-wrapper">
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
-                {/* Model Image Card */}
-                <IonRow>
+            {/* Model Image Card */}
+            <IonRow>
               <IonCol>
-              <div className='card-model' style={{ width: 300 }}>
+                <div className='card-model' style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle className='card-name'>Your Picture</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent>
                     {!modelImage && (
                       <input
-                      type="file"
-                      accept="image/*"
-                      ref={modelInputRef}
-                      onChange={(e) => handleImageUpload(e, setModelImage)}
-                    />
+                        type="file"
+                        accept="image/*"
+                        ref={modelInputRef}
+                        onChange={(e) => handleImageUpload(e, setModelImage, 'avatar')}
+                      />
                     )}
                     {modelImage && <><IonImg src={modelImage} alt="Model Preview" />
-                    <button style={{
-                          position: 'absolute',
-                          top: 5,
-                          right: 20,
-                          backgroundColor: '#fff',
-                          border: 'none',
-                          borderRadius: '50%',
-                          cursor: 'pointer',
-                          padding: '4px 8px',
-                          fontSize: '14px',
-                          fontWeight: 'bold',
-                          color: '#333',
-                          boxShadow: '0 0 4px rgba(0,0,0,0.3)'
-                        }} onClick={()=>setModelImage('')}>X</button>
+                      <button style={{
+                        position: 'absolute',
+                        top: 5,
+                        right: 20,
+                        backgroundColor: '#fff',
+                        border: 'none',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        padding: '4px 8px',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        boxShadow: '0 0 4px rgba(0,0,0,0.3)'
+                      }} onClick={() => setModelImage('')}>X</button>
                     </>
                     }
-                    
+
                   </IonCardContent>
                 </div>
               </IonCol>
-          
-                {/* Garment Image Card */}
-                <IonCol>
+
+              {/* Garment Image Card */}
+              <IonCol>
                 <div className='card-garment' style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle className='card-name'>Your Garments</IonCardTitle>
@@ -262,19 +348,19 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                   <IonCardContent>
                     {!garmentImage && (
                       <input
-                      type="file"
-                      accept="image/*"
-                      ref={garmentInputRef}
-                      onChange={(e) => handleImageUpload(e, setGarmentImage)}
-                    />
+                        type="file"
+                        accept="image/*"
+                        ref={garmentInputRef}
+                        onChange={(e) => handleImageUpload(e, setGarmentImage)}
+                      />
                     )}
                     {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
                   </IonCardContent>
                 </div>
-                </IonCol>
-          
-                {/* Result Card */}
-                <IonCol>
+              </IonCol>
+
+              {/* Result Card */}
+              <IonCol>
                 <div className='card-result' style={{ width: 300 }}>
                   <IonCardHeader>
                     <IonCardTitle className='card-name'>Your Look</IonCardTitle>
@@ -289,14 +375,14 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     )}
                   </IonCardContent>
                 </div>
-                </IonCol>
-                </IonRow>
-          
-                {/* Try On Button */}
-                <button className='try-button' onClick={handleTryOn} disabled={loading}>
-                  {loading ? "Processing..." : "Try It"}
-                </button>
-              </div>
+              </IonCol>
+            </IonRow>
+
+            {/* Try On Button */}
+            <button className='try-button' onClick={handleTryOn} disabled={loading}>
+              {loading ? "Processing..." : "Try It"}
+            </button>
+          </div>
 
           {/* <IonRow>
             <IonCol className="ion-text-center">
@@ -343,20 +429,20 @@ const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
 
-                ))}
+                ))} 
               </IonRow>
 
-              {selectedSkinTone && (
+              {/* {selectedSkinTone && (
                 <IonRow className="ion-padding-top">
                   <IonCol className="ion-text-center">
                     <div className="skin-tone-info">
 
-                      {/* <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
-                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p> */}
+                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
+                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
                     </div>
                   </IonCol>
                 </IonRow>
-              )}
+              )} */}
             </>
           )}
 

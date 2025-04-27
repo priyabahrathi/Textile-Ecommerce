@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tryon from "./Tryon";
-import { extractPersonColors } from "../../../Store/Slice/colorExtrator";
+import { extractGender, extractPersonColors } from "../../../Store/Slice/colorExtrator";
 import type { RGB } from "../../../Store/Slice/colorExtrator";
 
 const TryOnWithSuggestions: React.FC = () => {
@@ -8,6 +8,14 @@ const TryOnWithSuggestions: React.FC = () => {
   const [skinTones, setSkinTones] = useState<RGB[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [gender, setGender] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (skinTones.length > 0) {
+      const event = new CustomEvent('auto-suggest');
+      window.dispatchEvent(event);
+    }
+  }, [skinTones]);
 
   const handleSuggestionsClick = async () => {
     if (!modelImageUrl) {
@@ -20,19 +28,24 @@ const TryOnWithSuggestions: React.FC = () => {
     try {
       const result = await extractPersonColors(modelImageUrl);
       console.log("Extracted skin tones:", result.skinTones);
+      console.log("Extracted gender:", result.gender);
+
       if (!result || !result.skinTones || result.skinTones.length === 0) {
         setError("No skin tones extracted. Please try a different image.");
         return;
       }
 
       setSkinTones(result.skinTones.map(item => item.rgb));
+      setGender(result.gender); // ✅ no need to call extractGender separately
+
     } catch (err) {
       console.error(err);
-      setError("Failed to extract colors.");
+      setError("Failed to extract colors and gender.");
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="p-4 space-y-4">
@@ -55,11 +68,14 @@ const TryOnWithSuggestions: React.FC = () => {
         {error && <p className="text-red-500 mt-2">{error}</p>}
       </div>
 
-      <Tryon clothingImage={""} avatarImage={modelImageUrl} extractedSkinTones={skinTones} />
-
+      <Tryon
+        clothingImage={""}
+        modelImage={modelImageUrl}
+        extractedSkinTones={skinTones}
+        extractedGender={gender}
+      />
     </div>
   );
 };
 
 export default TryOnWithSuggestions;
-

@@ -1,5 +1,7 @@
 import * as faceapi from 'face-api.js';
 
+
+
 export async function extractGender(imageDataUrl: string): Promise<'male' | 'female' | null> {
   
   // Load the models (only once)
@@ -85,6 +87,7 @@ async function detectGenderFromImage(base64: string): Promise<string | undefined
   });
 
   const data = await res.json();
+  
   return data?.output?.gender;
 }
 
