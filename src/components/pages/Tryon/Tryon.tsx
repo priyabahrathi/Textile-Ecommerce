@@ -21,6 +21,7 @@ interface TryOnProps {
   modelImage?: string;
   extractedSkinTones?: RGB[];
   extractedGender?: string;
+  outfitType: string;
 }
 
 
@@ -33,11 +34,13 @@ const getSimpleSkinToneName = (rgb: RGB): string => {
 };
 
 const Tryon: React.FC<TryOnProps> = ({
-  clothingImage,
+  clothingImage, outfitType,
   modelImage: modelImageProp,
   extractedSkinTones,
   extractedGender,
 }) => {
+
+  // Your existing code...
 
 
   const [modelImage, setModelImage] = useState<string | null>(null);
@@ -292,7 +295,7 @@ const Tryon: React.FC<TryOnProps> = ({
         : await convertImageToBase64(garmentImage);
       // Convert path to base64
 
-      const response = await tryOnWithFal(modelImage, base64Garment); // modelImage is already base64
+      const response = await tryOnWithFal(modelImage, base64Garment,outfitType); // modelImage is already base64
       setResultImage(response.imageUrl);
     } catch (error) {
       console.error("Try-On failed", error);
