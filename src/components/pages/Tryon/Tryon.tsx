@@ -21,6 +21,7 @@ interface TryOnProps {
   modelImage?: string;
   extractedSkinTones?: RGB[];
   extractedGender?: string;
+  outfitType: string;
 }
 
 
@@ -32,13 +33,7 @@ const getSimpleSkinToneName = (rgb: RGB): string => {
   return 'Fair';
 };
 
-const Tryon: React.FC<TryOnProps> = ({
-  clothingImage,
-  modelImage: modelImageProp,
-  extractedSkinTones,
-  extractedGender,
-}) => {
-
+const Tryon: React.FC<TryOnProps> = ({ clothingImage }) => {
 
   const [modelImage, setModelImage] = useState<string | null>(null);
   const [garmentImage, setGarmentImage] = useState<string | null>(null);
@@ -280,11 +275,8 @@ const Tryon: React.FC<TryOnProps> = ({
     setResultImage(null);
 
     try {
-      const base64Garment = garmentImage.startsWith('data:image')
-  ? garmentImage
-  : await convertImageToBase64(garmentImage);
-// Convert path to base64
-
+      const base64Garment = await convertImageToBase64(garmentImage); // Convert path to base64
+  
       const response = await tryOnWithFal(modelImage, base64Garment); // modelImage is already base64
       setResultImage(response.imageUrl);
     } catch (error) {
