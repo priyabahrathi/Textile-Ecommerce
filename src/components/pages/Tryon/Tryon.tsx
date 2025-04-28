@@ -77,20 +77,27 @@ const Tryon: React.FC<TryOnProps> = ({
     }
   }, [modelImageProp]);
 
-  
+
   useEffect(() => {
     if (filteredSuggestions.length > 0) {
       setShowSuggestions(true);
     }
   }, [filteredSuggestions]);
-  
+
 
   useEffect(() => {
     if (extractedGender) {
       setGender(extractedGender);
+      useEffect(() => {
+        if (extractedGender) {
+          setGender(extractedGender);
+          console.log("Extracted Gender:", extractedGender);
+        }
+      }, [extractedGender]);
+
     }
   }, [extractedGender]);
-  
+
   useEffect(() => {
     if (extractedSkinTones && extractedSkinTones.length > 0) {
       const enrichedSkinTones = extractedSkinTones.map((rgb) => ({
@@ -107,10 +114,10 @@ const Tryon: React.FC<TryOnProps> = ({
         );
         setSelectedIndex(0); // to visually highlight the selection
       }
-      
+
     }
   }, [extractedSkinTones]);
-  
+
   const dispatch = useDispatch<AppDispatch>();
 
   const { suggestions, loading: suggestionsLoading } = useSelector((state: RootState) => state.suggestions);
@@ -120,39 +127,39 @@ const Tryon: React.FC<TryOnProps> = ({
   useEffect(() => {
     setShowSuggestions(false);
   }, [selectedSkinTone]);
-  
+
   useEffect(() => {
     dispatch(fetchSuggestedProducts());
     console.log("Fetching suggestions...")
   }, [dispatch]);
-  
+
 
   const handleSuggestClick = () => {
     console.log("Button clicked");
     console.log("Selected Skin Tone:", selectedSkinTone);
     console.log("All Suggestions:", suggestions);
-  
+
     // Check if skin tone is selected and has a valid name
     if (!selectedSkinTone?.name) {
       console.log("Skin tone not detected or no name available.");
       return;
     }
-  
+
     // Filter products based on skin tone
     const filtered = suggestions.filter(product =>
       product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())
     );
-  
+
     console.log("Filtered Suggestions:", filtered);
     setFilteredSuggestions(filtered);
     setShowSuggestions(true);
     console.log("Filtered Suggestions:", filtered);
   };
-  
-  
-  
-  
-  
+
+
+
+
+
 
 
 
@@ -281,9 +288,9 @@ const Tryon: React.FC<TryOnProps> = ({
 
     try {
       const base64Garment = garmentImage.startsWith('data:image')
-  ? garmentImage
-  : await convertImageToBase64(garmentImage);
-// Convert path to base64
+        ? garmentImage
+        : await convertImageToBase64(garmentImage);
+      // Convert path to base64
 
       const response = await tryOnWithFal(modelImage, base64Garment); // modelImage is already base64
       setResultImage(response.imageUrl);
@@ -429,7 +436,7 @@ const Tryon: React.FC<TryOnProps> = ({
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
 
-                ))} 
+                ))}
               </IonRow>
 
               {/* {selectedSkinTone && (
@@ -491,17 +498,17 @@ const Tryon: React.FC<TryOnProps> = ({
             </IonRow>
           )}
 
-          {gender && gender !== 'unknown' && (
-            <IonRow className="ion-padding-top">
-              <IonCol className="ion-text-center">
-                <div className="gender-info">
-                  <h5 className="text-xl font-semibold">
-                    Detected Gender: {gender.charAt(0).toUpperCase() + gender.slice(1)}
-                  </h5>
-                </div>
-              </IonCol>
-            </IonRow>
-          )}
+          <IonRow className="ion-padding-top">
+            <IonCol className="ion-text-center">
+              <div className="gender-info">
+                <h5 className="text-xl font-semibold">
+                  Detected Gender: {gender ? (gender === 'unknown' ? 'Gender could not be detected' : gender.charAt(0).toUpperCase() + gender.slice(1)) : 'Gender not available'}
+                </h5>
+              </div>
+            </IonCol>
+          </IonRow>
+
+
 
 
 

@@ -1,23 +1,39 @@
 import * as faceapi from 'face-api.js';
+import { options } from 'ionicons/icons';
 
+export const extractGender = async (base64Image: string): Promise<string> => {
+  try {
+    // Load models if not already loaded
+    await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+    await faceapi.nets.ageGenderNet.loadFromUri('/models');
 
+    const img = new Image();
+    img.src = base64Image;
 
-export async function extractGender(imageDataUrl: string): Promise<'male' | 'female' | null> {
-  
-  // Load the models (only once)
-  await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
-  await faceapi.nets.ageGenderNet.loadFromUri('/models');
+    await new Promise((resolve) => {
+      img.onload = resolve;
+    });
 
-  const image = await faceapi.fetchImage(imageDataUrl);
+    const detection = await faceapi
+      .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
+      .withFaceLandmarks()
+      .withAgeAndGender();
 
-  const result = await faceapi
-    .detectSingleFace(image, new faceapi.TinyFaceDetectorOptions())
-    .withAgeAndGender();
+    if (detection && detection.gender) {
+      console.log('Detected Gender:', detection.gender);
+      return detection.gender;
+    } else {
+      console.log('Gender could not be detected');
+      return 'unknown';
+    }
+  } catch (error) {
+    console.error('Error during gender extraction:', error);
+    return 'unknown';
+  }
+};
 
-    
-
-  return result?.gender ?? null;
-}
 
 
 
@@ -87,7 +103,7 @@ async function detectGenderFromImage(base64: string): Promise<string | undefined
   });
 
   const data = await res.json();
-  
+
   return data?.output?.gender;
 }
 
@@ -131,7 +147,7 @@ export function isSkinTone(r: number, g: number, b: number): boolean {
 export function isClothingColor(r: number, g: number, b: number): boolean {
   const brightness = (r + g + b) / 3;
   const saturation = Math.max(r, g, b) - Math.min(r, g, b);
-  
+
   return (
     brightness > 20 && brightness < 235 &&
     saturation > 10
@@ -146,11 +162,11 @@ export async function extractPersonColors(imageUrl: string): Promise<{
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
-    
+
     img.onload = async () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
+
       if (!ctx) {
         reject(new Error('Could not get canvas context'));
         return;
@@ -159,28 +175,28 @@ export async function extractPersonColors(imageUrl: string): Promise<{
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
-      
+
       const centerX = Math.floor(canvas.width * 0.2);
       const centerWidth = Math.floor(canvas.width * 0.6);
       const centerY = Math.floor(canvas.height * 0.1);
       const centerHeight = Math.floor(canvas.height * 0.8);
-      
+
       const imageData = ctx.getImageData(centerX, centerY, centerWidth, centerHeight);
       const pixels = imageData.data;
-      
+
       const skinTones = new Map<string, { rgb: RGB; count: number }>();
       const clothingColors = new Map<string, { rgb: RGB; count: number }>();
-      
+
       for (let i = 0; i < pixels.length; i += 16) {
         const r = pixels[i];
         const g = pixels[i + 1];
         const b = pixels[i + 2];
         const a = pixels[i + 3];
-        
+
         if (a < 128) continue;
-        
+
         const key = `${r},${g},${b}`;
-        
+
         if (isSkinTone(r, g, b)) {
           const existing = skinTones.get(key);
           if (existing) {
@@ -197,7 +213,7 @@ export async function extractPersonColors(imageUrl: string): Promise<{
           }
         }
       }
-      
+
       const topSkinTones = Array.from(skinTones.values())
         .sort((a, b) => b.count - a.count)
         .slice(0, 2)
@@ -205,13 +221,13 @@ export async function extractPersonColors(imageUrl: string): Promise<{
           rgb: item.rgb,
           category: getSkinToneCategory(item.rgb)
         }));
-      
+
       const topClothingColors = Array.from(clothingColors.values())
         .sort((a, b) => b.count - a.count)
         .map(item => item.rgb)
         .slice(0, 3);
-      
-        const gender = await detectGenderFromImage(imageUrl);
+
+      const gender = await detectGenderFromImage(imageUrl);
 
       resolve({
         skinTones: topSkinTones,
@@ -219,11 +235,11 @@ export async function extractPersonColors(imageUrl: string): Promise<{
         gender
       });
     };
-    
+
     img.onerror = () => {
       reject(new Error('Failed to load image'));
     };
-    
+
     img.src = imageUrl;
   });
 }
