@@ -118,7 +118,7 @@ const Header: React.FC = () => {
         <header className="head">
           <div className="container">
             <div className="nav-item">
-              <h3 className="nav-logo">Algo-Tex</h3>
+              <h3 className="nav-logo">StyleSync</h3>
 
               {isMediumScreen ? (
                 <IonMenuButton menu="main-menu" className="menu-icon" />
