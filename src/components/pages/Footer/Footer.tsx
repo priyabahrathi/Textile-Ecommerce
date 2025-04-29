@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             <IonCol size="12" sizeMd="4">
               <div className="widget">
                 <h6 className="widget-title">About Us</h6>
-                <p className="ss">At Algo-Tex, we're redefining the future of fashion shopping through cutting-edge AI and Augmented Reality. Our Virtual Try-On technology helps users visualize how clothes will look and fit—without stepping into a dressing room.</p>
+                <p className="ss">At StyleSync, we're redefining the future of fashion shopping through cutting-edge AI and Augmented Reality. Our Virtual Try-On technology helps users visualize how clothes will look and fit—without stepping into a dressing room.</p>
                 <p className="s">By blending deep learning, computer vision, and AR, we make online shopping more immersive, accurate, and personalized. Whether you're at home or on the go, try on styles in real-time and make confident buying decisions.</p>
               </div>
             </IonCol>
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
           <IonGrid id="cc">
             <IonRow className="v-center mobile-center">
               <IonCol size="10" sizeMd="6" className="footer-left-area">
-                <p className="qq">© 2025 Ecommerce website by <a id="oo" href="aa">Algo-Tex</a> <a href="https://Algo-tex.com" target="_blank" rel="noopener noreferrer"></a></p>
+                <p className="qq">© 2025 Ecommerce website by <a id="oo" href="aa">StyleSync</a> <a href="https://StyleSync.com" target="_blank" rel="noopener noreferrer"></a></p>
               </IonCol>
               <IonCol size="12" sizeMd="12" className="footer-right-area" >
                 <p className="footer-social">
