@@ -1,3 +1,17 @@
+.gender-selection{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.select{
+  padding: 5px;
+  width: 120px;
+  
+  border-radius: 7px;
+}
 .card-model{
   background-color: #e2b29350;
   padding: 0.5rem;
@@ -7,7 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height:500px;
+  height:450px;
   width: 300px;
 }
 
@@ -20,7 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height:500px;
+  height:450px;
   width: 300px;
   
 }
@@ -33,7 +47,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height:500px;
+  height:450px;
   width: 300px;
 }
 .card-name{

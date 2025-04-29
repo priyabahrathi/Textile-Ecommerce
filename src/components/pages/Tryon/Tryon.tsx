@@ -68,6 +68,19 @@ const Tryon: React.FC<TryOnProps> = ({
     avatar: '',
   });
 
+
+  const [selectedGender, setSelectedGender] = useState('');
+  
+  const handleGenderChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setSelectedGender(e.target.value);
+  };
+
+  const genderFilteredSuggestions = selectedGender
+    ? filteredSuggestions.filter(product => product.gender.toLowerCase() === selectedGender.toLowerCase())
+    : filteredSuggestions;
+
+
+
   useEffect(() => {
     if (clothingImage) {
       setGarmentImage(clothingImage);
@@ -295,7 +308,7 @@ const Tryon: React.FC<TryOnProps> = ({
         : await convertImageToBase64(garmentImage);
       // Convert path to base64
 
-      const response = await tryOnWithFal(modelImage, base64Garment,outfitType); // modelImage is already base64
+      const response = await tryOnWithFal(modelImage, base64Garment, outfitType); // modelImage is already base64
       setResultImage(response.imageUrl);
     } catch (error) {
       console.error("Try-On failed", error);
@@ -465,43 +478,51 @@ const Tryon: React.FC<TryOnProps> = ({
           )}
 
 
-          {showSuggestions && filteredSuggestions.length > 0 && (
-            <IonRow>
-              <IonCol size="12">
-                <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
-                <IonGrid>
-                  <IonRow>
-                    {filteredSuggestions.map(product => (
-                      <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
-                        <IonCard className="product-card">
-                          <img src={product.img} className="product-image" alt={product.name} />
-                          <IonCardContent>
-                            <div className='product-data'>
-                              <div className="product-title">{product.name}</div>
-                              <div className="product-price">{product.price}</div>
+{showSuggestions && genderFilteredSuggestions.length > 0 && (
+          <IonRow>
+            <IonCol size="12">
+              <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
+              <IonGrid>
+                <div className='gender-selection'>
+                  <label>Select Gender</label>
+                  <select className='select' id="options" name="options" onChange={handleGenderChange}>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+                <IonRow>
+                  {genderFilteredSuggestions.map(product => (
+                    <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
+                      <IonCard className="product-card">
+                        <img src={product.img} className="product-image" alt={product.name} />
+                        <IonCardContent>
+                          <div className='product-data'>
+                            <div className="product-title">{product.name}</div>
+                            <div className="product-price">{product.price}</div>
+                          </div>
+                          <div className="rate-buy">
+                            <div className="ratings">
+                              {[...Array(5)].map((_, i) => (
+                                <IonIcon key={i} icon={star} className="star-icon" />
+                              ))}
                             </div>
-                            <div className="rate-buy">
-                              <div className="ratings">
-                                {[...Array(5)].map((_, i) => (
-                                  <IonIcon key={i} icon={star} className="star-icon" />
-                                ))}
-                              </div>
-                              <button className="btn-buy">
-                                <IonIcon icon={cart} slot="start" />
-                                Buy Now
-                              </button>
-                            </div>
-                          </IonCardContent>
-                        </IonCard>
-                      </IonCol>
-                    ))}
-                  </IonRow>
-                </IonGrid>
-              </IonCol>
-            </IonRow>
-          )}
+                            <button className="btn-buy">
+                              <IonIcon icon={cart} slot="start" />
+                              Buy Now
+                            </button>
+                          </div>
+                        </IonCardContent>
+                      </IonCard>
+                    </IonCol>
+                  ))}
+                </IonRow>
+              </IonGrid>
+            </IonCol>
+          </IonRow>
+        )}
 
-          <IonRow className="ion-padding-top">
+          {/* <IonRow className="ion-padding-top">
             <IonCol className="ion-text-center">
               <div className="gender-info">
                 <h5 className="text-xl font-semibold">
@@ -509,7 +530,7 @@ const Tryon: React.FC<TryOnProps> = ({
                 </h5>
               </div>
             </IonCol>
-          </IonRow>
+          </IonRow> */}
 
 
 
