@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText, IonInput, IonItem, IonList } from '@ionic/react';
 import { ImageUpload } from './Tryon-set/imageuplode';
 import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
 import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
@@ -70,7 +70,7 @@ const Tryon: React.FC<TryOnProps> = ({
 
 
   const [selectedGender, setSelectedGender] = useState('');
-  
+
   const handleGenderChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedGender(e.target.value);
   };
@@ -174,6 +174,28 @@ const Tryon: React.FC<TryOnProps> = ({
 
 
 
+
+  const [height, setHeight] = useState<number>();
+  const [weight, setWeight] = useState<number>();
+  const [chest, setChest] = useState<number>();
+  const [shirtSize, setShirtSize] = useState<string>("");
+
+  const handlePredict = () => {
+    if (!height || !weight || !chest) {
+      setShirtSize("Please fill in all fields.");
+      return;
+    }
+
+    if (chest < 60) setShirtSize("S");
+    else if (chest < 80) setShirtSize("M");
+    else if (chest < 110) setShirtSize("L");
+    else setShirtSize("XL");
+  };
+  useEffect(() => {
+    if (height && weight && chest) {
+      handlePredict();
+    }
+  }, [height, weight, chest]);
 
 
 
@@ -478,18 +500,63 @@ const Tryon: React.FC<TryOnProps> = ({
           )}
 
 
-{showSuggestions && genderFilteredSuggestions.length > 0 && (
-          <IonRow>
-            <IonCol size="12">
-              <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
-              <IonGrid>
-                <div className='gender-selection'>
-                  <label>Select Gender</label>
-                  <select className='select' id="options" name="options" onChange={handleGenderChange}>
-                    <option value="">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
+          {showSuggestions && genderFilteredSuggestions.length > 0 && (
+            <IonRow>
+              <IonCol size="12">
+                <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
+                <IonGrid>
+                  <div className='suggest-head'>
+                    {/* <div className='gender-selection'>
+                    <label>Select Gender</label>
+                    <select className='select' id="options" name="options" onChange={handleGenderChange}>
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div> */}
+                    <div className="predictor-container">
+                      <IonList className="input-list">
+                        <IonItem className="input-item">
+                          <IonInput
+                            className="input-field"
+                            label="Height"
+                            labelPlacement="floating"
+                            type="number"
+                            placeholder="Enter height in cm"
+                            value={height}
+                            onIonChange={(e) => setHeight(parseFloat(e.detail.value!))}
+                          />
+                        </IonItem>
+                        <IonItem className="input-item">
+                          <IonInput
+                            className="input-field"
+                            label="Weight"
+                            labelPlacement="floating"
+                            type="number"
+                            placeholder="Enter weight in kg"
+                            value={weight}
+                            onIonChange={(e) => setWeight(parseFloat(e.detail.value!))}
+                          />
+                        </IonItem>
+                        <IonItem className="input-item">
+                          <IonInput
+                            className="input-field"
+                            label="Chest Size"
+                            labelPlacement="floating"
+                            type="number"
+                            placeholder="Enter chest in cm"
+                            value={chest}
+                            onIonChange={(e) => setChest(parseFloat(e.detail.value!))}
+                          />
+                        </IonItem>
+                      </IonList>
+
+                      {shirtSize && (
+                        <IonText color="primary" className="result-text">
+                          <h2>Predicted Size: {shirtSize}</h2>
+                        </IonText>
+                      )}
+                    </div>
                 </div>
                 <IonRow>
                   {genderFilteredSuggestions.map(product => (
@@ -519,10 +586,10 @@ const Tryon: React.FC<TryOnProps> = ({
                 </IonRow>
               </IonGrid>
             </IonCol>
-          </IonRow>
-        )}
+            </IonRow>
+          )}
 
-          {/* <IonRow className="ion-padding-top">
+        {/* <IonRow className="ion-padding-top">
             <IonCol className="ion-text-center">
               <div className="gender-info">
                 <h5 className="text-xl font-semibold">
@@ -538,16 +605,16 @@ const Tryon: React.FC<TryOnProps> = ({
 
 
 
-          <div className='suggest-container'>
-            <button className='btn-suggest' onClick={handleSuggestClick}>
-              {suggestionsLoading ? 'Loading...' : 'Provide Me Suggestions'}
-            </button>
-          </div>
+        <div className='suggest-container'>
+          <button className='btn-suggest' onClick={handleSuggestClick}>
+            {suggestionsLoading ? 'Loading...' : 'Provide Me Suggestions'}
+          </button>
+        </div>
 
 
-        </IonGrid>
-      </div>
+      </IonGrid>
     </div>
+    </div >
   );
 };
 
