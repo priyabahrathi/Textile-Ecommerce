@@ -117,7 +117,9 @@ const Product: React.FC = () => {
               type="checkbox"
               checked={genderFilter === 'female'}
               onChange={() =>
-                setGenderFilter(genderFilter === 'male' ? 'female' : genderFilter === 'female' ? '' : 'male')
+                setGenderFilter((prev) =>
+                  prev === '' ? 'male' : prev === 'male' ? 'female' : 'male'
+                )
               }
             />
             <span className="slider"></span>
