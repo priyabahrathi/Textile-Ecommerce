@@ -53,6 +53,8 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
+  const genderFilter = useSelector((state: RootState) => state.product.genderFilter); // ✅ Add this line
+  
 
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
@@ -80,7 +82,8 @@ const Product: React.FC = () => {
 
   useEffect(() => {
     if (selectedProduct) {
-      console.log("🧥 Selected Product Image URL:", selectedProduct.img);
+      console.log("🧥 Selected Product:", selectedProduct); // Log the entire product object
+      console.log("🧥 Selected Product Outfit Type:", selectedProduct.outfitType);
     }
   }, [selectedProduct]);
 
@@ -99,11 +102,15 @@ const Product: React.FC = () => {
     const result = Products.filter((product) => {
       const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchPrice = product.price >= lower && product.price <= upper;
-      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
-      return matchSearch && matchPrice && matchCategory;
+      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(
+        product.gender.charAt(0).toUpperCase() + product.gender.slice(1) // converts 'male' → 'Male'
+      );
+      const matchGender = !genderFilter || product.gender.toLowerCase() === genderFilter.toLowerCase();
+      return matchSearch && matchPrice && matchCategory && matchGender;
     });
     setFilteredItems(result);
   };
+  
 
   return (
     <div id="product-section" className="page-product">
@@ -194,21 +201,22 @@ const Product: React.FC = () => {
             <div className="filter-section">
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
-                <ul className='category-list'>
-                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
-                    <li className='category-item' key={cat}>
+                <ul className="category-list">
+                  {['Men', 'Women'].map((cat) => (
+                    <li className="category-item" key={cat}>
                       <input
-                        className='cat-input'
+                        className="cat-input"
                         type="checkbox"
                         checked={selectedCategory.includes(cat)}
                         onChange={(e) => handleCheckBox(cat, e.target.checked)}
                       />
-                      <IonLabel className='cat-label'>{cat}</IonLabel>
+                      <IonLabel className="cat-label">{cat}</IonLabel>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
+
           </IonCol>
 
           {/* Modal section */}
@@ -221,8 +229,10 @@ const Product: React.FC = () => {
                       <h3 className='tryon-head'>Virtual TryOn's</h3>
                       <button className="inline-modal-close" onClick={() => setSelectedProduct(null)}>&times;</button>
                     </div>
-                    <TryOn clothingImage={selectedProduct.img} outfitType={selectedProduct.outfitType?.Value || 'top'} />
-
+                    <TryOn
+                      clothingImage={selectedProduct.img}
+                      outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
+                    />
                   </div>
                 </div>
               )}

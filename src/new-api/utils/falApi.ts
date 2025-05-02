@@ -14,7 +14,8 @@ export const tryOnWithFal = async (
     if (lowerCaseType.includes("top")) return "tops";
     if (lowerCaseType.includes("bottom")) return "bottoms";
     if (lowerCaseType.includes("one-piece")) return "one-pieces";
-    return "tops";
+    console.warn("Unrecognized outfitType:", outfitType);
+    return "tops"; // Default to "tops"
   };
 
   const result = await fal.subscribe("fashn/tryon", {
@@ -22,8 +23,17 @@ export const tryOnWithFal = async (
       model_image: modelImage,
       garment_image: garmentImage,
       category: mapOutfitToCategory(outfitType),
+      nsfw_filter: true, // Enable NSFW filtering
+      guidance_scale: 2, // Adjust guidance scale
+      timesteps: 50, // Number of timesteps
+      seed: 42, // Seed for reproducibility
+      num_samples: 1, // Number of samples to generate
     },
   });
+
+  console.log("FAL API Response:", result);
+  console.log("Category sent to FAL API:", mapOutfitToCategory(outfitType));
+  
 
   return {
     imageUrl: result.data.images[0].url, // <-- correct plural
