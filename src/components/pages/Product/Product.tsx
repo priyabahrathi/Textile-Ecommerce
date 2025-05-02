@@ -53,8 +53,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
-  const genderFilter = useSelector((state: RootState) => state.product.genderFilter); // ✅ Add this line
-  
+  const [genderFilter, setGenderFilter] = useState('');
 
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
@@ -78,8 +77,7 @@ const Product: React.FC = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [searchText, lower, upper, selectedCategory, Products]);
-
+  }, [searchText, lower, upper, selectedCategory, genderFilter, Products]);
   useEffect(() => {
     if (selectedProduct) {
       console.log("🧥 Selected Product:", selectedProduct); // Log the entire product object
@@ -100,21 +98,35 @@ const Product: React.FC = () => {
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
+      const matchGender = genderFilter === '' || product.gender === genderFilter; // Include all genders if genderFilter is empty
       const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchPrice = product.price >= lower && product.price <= upper;
-      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(
-        product.gender.charAt(0).toUpperCase() + product.gender.slice(1) // converts 'male' → 'Male'
-      );
-      const matchGender = !genderFilter || product.gender.toLowerCase() === genderFilter.toLowerCase();
-      return matchSearch && matchPrice && matchCategory && matchGender;
+      const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
+      return matchGender && matchSearch && matchPrice && matchCategory;
     });
     setFilteredItems(result);
   };
-  
 
   return (
     <div id="product-section" className="page-product">
-      <div className='product-head'>Find Your Match</div>
+      <div className='product-head'>
+        <span>Find Your Match</span>
+        <div className="gender-toggle">
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={genderFilter === 'female'}
+              onChange={() =>
+                setGenderFilter(genderFilter === 'male' ? 'female' : genderFilter === 'female' ? '' : 'male')
+              }
+            />
+            <span className="slider"></span>
+          </label>
+          <span className="gender-label">
+            {genderFilter === '' ? 'Both' : genderFilter === 'male' ? 'Male' : 'Female'}
+          </span>
+        </div>
+      </div>
       <IonGrid>
         <IonRow>
           <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
@@ -201,16 +213,16 @@ const Product: React.FC = () => {
             <div className="filter-section">
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
-                <ul className="category-list">
-                  {['Men', 'Women'].map((cat) => (
-                    <li className="category-item" key={cat}>
+                <ul className='category-list'>
+                  {['Formals', 'Casuals', 'Ocassions'].map((cat) => (
+                    <li className='category-item' key={cat}>
                       <input
-                        className="cat-input"
+                        className='cat-input'
                         type="checkbox"
                         checked={selectedCategory.includes(cat)}
                         onChange={(e) => handleCheckBox(cat, e.target.checked)}
                       />
-                      <IonLabel className="cat-label">{cat}</IonLabel>
+                      <IonLabel className='cat-label'>{cat}</IonLabel>
                     </li>
                   ))}
                 </ul>

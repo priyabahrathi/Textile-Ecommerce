@@ -7,6 +7,9 @@
 }
 
 .product-head {
+    display: flex;
+    justify-content: space-between; /* Space between heading and toggle button */
+    align-items: center; /* Align items vertically */
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 45px;
@@ -14,6 +17,11 @@
     color: #d45907;
     text-shadow: 0 0 2px black;
     margin-bottom: 30px;
+}
+
+.product-head span {
+    flex: 1; /* Take up available space */
+    text-align: center; /* Center the heading */
 }
 
 .col-card {
@@ -435,8 +443,63 @@ overflow-y: auto;
   
   
 
+.gender-toggle {
 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 0; /* Align to the left */
+}
 
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ec8080;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3px;
+  background-color: rgb(250, 250, 250);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #f09ef0;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.gender-label {
+  font-size: 16px;
+  font-weight: bold;
+}
 
 /*Responsive*/
 /*Desktop*/
