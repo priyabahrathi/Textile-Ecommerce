@@ -6,7 +6,6 @@ import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../Store/store';
 import {
-  extractGender,
   extractPersonColors,
   getSkinToneCategory,
   type RGB,
@@ -20,11 +19,8 @@ interface TryOnProps {
   clothingImage: string;
   modelImage?: string;
   extractedSkinTones?: RGB[];
-  extractedGender?: string;
   outfitType: string;
 }
-
-
 
 const getSimpleSkinToneName = (rgb: RGB): string => {
   const brightness = (rgb.r + rgb.g + rgb.b) / 3;
@@ -37,11 +33,7 @@ const Tryon: React.FC<TryOnProps> = ({
   clothingImage, outfitType,
   modelImage: modelImageProp,
   extractedSkinTones,
-  extractedGender,
 }) => {
-
-  // Your existing code...
-
 
   const [modelImage, setModelImage] = useState<string | null>(null);
   const [garmentImage, setGarmentImage] = useState<string | null>(null);
@@ -54,9 +46,6 @@ const Tryon: React.FC<TryOnProps> = ({
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
-  const [gender, setGender] = useState<string | null>(null);
-
-
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
     clothing: clothingImage,
@@ -67,19 +56,6 @@ const Tryon: React.FC<TryOnProps> = ({
     clothing: '',
     avatar: '',
   });
-
-
-  const [selectedGender, setSelectedGender] = useState('');
-
-  const handleGenderChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSelectedGender(e.target.value);
-  };
-
-  const genderFilteredSuggestions = selectedGender
-    ? filteredSuggestions.filter(product => product.gender.toLowerCase() === selectedGender.toLowerCase())
-    : filteredSuggestions;
-
-
 
   useEffect(() => {
     if (clothingImage) {
@@ -93,26 +69,11 @@ const Tryon: React.FC<TryOnProps> = ({
     }
   }, [modelImageProp]);
 
-
   useEffect(() => {
     if (filteredSuggestions.length > 0) {
       setShowSuggestions(true);
     }
   }, [filteredSuggestions]);
-
-
-  useEffect(() => {
-    if (extractedGender) {
-      setGender(extractedGender);
-      useEffect(() => {
-        if (extractedGender) {
-          setGender(extractedGender);
-          console.log("Extracted Gender:", extractedGender);
-        }
-      }, [extractedGender]);
-
-    }
-  }, [extractedGender]);
 
   useEffect(() => {
     if (extractedSkinTones && extractedSkinTones.length > 0) {
@@ -130,7 +91,6 @@ const Tryon: React.FC<TryOnProps> = ({
         );
         setSelectedIndex(0); // to visually highlight the selection
       }
-
     }
   }, [extractedSkinTones]);
 
@@ -146,9 +106,8 @@ const Tryon: React.FC<TryOnProps> = ({
 
   useEffect(() => {
     dispatch(fetchSuggestedProducts());
-    console.log("Fetching suggestions...")
+    console.log("Fetching suggestions...");
   }, [dispatch]);
-
 
   const handleSuggestClick = () => {
     console.log("Button clicked");
@@ -172,9 +131,6 @@ const Tryon: React.FC<TryOnProps> = ({
     console.log("Filtered Suggestions:", filtered);
   };
 
-
-
-
   const [height, setHeight] = useState<number>();
   const [weight, setWeight] = useState<number>();
   const [chest, setChest] = useState<number>();
@@ -191,16 +147,12 @@ const Tryon: React.FC<TryOnProps> = ({
     else if (chest < 110) setShirtSize("L");
     else setShirtSize("XL");
   };
+
   useEffect(() => {
     if (height && weight && chest) {
       handlePredict();
     }
   }, [height, weight, chest]);
-
-
-
-
-
 
   useEffect(() => {
     if (clothingImage) {
@@ -211,46 +163,6 @@ const Tryon: React.FC<TryOnProps> = ({
     }
   }, [clothingImage]);
 
-  // const handleImageUpload = async (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  //   type: string
-  // ) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = async () => {
-  //       const imageDataUrl = reader.result as string;
-  //       setPreviews((prev) => ({
-  //         ...prev,
-  //         [type]: imageDataUrl,
-  //       }));
-
-  //       if (type === 'avatar') {
-  //         try {
-  //           const result = await extractPersonColors(imageDataUrl);
-  //           if (result?.skinTones) {
-  //             const enrichedSkinTones = result.skinTones.map((item) => ({
-  //               rgb: item.rgb,
-  //               category: getSkinToneCategory(item.rgb) ?? null,
-  //             }));
-  //             setSkinTones(enrichedSkinTones);
-  //           }
-
-
-  //           const genderDetected = await extractGender(imageDataUrl);
-  //           if (genderDetected) {
-  //             setGender(genderDetected);
-  //           }
-  //         } catch (err) {
-  //           console.error('Skin tone or gender extraction failed:', err);
-  //         }
-  //       }
-
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const convertImageToBase64 = async (imagePath: string): Promise<string> => {
     const response = await fetch(imagePath);
     const blob = await response.blob();
@@ -260,18 +172,13 @@ const Tryon: React.FC<TryOnProps> = ({
       reader.onerror = reject;
       reader.readAsDataURL(blob);
     });
-
   };
-
-
-
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
     setImage: React.Dispatch<React.SetStateAction<string | null>>,
     type?: string
   ) => {
-
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -290,20 +197,13 @@ const Tryon: React.FC<TryOnProps> = ({
             }));
             setSkinTones(enrichedSkinTones);
           }
-
-
-          const genderDetected = await extractGender(base64);
-          if (genderDetected) {
-            setGender(genderDetected);
-          }
         } catch (err) {
-          console.error('Skin tone or gender extraction failed:', err);
+          console.error('Skin tone extraction failed:', err);
         }
       }
     };
     reader.readAsDataURL(file); // <-- This converts the image to Base64
   };
-
 
   const handlePromptChange = (value: string, type: string) => {
     setPrompts((prev) => ({
@@ -311,9 +211,6 @@ const Tryon: React.FC<TryOnProps> = ({
       [type]: value,
     }));
   };
-
-
-
 
   const handleTryOn = async () => {
     if (!modelImage || !garmentImage) {
@@ -339,7 +236,6 @@ const Tryon: React.FC<TryOnProps> = ({
       setLoading(false);
     }
   };
-
 
   return (
     <div className="tryon-page-wrapper">
@@ -429,20 +325,8 @@ const Tryon: React.FC<TryOnProps> = ({
             </button>
           </div>
 
-          {/* <IonRow>
-            <IonCol className="ion-text-center">
-              <IonButton
-                onClick={handleTryOn}
-                className="try-button"
-                disabled={loading}
-              >
-                {loading ? 'Processing...' : 'Try It'}
-              </IonButton>
-            </IonCol>
-          </IonRow> */}
           {skinTones.length > 0 && (
             <>
-
               <IonRow className="ion-justify-content-center ion-padding-top skintone-container">
                 <div className='tone-selection'>Select Your Exact Skintone</div>
                 {skinTones.map((tone, index) => (
@@ -454,7 +338,6 @@ const Tryon: React.FC<TryOnProps> = ({
                         tone.category ?? {
                           name: getSimpleSkinToneName(tone.rgb),
                           description: 'Custom detected skin tone based on brightness.',
-
                         }
                       );
                       setSelectedIndex(index);
@@ -473,21 +356,8 @@ const Tryon: React.FC<TryOnProps> = ({
                     title={tone.category?.name || 'Unknown'}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
-
                 ))}
               </IonRow>
-
-              {/* {selectedSkinTone && (
-                <IonRow className="ion-padding-top">
-                  <IonCol className="ion-text-center">
-                    <div className="skin-tone-info">
-
-                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
-                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
-                    </div>
-                  </IonCol>
-                </IonRow>
-              )} */}
             </>
           )}
 
@@ -499,122 +369,93 @@ const Tryon: React.FC<TryOnProps> = ({
             </IonRow>
           )}
 
-
-          {showSuggestions && genderFilteredSuggestions.length > 0 && (
+          {showSuggestions && filteredSuggestions.length > 0 && (
             <IonRow>
               <IonCol size="12">
                 <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
                 <IonGrid>
-                  <div className='suggest-head'>
-                    {/* <div className='gender-selection'>
-                    <label>Select Gender</label>
-                    <select className='select' id="options" name="options" onChange={handleGenderChange}>
-                      <option value="">Select</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  </div> */}
-                    <div className="predictor-container">
-                      <IonList className="input-list">
-                        <IonItem className="input-item">
-                          <IonInput
-                            className="input-field"
-                            label="Height"
-                            labelPlacement="floating"
-                            type="number"
-                            placeholder="Enter height in cm"
-                            value={height}
-                            onIonChange={(e) => setHeight(parseFloat(e.detail.value!))}
-                          />
-                        </IonItem>
-                        <IonItem className="input-item">
-                          <IonInput
-                            className="input-field"
-                            label="Weight"
-                            labelPlacement="floating"
-                            type="number"
-                            placeholder="Enter weight in kg"
-                            value={weight}
-                            onIonChange={(e) => setWeight(parseFloat(e.detail.value!))}
-                          />
-                        </IonItem>
-                        <IonItem className="input-item">
-                          <IonInput
-                            className="input-field"
-                            label="Chest Size"
-                            labelPlacement="floating"
-                            type="number"
-                            placeholder="Enter chest in cm"
-                            value={chest}
-                            onIonChange={(e) => setChest(parseFloat(e.detail.value!))}
-                          />
-                        </IonItem>
-                      </IonList>
+                  <div className="predictor-container">
+                    <IonList className="input-list">
+                      <IonItem className="input-item">
+                        <IonInput
+                          className="input-field"
+                          label="Height"
+                          labelPlacement="floating"
+                          type="number"
+                          placeholder="Enter height in cm"
+                          value={height}
+                          onIonChange={(e) => setHeight(parseFloat(e.detail.value!))}
+                        />
+                      </IonItem>
+                      <IonItem className="input-item">
+                        <IonInput
+                          className="input-field"
+                          label="Weight"
+                          labelPlacement="floating"
+                          type="number"
+                          placeholder="Enter weight in kg"
+                          value={weight}
+                          onIonChange={(e) => setWeight(parseFloat(e.detail.value!))}
+                        />
+                      </IonItem>
+                      <IonItem className="input-item">
+                        <IonInput
+                          className="input-field"
+                          label="Chest Size"
+                          labelPlacement="floating"
+                          type="number"
+                          placeholder="Enter chest in cm"
+                          value={chest}
+                          onIonChange={(e) => setChest(parseFloat(e.detail.value!))}
+                        />
+                      </IonItem>
+                    </IonList>
 
-                      {shirtSize && (
-                        <IonText color="primary" className="result-text">
-                          <h2>Predicted Size: {shirtSize}</h2>
-                        </IonText>
-                      )}
-                    </div>
-                </div>
-                <IonRow>
-                  {genderFilteredSuggestions.map(product => (
-                    <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
-                      <IonCard className="product-card">
-                        <img src={product.img} className="product-image" alt={product.name} />
-                        <IonCardContent>
-                          <div className='product-data'>
-                            <div className="product-title">{product.name}</div>
-                            <div className="product-price">{product.price}</div>
-                          </div>
-                          <div className="rate-buy">
-                            <div className="ratings">
-                              {[...Array(5)].map((_, i) => (
-                                <IonIcon key={i} icon={star} className="star-icon" />
-                              ))}
+                    {shirtSize && (
+                      <IonText color="primary" className="result-text">
+                        <h2>Predicted Size: {shirtSize}</h2>
+                      </IonText>
+                    )}
+                  </div>
+                  <IonRow>
+                    {filteredSuggestions.map(product => (
+                      <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
+                        <IonCard className="product-card">
+                          <img src={product.img} className="product-image" alt={product.name} />
+                          <IonCardContent>
+                            <div className='product-data'>
+                              <div className="product-title">{product.name}</div>
+                              <div className="product-price">{product.price}</div>
                             </div>
-                            <button className="btn-buy">
-                              <IonIcon icon={cart} slot="start" />
-                              Buy Now
-                            </button>
-                          </div>
-                        </IonCardContent>
-                      </IonCard>
-                    </IonCol>
-                  ))}
-                </IonRow>
-              </IonGrid>
-            </IonCol>
+                            <div className="rate-buy">
+                              <div className="ratings">
+                                {[...Array(5)].map((_, i) => (
+                                  <IonIcon key={i} icon={star} className="star-icon" />
+                                ))}
+                              </div>
+                              <button className="btn-buy">
+                                <IonIcon icon={cart} slot="start" />
+                                Buy Now
+                              </button>
+                            </div>
+                          </IonCardContent>
+                        </IonCard>
+                      </IonCol>
+                    ))}
+                  </IonRow>
+                </IonGrid>
+              </IonCol>
             </IonRow>
           )}
 
-        {/* <IonRow className="ion-padding-top">
-            <IonCol className="ion-text-center">
-              <div className="gender-info">
-                <h5 className="text-xl font-semibold">
-                  Detected Gender: {gender ? (gender === 'unknown' ? 'Gender could not be detected' : gender.charAt(0).toUpperCase() + gender.slice(1)) : 'Gender not available'}
-                </h5>
-              </div>
-            </IonCol>
-          </IonRow> */}
-
-
-
-
-
-
-
-        <div className='suggest-container'>
-          <button className='btn-suggest' onClick={handleSuggestClick}>
-            {suggestionsLoading ? 'Loading...' : 'Provide Me Suggestions'}
-          </button>
-        </div>
-
-
-      </IonGrid>
+          <div className='suggest-container'>
+            <button className='btn-suggest' onClick={handleSuggestClick}>
+              {suggestionsLoading ? 'Loading...' : 'Provide Me Suggestions'}
+            </button>
+          </div>
+        </IonGrid>
+      </div>
     </div>
-    </div >
   );
 };
 
