@@ -10,6 +10,7 @@ export interface Product {
   img: string;
   price: string;
   gender: string; 
+  outfitName: string;
 }
 
 export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async () => {

@@ -19,6 +19,7 @@ interface TryOnProps {
   extractedSkinTones?: RGB[];
   outfitType: string;
   genderFilter: string;
+  outfitName: string;
 }
 
 const getSimpleSkinToneName = (rgb: RGB): string => {
@@ -33,6 +34,7 @@ const Tryon: React.FC<TryOnProps> = ({
   modelImage: modelImageProp,
   extractedSkinTones,
   genderFilter,
+  outfitName,
 }) => {
 
   const [modelImage, setModelImage] = useState<string | null>(null);
@@ -120,10 +122,11 @@ const Tryon: React.FC<TryOnProps> = ({
       return;
     }
   
-    // Filter products based on skin tone and gender
+    // Filter products based on skin tone, gender, and outfitName
     const filtered = suggestions.filter(product =>
       product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase()) &&
-      (genderFilter === '' || product.gender === genderFilter) // Filter by gender
+      (genderFilter === '' || product.gender === genderFilter) && // Filter by gender
+      (outfitName === '' || product.outfitName === outfitName) // Filter by outfitName
     );
   
     console.log("Filtered Suggestions:", filtered);
