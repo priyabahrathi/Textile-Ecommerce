@@ -246,6 +246,7 @@ const Product: React.FC = () => {
                     <TryOn
                       clothingImage={selectedProduct.img}
                       outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
+                      genderFilter={genderFilter} // Pass the gender filter here
                     />
                   </div>
                 </div>

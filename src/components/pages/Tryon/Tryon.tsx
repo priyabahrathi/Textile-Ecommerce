@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonGrid, IonRow, IonCol, IonButton, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText, IonInput, IonItem, IonList } from '@ionic/react';
-import { ImageUpload } from './Tryon-set/imageuplode';
-import { TryOnDiffusionClient } from '../../../Store/data/sampleimage';
+import { IonGrid, IonRow, IonCol, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText, IonInput, IonItem, IonList } from '@ionic/react';
 import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../Store/store';
@@ -20,6 +18,7 @@ interface TryOnProps {
   modelImage?: string;
   extractedSkinTones?: RGB[];
   outfitType: string;
+  genderFilter: string;
 }
 
 const getSimpleSkinToneName = (rgb: RGB): string => {
@@ -33,6 +32,7 @@ const Tryon: React.FC<TryOnProps> = ({
   clothingImage, outfitType,
   modelImage: modelImageProp,
   extractedSkinTones,
+  genderFilter,
 }) => {
 
   const [modelImage, setModelImage] = useState<string | null>(null);
@@ -113,22 +113,22 @@ const Tryon: React.FC<TryOnProps> = ({
     console.log("Button clicked");
     console.log("Selected Skin Tone:", selectedSkinTone);
     console.log("All Suggestions:", suggestions);
-
+  
     // Check if skin tone is selected and has a valid name
     if (!selectedSkinTone?.name) {
       console.log("Skin tone not detected or no name available.");
       return;
     }
-
-    // Filter products based on skin tone
+  
+    // Filter products based on skin tone and gender
     const filtered = suggestions.filter(product =>
-      product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())
+      product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase()) &&
+      (genderFilter === '' || product.gender === genderFilter) // Filter by gender
     );
-
+  
     console.log("Filtered Suggestions:", filtered);
     setFilteredSuggestions(filtered);
     setShowSuggestions(true);
-    console.log("Filtered Suggestions:", filtered);
   };
 
   const [height, setHeight] = useState<number>();

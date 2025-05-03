@@ -14,18 +14,15 @@ interface Product {
   outfitType?: string; // Optional if you use it elsewhere
 }
 
-
 interface ProductState {
   Products: Product[];
   genderFilter: string; // ✅ Add this line
 }
 
-
 const initialState: ProductState = {
   Products: [],
   genderFilter: '', // ✅ Default empty value
 };
-
 
 // Async thunk to fetch data
 export const fetchProductsFromFirebase = createAsyncThunk(

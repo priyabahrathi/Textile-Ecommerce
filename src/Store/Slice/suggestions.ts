@@ -9,10 +9,11 @@ export interface Product {
   name: string;
   img: string;
   price: string;
+  gender: string; 
 }
 
 export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async () => {
-  const dbRef = ref(database, 'products'); // 'suggestions' is the path in Realtime DB
+  const dbRef = ref(database, 'products'); // 'products' is the path in Realtime DB
   const snapshot = await get(dbRef);
 
   if (!snapshot.exists()) {
@@ -22,7 +23,7 @@ export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async (
   const data = snapshot.val();
   const products: Product[] = Object.entries(data).map(([key, value]: any) => ({
     id: key,
-    ...value
+    ...value, // Ensure that 'value' includes the 'gender' property
   }));
 
   return products;
