@@ -5,6 +5,7 @@ import { ref, onValue } from 'firebase/database';
 
 interface Product {
   id: string;
+  skinTone: any;
   name: string;
   price: number;
   category: string;
