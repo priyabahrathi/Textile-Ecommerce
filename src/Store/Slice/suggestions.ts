@@ -11,8 +11,8 @@ export interface Product {
   price: string;
 }
 
-export const fetchSuggestedProducts = createAsyncThunk('suggestions/fetch', async () => {
-  const dbRef = ref(database, 'suggestions'); // 'suggestions' is the path in Realtime DB
+export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async () => {
+  const dbRef = ref(database, 'products'); // 'suggestions' is the path in Realtime DB
   const snapshot = await get(dbRef);
 
   if (!snapshot.exists()) {
