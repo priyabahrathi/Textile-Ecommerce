@@ -47,7 +47,7 @@ const suggestionSlice = createSlice({
       })
       .addCase(fetchSuggestedProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.suggestions = action.payload;
+        state.suggestions = action.payload;                 
       })
       .addCase(fetchSuggestedProducts.rejected, (state, action) => {
         state.loading = false;
