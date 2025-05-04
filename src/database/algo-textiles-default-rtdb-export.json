@@ -49,7 +49,7 @@
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
       "price": 3900,
-      "skinTone": "Fair Skin"
+      "skinTone": ["Fair Skin", "Dusky Skin"]
     },
     "pro002": {
       "category": "Formals",
@@ -245,11 +245,22 @@
       "category": "Formals",
       "gender": "male",
       "img": "public/assets/Product/Formals/32.jpg",
-      "name": "Coat Suit Men",
+      "name": "White coat",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
       "price": 3800,
       "skinTone": "Fair Skin"
+    },
+    "pro041": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/26.jpg",
+      "name": "pink coat",
+      "outfitName": "Coat Suit",
+      "outfitType": "top",
+      "price": 3800,
+      "skinTone": "Fair Skin"
     }
+
   }
 }

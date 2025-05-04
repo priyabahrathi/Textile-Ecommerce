@@ -124,9 +124,11 @@ const Tryon: React.FC<TryOnProps> = ({
   
     // Filter products based on skin tone, gender, and outfitName
     const filtered = suggestions.filter(product =>
-      product.skinTone.toLowerCase().includes(selectedSkinTone.name.toLowerCase()) &&
-      (genderFilter === '' || product.gender === genderFilter) && // Filter by gender
-      (outfitName === '' || product.outfitName === outfitName) // Filter by outfitName
+      Array.isArray(product.skinTone) // Check if skinTone is an array
+        ? product.skinTone.some((tone) => tone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())) // Handle array case
+        : product.skinTone?.toLowerCase().includes(selectedSkinTone.name.toLowerCase()) && // Handle string case
+          (genderFilter === '' || product.gender === genderFilter) && // Filter by gender
+          (outfitName === '' || product.outfitName === outfitName) // Filter by outfitName
     );
   
     console.log("Filtered Suggestions:", filtered);
