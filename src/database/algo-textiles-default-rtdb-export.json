@@ -693,6 +693,86 @@
     "outfitType": "bottom",
     "price": 600,
     "skinTone": "Dark Skin"
+  },
+  "pro066": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/18.png",
+    "name": "Women Crop Top",
+    "outfitName": "Crop Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro067": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/28.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+  "pro068": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/30.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro069": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/31.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dark Skin"
+  },
+  "pro070": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/32.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+  "pro071": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/33.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro072": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/38.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": ["Dusky Skin","Dark Skin"]
+  },
+  "pro073": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/39.png",
+    "name": "High Waist Pant",
+    "outfitName": "Pant",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dark Skin"
   }
   }
 }
