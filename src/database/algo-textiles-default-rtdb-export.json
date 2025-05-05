@@ -49,7 +49,7 @@
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
       "price": 3900,
-      "skinTone": "Fair Skin"
+      "skinTone": ["Fair Skin", "Dusky Skin"]
     },
     "pro002": {
       "category": "Formals",
@@ -437,165 +437,251 @@
       "category": "Formals",
       "gender": "male",
       "img": "public/assets/Product/Formals/32.jpg",
-      "name": "Coat Suit Men",
+      "name": "White coat",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
       "price": 3800,
+    "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+    },
+    "pro041": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/26.jpg",
+      "name": "pink coat",
+      "outfitName": "Coat Suit",
+      "outfitType": "top",
+      "price": 3800,
       "skinTone": "Fair Skin"
     },
-    "pro050": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/7.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dark Skin"
-    },
-    "pro051": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/8.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    },
-    "pro052": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/9.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    },
-    "pro053": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/10.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dark Skin"
-    },
-    "pro054": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/11.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dusky Skin"
-    },
-    
-    "pro055": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/12.png",
-      "name": "Women Short Top",
-      "outfitName": "Short Top",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dusky Skin"
-    },
-     "pro056": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/13.png",
-      "name": "Women T-Shirt",
-      "outfitName": "T Shirt",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    },
-    "pro057": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/17.png",
-      "name": "Women Short Top",
-      "outfitName": "T Shirt"                 ,
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dusky Skin"
-    },
-    "pro058": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/20.png",
-      "name": "Women T-Shirt",
-      "outfitName": "T Shirt",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": ["Dusky Skin","Dark Skin","Fair Skin"]
-    },
-     "pro059": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/21.png",
-      "name": "Women T-Shirt",
-      "outfitName": "T Shirt",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    },
-    "pro060": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/22.png",
-      "name": "Women Short Top",
-      "outfitName": "T Shirt",
-      "outfitType": "top",
-      "price": 600,
-      "skinTone": "Dark Skin"
-    },
-    "pro061": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/24.png",
-      "name": "Women Skirt",
-      "outfitName": "Skirt",
-      "outfitType": "bottom",
-      "price": 600,
-      "skinTone": ["Dusky Skin","Dusky Skin","Fair Skin"]
-    },
-    "pro062": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/23.png",
-      "name": "Women Skirt",
-      "outfitName": "Skirt",
-      "outfitType": "bottom",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    },
-     "pro063": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/26.png",
-      "name": "Women Skirt",
-      "outfitName": "Skirt",
-      "outfitType": "bottom",
-      "price": 600,
-      "skinTone": "Dusky Skin"
-    },
-    "pro064": {
-      "category": "Casuals",
-      "gender": "female",
-      "img": "public/assets/Product/Casuals/25.png",
-      "name": "Women Skirt",
-      "outfitName": "Skirt",
-      "outfitType": "bottom",
-      "price": 600,
-      "skinTone": "Fair Skin"
-    }
-
-
-
+    "pro042": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bc01.jpg",
+    "name": "Striped Blue Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 864,
+    "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+  },
+  "pro043": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/wc01.jpg",
+    "name": "White Collar Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 1907,
+    "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+  },
+  "pro044": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/nc01.jpg",
+    "name": "Navy Denim Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 1125,
+    "skinTone": "Fair Skin"
+  },
+  "pro045": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bg01.jpg",
+    "name": "Sky Checkered Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 899,
+    "skinTone": "Dusky Skin"
+  },
+  "pro046": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/oc01.jpg",
+    "name": "Classic Olive Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 881,
+    "skinTone": "Dusky Skin"
+  },
+  "pro047": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bc02.jpg",
+    "name": "Classic black Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 871,
+    "skinTone": "Fair Skin"
+  },
+  "pro048": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/mc01.jpg",
+    "name": "Classic maroon Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 851,
+    "skinTone": "Fair Skin"
+  },
+  "pro049": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/pc01.jpg",
+    "name": "Classic pink Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 891,
+    "skinTone": "Fair Skin"
+  },  "pro050": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/7.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dark Skin"
+  },
+  "pro051": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/8.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro052": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/9.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro053": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/10.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dark Skin"
+  },
+  "pro054": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/11.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+  
+  "pro055": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/12.png",
+    "name": "Women Short Top",
+    "outfitName": "Short Top",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+   "pro056": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/13.png",
+    "name": "Women T-Shirt",
+    "outfitName": "T Shirt",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro057": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/17.png",
+    "name": "Women Short Top",
+    "outfitName": "T Shirt"                 ,
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+  "pro058": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/20.png",
+    "name": "Women T-Shirt",
+    "outfitName": "T Shirt",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": ["Dusky Skin","Dark Skin","Fair Skin"]
+  },
+   "pro059": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/21.png",
+    "name": "Women T-Shirt",
+    "outfitName": "T Shirt",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+  "pro060": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/22.png",
+    "name": "Women Short Top",
+    "outfitName": "T Shirt",
+    "outfitType": "top",
+    "price": 600,
+    "skinTone": "Dark Skin"
+  },
+  "pro061": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/24.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": ["Dusky Skin","Dusky Skin","Fair Skin"]
+  },
+  "pro062": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/23.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  },
+   "pro063": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/26.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dusky Skin"
+  },
+  "pro064": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/25.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Fair Skin"
+  }
   }
 }

@@ -14,7 +14,7 @@ export interface Product {
 }
 
 export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async () => {
-  const dbRef = ref(database, 'products'); // 'products' is the path in Realtime DB
+  const dbRef = ref(database, 'products');
   const snapshot = await get(dbRef);
 
   if (!snapshot.exists()) {
@@ -24,7 +24,8 @@ export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async (
   const data = snapshot.val();
   const products: Product[] = Object.entries(data).map(([key, value]: any) => ({
     id: key,
-    ...value, // Ensure that 'value' includes the 'gender' property
+    ...value,
+    skinTone: value.skinTone || '', // Ensure skinTone is always defined
   }));
 
   return products;
