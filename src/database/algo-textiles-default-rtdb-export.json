@@ -340,6 +340,16 @@
     "outfitType": "one-piece",
     "price": 891,
     "skinTone": "Fair Skin"
+  },
+  "pro050": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/pc02.jpg",
+    "name": "Classic purple Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 891,
+    "skinTone": "Fair Skin"
   }
   }
 }
