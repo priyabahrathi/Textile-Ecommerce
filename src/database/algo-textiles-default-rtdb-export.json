@@ -446,7 +446,7 @@
     "pro041": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/26.jpg",
+      "img": "public/assets/Product/Formals/26.png",
       "name": "pink coat",
       "outfitName": "Coat Suit",
       "outfitType": "top",
@@ -683,6 +683,16 @@
     "outfitType": "bottom",
     "price": 600,
     "skinTone": "Fair Skin"
+  },
+  "pro065": {
+    "category": "Casuals",
+    "gender": "female",
+    "img": "public/assets/Product/Casuals/27.png",
+    "name": "Women Skirt",
+    "outfitName": "Skirt",
+    "outfitType": "bottom",
+    "price": 600,
+    "skinTone": "Dark Skin"
   }
   }
 }
