@@ -366,6 +366,17 @@ const Tryon: React.FC<TryOnProps> = ({
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1.0)')} />
                 ))}
               </IonRow>
+              {selectedSkinTone && (
+                <IonRow className="ion-padding-top">
+                  <IonCol className="ion-text-center">
+                    <div className="skin-tone-info">
+
+                      <h5 className="text-xl font-semibold">{selectedSkinTone.name}</h5>
+                      <p className="text-sm text-gray-600">{selectedSkinTone.description}</p>
+                    </div>
+                  </IonCol>
+                </IonRow>
+              )}
             </>
           )}
 
