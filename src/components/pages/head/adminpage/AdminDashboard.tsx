@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 import { IonIcon, IonButton } from "@ionic/react";
-import { addCircle, statsChart, people, settings } from "ionicons/icons";
+import { addCircle, statsChart, cart, settings,personCircle, people } from "ionicons/icons";
+import ManageProduct from "./pages/ManageProduct";
+import ViewSales from "./pages/ViewSales";
+import CheckoutAdminPage from "./pages/checkout";
+import ProfilePage from "./pages/profile";
+import Settings from "./pages/settings";
 
 const tabs = [
+  {name:"profile", icon:personCircle},
   { name: "Add Products", icon: addCircle },
   { name: "View Sales", icon: statsChart },
-  { name: "Users", icon: people },
+  { name: "Chekouts", icon: cart },
   { name: "Settings", icon: settings },
 ];
 
 const AdminDashboard: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState("Add Products");
+  const [selectedTab, setSelectedTab] = useState("profile");
 
   const renderContent = () => {
     switch (selectedTab) {
+      case "profile":
+        return <div><ProfilePage/></div>;
       case "Add Products":
-        return <div>Add Products Content</div>;
+        return <div><ManageProduct /></div>;
       case "View Sales":
-        return <div>View Sales Content</div>;
-      case "Users":
-        return <div>Users Management Content</div>;
+        return <div><ViewSales/></div>;
+      case "Chekouts":
+        return <div><CheckoutAdminPage/></div>;
       case "Settings":
-        return <div>Settings Content</div>;
+        return <div><Settings/></div>;
       default:
         return null;
     }
