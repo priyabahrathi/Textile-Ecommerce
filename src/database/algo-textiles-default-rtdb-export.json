@@ -44,7 +44,7 @@
     "pro001": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/1.png",
+      "img": "assets/Product/Formals/1.png",
       "name": "Coat Suit Men",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
@@ -54,7 +54,7 @@
     "pro002": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/20.png",
+      "img": "assets/Product/Formals/20.png",
       "name": "Blazer Women",
       "outfitName": "Blazer Women",
       "outfitType": "top",
@@ -64,7 +64,7 @@
     "pro003": {
       "category": "Casuals",
       "gender": "female",
-      "img": "public/assets/Product/Casuals/1.png",
+      "img": "assets/Product/Casuals/1.png",
       "name": "Crop Top",
       "outfitName": "Crop Top",
       "outfitType": "top",
@@ -74,7 +74,7 @@
     "pro004": {
       "category": "Casuals",
       "gender": "male",
-      "img": "public/assets/Product/Casuals/37.png",
+      "img": "assets/Product/Casuals/37.png",
       "name": "Hoodie Men",
       "outfitName": "Hoodie",
       "outfitType": "top",
@@ -84,7 +84,7 @@
     "pro005": {
       "category": "Ocassions",
       "gender": "male",
-      "img": "public/assets/Product/Ocassions/14.png",
+      "img": "assets/Product/Ocassions/14.png",
       "name": "Sherwani",
       "outfitName": "Sherwani",
       "outfitType": "one-piece",
@@ -94,7 +94,7 @@
     "pro006": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/15.png",
+      "img": "assets/Product/Ocassions/15.png",
       "name": "Anarkali",
       "outfitName": "Anarkali",
       "outfitType": "one-piece",
@@ -104,7 +104,7 @@
     "pro007": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/2.png",
+      "img": "assets/Product/Formals/2.png",
       "name": "Coat Suit Men",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
@@ -114,7 +114,7 @@
     "pro008": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/16.png",
+      "img": "assets/Product/Ocassions/16.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -124,7 +124,7 @@
     "pro009": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/6.png",
+      "img": "assets/Product/Formals/6.png",
       "name": "Coat Suit",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
@@ -134,7 +134,7 @@
     "pro010": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/17.png",
+      "img": "assets/Product/Ocassions/17.png",
       "name": "Anarkali",
       "outfitName": "Anarkali",
       "outfitType": "one-piece",
@@ -144,7 +144,7 @@
     "pro011": {
       "category": "Casuals",
       "gender": "male",
-      "img": "public/assets/Product/Casuals/2.png",
+      "img": "assets/Product/Casuals/2.png",
       "name": "Hoodie Men",
       "outfitName": "Hoodie",
       "outfitType": "top",
@@ -154,7 +154,7 @@
     "pro012": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/21.png",
+      "img": "assets/Product/Formals/21.png",
       "name": "Blazer Women",
       "outfitName": "Blazer",
       "outfitType": "top",
@@ -164,7 +164,7 @@
     "pro013": {
       "category": "Casuals",
       "gender": "male",
-      "img": "public/assets/Product/Casuals/35.png",
+      "img": "assets/Product/Casuals/35.png",
       "name": "T Shirt Men",
       "outfitName": "T Shirt",
       "outfitType": "top",
@@ -174,7 +174,7 @@
     "pro014": {
       "category": "Casuals",
       "gender": "female",
-      "img": "public/assets/Product/Casuals/3.png",
+      "img": "assets/Product/Casuals/3.png",
       "name": "Crop Top",
       "outfitName": "Crop Top",
       "outfitType": "top",
@@ -184,7 +184,7 @@
     "pro015": {
       "category": "Casuals",
       "gender": "male",
-      "img": "public/assets/Product/Casuals/19.png",
+      "img": "assets/Product/Casuals/19.png",
       "name": "Hoodie Men",
       "outfitName": "Hoodie",
       "outfitType": "top",
@@ -194,7 +194,7 @@
     "pro016": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/19.png",
+      "img": "assets/Product/Ocassions/19.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -202,10 +202,10 @@
       "skinTone": "Fair Skin"
     },
     "pro017": {
-      "OutfitType": "one-piece",
+      "outfitType": "one-piece",
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/22.png",
+      "img": "assets/Product/Ocassions/22.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "price": 2500,
@@ -214,7 +214,7 @@
     "pro018": {
       "category": "Casuals",
       "gender": "male",
-      "img": "public/assets/Product/Casuals/4.png",
+      "img": "assets/Product/Casuals/4.png",
       "name": "Polo T-Shirt Men",
       "outfitName": "Polo T-Shirt",
       "outfitType": "top",
@@ -224,7 +224,7 @@
     "pro019": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/21.png",
+      "img": "assets/Product/Ocassions/21.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -232,10 +232,10 @@
       "skinTone": "Fair Skin"
     },
     "pro020": {
-      "OutfitType": "one-piece",
+      "outfitType": "one-piece",
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/20.png",
+      "img": "assets/Product/Ocassions/20.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "price": 2500,
@@ -245,7 +245,7 @@
     "pro021": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/15.png",
+      "img": "assets/Product/Formals/15.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -255,7 +255,7 @@
     "pro022": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/12.png",
+      "img": "assets/Product/Formals/12.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -265,7 +265,7 @@
     "pro023": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/14.png",
+      "img": "assets/Product/Formals/14.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -275,7 +275,7 @@
     "pro024": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/13.png",
+      "img": "assets/Product/Formals/13.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -285,7 +285,7 @@
     "pro025": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/41.png",
+      "img": "assets/Product/Formals/41.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -295,7 +295,7 @@
     "pro026": {
       "category": "Formals",
       "gender": "female",
-      "img": "public/assets/Product/Formals/16.png",
+      "img": "assets/Product/Formals/16.png",
       "name": "Formal Bodycon",
       "outfitName": "Bodycon",
       "outfitType": "one-piece",
@@ -305,7 +305,7 @@
     "pro027": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/25.png",
+      "img": "assets/Product/Ocassions/25.png",
       "name": "Butterfly Sleeve Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -315,7 +315,7 @@
     "pro028": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/1.png",
+      "img": "assets/Product/Ocassions/1.png",
       "name": "Mullet Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -325,7 +325,7 @@
     "pro029": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/4.png",
+      "img": "assets/Product/Ocassions/4.png",
       "name": "Mullet Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -335,7 +335,7 @@
     "pro030": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/26.png",
+      "img": "assets/Product/Ocassions/26.png",
       "name": "Butterfly Sleeve Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -345,7 +345,7 @@
     "pro031": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/27.png",
+      "img": "assets/Product/Ocassions/27.png",
       "name": "Long Gown",
       "outfitName": "Long Gown",
       "outfitType": "one-piece",
@@ -355,7 +355,7 @@
     "pro032": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/11.png",
+      "img": "assets/Product/Ocassions/11.png",
       "name": "Vintage Short Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -365,7 +365,7 @@
     "pro033": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/24.png",
+      "img": "assets/Product/Ocassions/24.png",
       "name": "Mullet Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -375,7 +375,7 @@
     "pro034": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/28.png",
+      "img": "assets/Product/Ocassions/28.png",
       "name": "Floral Lace Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -385,7 +385,7 @@
     "pro035": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/29.png",
+      "img": "assets/Product/Ocassions/29.png",
       "name": "Floral Lace Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -395,7 +395,7 @@
     "pro036": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/30.png",
+      "img": "assets/Product/Ocassions/30.png",
       "name": "Floral Lace Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
@@ -405,27 +405,18 @@
     "pro037": {
       "category": "Ocassions",
       "gender": "female",
-      "img": "public/assets/Product/Ocassions/31.png",
+      "img": "assets/Product/Ocassions/31.png",
       "name": "Mullet Cocktail Gown",
       "outfitName": "Short Gown",
       "outfitType": "one-piece",
       "price": 2600,
       "skinTone": "Dark Skin"
     },
-    "pro038": {
-      "category": "Ocassions",
-      "gender": "female",
-      "img": "public/assets/Product/Ocassions/32.png",
-      "name": "Floral Lace Cocktail Gown",
-      "outfitName": "Short Gown",
-      "outfitType": "one-piece",
-      "price": 2600,
-      "skinTone": "Dark Skin"
-    },
+    
     "pro039": {
       "category": "Casuals",
       "gender": "female",
-      "img": "public/assets/Product/Casuals/6.png",
+      "img": "assets/Product/Casuals/6.png",
       "name": "Women Short Top",
       "outfitName": "Short Top",
       "outfitType": "top",
@@ -436,7 +427,7 @@
     "pro040": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/32.jpg",
+      "img": "assets/Product/Formals/32.jpg",
       "name": "White coat",
       "outfitName": "Coat Suit",
       "outfitType": "one-piece",
@@ -446,7 +437,7 @@
     "pro041": {
       "category": "Formals",
       "gender": "male",
-      "img": "public/assets/Product/Formals/26.png",
+      "img": "assets/Product/Formals/26.png",
       "name": "pink coat",
       "outfitName": "Coat Suit",
       "outfitType": "top",
@@ -456,7 +447,7 @@
     "pro042": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/bc01.jpg",
+    "img": "assets/Product/Casuals/bc01.jpg",
     "name": "Striped Blue Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "top",
@@ -466,7 +457,7 @@
   "pro043": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/wc01.jpg",
+    "img": "assets/Product/Casuals/wc01.jpg",
     "name": "White Collar Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "top",
@@ -476,7 +467,7 @@
   "pro044": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/nc01.jpg",
+    "img": "assets/Product/Casuals/nc01.jpg",
     "name": "Navy Denim Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "top",
@@ -486,7 +477,7 @@
   "pro045": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/bg01.jpg",
+    "img": "assets/Product/Casuals/bg01.jpg",
     "name": "Sky Checkered Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "one-piece",
@@ -496,7 +487,7 @@
   "pro046": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/oc01.jpg",
+    "img": "assets/Product/Casuals/oc01.jpg",
     "name": "Classic Olive Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "one-piece",
@@ -506,7 +497,7 @@
   "pro047": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/bc02.jpg",
+    "img": "assets/Product/Casuals/bc02.jpg",
     "name": "Classic black Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "one-piece",
@@ -516,7 +507,7 @@
   "pro048": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/mc01.jpg",
+    "img": "assets/Product/Casuals/mc01.jpg",
     "name": "Classic maroon Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "one-piece",
@@ -526,7 +517,7 @@
   "pro049": {
     "category": "Casuals",
     "gender": "male",
-    "img": "public/assets/Product/Casuals/pc01.jpg",
+    "img": "assets/Product/Casuals/pc01.jpg",
     "name": "Classic pink Shirt",
     "outfitName": "CasualShirts",
     "outfitType": "one-piece",
@@ -536,7 +527,7 @@
    "pro050": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/7.png",
+    "img": "assets/Product/Casuals/7.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -546,7 +537,7 @@
   "pro051": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/8.png",
+    "img": "assets/Product/Casuals/8.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -556,7 +547,7 @@
   "pro052": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/9.png",
+    "img": "assets/Product/Casuals/9.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -566,7 +557,7 @@
   "pro053": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/10.png",
+    "img": "assets/Product/Casuals/10.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -576,7 +567,7 @@
   "pro054": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/11.png",
+    "img": "assets/Product/Casuals/11.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -587,7 +578,7 @@
   "pro055": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/12.png",
+    "img": "assets/Product/Casuals/12.png",
     "name": "Women Short Top",
     "outfitName": "Short Top",
     "outfitType": "top",
@@ -597,7 +588,7 @@
    "pro056": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/13.png",
+    "img": "assets/Product/Casuals/13.png",
     "name": "Women T-Shirt",
     "outfitName": "T Shirt",
     "outfitType": "top",
@@ -607,7 +598,7 @@
   "pro057": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/17.png",
+    "img": "assets/Product/Casuals/17.png",
     "name": "Women Short Top",
     "outfitName": "T Shirt"                 ,
     "outfitType": "top",
@@ -617,7 +608,7 @@
   "pro058": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/20.png",
+    "img": "assets/Product/Casuals/20.png",
     "name": "Women T-Shirt",
     "outfitName": "T Shirt",
     "outfitType": "top",
@@ -627,7 +618,7 @@
    "pro059": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/21.png",
+    "img": "assets/Product/Casuals/21.png",
     "name": "Women T-Shirt",
     "outfitName": "T Shirt",
     "outfitType": "top",
@@ -637,7 +628,7 @@
   "pro060": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/22.png",
+    "img": "assets/Product/Casuals/22.png",
     "name": "Women Short Top",
     "outfitName": "T Shirt",
     "outfitType": "top",
@@ -647,7 +638,7 @@
   "pro061": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/24.png",
+    "img": "assets/Product/Casuals/24.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -657,7 +648,7 @@
   "pro062": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/23.png",
+    "img": "assets/Product/Casuals/23.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -667,7 +658,7 @@
    "pro063": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/26.png",
+    "img": "assets/Product/Casuals/26.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -677,7 +668,7 @@
   "pro064": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/25.png",
+    "img": "assets/Product/Casuals/25.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -687,7 +678,7 @@
   "pro065": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/27.png",
+    "img": "assets/Product/Casuals/27.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -697,7 +688,7 @@
   "pro066": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/18.png",
+    "img": "assets/Product/Casuals/18.png",
     "name": "Women Crop Top",
     "outfitName": "Crop Top",
     "outfitType": "top",
@@ -707,7 +698,7 @@
   "pro067": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/28.png",
+    "img": "assets/Product/Casuals/28.png",
     "name": "Women Skirt",
     "outfitName": "Skirt",
     "outfitType": "bottom",
@@ -717,7 +708,7 @@
   "pro068": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/30.png",
+    "img": "assets/Product/Casuals/30.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",
@@ -727,7 +718,7 @@
   "pro069": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/31.png",
+    "img": "assets/Product/Casuals/31.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",
@@ -737,7 +728,7 @@
   "pro070": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/32.png",
+    "img": "assets/Product/Casuals/32.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",
@@ -747,7 +738,7 @@
   "pro071": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/33.png",
+    "img": "assets/Product/Casuals/33.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",
@@ -757,7 +748,7 @@
   "pro072": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/38.png",
+    "img": "assets/Product/Casuals/38.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",
@@ -767,7 +758,7 @@
   "pro073": {
     "category": "Casuals",
     "gender": "female",
-    "img": "public/assets/Product/Casuals/39.png",
+    "img": "assets/Product/Casuals/39.png",
     "name": "High Waist Pant",
     "outfitName": "Pant",
     "outfitType": "bottom",

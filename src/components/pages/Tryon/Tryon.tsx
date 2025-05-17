@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonGrid, IonRow, IonCol, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText, IonInput, IonItem, IonList } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonCardContent, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonSpinner, IonImg, IonText, IonInput, IonItem, IonList, IonButton } from '@ionic/react';
 import { fetchSuggestedProducts } from '../../../Store/Slice/suggestions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../Store/store';
@@ -12,6 +12,7 @@ import {
 import './tryon.css';
 import { cart, star } from 'ionicons/icons';
 import { tryOnWithFal } from '../../../new-api/utils/falApi';
+import { RiCameraLensAiLine } from 'react-icons/ri';
 
 interface TryOnProps {
   clothingImage: string;
@@ -48,6 +49,8 @@ const Tryon: React.FC<TryOnProps> = ({
   const [selectedSkinTone, setSelectedSkinTone] = useState<SkinToneCategory | { name: string; description: string } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  
 
   const [previews, setPreviews] = useState<{ [key: string]: string }>({
     clothing: clothingImage,
@@ -115,25 +118,25 @@ const Tryon: React.FC<TryOnProps> = ({
     console.log("Button clicked");
     console.log("Selected Skin Tone:", selectedSkinTone);
     console.log("All Suggestions:", suggestions);
-  
+
     // Check if skin tone is selected and has a valid name
     if (!selectedSkinTone?.name) {
       console.log("Skin tone not detected or no name available.");
       return;
     }
-  
+
     // Filter products based on skin tone, gender, and outfitName
     const filtered = suggestions.filter(product => {
       const matchesSkinTone = Array.isArray(product.skinTone)
         ? product.skinTone.some((tone) => tone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())) // Handle array case
         : product.skinTone?.toLowerCase().includes(selectedSkinTone.name.toLowerCase()); // Handle string case
-  
+
       const matchesGender = genderFilter === '' || product.gender === genderFilter; // Filter by gender
       const matchesOutfitName = outfitName === '' || product.outfitName === outfitName; // Filter by outfitName
-  
+
       return matchesSkinTone && matchesGender && matchesOutfitName; // Combine all conditions
     });
-  
+
     console.log("Filtered Suggestions:", filtered);
     setFilteredSuggestions(filtered);
     setShowSuggestions(true);
@@ -440,6 +443,25 @@ const Tryon: React.FC<TryOnProps> = ({
                     {filteredSuggestions.map(product => (
                       <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>
                         <IonCard className="product-card">
+                          <div className="card-top-left">
+                            <IonButton
+                              fill="clear"
+                              size="large"
+                              onClick={() => {
+                                setSelectedProduct(product);
+                                setGarmentImage(product.img);
+                                setPreviews((prev) => ({
+                                  ...prev,
+                                  clothing: product.img,
+                                }));
+                              }}
+                              
+                              className="try-btn"
+                            >
+                              <RiCameraLensAiLine />
+                            </IonButton>
+                            <div className='try-hide'>Try this</div>
+                          </div>
                           <img src={product.img} className="product-image" alt={product.name} />
                           <IonCardContent>
                             <div className='product-data'>
