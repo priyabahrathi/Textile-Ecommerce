@@ -19,6 +19,7 @@ const Master: React.FC = () => {
 
   return (
     <>
+    <IonApp>
       {/* <IonApp className="appScroll">
         <IonPage id="main-content">
          
@@ -31,6 +32,7 @@ const Master: React.FC = () => {
           <Product />
           <Brand />
           <Footer />
+          </IonApp>
     </>
   );
 };

@@ -6,7 +6,7 @@ interface PageState {
 }
 
 const initialState: PageState = {
-  currentPage: "product",
+  currentPage: "",
 };
 
 const pageSlice = createSlice({
