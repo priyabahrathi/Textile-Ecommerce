@@ -57,7 +57,7 @@ const AdminDashboard: React.FC = () => {
           </IonButton>
         ))}
       </div>
-      <div style={{ flex: 1, padding: 32 }}>
+      <div style={{ flex: 1, padding: 32,  maxHeight: "100vh", overflowY: "auto" }}>
         {renderContent()}
       </div>
     </div>

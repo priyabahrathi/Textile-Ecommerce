@@ -290,6 +290,7 @@ const AdminPanel: React.FC = () => {
       let snapshot = await get(child(dbRef, `users/${userId}`));
       if (snapshot.exists() && snapshot.val().password === password) {
         setError("");
+        localStorage.setItem('adminUserId', userId); // <-- Store userId for profile page
         history.push("/admin/dashboard");
         return;
       }
@@ -297,7 +298,6 @@ const AdminPanel: React.FC = () => {
       const usersSnap = await get(child(dbRef, "users"));
       if (usersSnap.exists()) {
         const users = usersSnap.val();
-        // Search by email
         for (const key in users) {
           const user = users[key];
           if (
@@ -305,6 +305,7 @@ const AdminPanel: React.FC = () => {
             user.password === password
           ) {
             setError("");
+            localStorage.setItem('adminUserId', user.userId); // <-- Store the actual userId
             history.push("/admin/dashboard");
             return;
           }
