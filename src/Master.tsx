@@ -6,6 +6,7 @@ import Brand from "./components/pages/Brand/Brand";
 import Header from "./components/pages/Header";
 import Hero from "./components/pages/Hero";
 import Arrival from "./components/pages/arrival";
+import WishList from "./components/pages/wishlistPage/wishList";
 
 import Sample from "./components/pages/head/sample";
 import { IonApp, IonPage } from "@ionic/react";
@@ -20,18 +21,18 @@ const Master: React.FC = () => {
   return (
     <>
     <IonApp>
-      {/* <IonApp className="appScroll">
-        <IonPage id="main-content">
-         
-        </IonPage>
-      </IonApp> */}
-      
-      <Hero />
+      {/* <Header /> */}
+      {currentPage === "wishlist" ? (
+        <WishList />
+      ) : (
+        <>
+          <Hero />
           <Arrival />
-          {/* <Sample /> */}
           <Product />
           <Brand />
           <Footer />
+        </>
+      )}
           </IonApp>
     </>
   );

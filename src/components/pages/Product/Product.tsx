@@ -18,7 +18,7 @@ import {
   IonList,
   IonItem
 } from '@ionic/react';
-import { closeOutline, ellipsisVertical } from "ionicons/icons";
+import { closeOutline, ellipsisVertical, heart } from "ionicons/icons";
 import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
@@ -30,6 +30,7 @@ import { RiCameraLensAiLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
+import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -162,8 +163,11 @@ const Product: React.FC = () => {
                                 <IonIcon key={i} icon={star} className="buy-button" />
                               ))}
                             </div>
-                            <button className="btn-buy">
-                              <IonIcon icon={cart} /> <span>Buy Now</span>
+                            <button
+                              className={`add-to-wishlist`}
+                              onClick={() => dispatch(addToWishlist(product))}
+                            >
+                              <IonIcon icon={heart} />
                             </button>
                           </div>
                         </IonCardContent>

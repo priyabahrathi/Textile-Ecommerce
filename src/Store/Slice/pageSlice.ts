@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PageState {
   currentPage: string;
-  products?: string[]; // Added 'products' field since it's used in reducers
+  products?: string[];
 }
 
 const initialState: PageState = {
@@ -10,7 +10,7 @@ const initialState: PageState = {
 };
 
 const pageSlice = createSlice({
-  name: "page", // Fixed duplicate 'name' field
+  name: "page",
   initialState,
   reducers: {
     goToProduct: (state) => {
@@ -20,10 +20,13 @@ const pageSlice = createSlice({
       state.currentPage = "brand";
     },
     setProducts: (state, action: PayloadAction<string[]>) => {
-      state.products = action.payload; // Keeps 'setProducts' functionality
+      state.products = action.payload;
+    },
+    setPage: (state, action: PayloadAction<string>) => {
+      state.currentPage = action.payload;
     },
   },
 });
 
-export const { goToProduct, goToBrand, setProducts } = pageSlice.actions;
+export const { goToProduct, goToBrand, setProducts, setPage } = pageSlice.actions;
 export default pageSlice.reducer;
