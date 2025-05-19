@@ -11,6 +11,7 @@ import {
   IonAccordionGroup,
   IonAccordion,
   IonMenuToggle,
+  IonInput,
 } from "@ionic/react";
 import {
   close,
@@ -23,139 +24,109 @@ import {
   bagHandle,
   footsteps,
   shirt,
+  person,
+  search,
+  heart,
+  personCircle,
 } from "ionicons/icons";
 import {
   IoCart,
+  IoHeart,
   IoHome,
   IoMail,
   IoManSharp,
   IoMenu,
+  IoPerson,
   IoWoman,
 } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../Store/Slice/pageSlice"; // adjust path as needed
 import "./Header.css";
 
 const Header: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth <= 1057);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1057);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMediumScreen(window.innerWidth <= 1057);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth <= 1057);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <>
-      {/* Ionic Side Menu (Now on Left Side) */}
+      {/* Side Menu for Mobile */}
       <IonMenu side="start" menuId="main-menu" contentId="main-content">
-        <IonContent style={{ background: "white" }} className="menu-menu">
+        <IonContent style={{ background: "white" }}>
           <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
             <IonMenuToggle>
-              <IonButton className="close-icon" fill="clear" size="large" >
+              <IonButton fill="clear" size="large">
                 <IonIcon icon={close} />
               </IonButton>
             </IonMenuToggle>
           </div>
-
-          <IonList className="head-list list-md">
-            <IonItem button className="head-item custom-item">
-              <IonIcon className="ion-icon" icon={home} slot="start" />
-              Home
+          <IonList>
+            <IonItem>
+              <IonInput placeholder="Search..." clearInput />
+              <IonIcon icon={search} slot="end" />
             </IonItem>
-
-            <IonAccordionGroup className="head-item">
-              <IonAccordion value="men">
-                <IonItem slot="header" className="head-item custom-item">
-                  <IonIcon className="ion-icon" icon={man} slot="start" />
-                  <IonLabel>Men's</IonLabel>
-                </IonItem>
-                <div className=" item " slot="content">
-                  <IonItem button className="color  custom-item menu-drop "><IonIcon className="inner-icon" icon={shirt} slot="start" /> Shirts</IonItem>
-                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
-                </div>
-              </IonAccordion>
-
-              <IonAccordion value="women">
-                <IonItem slot="header" className="head-item custom-item">
-                  <IonIcon className="ion-icon" icon={woman} slot="start" />
-                  <IonLabel>Women's</IonLabel>
-                </IonItem>
-                <div className="item" slot="content">
-                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={shirt} slot="start" /> Tops</IonItem>
-                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={footsteps} slot="start" /> Shoes</IonItem>
-                  <IonItem button className="color custom-item menu-drop"><IonIcon className="inner-icon" icon={bagHandle} slot="start" /> Accessories</IonItem>
-                </div>
-              </IonAccordion>
-            </IonAccordionGroup>
-
-            <IonItem button className="head-item custom-item">
-              <IonIcon className="ion-icon" icon={pricetag} slot="start" />
-              On Sale
+            <IonItem button>
+              <IonIcon icon={personCircle} slot="start" />
+              Log In
+            </IonItem>
+            <IonItem button onClick={() => dispatch(setPage("wishlist"))}>
+              <IonIcon icon={heart} slot="start" />
+              Wishlist
+            </IonItem>
+            <IonItem button>
+              <IonIcon icon={cart} slot="start" />
+              Cart
             </IonItem>
           </IonList>
-
-          {/* Bottom Right Icons */}
-          <div className="right-icons" style={{ display: "flex", gap: "1px", marginTop: "5px", marginLeft: "30px" }}>
-            <IonButton className="custom-item" fill="clear">
-              <IonIcon className="ion-icon" icon={cart} size="medium" />
-            </IonButton>
-            <IonButton className="custom-item" fill="clear">
-              <IonIcon className="ion-icon" icon={mail} size="medium" />
-            </IonButton>
-          </div>
         </IonContent>
       </IonMenu>
 
+      {/* Main Header */}
       <div id="main-content">
-        <header className="head">
-          <div className="container">
-            <div className="nav-item">
-              <h3 className="nav-logo">Algo-Tex</h3>
+        <header className="container">
+          <div className="nav-item" style={{ alignItems: "center" }}>
+            {/* Logo */}
+            <div>
+              <h3 style={{ margin: 0 }}>StyleSync</h3>
+            </div>
 
-              {isMediumScreen ? (
-                <IonMenuButton menu="main-menu" className="menu-icon" />
-              ) : (
-                <button className="menu-icon" onClick={toggleMenu}>
-                  <IoMenu />
-                </button>
+            {/* Search Bar Centered */}
+            {!isMobile && (
+              <div className="pro-header-search" >
+                <IonInput placeholder="Search for products..." clearInput />
+                <IonButton fill="clear" size="small">
+                  <IonIcon icon={search} />
+                </IonButton>
+              </div>
+            )}
+
+            {/* Actions Right */}
+            <div className="nav-icon" >
+              {!isMobile && (
+                <>
+                  <IonButton fill="clear" onClick={() => dispatch(setPage("wishlist"))}>
+                    <IonIcon icon={heart} size="large" title="Wishlist" />
+                  </IonButton>
+                  <IonButton fill="clear">
+                    <IonIcon icon={cart} size="large" title="Cart" />
+                  </IonButton>
+                  <IonButton fill="clear">
+                    <IonIcon icon={personCircle} size="large" title="Login" />
+                  </IonButton>
+                </>
               )}
-
-              {!isMediumScreen && (
-                <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
-                  <li className="nav-li" style={{ color: 'white' }}><IoHome /> Home</li>
-                  <li className="nav-li">
-                    <IoManSharp /> Men’s
-                    <ul className="dropdown">
-                      <li className="nav-drop"><IonIcon icon={shirt} /> Shirts</li>
-                      <li className="nav-drop"><IonIcon icon={footsteps} /> Shoes</li>
-                      <li className="nav-drop"><IonIcon icon={bagHandle} /> Accessories</li>
-                    </ul>
-                  </li>
-                  <li className="nav-li">
-                    <IoWoman /> Women’s
-                    <ul className="dropdown">
-                      <li className="nav-drop"><IonIcon icon={shirt} /> Tops</li>
-                      <li className="nav-drop"><IonIcon icon={footsteps} /> Shoes</li>
-                      <li className="nav-drop"><IonIcon icon={bagHandle} /> Accessories</li>
-                    </ul>
-                  </li>
-                  <li className="nav-li"> <FaTag /> On Sale</li>
-                </ul>
-              )}
-
-              {!isMediumScreen && (
-                <div className="nav-icon">
-                  <button><IoCart /></button>
-                  <button><IoMail /></button>
-                </div>
+              {isMobile && (
+                <IonMenuButton menu="main-menu" className="menu-icon">
+                  <IoMenu size={32} />
+                </IonMenuButton>
               )}
             </div>
           </div>

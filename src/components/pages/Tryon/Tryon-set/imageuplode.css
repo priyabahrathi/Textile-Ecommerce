@@ -1,0 +1,211 @@
+.image-upload-container {
+  margin-bottom: 20px;
+}
+
+.image-upload-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.upload-wrapper {
+  margin-top: 6px;
+}
+
+.upload-box {
+
+  border-radius: 8px;
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.preview-image {
+  width: auto;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: #999;
+  margin: 30px auto;
+}
+
+.upload-input-wrapper {
+  margin-top: 10px;
+}
+
+.upload-input {
+  display: flex;
+}
+.preview-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+}
+/* Hide the default file input */
+.custom-file-input {
+display: none;
+}
+
+/* Custom label styled as a button */
+.custom-file-label {
+display: inline-block;
+padding: 10px 16px;
+background-color: #3880ff; /* Ionic primary blue */
+color: white;
+font-size: 14px;
+font-weight: 500;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+text-align: center;
+white-space: nowrap;
+}
+
+.custom-file-label:hover {
+background-color: #3171e0;
+}
+
+.custom-file-label:active {
+background-color: #2b60c4;
+}
+
+/* Optional: Style for file name preview */
+.file-name-preview {
+margin-top: 8px;
+font-size: 13px;
+color: #333;
+text-align: center;
+}
+
+.upload-label {
+  cursor: pointer;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: #4f46e5;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition: color 0.2s ease;
+}
+
+.upload-label:hover {
+  color: #3730a3;
+}
+
+.prompt-section {
+  margin-top: 16px;
+}
+
+.prompt-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.prompt-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.prompt-input:focus {
+  border-color: #4f46e5;
+}
+.preview-image {
+  width: auto;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+/* Media Queries for Responsive Image Scaling */
+@media screen and (max-width: 1200px) {
+  .preview-image {
+    height: 200px;
+  }
+  .upload-icon {
+    width: 40px;
+    height: 40px;
+    color: #999;
+    margin: 60px auto;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .preview-image {
+    height: 180px;
+  }
+  .upload-icon {
+    width: 30px;
+    height: 30px;
+    color: #999;
+    margin: 50px auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .preview-image {
+    height: 180px;
+  }
+  .upload-icon {
+    width: 28px;
+    height: 28px;
+    color: #999;
+    margin: 45px auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .preview-image {
+    height: 150px;
+  }
+  .upload-icon {
+    width: 25px;
+    height: 25px;
+    color: #999;
+    margin: 30px auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .preview-image {
+    height: 135px;
+  }
+}

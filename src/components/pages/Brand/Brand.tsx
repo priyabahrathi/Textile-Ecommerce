@@ -42,8 +42,8 @@ const Brand: React.FC = () => {
         <div className="page-name">Famous Brands</div>
         <div className="brand-container">
           <Swiper
+            loop={Brands.length > 5}
             slidesPerView={5}
-            loop={true}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             modules={[Autoplay]}
             breakpoints={{

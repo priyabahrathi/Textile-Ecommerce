@@ -33,9 +33,13 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import Master from './Master';
 import "./App.css";
-import { goToBrand } from './Store/Slice/pageSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './Store/store';
+
+// Import the AdminPanel component
+import AdminAuth from './components/pages/head/admin';
+import AdminDashboard from './components/pages/head/adminpage/AdminDashboard';
+import AdminPanel from './components/pages/head/admin';
 
 setupIonicReact();
 
@@ -43,12 +47,19 @@ const App: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page.currentPage);
   const dispatch = useDispatch();
   console.log("Current Page", currentPage);
+
   return (
     <IonApp>
- 
-      <Master />
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/" component={Master} />
+          <Route exact path="/admin" component={AdminPanel} />
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route render={() => <Redirect to="/" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
     </IonApp>
-  )
+  );
 };
 
 export default App;

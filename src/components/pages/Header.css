@@ -265,6 +265,74 @@
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }
+/* Style for the search bar in the header */
+.pro-header-search {
+    display: flex;
+    align-items: center;
+    background: #ffffff75;
+    border-radius: 8px;
+    padding: 4px 12px;
+    min-width: 260px;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(221, 138, 82, 0.08);
+    margin: 0 24px;
+    flex: 1 1 320px;
+}
+
+.pro-header-search ion-input {
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: #d45907;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 100%;
+}
+
+.pro-header-search ion-input::placeholder {
+    color: #d45907b0;
+    opacity: 1;
+}
+
+.pro-header-search ion-button {
+    --background: transparent;
+    --color: #d45907;
+    font-size: 1.3rem;
+    margin-left: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.pro-header-search ion-button:hover {
+    --background: #ffe5d0;
+}
+/* Style for the action icons on the right side of the header */
+.nav-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-icon ion-button {
+    --background: transparent;
+    --color: #d45907;
+    font-size: 1.7rem;
+    border-radius: 50%;
+    transition: background 0.2s;
+    margin: 0 2px;
+    padding: 6px;
+}
+
+.nav-icon ion-button:hover {
+    --background:none
+    --color: #a33c00;
+}
+
+.nav-icon ion-icon {
+    font-size: 1.7rem;
+    color: #d45907;
+    transition: color 0.2s;
+}
+
 @media screen and (max-width: 1057px) {
     .container{
         max-width: 95%;
@@ -299,7 +367,14 @@
     }
 
     .nav-icon {
-        display: none;
+        display: flex !important; /* Ensure nav-icon is visible */
+        align-items: center;
+    }
+    .nav-icon ion-button {
+        display: none; /* Hide icon buttons on mobile */
+    }
+    .menu-icon {
+        display: block !important; /* Ensure menu button is visible */
     }
 
     .dropdown {

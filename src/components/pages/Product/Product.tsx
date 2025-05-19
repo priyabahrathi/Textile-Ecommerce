@@ -9,18 +9,28 @@ import {
   IonLabel,
   IonInput,
   IonRange,
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonContent,
   IonList,
   IonItem
 } from '@ionic/react';
+import { closeOutline, ellipsisVertical, heart } from "ionicons/icons";
 import { cart, searchOutline, options, star } from 'ionicons/icons';
 import { useState, useEffect, useRef } from 'react';
 import './Product.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { useDispatch } from 'react-redux';
+import TryOn from '../Tryon/Tryon';
+import { RiCameraLensAiLine } from "react-icons/ri";
 import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
+import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
+import { setSelectedProduct, clearSelectedProduct } from '../../../Store/Slice/selectedProductSlice';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -44,23 +54,37 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
+  const [genderFilter, setGenderFilter] = useState('');
 
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState(Products);
-
+  const selectedProduct = useSelector((state: RootState) => (state.selectedProduct as { product: any }).product);
+  const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchProductsFromFirebase());
   }, [dispatch]);
-  
+
+  useEffect(() => {
+    setTimeout(() => {
+      const el = document.getElementById('product-section');
+      if (el) setPresentingEl(el);
+    }, 0);
+  }, []);
 
   useEffect(() => {
     applyFilter();
-  }, [searchText, lower, upper, selectedCategory, Products]);
+  }, [searchText, lower, upper, selectedCategory, genderFilter, Products]);
+  useEffect(() => {
+    if (selectedProduct) {
+      console.log("🧥 Selected Product:", selectedProduct); // Log the entire product object
+      console.log("🧥 Selected Product Outfit Type:", selectedProduct.outfitType);
+    }
+  }, [selectedProduct]);
 
   const handleRangeChange = (e: any) => {
     setLower(e.detail.value.lower);
@@ -75,17 +99,37 @@ const Product: React.FC = () => {
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
+      const matchGender = genderFilter === '' || product.gender === genderFilter; // Include all genders if genderFilter is empty
       const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchPrice = product.price >= lower && product.price <= upper;
       const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
-      return matchSearch && matchPrice && matchCategory;
+      return matchGender && matchSearch && matchPrice && matchCategory;
     });
     setFilteredItems(result);
   };
 
   return (
-    <div className="page-product">
-      <div className='product-head'>Find Your Match</div>
+    <div id="product-section" className="page-product">
+      <div className='product-head'>
+        <span>Find Your Match</span>
+        <div className="gender-toggle">
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={genderFilter === 'female'}
+              onChange={() =>
+                setGenderFilter((prev) =>
+                  prev === '' ? 'male' : prev === 'male' ? 'female' : 'male'
+                )
+              }
+            />
+            <span className="slider"></span>
+          </label>
+          <span className="gender-label">
+            {genderFilter === '' ? 'Both' : genderFilter === 'male' ? 'Male' : 'Female'}
+          </span>
+        </div>
+      </div>
       <IonGrid>
         <IonRow>
           <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
@@ -94,9 +138,23 @@ const Product: React.FC = () => {
                 filteredItems.map((product) => (
                   <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
                     <MotionCard>
-                      <div className="product-card">
+                      <div
+                        className="product-card"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => dispatch(setSelectedProduct(product))}
+                      >
+                        <div className="card-top-left">
+                          <IonButton
+                            fill="clear"
+                            size="large"
+                            className="try-btn"
+                          >
+                            <RiCameraLensAiLine />
+                          </IonButton>
+                          <div className='try-hide'>Try this</div>
+                        </div>
                         <img className="product-image" src={product.img} />
-                        <IonCardContent className='data'>
+                        <IonCardContent className="data">
                           <div className="product-data">
                             <div className="product-title">{product.name}</div>
                             <div className="product-price">&#8377;{product.price}</div>
@@ -108,8 +166,11 @@ const Product: React.FC = () => {
                                 <IonIcon key={i} icon={star} className="buy-button" />
                               ))}
                             </div>
-                            <button className="btn-buy">
-                              <IonIcon icon={cart} /> <span>Buy Now</span>
+                            <button
+                              className={`add-to-wishlist`}
+                              onClick={() => dispatch(addToWishlist(product))}
+                            >
+                              <IonIcon icon={heart} />
                             </button>
                           </div>
                         </IonCardContent>
@@ -162,7 +223,7 @@ const Product: React.FC = () => {
               <div className="card-filter">
                 <div className="filter-title">Categories</div>
                 <ul className='category-list'>
-                  {['Formals Men', 'Formals Women', 'Ocassions Men', 'Ocassions Women', 'Casuals Men', 'Casuals Women'].map((cat) => (
+                  {['Formals', 'Casuals', 'Ocassions'].map((cat) => (
                     <li className='category-item' key={cat}>
                       <input
                         className='cat-input'
@@ -175,13 +236,55 @@ const Product: React.FC = () => {
                   ))}
                 </ul>
               </div>
-              {/* <button className="apply-filter-button" onClick={applyFilter}>
-                 Apply Filter
-              </button> */}
             </div>
+
           </IonCol>
+
+          {/* Modal section */}
+          <IonCol>
+            <IonRow>
+              {selectedProduct && (
+                <div className="inline-modal">
+                  <div className="inline-modal-content">
+                    <div className="inline-modal-header">
+                      <h3 className='tryon-head'>Virtual TryOn's</h3>
+                      <button className="inline-modal-close" onClick={() => dispatch(setSelectedProduct(null))}>&times;</button>
+                    </div>
+                    <TryOn
+                      clothingImage={selectedProduct.img}
+                      outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
+                      genderFilter={genderFilter} // Pass the gender filter
+                      outfitName={selectedProduct.outfitName} // Pass the outfitName
+                    />
+                  </div>
+                </div>
+              )}
+            </IonRow>
+          </IonCol>
+
         </IonRow>
       </IonGrid>
+
+      {/* Product Detail Overlay */}
+      {selectedProduct && (
+        <div className="product-detail-overlay">
+          <div className="product-detail-content">
+            <button className="close-btn" onClick={() => dispatch(clearSelectedProduct())}>&times;</button>
+            <h2>{selectedProduct.name}</h2>
+            <img src={selectedProduct.img} alt={selectedProduct.name} style={{ maxWidth: 300 }} />
+            <p>Price: &#8377;{selectedProduct.price}</p>
+            <p>Category: {selectedProduct.category}</p>
+            <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
+            {/* Add more details as needed */}
+            <TryOn
+              clothingImage={selectedProduct.img}
+              outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
+              genderFilter={genderFilter}
+              outfitName={selectedProduct.outfitName}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
