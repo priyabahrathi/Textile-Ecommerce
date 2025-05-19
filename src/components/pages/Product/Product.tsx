@@ -233,15 +233,23 @@ const Product: React.FC = () => {
             </div>
 
           </IonCol>
-
-          {/* Modal section */}
-        
-
         </IonRow>
       </IonGrid>
 
       {/* Product Detail Overlay */}
-     
+      {selectedProduct && (
+        <div className="product-detail-overlay">
+          <div className="product-detail-content">
+            <button className="close-btn" onClick={() => dispatch(clearSelectedProduct())}>&times;</button>
+            <h2>{selectedProduct.name}</h2>
+            <img src={selectedProduct.img} alt={selectedProduct.name} style={{ maxWidth: 300 }} />
+            <p>Price: &#8377;{selectedProduct.price}</p>
+            <p>Category: {selectedProduct.category}</p>
+            <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
+            {/* Add more details as needed */}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
