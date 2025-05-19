@@ -145,16 +145,7 @@ const Product: React.FC = () => {
                         style={{ cursor: 'pointer' }}
                         onClick={() => dispatch(setSelectedProduct(product))}
                       >
-                        <div className="card-top-left">
-                          <IonButton
-                            fill="clear"
-                            size="large"
-                            className="try-btn"
-                          >
-                            <RiCameraLensAiLine />
-                          </IonButton>
-                          <div className='try-hide'>Try this</div>
-                        </div>
+                        
                         <img className="product-image" src={product.img} />
                         <IonCardContent className="data">
                           <div className="product-data">
@@ -244,50 +235,13 @@ const Product: React.FC = () => {
           </IonCol>
 
           {/* Modal section */}
-          <IonCol>
-            <IonRow>
-              {selectedProduct && (
-                <div className="inline-modal">
-                  <div className="inline-modal-content">
-                    <div className="inline-modal-header">
-                      <h3 className='tryon-head'>Virtual TryOn's</h3>
-                      <button className="inline-modal-close" onClick={() => dispatch(setSelectedProduct(null))}>&times;</button>
-                    </div>
-                    <TryOn
-                      clothingImage={selectedProduct.img}
-                      outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-                      genderFilter={genderFilter} // Pass the gender filter
-                      outfitName={selectedProduct.outfitName} // Pass the outfitName
-                    />
-                  </div>
-                </div>
-              )}
-            </IonRow>
-          </IonCol>
+        
 
         </IonRow>
       </IonGrid>
 
       {/* Product Detail Overlay */}
-      {selectedProduct && (
-        <div className="product-detail-overlay">
-          <div className="product-detail-content">
-            <button className="close-btn" onClick={() => dispatch(clearSelectedProduct())}>&times;</button>
-            <h2>{selectedProduct.name}</h2>
-            <img src={selectedProduct.img} alt={selectedProduct.name} style={{ maxWidth: 300 }} />
-            <p>Price: &#8377;{selectedProduct.price}</p>
-            <p>Category: {selectedProduct.category}</p>
-            <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
-            {/* Add more details as needed */}
-            <TryOn
-              clothingImage={selectedProduct.img}
-              outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-              genderFilter={genderFilter}
-              outfitName={selectedProduct.outfitName}
-            />
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 };
