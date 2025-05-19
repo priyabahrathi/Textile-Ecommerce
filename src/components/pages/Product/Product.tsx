@@ -239,29 +239,6 @@ const Product: React.FC = () => {
             </div>
 
           </IonCol>
-
-          {/* Modal section */}
-          <IonCol>
-            <IonRow>
-              {selectedProduct && (
-                <div className="inline-modal">
-                  <div className="inline-modal-content">
-                    <div className="inline-modal-header">
-                      <h3 className='tryon-head'>Virtual TryOn's</h3>
-                      <button className="inline-modal-close" onClick={() => dispatch(setSelectedProduct(null))}>&times;</button>
-                    </div>
-                    <TryOn
-                      clothingImage={selectedProduct.img}
-                      outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-                      genderFilter={genderFilter} // Pass the gender filter
-                      outfitName={selectedProduct.outfitName} // Pass the outfitName
-                    />
-                  </div>
-                </div>
-              )}
-            </IonRow>
-          </IonCol>
-
         </IonRow>
       </IonGrid>
 
@@ -276,12 +253,6 @@ const Product: React.FC = () => {
             <p>Category: {selectedProduct.category}</p>
             <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
             {/* Add more details as needed */}
-            <TryOn
-              clothingImage={selectedProduct.img}
-              outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-              genderFilter={genderFilter}
-              outfitName={selectedProduct.outfitName}
-            />
           </div>
         </div>
       )}
