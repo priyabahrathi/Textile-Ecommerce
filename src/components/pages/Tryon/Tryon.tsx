@@ -266,7 +266,7 @@ const Tryon: React.FC<TryOnProps> = ({
                         onChange={(e) => handleImageUpload(e, setModelImage, 'avatar')}
                       />
                     )}
-                    {modelImage && <><IonImg src={modelImage} alt="Model Preview" />
+                    {modelImage && <><img src={modelImage} className='img-model' alt="Model Preview" />
                       <button style={{
                         position: 'absolute',
                         top: 5,
@@ -303,7 +303,7 @@ const Tryon: React.FC<TryOnProps> = ({
                         onChange={(e) => handleImageUpload(e, setGarmentImage)}
                       />
                     )}
-                    {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
+                    {garmentImage && <img src={garmentImage} className='img-model' alt="Garment Preview" />}
                   </IonCardContent>
                 </div>
               </IonCol>
@@ -319,7 +319,7 @@ const Tryon: React.FC<TryOnProps> = ({
                     {resultImage && (
                       <>
                         <IonText color="primary">Try-On Result:</IonText>
-                        <img src={resultImage} alt="Try-On Output" />
+                        <img src={resultImage} className='img-model' alt="Try-On Output" />
                       </>
                     )}
                   </IonCardContent>
