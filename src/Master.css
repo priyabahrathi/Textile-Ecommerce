@@ -1,6 +1,7 @@
 
 ion-app{
     overflow-y: auto;
+    
 }
 /* Works in Chrome, Edge, and Safari */
 ::-webkit-scrollbar {

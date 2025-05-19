@@ -16,6 +16,9 @@ const pageSlice = createSlice({
     goToProduct: (state) => {
       state.currentPage = "product";
     },
+    goToCart: (state) => {
+      state.currentPage = "cart";
+    },
     goToBrand: (state) => {
       state.currentPage = "brand";
     },
@@ -28,5 +31,5 @@ const pageSlice = createSlice({
   },
 });
 
-export const { goToProduct, goToBrand, setProducts, setPage } = pageSlice.actions;
+export const { goToProduct, goToBrand,goToCart, setProducts, setPage } = pageSlice.actions;
 export default pageSlice.reducer;

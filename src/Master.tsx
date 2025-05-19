@@ -13,6 +13,7 @@ import Sample from "./components/pages/head/sample";
 import { IonApp, IonPage } from "@ionic/react";
 import "./Master.css"
 import Footer from "./components/pages/Footer/Footer";
+import Cart from "./components/pages/Cart/Cart";
 
 
 const Master: React.FC = () => {
@@ -22,18 +23,26 @@ const Master: React.FC = () => {
   return (
     <>
     <IonApp>
+      
       {/* <Header /> */}
-      {currentPage === "wishlist" ? (
+      {currentPage === "product" ? (
+        <Product />
+      ) :
+      currentPage === "cart" ? (
+        <Cart />
+      ) :
+      
+      currentPage === "wishlist" ? (
         <WishList />
       ) : selectedProduct ? ( // <-- Show ProductDetail if a product is selected
         <ProductDetail />
       ) : (
         <>
           <Hero />
-          <Arrival />
+          {/* <Arrival />
           <Product />
           <Brand />
-          <Footer />
+          <Footer /> */}
         </>
       )}
           </IonApp>

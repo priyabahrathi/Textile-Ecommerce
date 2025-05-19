@@ -11,7 +11,7 @@ import {
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
 import { cart, star } from 'ionicons/icons';
-import { tryOnWithFal } from '../../../new-api/utils/falApi';
+import { tryOnWithFal } from '../../../Store/Slice/falApi';
 
 interface TryOnProps {
   clothingImage: string;

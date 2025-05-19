@@ -41,11 +41,14 @@ import {
 } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setPage } from "../../../Store/Slice/pageSlice"; // adjust path as needed
+import { useDispatch, useSelector } from "react-redux";
+import { goToCart, goToProduct, setPage } from "../../../Store/Slice/pageSlice"; // adjust path as needed
 import "./Header.css";
+import { RootState } from "../../../Store/store";
 
 const Header: React.FC = () => {
+
+ 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1057);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -74,8 +77,8 @@ const Header: React.FC = () => {
               <IonIcon icon={search} slot="end" />
             </IonItem>
             <IonItem button>
-              <IonIcon icon={personCircle} slot="start" />
-              Log In
+              <IonIcon icon={shirt} slot="start" />
+              Products
             </IonItem>
             <IonItem button onClick={() => dispatch(setPage("wishlist"))}>
               <IonIcon icon={heart} slot="start" />
@@ -112,15 +115,16 @@ const Header: React.FC = () => {
             <div className="nav-icon" >
               {!isMobile && (
                 <>
+                  <IonButton fill="clear" onClick={() => dispatch(goToProduct())}>
+                    <IonIcon icon={shirt} size="large" title="Login" />
+                  </IonButton>
                   <IonButton fill="clear" onClick={() => dispatch(setPage("wishlist"))}>
                     <IonIcon icon={heart} size="large" title="Wishlist" />
                   </IonButton>
-                  <IonButton fill="clear">
+                  <IonButton fill="clear" onClick={() => dispatch(goToCart())}>
                     <IonIcon icon={cart} size="large" title="Cart" />
                   </IonButton>
-                  <IonButton fill="clear">
-                    <IonIcon icon={personCircle} size="large" title="Login" />
-                  </IonButton>
+
                 </>
               )}
               {isMobile && (

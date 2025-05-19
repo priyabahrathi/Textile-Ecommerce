@@ -31,6 +31,7 @@ import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
 import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
 import { setSelectedProduct, clearSelectedProduct } from '../../../Store/Slice/selectedProductSlice';
+import Header from '../Header/Header';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -110,6 +111,7 @@ const Product: React.FC = () => {
 
   return (
     <div id="product-section" className="page-product">
+      <Header />
       <div className='product-head'>
         <span>Find Your Match</span>
         <div className="gender-toggle">
@@ -172,6 +174,7 @@ const Product: React.FC = () => {
                             >
                               <IonIcon icon={heart} />
                             </button>
+                            
                           </div>
                         </IonCardContent>
                       </div>
