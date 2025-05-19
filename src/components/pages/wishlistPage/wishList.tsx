@@ -5,7 +5,7 @@ import { IonIcon, IonButton } from "@ionic/react";
 import { heart, cart } from "ionicons/icons";
 import { removeFromWishlist } from "../../../Store/Slice/wishlistSlice";
 import "./wishList.css";
-import Header from "../Header";
+import Header from "../Header/Header";
 
 const WishList: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
