@@ -654,3 +654,118 @@ input:checked + .slider:before {
 
 /*Tablets*/
 
+/* Horizontal Filter Bar */
+.horizontal-filters {
+  display: flex;
+  gap: 18px;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 0 auto 32px auto;
+  padding: 18px 24px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #e5986622;
+  max-width: 1200px;
+  min-height: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.horizontal-card {
+  background: #faf7f3;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px #e5986611;
+  border: 1px solid #f5cba7;
+  margin: 0;
+  padding: 12px 18px 10px 18px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.horizontal-filters .card-search,
+.horizontal-filters .card-range,
+.horizontal-filters .card-filter {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-filters .search-bar {
+  width: 160px;
+}
+
+.horizontal-filters .search-input {
+  border-radius: 6px;
+  border: 1px solid #e59866;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background: #fff;
+  color: #a85c0c;
+  transition: border 0.2s;
+}
+
+.horizontal-filters .search-input:focus {
+  border: 1.5px solid #d45907;
+  outline: none;
+}
+
+.horizontal-filters .range-title,
+.horizontal-filters .filter-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #d45907;
+  margin-bottom: 8px;
+}
+
+.horizontal-filters .range-values {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #e59866;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.horizontal-filters .category-list {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-filters .category-item {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-filters .cat-label {
+  font-size: 0.98rem;
+  color: #e59866;
+  font-weight: 600;
+  padding-left: 3px;
+}
+
+/* Responsive for filter bar */
+@media (max-width: 900px) {
+  .horizontal-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 10px 4px;
+    min-height: unset;
+  }
+  .horizontal-card {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .horizontal-filters .search-bar {
+    width: 100%;
+  }
+}
+

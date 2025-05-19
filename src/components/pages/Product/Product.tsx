@@ -25,12 +25,13 @@ import './Product.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import TryOn from '../Tryon/Tryon';
 import { RiCameraLensAiLine } from "react-icons/ri";
 import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
 import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
 import { setSelectedProduct, clearSelectedProduct } from '../../../Store/Slice/selectedProductSlice';
+import { setPage } from '../../../Store/Slice/pageSlice';
+import Header from '../Header';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -109,7 +110,9 @@ const Product: React.FC = () => {
   };
 
   return (
+    <>
     <div id="product-section" className="page-product">
+      <Header />
       <div className='product-head'>
         <span>Find Your Match</span>
         <div className="gender-toggle">
@@ -141,7 +144,10 @@ const Product: React.FC = () => {
                       <div
                         className="product-card"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => dispatch(setSelectedProduct(product))}
+                        onClick={() => {
+                          dispatch(setSelectedProduct(product));
+                          dispatch(setPage("productDetails"));
+                        }}
                       >
                         <div className="card-top-left">
                           <IonButton
@@ -257,6 +263,7 @@ const Product: React.FC = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
