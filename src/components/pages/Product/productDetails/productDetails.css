@@ -25,9 +25,10 @@
 .main-img {
   width: 320px;
   height: 320px;
-  object-fit: cover;
+  object-fit: contain; /* Ensures the whole image is visible, no stretch */
   border-radius: 8px;
   border: 1px solid #eee;
+  background: #fff; /* Optional: adds a background for images with transparency */
 }
 .thumbnails {
   display: flex;
@@ -37,11 +38,12 @@
 .thumb {
   width: 56px;
   height: 56px;
-  object-fit: cover;
+  object-fit: contain; /* Ensures the whole image is visible, no stretch */
   border-radius: 4px;
   border: 2px solid transparent;
   cursor: pointer;
   transition: border 0.2s;
+  background: #fff; /* Optional */
 }
 .thumb.active {
   border: 2px solid #e67e22;
