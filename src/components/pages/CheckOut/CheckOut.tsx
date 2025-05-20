@@ -20,10 +20,11 @@ const CartPage: React.FC = () => {
     const [expandedItem, setExpandedItem] = useState<BuyItem | null>(null);
 
     useEffect(() => {
-        if (cartItems.length > 0 && !expandedItem) {
+        if (cartItems.length > 0 && expandedItem === null) {
             setExpandedItem(cartItems[0]);
         }
-    }, [cartItems, expandedItem]);
+    }, [cartItems]);
+
 
 
 
@@ -35,7 +36,7 @@ const CartPage: React.FC = () => {
                     <IonCol sizeXl='8' sizeLg='8' sizeMd='12' sizeSm='12' sizeXs='12'>
                         <div className='buy-container'>
                             {cartItems.length === 0 ? (
-                                <p>Your cart is empty.</p>
+                                <p className='empty-msg'>Your cart is empty.</p>
                             ) : (
                                 <div className="buy-data">
                                     {cartItems.map((item: BuyItem) => (
@@ -46,7 +47,7 @@ const CartPage: React.FC = () => {
                                         >
                                             <img src={item.img || '/fallback.jpg'} alt={item.name} className="buy-img" />
                                             <div className='buy-name'>{item.name}</div>
-                                            <p className='buy-name'>Price: ₹{item.price}</p>
+                                            <p className='buy-name'> ₹{item.price}</p>
                                             <div className="quantity-controls buy-name">
                                                 <button onClick={(e) => {
                                                     e.stopPropagation();
@@ -78,9 +79,9 @@ const CartPage: React.FC = () => {
                         {/* Expanded Product View */}
                         {expandedItem && (
                             <div className="expanded-card">
-                                <h3>{expandedItem.name}</h3>
+                                <h3 className='preview-title' >{expandedItem.name}</h3>
                                 <img src={expandedItem.img} alt={expandedItem.name} className="expanded-img" />
-                                <div>
+                                <div className='preview-data'>
                                     <p><strong>Price:</strong> ₹{expandedItem.price}</p>
                                     <p><strong>Quantity:</strong> {expandedItem.quantity}</p>
                                     <p><strong>Total:</strong> ₹{(expandedItem.price * expandedItem.quantity).toFixed(2)}</p>
