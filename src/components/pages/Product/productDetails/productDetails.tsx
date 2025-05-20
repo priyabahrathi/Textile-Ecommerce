@@ -5,8 +5,7 @@ import { clearSelectedProduct } from '../../../../Store/Slice/selectedProductSli
 import { setPage } from '../../../../Store/Slice/pageSlice';
 import './productDetails.css';
 import TryOn from '../../Tryon/Tryon';
-import { addToCart } from '../../../../Store/Slice/cartSlice';
-import Header from '../../Header';
+import Header from '../../Header/Header';
 
 const ProductDetail: React.FC = () => {
   const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);

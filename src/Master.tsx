@@ -4,9 +4,9 @@ import { RootState } from "./Store/store";
 import Product from "./components/pages/Product/Product";
 import ProductDetail from "./components/pages/Product/productDetails/productDetails"; // <-- Import this
 import Brand from "./components/pages/Brand/Brand";
-import Header from "./components/pages/Header";
-import Hero from "./components/pages/Hero";
-import Arrival from "./components/pages/arrival";
+import Header from "./components/pages/Header/Header";
+import Hero from "./components/pages/Hero/Hero";
+import Arrival from "./components/pages/Arrival/arrival";
 import WishList from "./components/pages/wishlistPage/wishList";
 
 import Sample from "./components/pages/head/sample";

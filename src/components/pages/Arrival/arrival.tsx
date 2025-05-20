@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../Store/store";
+import { RootState } from "../../../Store/store";
 import { motion } from "framer-motion";
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@ionic/react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { cart } from "ionicons/icons";
 import "./arrival.css";
 import { useDispatch } from 'react-redux';
-import { fetchProductsFromFirebase } from '../../Store/Slice/arrival';
-import { AppDispatch } from '../../Store/store';
+import { fetchProductsFromFirebase } from '../../../Store/Slice/arrival';
+import { AppDispatch } from '../../../Store/store';
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {

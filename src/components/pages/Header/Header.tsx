@@ -43,8 +43,8 @@ import {
 import { FaTag } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setPage } from "../../Store/Slice/pageSlice"; // adjust path as needed
-import { addToCart, incrementQuantity, decrementQuantity } from '../../Store/Slice/cartSlice'; // adjust path as needed
+import { setPage } from "../../../Store/Slice/pageSlice"; // adjust path as needed
+import { addToCart, incrementQuantity, decrementQuantity } from '../../../Store/Slice/cartSlice'; // adjust path as needed
 import { IoAdd, IoRemove } from "react-icons/io5"; // or any plus/minus icon you like
 import "./Header.css";
 
@@ -93,9 +93,9 @@ const cartCount = useSelector((state: any) =>
               <IonInput placeholder="Search..." clearInput />
               <IonIcon icon={search} slot="end" />
             </IonItem>
-            <IonItem button>
-              <IonIcon icon={personCircle} slot="start" />
-              Log In
+            <IonItem button  onClick={() => dispatch(setPage("products"))}>
+              <IonIcon icon={bag} slot="start" />
+              Product
             </IonItem>
             <IonItem button onClick={() => dispatch(setPage("wishlist"))}>
               <IonIcon icon={heart} slot="start" />
