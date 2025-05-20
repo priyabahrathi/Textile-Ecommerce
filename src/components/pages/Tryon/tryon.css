@@ -183,17 +183,15 @@
   margin-top: 1rem;
 }
 
-/* Image itself */
-.try-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
+.try-img{
+   width: auto;
+  height: 320px;         /* or your preferred card height */
+  object-fit: cover;     /* ensures the image covers the area without stretching */
+  border-radius: 0.75rem;
+  /* background: #fff; */
+  display: block;
+  margin: 0 auto;
 }
-
 /* Placeholder icon when image is missing */
 .after-logo {
   position: absolute;
@@ -308,6 +306,19 @@
   font-size: 35px;
 }
 
+
+.upload-icon {
+  font-size: 64px !important;
+  color: #d45907;
+  cursor: pointer;
+  display: block;
+  margin: 40px auto 0 auto;
+  transition: color 0.2s, transform 0.2s;
+}
+.upload-icon:hover {
+  color: #b35400;
+  transform: scale(1.1);
+}
 
 @media screen and (max-width: 1200px) {
   .-card {

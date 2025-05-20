@@ -1,23 +1,8 @@
-body {
-  background: #f6f7fb;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-
 .product-detail-page {
-  max-width: 1100px;
-  margin: 48px auto;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.12);
   padding: 0 0 40px 0;
   position: relative;
   overflow: auto;
 }
-
-.product-detail-page:hover {
-  box-shadow: 0 12px 40px #d6cfc7;
-}
-
 .back-btn {
   position: sticky;
   top: 24px;

@@ -150,13 +150,7 @@ const Product: React.FC = () => {
                         }}
                       >
                         <div className="card-top-left">
-                          <IonButton
-                            fill="clear"
-                            size="large"
-                            className="try-btn"
-                          >
-                            <RiCameraLensAiLine />
-                          </IonButton>
+                          
                           <div className='try-hide'>Try this</div>
                         </div>
                         <img className="product-image" src={product.img} />

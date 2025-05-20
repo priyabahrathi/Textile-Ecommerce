@@ -10,8 +10,9 @@ import {
   type SkinToneCategory,
 } from '../../../Store/Slice/colorExtrator';
 import './tryon.css';
-import { cart, star } from 'ionicons/icons';
+import { cart, star, cloudUploadOutline } from 'ionicons/icons';
 import { tryOnWithFal } from '../../../new-api/utils/falApi';
+// import { Upload } from 'lucide-react';
 
 interface TryOnProps {
   clothingImage: string;
@@ -259,30 +260,43 @@ const Tryon: React.FC<TryOnProps> = ({
                   </IonCardHeader>
                   <IonCardContent>
                     {!modelImage && (
-                      <input
-                        type="file"
-                        accept="image/*"
-                        ref={modelInputRef}
-                        onChange={(e) => handleImageUpload(e, setModelImage, 'avatar')}
-                      />
+                      <>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={modelInputRef}
+                          style={{ display: 'none' }}
+                          onChange={(e) => handleImageUpload(e, setModelImage, 'avatar')}
+                          id="model-upload"
+                        />
+                        <IonIcon
+                          icon={cloudUploadOutline}
+                          className="card-icon upload-icon"
+                          onClick={() => modelInputRef.current?.click()}
+                          style={{ fontSize: 64, color: '#d45907', cursor: 'pointer', display: 'block', margin: '40px auto' }}
+                        />
+                        <div style={{ textAlign: 'center', color: '#d45907', fontWeight: 600, marginTop: 8 }}>Upload Your Photo</div>
+                      </>
                     )}
-                    {modelImage && <><IonImg src={modelImage} alt="Model Preview" />
-                      <button style={{
-                        position: 'absolute',
-                        top: 5,
-                        right: 20,
-                        backgroundColor: '#fff',
-                        border: 'none',
-                        borderRadius: '50%',
-                        cursor: 'pointer',
-                        padding: '4px 8px',
-                        fontSize: '14px',
-                        fontWeight: 'bold',
-                        color: '#333',
-                        boxShadow: '0 0 4px rgba(0,0,0,0.3)'
-                      }} onClick={() => setModelImage('')}>X</button>
-                    </>
-                    }
+                    {modelImage && (
+                      <>
+                        <img src={modelImage} className='try-img' alt="Model Preview" />
+                        <button style={{
+                          position: 'absolute',
+                          top: 5,
+                          right: 20,
+                          backgroundColor: '#fff',
+                          border: 'none',
+                          borderRadius: '50%',
+                          cursor: 'pointer',
+                          padding: '4px 8px',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          color: '#333',
+                          boxShadow: '0 0 4px rgba(0,0,0,0.3)'
+                        }} onClick={() => setModelImage('')}>X</button>
+                      </>
+                    )}
 
                   </IonCardContent>
                 </div>
@@ -303,7 +317,7 @@ const Tryon: React.FC<TryOnProps> = ({
                         onChange={(e) => handleImageUpload(e, setGarmentImage)}
                       />
                     )}
-                    {garmentImage && <IonImg src={garmentImage} alt="Garment Preview" />}
+                    {garmentImage && <img src={garmentImage} className='try-img' alt="Garment Preview" />}
                   </IonCardContent>
                 </div>
               </IonCol>
@@ -319,7 +333,7 @@ const Tryon: React.FC<TryOnProps> = ({
                     {resultImage && (
                       <>
                         <IonText color="primary">Try-On Result:</IonText>
-                        <img src={resultImage} alt="Try-On Output" />
+                        <img src={resultImage} className='try-img' alt="Try-On Output" />
                       </>
                     )}
                   </IonCardContent>
