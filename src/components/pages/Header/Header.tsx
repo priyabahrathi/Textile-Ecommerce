@@ -61,7 +61,10 @@ const Header: React.FC = () => {
     name: string;
     price: number;
     quantity: number;
+    
     size?: string;
+  img?: string; // ✅ Add this
+  images?: string[];
   }
 
   const cartItems = useSelector((state: any) => state.cart?.items || []);
@@ -177,7 +180,20 @@ const Header: React.FC = () => {
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {cartItems.map((item: CartItem, idx: number) => (
                     <li key={item.id + (item.size || '')} style={{ borderBottom: "1px solid #eee", padding: "10px 0" }}>
-                      <div style={{ fontWeight: 600 }}>{item.name}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <img
+                          src={item.img || (item.images && item.images[0])}
+                          alt={item.name}
+                          style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
+                        />
+                        <div>
+                          <div style={{ fontWeight: 600 }}>{item.name}</div>
+                          <div style={{ fontSize: 14, color: "#555" }}>
+                            Qty: {item.quantity} {item.size && <>| Size: {item.size}</>}
+                          </div>
+                        </div>
+                      </div>
+
                       <div style={{ fontSize: 14, color: "#555", display: "flex", alignItems: "center", gap: 8 }}>
                         <button
                           style={{ background: "#ffebee", borderRadius: "50%", width: 24, height: 24, border: "none", color: "#ff5722", cursor: "pointer" }}
