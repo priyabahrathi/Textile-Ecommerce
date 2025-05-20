@@ -13,6 +13,7 @@ import Sample from "./components/pages/head/sample";
 import { IonApp, IonPage } from "@ionic/react";
 import "./Master.css"
 import Footer from "./components/pages/Footer/Footer";
+import CheckOut from "./components/pages/CheckOut/CheckOut";
 
 
 const Master: React.FC = () => {
@@ -30,6 +31,9 @@ const Master: React.FC = () => {
       ) : currentPage === "productDetails" ? (
         <ProductDetail />
       ) : 
+      currentPage === "buy" ? (
+        <CheckOut />
+      ) :
       (
         <>
           <Hero />

@@ -6,6 +6,7 @@ import { setPage } from '../../../../Store/Slice/pageSlice';
 import './productDetails.css';
 import TryOn from '../../Tryon/Tryon';
 import Header from '../../Header/Header';
+import { addToBuy } from '../../../../Store/Slice/checkout';
 
 const ProductDetail: React.FC = () => {
   const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);
@@ -24,7 +25,7 @@ const ProductDetail: React.FC = () => {
 
   // --- Add Review Feature State ---
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [reviews, setReviews] = useState<{author: string, rating: number, text: string}[]>([
+  const [reviews, setReviews] = useState<{ author: string, rating: number, text: string }[]>([
     { author: "Priya", rating: 5, text: "Great quality and fits perfectly!" },
     { author: "Amit", rating: 4, text: "Nice fabric, color is vibrant." }
   ]);
@@ -93,11 +94,28 @@ const ProductDetail: React.FC = () => {
                 >{size}</button>
               ))}
             </div>
-           
+
           </div>
           <div className="action-buttons">
             <button className="add-cart">Add to Cart</button>
-            <button className="wishlist">Wishlist</button>
+            <button
+              className="add-cart"
+              onClick={() => {
+                if (selectedProduct) {
+                  dispatch(addToBuy({
+                    id: selectedProduct.id,
+                    name: selectedProduct.name,
+                    price: selectedProduct.price,
+                    img: selectedProduct.img,
+                    quantity: 1
+                  }));
+                  dispatch(setPage('buy')); 
+                }
+              }}
+            >
+              Buy
+            </button>
+
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
           </div>
           <div className="product-highlights">
@@ -185,7 +203,7 @@ const ProductDetail: React.FC = () => {
                   value={reviewForm.rating}
                   onChange={handleReviewChange}
                 >
-                  {[5,4,3,2,1].map(r => (
+                  {[5, 4, 3, 2, 1].map(r => (
                     <option key={r} value={r}>{r} Star{r > 1 ? 's' : ''}</option>
                   ))}
                 </select>

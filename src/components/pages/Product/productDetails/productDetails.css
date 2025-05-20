@@ -159,7 +159,7 @@ body {
   margin-top: 18px;
 }
 
-.add-cart, .wishlist, .tryon-btn {
+.add-cart, .buy, .tryon-btn {
   padding: 14px 32px;
   border: none;
   border-radius: 8px;
@@ -180,12 +180,12 @@ body {
   background: linear-gradient(90deg, #d84315 60%, #ff5722 100%);
 }
 
-.wishlist {
+.buy {
   background: #fff;
   color: #ff5722;
   border: 1.5px solid #ff5722;
 }
-.wishlist:hover {
+.buy:hover {
   background: #fff3e0;
   color: #d84315;
 }
