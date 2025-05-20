@@ -264,7 +264,7 @@ const Product: React.FC = () => {
 
         </IonRow>
       </IonGrid>
-
+ 
       {/* Product Detail Overlay */}
       {selectedProduct && (
         <div className="product-detail-overlay">
