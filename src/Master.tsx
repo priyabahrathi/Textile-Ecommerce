@@ -17,7 +17,7 @@ import Footer from "./components/pages/Footer/Footer";
 
 const Master: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page?.currentPage);
-  const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product); // <-- Add this
+  const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);
 
   return (
     <>
@@ -25,13 +25,15 @@ const Master: React.FC = () => {
       {/* <Header /> */}
       {currentPage === "wishlist" ? (
         <WishList />
-      ) : selectedProduct ? ( // <-- Show ProductDetail if a product is selected
+      ) : currentPage === "products" ? (
+        <Product />
+      ) : currentPage === "productDetails" ? (
         <ProductDetail />
-      ) : (
+      ) : 
+      (
         <>
           <Hero />
           <Arrival />
-          <Product />
           <Brand />
           <Footer />
         </>

@@ -25,12 +25,13 @@ import './Product.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import TryOn from '../Tryon/Tryon';
 import { RiCameraLensAiLine } from "react-icons/ri";
 import { fetchProductsFromFirebase } from '../../../Store/Slice/ProductSlice';
 import { AppDispatch } from '../../../Store/store';
 import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
 import { setSelectedProduct, clearSelectedProduct } from '../../../Store/Slice/selectedProductSlice';
+import { setPage } from '../../../Store/Slice/pageSlice';
+import Header from '../Header';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
@@ -109,7 +110,9 @@ const Product: React.FC = () => {
   };
 
   return (
+    <>
     <div id="product-section" className="page-product">
+      <Header />
       <div className='product-head'>
         <span>Find Your Match</span>
         <div className="gender-toggle">
@@ -141,7 +144,10 @@ const Product: React.FC = () => {
                       <div
                         className="product-card"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => dispatch(setSelectedProduct(product))}
+                        onClick={() => {
+                          dispatch(setSelectedProduct(product));
+                          dispatch(setPage("productDetails"));
+                        }}
                       >
                         <div className="card-top-left">
                           <IonButton
@@ -239,29 +245,6 @@ const Product: React.FC = () => {
             </div>
 
           </IonCol>
-
-          {/* Modal section */}
-          <IonCol>
-            <IonRow>
-              {selectedProduct && (
-                <div className="inline-modal">
-                  <div className="inline-modal-content">
-                    <div className="inline-modal-header">
-                      <h3 className='tryon-head'>Virtual TryOn's</h3>
-                      <button className="inline-modal-close" onClick={() => dispatch(setSelectedProduct(null))}>&times;</button>
-                    </div>
-                    <TryOn
-                      clothingImage={selectedProduct.img}
-                      outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-                      genderFilter={genderFilter} // Pass the gender filter
-                      outfitName={selectedProduct.outfitName} // Pass the outfitName
-                    />
-                  </div>
-                </div>
-              )}
-            </IonRow>
-          </IonCol>
-
         </IonRow>
       </IonGrid>
  
@@ -276,16 +259,11 @@ const Product: React.FC = () => {
             <p>Category: {selectedProduct.category}</p>
             <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
             {/* Add more details as needed */}
-            <TryOn
-              clothingImage={selectedProduct.img}
-              outfitType={selectedProduct.outfitType ? selectedProduct.outfitType : 'Not Defined'}
-              genderFilter={genderFilter}
-              outfitName={selectedProduct.outfitName}
-            />
           </div>
         </div>
       )}
     </div>
+    </>
   );
 };
 
