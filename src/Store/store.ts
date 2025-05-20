@@ -6,7 +6,7 @@ import brandReducer from "./Slice/BrandSlice";
 import suggestionsReducer from "../Store/Slice/suggestions";
 import wishlistReducer from './Slice/wishlistSlice';
 import selectedProductReducer from './Slice/selectedProductSlice';
-import cartReducer from "./Slice/cartSlice"; // <-- Add this import
+import buyReducer from './Slice/checkout';import cartReducer from "./Slice/cartSlice"; // <-- Add this import
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +17,7 @@ export const store = configureStore({
     suggestions: suggestionsReducer,
     wishlist: wishlistReducer,
     selectedProduct: selectedProductReducer,
+    buy:buyReducer,
     cart: cartReducer, // <-- Add this line
   },
 });
