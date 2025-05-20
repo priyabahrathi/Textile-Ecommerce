@@ -111,8 +111,10 @@ const Product: React.FC = () => {
 
   return (
     <>
+    <div className = "product-page">
+    <Header />
     <div id="product-section" className="page-product">
-      <Header />
+      
       <div className='product-head'>
         <span>Find Your Match</span>
         <div className="gender-toggle">
@@ -150,13 +152,7 @@ const Product: React.FC = () => {
                         }}
                       >
                         <div className="card-top-left">
-                          <IonButton
-                            fill="clear"
-                            size="large"
-                            className="try-btn"
-                          >
-                            <RiCameraLensAiLine />
-                          </IonButton>
+                          
                           <div className='try-hide'>Try this</div>
                         </div>
                         <img className="product-image" src={product.img} />
@@ -262,6 +258,7 @@ const Product: React.FC = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
     </>
   );

@@ -30,14 +30,16 @@ const Master: React.FC = () => {
         <Product />
       ) : currentPage === "productDetails" ? (
         <ProductDetail />
-      ) : 
+      ) : currentPage === "arrival" ? (
+        <Arrival />
+      ) :
       currentPage === "buy" ? (
         <CheckOut />
       ) :
       (
         <>
           <Hero />
-          <Arrival />
+          {/* <Arrival /> */}
           <Brand />
           <Footer />
         </>
