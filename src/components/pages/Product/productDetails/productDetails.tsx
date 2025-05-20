@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../../Store/store';
 import { clearSelectedProduct } from '../../../../Store/Slice/selectedProductSlice';
+import { setPage } from '../../../../Store/Slice/pageSlice';
 import './productDetails.css';
 import TryOn from '../../Tryon/Tryon';
+import Header from '../../Header';
 
 const ProductDetail: React.FC = () => {
   const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);
@@ -20,11 +22,44 @@ const ProductDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'desc' | 'reviews' | 'qa'>('desc');
   const [showTryOn, setShowTryOn] = useState(false);
 
+  // --- Add Review Feature State ---
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviews, setReviews] = useState<{author: string, rating: number, text: string}[]>([
+    { author: "Priya", rating: 5, text: "Great quality and fits perfectly!" },
+    { author: "Amit", rating: 4, text: "Nice fabric, color is vibrant." }
+  ]);
+  const [reviewForm, setReviewForm] = useState({ author: '', rating: 5, text: '' });
+
+  const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setReviewForm({ ...reviewForm, [e.target.name]: e.target.value });
+  };
+
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (reviewForm.author && reviewForm.text) {
+      setReviews([
+        ...reviews,
+        { author: reviewForm.author, rating: Number(reviewForm.rating), text: reviewForm.text }
+      ]);
+      setReviewForm({ author: '', rating: 5, text: '' });
+      setShowReviewModal(false);
+    }
+  };
+
   if (!selectedProduct) return <div>No product selected.</div>;
 
-  return (
+  return (<>
+    <Header />
     <div className="product-detail-page">
-      <button className="back-btn" onClick={() => dispatch(clearSelectedProduct())}>Back</button>
+      <button
+        className="back-btn"
+        onClick={() => {
+          dispatch(clearSelectedProduct());
+          dispatch(setPage("products"));
+        }}
+      >
+        ← Back
+      </button>
       <div className="gallery-info">
         <div className="image-gallery">
           <img className="main-img" src={mainImg} alt={selectedProduct.name} />
@@ -45,7 +80,7 @@ const ProductDetail: React.FC = () => {
           <div className="price-rating">
             <span className="price">&#8377;{selectedProduct.price}</span>
             <span className="rating">★★★★☆ (4.2)</span>
-            <span className="reviews">23 reviews</span>
+            <span className="reviews">{reviews.length} reviews</span>
           </div>
           <div className="selectors">
             <div>
@@ -58,22 +93,23 @@ const ProductDetail: React.FC = () => {
                 >{size}</button>
               ))}
             </div>
-            <div>
-              <label>Color:</label>
-              {['Red', 'Blue', 'Green'].map(color => (
-                <button
-                  key={color}
-                  className={selectedColor === color ? 'selector active' : 'selector'}
-                  onClick={() => setSelectedColor(color)}
-                  style={{ background: color.toLowerCase() }}
-                ></button>
-              ))}
-            </div>
+           
           </div>
           <div className="action-buttons">
             <button className="add-cart">Add to Cart</button>
             <button className="wishlist">Wishlist</button>
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
+          </div>
+          <div className="product-highlights">
+            <div>
+              <span className="highlight-title">Fabric:</span> {selectedProduct.fabric || "Cotton Blend"}
+            </div>
+            <div>
+              <span className="highlight-title">Fit:</span> {selectedProduct.fit || "Regular"}
+            </div>
+            <div>
+              <span className="highlight-title">Delivery:</span> Free, 3-5 days
+            </div>
           </div>
         </div>
       </div>
@@ -92,7 +128,17 @@ const ProductDetail: React.FC = () => {
         {activeTab === 'reviews' && (
           <div>
             <h3>Reviews</h3>
-            <p>No reviews yet.</p>
+            <div className="review-list">
+              {reviews.length === 0 && <p>No reviews yet.</p>}
+              {reviews.map((rev, idx) => (
+                <div className="review-item" key={idx}>
+                  <span className="review-author">{rev.author}</span>
+                  <span className="review-rating">{'★'.repeat(rev.rating)}{'☆'.repeat(5 - rev.rating)}</span>
+                  <div className="review-text">{rev.text}</div>
+                </div>
+              ))}
+            </div>
+            <button className="add-review-btn" onClick={() => setShowReviewModal(true)}>Add Review</button>
           </div>
         )}
         {activeTab === 'qa' && (
@@ -115,8 +161,52 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       )}
+      {showReviewModal && (
+        <div className="tryon-modal-overlay">
+          <div className="review-modal-content">
+            <button className="close-btn" onClick={() => setShowReviewModal(false)}>&times;</button>
+            <h3>Add Your Review</h3>
+            <form className="review-form" onSubmit={handleReviewSubmit}>
+              <label>
+                Name:
+                <input
+                  type="text"
+                  name="author"
+                  value={reviewForm.author}
+                  onChange={handleReviewChange}
+                  required
+                  placeholder="Your name"
+                />
+              </label>
+              <label>
+                Rating:
+                <select
+                  name="rating"
+                  value={reviewForm.rating}
+                  onChange={handleReviewChange}
+                >
+                  {[5,4,3,2,1].map(r => (
+                    <option key={r} value={r}>{r} Star{r > 1 ? 's' : ''}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Review:
+                <textarea
+                  name="text"
+                  value={reviewForm.text}
+                  onChange={handleReviewChange}
+                  required
+                  placeholder="Write your review here..."
+                />
+              </label>
+              <button type="submit">Submit Review</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
-  );
+  </>);
 };
 
 export default ProductDetail;

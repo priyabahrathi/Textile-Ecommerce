@@ -28,6 +28,7 @@ import {
   search,
   heart,
   personCircle,
+  bag,
 } from "ionicons/icons";
 import {
   IoCart,
@@ -121,10 +122,12 @@ const Header: React.FC = () => {
                   <IonButton fill="clear" onClick={() => dispatch(setPage("wishlist"))}>
                     <IonIcon icon={heart} size="large" title="Wishlist" />
                   </IonButton>
-                  <IonButton fill="clear" onClick={() => dispatch(goToCart())}>
+                  <IonButton fill="clear" >
                     <IonIcon icon={cart} size="large" title="Cart" />
                   </IonButton>
-
+                  <IonButton fill="clear" onClick={() => dispatch(setPage("products"))}>
+                    <IonIcon icon={bag} size="large" title="products" />
+                  </IonButton>
                 </>
               )}
               {isMobile && (
