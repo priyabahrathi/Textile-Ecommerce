@@ -31,7 +31,7 @@ import { AppDispatch } from '../../../Store/store';
 import { addToWishlist } from '../../../Store/Slice/wishlistSlice';
 import { setSelectedProduct, clearSelectedProduct } from '../../../Store/Slice/selectedProductSlice';
 import { setPage } from '../../../Store/Slice/pageSlice';
-import Header from '../Header';
+import Header from '../Header/Header';
 
 const MotionCard = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);

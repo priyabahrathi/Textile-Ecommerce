@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../Store/Slice/pageSlice"; // ✅ Ensure correct import
-import { RootState } from "../../Store/store";
+import { setProducts } from "../../../Store/Slice/pageSlice"; // ✅ Ensure correct import
+import { RootState } from "../../../Store/store";
 
 import "./Hero.css"
 import { IonIcon } from "@ionic/react";
 import {  pricetags,chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
-import Header from "./Header";
-import Sample from "./head/sample";
+import Header from "../Header/Header";
+import Sample from "../head/sample";
 
 
 

@@ -43,7 +43,7 @@ import {
 import { FaTag } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setPage } from "../../Store/Slice/pageSlice"; // adjust path as needed
+import { setPage } from "../../../Store/Slice/pageSlice"; // adjust path as needed
 import "./Header.css";
 
 const Header: React.FC = () => {
