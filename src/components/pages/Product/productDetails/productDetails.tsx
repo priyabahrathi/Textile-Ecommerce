@@ -6,10 +6,12 @@ import { setPage } from '../../../../Store/Slice/pageSlice';
 import './productDetails.css';
 import TryOn from '../../Tryon/Tryon';
 import Header from '../../Header/Header';
+import { addToCart } from '../../../../Store/Slice/cartSlice';
 
 const ProductDetail: React.FC = () => {
   const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartCount = useSelector((state: RootState) => state.cart.items.length);
   const dispatch = useDispatch();
 
   // Use product images if available, else fallback to dummy

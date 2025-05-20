@@ -248,6 +248,7 @@ const Tryon: React.FC<TryOnProps> = ({
 
   return (
     <div className="tryon-page-wrapper">
+      
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>

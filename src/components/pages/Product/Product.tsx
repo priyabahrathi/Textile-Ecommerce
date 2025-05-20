@@ -111,8 +111,10 @@ const Product: React.FC = () => {
 
   return (
     <>
+    <div className = "product-page">
+    <Header />
     <div id="product-section" className="page-product">
-      <Header />
+      
       <div className='product-head'>
         <span>Find Your Match</span>
         <div className="gender-toggle">
@@ -256,6 +258,7 @@ const Product: React.FC = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
     </>
   );

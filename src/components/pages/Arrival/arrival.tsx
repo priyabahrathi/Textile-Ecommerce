@@ -9,6 +9,7 @@ import "./arrival.css";
 import { useDispatch } from 'react-redux';
 import { fetchProductsFromFirebase } from '../../../Store/Slice/arrival';
 import { AppDispatch } from '../../../Store/store';
+import Header from "../Header/Header";
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -24,13 +25,17 @@ const Arrival: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
   const [cardWidth, setCardWidth] = useState(300);
+  const maxIndex = Math.max(0, Products.length - cardsPerView);
+  const minIndex = 0;
+
+
   const sliderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchProductsFromFirebase());
   }, [dispatch]);
-  
+
   // Update cardsPerView based on screen size
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -60,58 +65,76 @@ const Arrival: React.FC = () => {
   }, [cardsPerView]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + cardsPerView) % Products.length);
+    setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+  };
+  const prevSlide = () => {
+    setCurrentIndex(prev => Math.max(prev - 1, 0));
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - cardsPerView + Products.length) % Products.length);
-  };
+
 
   return (
-    <div className="arrival-body">
-      <h2 className="product-head">New Arrivals</h2>
-      <div className="slider-container">
-        <button className="arrow left" onClick={prevSlide}>‹</button>
-        <div className="slider-viewport" ref={sliderRef}>
-          {cardWidth > 0 && (
-            <motion.div
-              className="slider-track"
-              style={{
-                width: `${Products.length * cardWidth}px`,
-                transform: `translateX(-${currentIndex * cardWidth}px)`,
-              }}
-              transition={{ type: "spring", stiffness: 100 }}
+    <>
+      <div className="arrival-page">
+        <Header />
+        <div className="arrival-body">
+          <h2 className="product-head">New Arrivals</h2>
+          <div className="slider-container">
+            <button
+              className="arrow left"
+              onClick={prevSlide}
+              disabled={currentIndex === 0}
             >
-              {Products.map((product, index) => (
-                <div
-                  key={index}
-                  className="slider-card"
-                  style={{ width: `${cardWidth}px` }}
+              ‹
+            </button>
+            <div className="slider-viewport" ref={sliderRef}>
+              {cardWidth > 0 && (
+                <motion.div
+                  className="slider-track"
+                  style={{
+                    width: `${Products.length * cardWidth}px`,
+                    transform: `translateX(-${currentIndex * cardWidth}px)`,
+                  }}
+                  transition={{ type: "spring", stiffness: 100 }}
                 >
-                  <IonCard className="arr-product">
-                    <img className="card-img" src={product.img} alt={product.name} />
-                    <IonCardHeader className="card-head">
-                      <IonCardTitle className="card-title">
-                        <strong>{product.name}</strong>
-                      </IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent className="card-para">
-                      <p> &#8377;{product.price}</p>
-                      <div className="stars">{getStars(product.rating)}</div>
-                    </IonCardContent>
-                    <button type="button" className="buy-btn">
-                      <IonIcon icon={cart} className="card-icon" />
-                      Buy now
-                    </button>
-                  </IonCard>
-                </div>
-              ))}
-            </motion.div>
-          )}
+                  {Products.map((product, index) => (
+                    <div
+                      key={index}
+                      className="slider-card"
+                      style={{ width: `${cardWidth}px` }}
+                    >
+                      <IonCard className="arr-product">
+                        <img className="card-img" src={product.img} alt={product.name} />
+                        <IonCardHeader className="card-head">
+                          <IonCardTitle className="card-title">
+                            <strong>{product.name}</strong>
+                          </IonCardTitle>
+                        </IonCardHeader>
+                        <IonCardContent className="card-para">
+                          <p> &#8377;{product.price}</p>
+                          <div className="stars">{getStars(product.rating)}</div>
+                        </IonCardContent>
+                        <button type="button" className="buy-btn">
+                          <IonIcon icon={cart} className="card-icon" />
+                          Buy now
+                        </button>
+                      </IonCard>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </div>
+            <button
+              className="arrow right"
+              onClick={nextSlide}
+              disabled={currentIndex === maxIndex}
+            >
+              ›
+            </button>
+          </div>
         </div>
-        <button className="arrow right" onClick={nextSlide}>›</button>
       </div>
-    </div>
+    </>
   );
 };
 

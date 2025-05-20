@@ -246,9 +246,9 @@
 }
 
 .close-btn {
-  position: absolute;
-  top: 18px;
-  right: 22px;
+  position: fixed;
+  top: 24px;
+  right: 180px;
   background: none;
   border: none;
   font-size: 2.2rem;
@@ -378,5 +378,8 @@
     width: 90vw;
     max-width: 340px;
     height: 340px;
+  }
+  .close-btn{
+    right: 24px;
   }
 }

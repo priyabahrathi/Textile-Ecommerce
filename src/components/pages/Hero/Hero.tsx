@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../../Store/Slice/pageSlice"; // ✅ Ensure correct import
+import { setPage, setProducts } from "../../../Store/Slice/pageSlice"; // ✅ Ensure correct import
 import { RootState } from "../../../Store/store";
 
 import "./Hero.css"
@@ -14,6 +14,7 @@ import Sample from "../head/sample";
 
 const Hero: React.FC = () => {
   const dispatch = useDispatch();
+  
   const products = useSelector((state: RootState) => state.page.products);
 
 
@@ -33,7 +34,7 @@ const Hero: React.FC = () => {
         <p>One good outfit can make your confident level high,Have a good day with good deals</p>
         <div className="hero-buttons">
         <button className="icon-btn" ><FaTags /></button>
-        <div className="arr-btn"><button className="arrival-btn">New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
+        <div className="arr-btn"><button className="arrival-btn" onClick={() => dispatch(setPage("arrival"))}>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
       </div>
       </div>
       </div>

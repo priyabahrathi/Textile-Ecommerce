@@ -1,8 +1,10 @@
+.arrival-page{
+  background: linear-gradient(to bottom, #f8e1d4, #f5c6b2);
+ 
+}
 .arrival-body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-  /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%); */
-  /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
-  background-color: #fde3ca;
+  /* background-color: #fde3ca; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,6 +12,7 @@
   text-align: center;
   color: white;
   padding: 40px;
+
 
 }
 
@@ -42,6 +45,11 @@
   border: 1px solid #E59866;
   box-shadow: none;
 }
+.arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 .buy-btn {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
