@@ -42,20 +42,39 @@ import {
 } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../Store/Slice/pageSlice"; // adjust path as needed
+import { addToCart, incrementQuantity, decrementQuantity } from '../../Store/Slice/cartSlice'; // adjust path as needed
+import { IoAdd, IoRemove } from "react-icons/io5"; // or any plus/minus icon you like
 import "./Header.css";
 
 const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1057);
   const history = useHistory();
   const dispatch = useDispatch();
+interface CartItem {
+  quantity?: number;
+  // add other properties if needed
+}
+
+const cartItems = useSelector((state: any) => state.cart?.items || []);
+
+const cartCount = useSelector((state: any) =>
+  state.cart?.items?.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0)
+);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 1057);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleMenuOpen = () => {
+    if (document.activeElement && typeof (document.activeElement as HTMLElement).blur === "function") {
+      (document.activeElement as HTMLElement).blur(); // Remove focus from the main content
+    }
+    // Optionally, focus an element inside the menu after it opens
+  };
 
   return (
     <>
@@ -90,6 +109,70 @@ const Header: React.FC = () => {
         </IonContent>
       </IonMenu>
 
+      {/* Cart Menu */}
+      <IonMenu side="end" menuId="cart-menu" contentId="main-content">
+        <IonContent style={{ background: "white" }}>
+          <div style={{ padding: "20px" }}>
+            <h2 style={{ margin: 0, marginBottom: 16 }}>My Cart</h2>
+            <p>You have <b>{cartCount}</b> product(s) in your cart.</p>
+            {cartItems.length === 0 ? (
+              <div style={{ color: "#888", marginTop: 16 }}>Your cart is empty.</div>
+            ) : (
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {cartItems.map((item: any, idx: number) => (
+                  <li key={item.id + (item.size || '')} style={{ borderBottom: "1px solid #eee", padding: "10px 0" }}>
+                    <div style={{ fontWeight: 600 }}>{item.name}</div>
+                    <div style={{ fontSize: 14, color: "#555", display: "flex", alignItems: "center", gap: 8 }}>
+                      <button
+                        style={{
+                          border: "none",
+                          background: "#ffebee",
+                          borderRadius: "50%",
+                          width: 24,
+                          height: 24,
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: 18,
+                          color: "#ff5722"
+                        }}
+                        onClick={() => dispatch(decrementQuantity({ id: item.id, size: item.size }))}
+                      >
+                        <IoRemove />
+                      </button>
+                      <span style={{ minWidth: 24, textAlign: "center" }}>{item.quantity}</span>
+                      <button
+                        style={{
+                          border: "none",
+                          background: "#e8f5e9",
+                          borderRadius: "50%",
+                          width: 24,
+                          height: 24,
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: 18,
+                          color: "#388e3c"
+                        }}
+                        onClick={() => dispatch(incrementQuantity({ id: item.id, size: item.size }))}
+                      >
+                        <IoAdd />
+                      </button>
+                      {item.size && <span style={{ marginLeft: 8 }}>| Size: {item.size}</span>}
+                    </div>
+                    <div style={{ fontSize: 14, color: "#ff5722" }}>
+                      ₹{item.price} {item.quantity > 1 && <>x {item.quantity} = ₹{item.price * item.quantity}</>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </IonContent>
+      </IonMenu>
+
       {/* Main Header */}
       <div id="main-content">
         <header className="container">
@@ -116,16 +199,38 @@ const Header: React.FC = () => {
                   <IonButton fill="clear" onClick={() => dispatch(setPage("wishlist"))}>
                     <IonIcon icon={heart} size="large" title="Wishlist" />
                   </IonButton>
-                  <IonButton fill="clear" >
+                  <IonMenuButton menu="cart-menu" autoHide={false} style={{ position: "relative", margin: "0 8px" }}>
                     <IonIcon icon={cart} size="large" title="Cart" />
-                  </IonButton>
+                    {cartCount > 0 && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: 2,
+                          right: 2,
+                          background: "#ff5722",
+                          color: "#fff",
+                          borderRadius: "50%",
+                          fontSize: 12,
+                          width: 20,
+                          height: 20,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 700,
+                          boxShadow: "0 1px 4px #fbeee6"
+                        }}
+                      >
+                        {cartCount}
+                      </span>
+                    )}
+                  </IonMenuButton>
                   <IonButton fill="clear" onClick={() => dispatch(setPage("products"))}>
                     <IonIcon icon={bag} size="large" title="products" />
                   </IonButton>
                 </>
               )}
               {isMobile && (
-                <IonMenuButton menu="main-menu" className="menu-icon">
+                <IonMenuButton menu="main-menu" className="menu-icon" onClick={handleMenuOpen}>
                   <IoMenu size={32} />
                 </IonMenuButton>
               )}

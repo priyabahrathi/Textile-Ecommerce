@@ -5,10 +5,12 @@ import { clearSelectedProduct } from '../../../../Store/Slice/selectedProductSli
 import { setPage } from '../../../../Store/Slice/pageSlice';
 import './productDetails.css';
 import TryOn from '../../Tryon/Tryon';
+import { addToCart } from '../../../../Store/Slice/cartSlice';
 import Header from '../../Header';
 
 const ProductDetail: React.FC = () => {
   const selectedProduct = useSelector((state: RootState) => state.selectedProduct.product);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   // Use product images if available, else fallback to dummy
@@ -44,6 +46,24 @@ const ProductDetail: React.FC = () => {
       setReviewForm({ author: '', rating: 5, text: '' });
       setShowReviewModal(false);
     }
+  };
+
+  const handleAddToCart = () => {
+    if (!selectedProduct) return;
+    // Check if product with same id and size is already in cart
+    const exists = cartItems.some(
+      (item) => item.id === selectedProduct.id && item.size === selectedSize
+    );
+    if (exists) {
+      alert("This product is already in your cart.");
+      return;
+    }
+    dispatch(
+      addToCart({
+        ...selectedProduct,
+        size: selectedSize,
+      })
+    );
   };
 
   if (!selectedProduct) return <div>No product selected.</div>;
@@ -96,7 +116,7 @@ const ProductDetail: React.FC = () => {
            
           </div>
           <div className="action-buttons">
-            <button className="add-cart">Add to Cart</button>
+            <button className="add-cart" onClick={handleAddToCart}>Add to Cart</button>
             <button className="wishlist">Wishlist</button>
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
           </div>
