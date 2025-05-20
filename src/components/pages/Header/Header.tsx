@@ -74,9 +74,9 @@ const Header: React.FC = () => {
               <IonInput placeholder="Search..." clearInput />
               <IonIcon icon={search} slot="end" />
             </IonItem>
-            <IonItem button>
-              <IonIcon icon={personCircle} slot="start" />
-              Log In
+            <IonItem button  onClick={() => dispatch(setPage("products"))}>
+              <IonIcon icon={bag} slot="start" />
+              Product
             </IonItem>
             <IonItem button onClick={() => dispatch(setPage("wishlist"))}>
               <IonIcon icon={heart} slot="start" />
