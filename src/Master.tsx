@@ -36,6 +36,9 @@ const Master: React.FC = () => {
       currentPage === "buy" ? (
         <CheckOut />
       ) :
+      currentPage === "checkout" ? (
+        <CheckOut />
+      ) :
       (
         <>
           <Hero />
