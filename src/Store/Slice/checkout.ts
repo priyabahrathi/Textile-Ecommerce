@@ -21,6 +21,9 @@ const buySlice = createSlice({
   name: 'buy',
   initialState,
   reducers: {
+    clearBuy: (state) => {
+      state.items = [];
+    },
     addToBuy: (state, action: PayloadAction<BuyItem>) => {
       const existing = state.items.find(item => item.id === action.payload.id);
       if (existing) {
@@ -43,5 +46,5 @@ const buySlice = createSlice({
   }
 });
 
-export const { addToBuy, increaseQuantity, decreaseQuantity, removeFromCart } = buySlice.actions;
+export const { addToBuy,clearBuy, increaseQuantity, decreaseQuantity, removeFromCart } = buySlice.actions;
 export default buySlice.reducer;

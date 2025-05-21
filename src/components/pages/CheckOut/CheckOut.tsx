@@ -174,7 +174,7 @@ const CheckOut: React.FC = () => {
           <IonCol>
             <div className="card-total">
               <h3 className="total">Total: ₹{totalPrice.toFixed(2)}</h3>
-              <button className="checkout-btn">
+              <button className="checkout-btn" onClick={()=>dispatch(setPage('payment'))}>
                 {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
               </button>
             </div>

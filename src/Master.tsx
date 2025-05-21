@@ -14,6 +14,7 @@ import { IonApp, IonPage } from "@ionic/react";
 import "./Master.css"
 import Footer from "./components/pages/Footer/Footer";
 import CheckOut from "./components/pages/CheckOut/CheckOut";
+import Payment from "./components/pages/CheckOut/Payment";
 
 
 const Master: React.FC = () => {
@@ -38,7 +39,12 @@ const Master: React.FC = () => {
       ) :
       currentPage === "checkout" ? (
         <CheckOut />
-      ) :
+      ):
+      currentPage === "payment" ? (
+        <Payment />
+      )
+      
+      :
       (
         <>
           <Hero />
