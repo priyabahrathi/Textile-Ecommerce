@@ -83,13 +83,23 @@ const Settings: React.FC = () => {
     // Handle profile picture upload (URL only for simplicity)
     const handleProfilePicChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!profile) return;
+
         const file = e.target.files && e.target.files[0];
         if (!file) return;
-        const url = URL.createObjectURL(file);
-        setPendingEdits({ ...pendingEdits, profilePic: url });
-        setProfile({ ...profile, profilePic: url });
-        setIsEditing(true);
+
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            const base64String = reader.result as string;
+
+            setPendingEdits({ ...pendingEdits, profilePic: base64String });
+            setProfile({ ...profile, profilePic: base64String });
+            setIsEditing(true);
+        };
+
+        reader.readAsDataURL(file); // This converts image to base64
     };
+
 
     if (loading) {
         return <div style={{ textAlign: 'center', marginTop: 40 }}>Loading...</div>;

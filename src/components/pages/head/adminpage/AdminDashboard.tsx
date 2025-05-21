@@ -30,6 +30,7 @@ const AdminDashboard: React.FC = () => {
         return <div><CheckoutAdminPage/></div>;
       case "Settings":
         return <div><Settings/></div>;
+        
       default:
         return null;
     }
