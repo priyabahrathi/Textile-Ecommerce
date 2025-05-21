@@ -3,7 +3,7 @@ import { IonIcon, IonButton } from "@ionic/react";
 import { addCircle, statsChart, cart, settings,personCircle, people } from "ionicons/icons";
 import ManageProduct from "./pages/ManageProduct";
 import ViewSales from "./pages/ViewSales";
-import CheckoutAdminPage from "./pages/checkout";
+import CheckoutAdminPage from "./pages/checkoutDetails";
 import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
 
