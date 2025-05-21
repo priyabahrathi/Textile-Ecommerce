@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
-import { incrementQuantity, decrementQuantity, removeFromCart, CartItem } from '../../../Store/Slice/cartSlice';
+import {
+  incrementQuantity,
+  decrementQuantity,
+  removeFromCart,
+  CartItem,
+} from '../../../Store/Slice/cartSlice';
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  removeFromCart as removeFromBuy,
+} from '../../../Store/Slice/checkout';
 import './CheckOut.css';
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
-
-
+import { setPage } from '../../../Store/Slice/pageSlice';
 
 const CheckOut: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
-  const singleItem = (location.state as { item?: CartItem })?.item;
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const buyItems = useSelector((state: RootState) => state.buy.items);
 
-  const itemsToDisplay: CartItem[] = singleItem ? [{ ...singleItem }] : cartItems;
+  const isBuyNow = buyItems.length > 0;
+  const itemsToDisplay = isBuyNow ? buyItems : cartItems;
 
-  const totalPrice = itemsToDisplay.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = itemsToDisplay.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   const [expandedItem, setExpandedItem] = useState<CartItem | null>(null);
 
   useEffect(() => {
@@ -25,22 +37,40 @@ const CheckOut: React.FC = () => {
       setExpandedItem(itemsToDisplay[0]);
     }
   }, [itemsToDisplay, expandedItem]);
-    useEffect(() => {
-        if (cartItems.length > 0 && expandedItem === null) {
-            setExpandedItem(cartItems[0]);
-        }
-    }, [cartItems]);
 
+  const handleIncrement = (item: CartItem) => {
+    isBuyNow
+      ? dispatch(increaseQuantity(item.id))
+      : dispatch(incrementQuantity({ id: item.id, size: item.size }));
+  };
 
+  const handleDecrement = (item: CartItem) => {
+    isBuyNow
+      ? dispatch(decreaseQuantity(item.id))
+      : dispatch(decrementQuantity({ id: item.id, size: item.size }));
+  };
 
+  const handleRemove = (item: CartItem) => {
+    isBuyNow
+      ? dispatch(removeFromBuy(item.id))
+      : dispatch(removeFromCart({ id: item.id, size: item.size }));
+  };
 
   return (
     <div className="cart-page">
-      <h2>{singleItem ? 'Product Purchase' : 'Your Cart'}</h2>
+      <button
+              className="back-btn"
+              onClick={() => {
+                dispatch(setPage("productDetails"));
+              }}
+            >
+              ← Back
+            </button>
+      <h2>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
       <IonGrid>
         <IonRow>
-          <IonCol sizeXl='8' sizeLg='8' sizeMd='12' sizeSm='12' sizeXs='12'>
-            <div className='buy-container'>
+          <IonCol sizeXl="8" sizeLg="8" sizeMd="12" sizeSm="12" sizeXs="12">
+            <div className="buy-container">
               {itemsToDisplay.length === 0 ? (
                 <p>Your cart is empty.</p>
               ) : (
@@ -48,52 +78,55 @@ const CheckOut: React.FC = () => {
                   {itemsToDisplay.map((item) => (
                     <div
                       className="buy-item"
-                      key={item.id + (item.size || '')}
+                      key={item.id + ('size' in item && item.size ? item.size : '')}
                       onClick={() => setExpandedItem(item)}
                     >
                       <img
-                        src={item.img || (item.images && item.images[0]) || '/fallback.jpg'}
+                        src={
+                          item.img ||
+                          '/fallback.jpg'
+                        }
                         alt={item.name}
                         className="buy-img"
                       />
-                      <div className='buy-name'>{item.name}</div>
-                      <p className='buy-name'>Price: ₹{item.price}</p>
+                      <div className="buy-name">{item.name}</div>
+                      <p className="buy-name">Price: ₹{item.price}</p>
 
-                      {!singleItem && (
-                        <div className="quantity-controls buy-name">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              dispatch(decrementQuantity({ id: item.id, size: item.size }));
-                            }}
-                            className='buy-name id-btn'
-                          >-</button>
-                          <span>{item.quantity}</span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              dispatch(incrementQuantity({ id: item.id, size: item.size }));
-                            }}
-                            className='buy-name id-btn'
-                          >+</button>
-                        </div>
-                      )}
+                      <div className="quantity-controls buy-name">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDecrement(item);
+                          }}
+                          className="buy-name id-btn"
+                        >
+                          -
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleIncrement(item);
+                          }}
+                          className="buy-name id-btn"
+                        >
+                          +
+                        </button>
+                      </div>
 
-                      <p className='buy-name'>
+                      <p className="buy-name">
                         Subtotal: ₹{(item.price * item.quantity).toFixed(2)}
                       </p>
 
-                      {!singleItem && (
-                        <button
-                          className="remove-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            dispatch(removeFromCart({ id: item.id, size: item.size }));
-                          }}
-                        >
-                          Remove
-                        </button>
-                      )}
+                      <button
+                        className="remove-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemove(item);
+                        }}
+                      >
+                        Remove
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -101,19 +134,29 @@ const CheckOut: React.FC = () => {
             </div>
           </IonCol>
 
-          <IonCol sizeXl='4' sizeLg='4' sizeMd='12' sizeSm='12' sizeXs='12'>
-            {expandedItem && (
+          <IonCol sizeXl="4" sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
+            {expandedItem !== null && (
               <div className="expanded-card">
                 <h3>{expandedItem.name}</h3>
                 <img
-                  src={expandedItem.img || (expandedItem.images && expandedItem.images[0])}
+                  src={
+                    expandedItem.img ||
+                    (expandedItem.images && expandedItem.images[0])
+                  }
                   alt={expandedItem.name}
                   className="expanded-img"
                 />
                 <div>
-                  <p><strong>Price:</strong> ₹{expandedItem.price}</p>
-                  <p><strong>Quantity:</strong> {expandedItem.quantity}</p>
-                  <p><strong>Total:</strong> ₹{(expandedItem.price * expandedItem.quantity).toFixed(2)}</p>
+                  <p>
+                    <strong>Price:</strong> ₹{expandedItem.price}
+                  </p>
+                  <p>
+                    <strong>Quantity:</strong> {expandedItem.quantity}
+                  </p>
+                  <p>
+                    <strong>Total:</strong> ₹
+                    {(expandedItem.price * expandedItem.quantity).toFixed(2)}
+                  </p>
                 </div>
                 <button
                   onClick={() => setExpandedItem(null)}
@@ -129,90 +172,16 @@ const CheckOut: React.FC = () => {
         <IonRow>
           <IonCol>
             <div className="card-total">
-              <h3 className='total'>Total: ₹{totalPrice.toFixed(2)}</h3>
-              <button className="checkout-btn">Proceed to Payment</button>
+              <h3 className="total">Total: ₹{totalPrice.toFixed(2)}</h3>
+              <button className="checkout-btn">
+                {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
+              </button>
             </div>
           </IonCol>
         </IonRow>
       </IonGrid>
     </div>
   );
-    return (
-        <div className="cart-page">
-            <h2>Your Cart</h2>
-            <IonGrid>
-                <IonRow>
-                    <IonCol sizeXl='8' sizeLg='8' sizeMd='12' sizeSm='12' sizeXs='12'>
-                        <div className='buy-container'>
-                            {cartItems.length === 0 ? (
-                                <p className='empty-msg'>Your cart is empty.</p>
-                            ) : (
-                                <div className="buy-data">
-                                    {cartItems.map((item: CartItem) => (
-                                        <div
-                                            className="buy-item"
-                                            key={item.id + (item.size || '')}
-                                            onClick={() => setExpandedItem(item)}
-                                        >
-                                            <img src={item.img || '/fallback.jpg'} alt={item.name} className="buy-img" />
-                                            <div className='buy-name'>{item.name}</div>
-                                            <p className='buy-name'> ₹{item.price}</p>
-                                            <div className="quantity-controls buy-name">
-                                                <button onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    dispatch(decrementQuantity({ id: item.id, size: item.size }));
-                                                }} className='buy-name id-btn'>-</button>
-                                                <span>{item.quantity}</span>
-                                                <button onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    dispatch(incrementQuantity({ id: item.id, size: item.size }));
-                                                }} className='buy-name id-btn'>+</button>
-                                            </div>
-                                            <p className='buy-name'>Subtotal: ₹{(item.price * item.quantity).toFixed(2)}</p>
-                                            <button
-                                                className="remove-btn"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    dispatch(removeFromCart({ id: item.id, size: item.size }));
-                                                }}
-                                            >Remove</button>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-
-                    </IonCol>
-                    <IonCol sizeXl='4' sizeLg='4' sizeMd='12' sizeSm='12' sizeXs='12'>
-                        {/* Expanded Product View */}
-                        {expandedItem && (
-                            <div className="expanded-card">
-                                <h3 className='preview-title' >{expandedItem!.name}</h3>
-                                <img src={expandedItem!.img} alt={expandedItem!.name} className="expanded-img" />
-                                <div className='preview-data'>
-                                    <p><strong>Price:</strong> ₹{expandedItem!.price}</p>
-                                    <p><strong>Quantity:</strong> {expandedItem!.quantity}</p>
-                                    <p><strong>Total:</strong> ₹{(expandedItem!.price * expandedItem!.quantity).toFixed(2)}</p>
-                                </div>
-                                <button onClick={() => setExpandedItem(null)} className="close-expanded-btn">Close</button>
-                            </div>
-                        )}
-                    </IonCol>
-
-
-                </IonRow>
-                <IonRow>
-                    <IonCol>
-                        <div className="card-total">
-                            <h3 className='total'>Total: ₹{totalPrice.toFixed(2)}</h3>
-                            <button className="checkout-btn">Proceed to Checkout</button>
-                        </div>
-                    </IonCol>
-                </IonRow>
-            </IonGrid>
-        </div>
-    );
 };
 
 export default CheckOut;

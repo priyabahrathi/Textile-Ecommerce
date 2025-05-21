@@ -128,14 +128,16 @@ const ProductDetail: React.FC = () => {
                     name: selectedProduct.name,
                     price: selectedProduct.price,
                     img: selectedProduct.img,
-                    quantity: 1
+                    quantity: 1,
                   }));
-                  dispatch(setPage('buy')); 
+                  dispatch(setPage('checkout')); // navigate using Redux-based page system
                 }
               }}
             >
               Buy
             </button>
+
+
 
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
           </div>
