@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ManageProduct.css";
+import { getDatabase, ref, push } from "firebase/database";
 
 interface Product {
     name: string;
@@ -25,9 +26,11 @@ const initialProduct: Product = {
     skinTone: [],
 };
 
-const skinToneOptions = ["Fair Skin", "Dusky Skin", "Wheatish Skin", "Dark Skin"];
-const genderOptions = ["male", "female", "unisex"];
-const outfitTypeOptions = ["one-piece", "two-piece", "three-piece"];
+const skinToneOptions = ["Fair Skin", "Dusky Skin", "Dark Skin"];
+const genderOptions = ["male", "female",];
+const outfitTypeOptions = ["one-piece", "bottom", "top"];
+const categoryOptions = ["Formals", "Casuals", "Ocassions"];
+
 
 const ManageProduct: React.FC = () => {
     const [product, setProduct] = useState<Product>(initialProduct);
@@ -68,13 +71,24 @@ const ManageProduct: React.FC = () => {
         setImgPreview("");
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Here you would send product to your backend API
-        setMessage("Product added successfully!");
-        setProduct(initialProduct);
-        setImgPreview("");
+
+        try {
+            const db = getDatabase();
+            const productsRef = ref(db, 'products');
+
+            await push(productsRef, product);
+
+            setMessage("Product added successfully!");
+            setProduct(initialProduct);
+            setImgPreview("");
+        } catch (error) {
+            console.error("Error adding product:", error);
+            setMessage("Failed to add product. Please try again.");
+        }
     };
+
 
     return (
         <div className="manage-product-container">
@@ -119,14 +133,21 @@ const ManageProduct: React.FC = () => {
                 <div className="manage-product-row">
                     <div>
                         <label className="manage-product-label">Category</label>
-                        <input
-                            type="text"
+                        <select
                             name="category"
                             value={product.category}
                             onChange={handleChange}
                             required
-                            className="manage-product-input"
-                        />
+                            className="manage-product-select"
+                        >
+                            <option value="">Select Category</option>
+                            {categoryOptions.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
+
                     </div>
                     <div>
                         <label className="manage-product-label">Gender</label>

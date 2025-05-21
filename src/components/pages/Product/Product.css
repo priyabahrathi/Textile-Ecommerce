@@ -206,8 +206,8 @@
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
-    margin: 15px 0;
-    padding: 30px;
+    
+    padding: 20px;
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
@@ -254,8 +254,7 @@
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
-    margin: 35px 0;
-    padding: 20px 30px;
+    padding: 12px;
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
@@ -278,7 +277,7 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #E59866;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1rem;
 }
 
 /* Filter Section */
@@ -291,13 +290,18 @@
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
-    margin: 15px 0;
-    padding: 30px;
+    padding: 20px;
     border-radius: 1rem;
     border: 1px solid #E59866;
     /* box-shadow: 0 0 20px #002642; */
 }
-
+.category-select {
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none;
+}
 .category-list {
     list-style-type: none;
     width:250px;
@@ -564,6 +568,23 @@ input:checked + .slider:before {
   
 
 }
+/* Responsive for filter bar */
+@media (max-width: 900px) {
+  .horizontal-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 10px 4px;
+    min-height: unset;
+  }
+  .horizontal-card {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .horizontal-filters .search-bar {
+    width: 100%;
+  }
+}
 /*Mobiles*/
 @media screen and (max-width: 768px) {
     .product-data {
@@ -643,6 +664,36 @@ input:checked + .slider:before {
       
 }
 
+@media screen and (max-width: 576px) {
+  
+    .product-data{
+        flex-direction: column;
+        align-items: center;
+        line-height: 1;
+    }
+    .rate-buy{
+        line-height: 0.2;
+    }
+    .product-image {
+        height: 150px;
+        width: auto;
+    }
+    .product-title {
+        font-size: 15px;
+    }
+    .product-price {
+        font-size: 15px !important;
+    }
+    .product-category {
+        font-size: 15px !important;
+    }
+    .btn-buy {
+        width: 100%;
+        font-size: 15px;
+    }
+  }
+  
+
 
 @media screen and (max-width: 480px) {
     .inline-modal-content {
@@ -715,7 +766,7 @@ input:checked + .slider:before {
 
 .horizontal-filters .range-title,
 .horizontal-filters .filter-title {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #d45907;
   margin-bottom: 8px;
@@ -751,21 +802,5 @@ input:checked + .slider:before {
   padding-left: 3px;
 }
 
-/* Responsive for filter bar */
-@media (max-width: 900px) {
-  .horizontal-filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    padding: 10px 4px;
-    min-height: unset;
-  }
-  .horizontal-card {
-    min-width: 0;
-    padding: 8px 6px;
-  }
-  .horizontal-filters .search-bar {
-    width: 100%;
-  }
-}
+
 
