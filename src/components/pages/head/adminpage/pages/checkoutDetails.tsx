@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
-import emailjs from 'emailjs-com'; // <-- Add this
+import React, { useEffect, useState } from 'react';
+import emailjs from 'emailjs-com';
+import { getDatabase, ref, onValue, update } from 'firebase/database';
+
 
 type Order = {
-    id: number;
+    id: string;
     userName: string;
     productName: string;
     quantity: number;
     price: number;
     status: 'Pending' | 'Approved';
     date: string;
-    email?: string; // <-- Add email field
-    phone?: string; // <-- Add phone field
+    email?: string;
+    phone?: string;
 };
 
-const initialOrders: Order[] = [
-    { id: 1, userName: 'Priyabharathi', productName: 'Cotton Shirt', quantity: 2, price: 40, status: 'Pending', date: '2024-06-01', email: 'hamanthkumar789@gmail.com', phone: '6381261991' },
-    { id: 2, userName: 'Jane Smith', productName: 'Denim Jeans', quantity: 1, price: 60, status: 'Pending', date: '2024-06-02', email: 'jane@example.com', phone: '0987654321' },
-    { id: 3, userName: 'Alice Brown', productName: 'Silk Scarf', quantity: 3, price: 90, status: 'Pending', date: '2024-06-03', email: 'alice@example.com', phone: '1122334455' },
-];
+
+
 
 const CheckoutAdminPage: React.FC = () => {
-    const [orders, setOrders] = useState<Order[]>(initialOrders);
+    const [orders, setOrders] = useState<Order[]>([]);
+    useEffect(() => {
+        const db = getDatabase();
+        const ordersRef = ref(db, 'orders'); // Changed from 'orders' to 'customerdata'
 
-    const handleApprove = (id: number) => {
+        const unsubscribe = onValue(ordersRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const loadedOrders: Order[] = Object.entries(data).map(([id, value]: [string, any]) => ({
+                    id,
+                    ...value,
+                }));
+                setOrders(loadedOrders);
+            } else {
+                setOrders([]);
+            }
+        });
+
+        return () => {
+            // Cleanup listener
+        };
+    }, []);
+
+    const handleApprove = (id: string) => {
         const confirm = window.confirm('Are you sure you want to approve this order?');
         if (!confirm) return;
 
@@ -34,7 +54,7 @@ const CheckoutAdminPage: React.FC = () => {
             return;
         }
 
-        // Generate bill/description
+        // Email content
         const bill = `
 Order Confirmation
 
@@ -52,12 +72,12 @@ Total: $${order.price * order.quantity}
 Your order has been approved and is being processed.
 
 Thank you for shopping with us!
-        `;
+`;
 
-        // Send email using EmailJS
+        // Send email via EmailJS
         emailjs.send(
-            'service_to1ovkp', // Replace with your EmailJS service ID
-            'template_2ckz6qm', // Replace with your EmailJS template ID
+            'service_to1ovkp',
+            'template_2ckz6qm',
             {
                 to_email: order.email,
                 to_name: order.userName,
@@ -68,9 +88,9 @@ Thank you for shopping with us!
                 order_date: order.date,
                 total: order.price * order.quantity,
             },
-            'fr6LuZyY115BIJoVx' // Replace with your EmailJS user ID (public key)
+            'fr6LuZyY115BIJoVx'
         ).then(
-            (result) => {
+            () => {
                 alert('Approval email sent!');
             },
             (error) => {
@@ -78,12 +98,18 @@ Thank you for shopping with us!
             }
         );
 
-        setOrders(prev =>
-            prev.map(order =>
-                order.id === id ? { ...order, status: 'Approved' } : order
-            )
-        );
+        // ✅ Update status in Firebase
+        const db = getDatabase();
+        const orderRef = ref(db, `customerdata/${id}`);
+        update(orderRef, { status: 'Approved' })
+            .then(() => {
+                console.log('Order approved in Firebase');
+            })
+            .catch((err) => {
+                console.error('Failed to update status:', err);
+            });
     };
+
 
     return (
         <div style={{ padding: '2rem', maxWidth: 900, margin: '0 auto' }}>
