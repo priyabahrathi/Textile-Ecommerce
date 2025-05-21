@@ -22,20 +22,7 @@ const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     useEffect(() => {
         const db = getDatabase();
-        const ordersRef = ref(db, 'orders'); // Changed from 'orders' to 'customerdata'
-
-        const unsubscribe = onValue(ordersRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const loadedOrders: Order[] = Object.entries(data).map(([id, value]: [string, any]) => ({
-                    id,
-                    ...value,
-                }));
-                setOrders(loadedOrders);
-            } else {
-                setOrders([]);
-            }
-        });
+        const ordersRef = ref(db, 'orders');
 
         return () => {
             // Cleanup listener

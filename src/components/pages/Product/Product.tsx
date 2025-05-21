@@ -97,6 +97,9 @@ const Product: React.FC = () => {
       checked ? [...prev, category] : prev.filter((c) => c !== category)
     );
   };
+  const handleCheckBoxMultiple = (selected: string[]) => {
+    setSelectedCategory(selected);
+  };
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
@@ -111,155 +114,158 @@ const Product: React.FC = () => {
 
   return (
     <>
-    <div className = "product-page">
-    <Header />
-    <div id="product-section" className="page-product">
-      
-      <div className='product-head'>
-        <span>Find Your Match</span>
-        <div className="gender-toggle">
-          <label className="toggle-switch">
-            <input
-              type="checkbox"
-              checked={genderFilter === 'female'}
-              onChange={() =>
-                setGenderFilter((prev) =>
-                  prev === '' ? 'male' : prev === 'male' ? 'female' : 'male'
-                )
-              }
-            />
-            <span className="slider"></span>
-          </label>
-          <span className="gender-label">
-            {genderFilter === '' ? 'Both' : genderFilter === 'male' ? 'Male' : 'Female'}
-          </span>
+      <div className="product-page">
+        <Header />
+        <div id="product-section" className="page-product">
+
+          <div className='product-head'>
+            {/* <span>Find Your Match</span> */}
+            <div className="gender-toggle">
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={genderFilter === 'female'}
+                  onChange={() =>
+                    setGenderFilter((prev) =>
+                      prev === '' ? 'male' : prev === 'male' ? 'female' : 'male'
+                    )
+                  }
+                />
+                <span className="slider"></span>
+              </label>
+              <span className="gender-label">
+                {genderFilter === '' ? 'Both' : genderFilter === 'male' ? 'Male' : 'Female'}
+              </span>
+            </div>
+          </div>
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <div className="card-search">
+                  <div className="search-bar">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      className="search-input"
+                    />
+                  </div>
+                </div>
+              </IonCol>
+              <IonCol>
+                <div className="card-range">
+                  {/* <h1 className="range-title">Price Range</h1> */}
+                  <IonRange
+                    dualKnobs={true}
+                    min={500}
+                    max={5000}
+                    value={{ lower, upper }}
+                    onIonChange={handleRangeChange}
+                    style={{
+                      '--bar-background': '#F5CBA7',
+                      '--bar-background-active': '#E59866',
+                      '--knob-background': '#E59866',
+                      '--pin-background': '#F5CBA7'
+                    }}
+                  />
+                  <div className="range-values">
+                    <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
+                    <IonLabel>Max Price: {upper}</IonLabel>
+                  </div>
+                </div>
+              </IonCol>
+              <IonCol>
+                <div className="card-filter">
+                  <select
+                    value={selectedCategory[0] || ""}
+                    onChange={(e) => handleCheckBoxMultiple([e.target.value])}
+                    className="category-select search-input"
+                  >
+                    <option value="" disabled>Select a category</option>
+                    {['Formals', 'Casuals', 'Ocassions'].map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+
+
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              
+                
+                  {filteredItems.length > 0 ? (
+                    filteredItems.map((product) => (
+                      <IonCol className="ion-padding" sizeXs="6" sizeSm="6" sizeMd="4" sizeLg='3' sizeXl='3' key={product.id}>
+                        <MotionCard>
+                          <div
+                            className="product-card"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              dispatch(setSelectedProduct(product));
+                              dispatch(setPage("productDetails"));
+                            }}
+                          >
+                            <img className="product-image" src={product.img} />
+                            <IonCardContent className="data">
+                              <div className="product-data">
+                                <div className="product-title">{product.name}</div>
+                                <div className="product-price">&#8377;{product.price}</div>
+                              </div>
+                              <p className="product-category">{product.category}</p>
+                              <div className="rate-buy">
+                                <div className="ratings">
+                                  {[...Array(5)].map((_, i) => (
+                                    <IonIcon key={i} icon={star} className="buy-button" />
+                                  ))}
+                                </div>
+                                <button
+                                  className={`add-to-wishlist`}
+                                  onClick={() => dispatch(addToWishlist(product))}
+                                >
+                                  <IonIcon icon={heart} />
+                                </button>
+                              </div>
+                            </IonCardContent>
+                          </div>
+                        </MotionCard>
+                      </IonCol>
+                    ))
+                  ) : (
+                    <IonCol size="12"><p>No products found.</p></IonCol>
+                  )}
+                
+             
+
+              {/* Sidebar */}
+              {/* <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">
+            <div className="filter-section">
+              
+            </div>
+          </IonCol> */}
+            </IonRow>
+          </IonGrid>
+
+          {/* Product Detail Overlay */}
+          {selectedProduct && (
+            <div className="product-detail-overlay">
+              <div className="product-detail-content">
+                <button className="close-btn" onClick={() => dispatch(clearSelectedProduct())}>&times;</button>
+                <h2>{selectedProduct.name}</h2>
+                <img src={selectedProduct.img} alt={selectedProduct.name} style={{ maxWidth: 300 }} />
+                <p>Price: &#8377;{selectedProduct.price}</p>
+                <p>Category: {selectedProduct.category}</p>
+                <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
+                {/* Add more details as needed */}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      <IonGrid>
-        <IonRow>
-          <IonCol className='col-card' sizeMd="12" sizeLg="12" sizeXl="8">
-            <IonRow>
-              {filteredItems.length > 0 ? (
-                filteredItems.map((product) => (
-                  <IonCol className="ion-padding" size="12" sizeMd="6" key={product.id}>
-                    <MotionCard>
-                      <div
-                        className="product-card"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                          dispatch(setSelectedProduct(product));
-                          dispatch(setPage("productDetails"));
-                        }}
-                      >
-                        <div className="card-top-left">
-                          
-                          <div className='try-hide'>Try this</div>
-                        </div>
-                        <img className="product-image" src={product.img} />
-                        <IonCardContent className="data">
-                          <div className="product-data">
-                            <div className="product-title">{product.name}</div>
-                            <div className="product-price">&#8377;{product.price}</div>
-                          </div>
-                          <p className="product-category">{product.category}</p>
-                          <div className="rate-buy">
-                            <div className="ratings">
-                              {[...Array(5)].map((_, i) => (
-                                <IonIcon key={i} icon={star} className="buy-button" />
-                              ))}
-                            </div>
-                            <button
-                              className={`add-to-wishlist`}
-                              onClick={() => dispatch(addToWishlist(product))}
-                            >
-                              <IonIcon icon={heart} />
-                            </button>
-                          </div>
-                        </IonCardContent>
-                      </div>
-                    </MotionCard>
-                  </IonCol>
-                ))
-              ) : (
-                <IonCol size="12"><p>No products found.</p></IonCol>
-              )}
-            </IonRow>
-          </IonCol>
-
-          {/* Sidebar */}
-          <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">
-            <div className="card-search">
-              <div className="search-bar">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  className="search-input"
-                />
-              </div>
-            </div>
-
-            <div className="card-range">
-              <h1 className="range-title">Price Range</h1>
-              <IonRange
-                dualKnobs={true}
-                min={500}
-                max={5000}
-                value={{ lower, upper }}
-                onIonChange={handleRangeChange}
-                style={{
-                  '--bar-background': '#F5CBA7',
-                  '--bar-background-active': '#E59866',
-                  '--knob-background': '#E59866',
-                  '--pin-background': '#F5CBA7'
-                }}
-              />
-              <div className="range-values">
-                <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
-                <IonLabel>Max Price: {upper}</IonLabel>
-              </div>
-            </div>
-
-            <div className="filter-section">
-              <div className="card-filter">
-                <div className="filter-title">Categories</div>
-                <ul className='category-list'>
-                  {['Formals', 'Casuals', 'Ocassions'].map((cat) => (
-                    <li className='category-item' key={cat}>
-                      <input
-                        className='cat-input'
-                        type="checkbox"
-                        checked={selectedCategory.includes(cat)}
-                        onChange={(e) => handleCheckBox(cat, e.target.checked)}
-                      />
-                      <IonLabel className='cat-label'>{cat}</IonLabel>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-          </IonCol>
-        </IonRow>
-      </IonGrid>
- 
-      {/* Product Detail Overlay */}
-      {selectedProduct && (
-        <div className="product-detail-overlay">
-          <div className="product-detail-content">
-            <button className="close-btn" onClick={() => dispatch(clearSelectedProduct())}>&times;</button>
-            <h2>{selectedProduct.name}</h2>
-            <img src={selectedProduct.img} alt={selectedProduct.name} style={{ maxWidth: 300 }} />
-            <p>Price: &#8377;{selectedProduct.price}</p>
-            <p>Category: {selectedProduct.category}</p>
-            <p>Outfit Type: {selectedProduct.outfitType || 'Not Defined'}</p>
-            {/* Add more details as needed */}
-          </div>
-        </div>
-      )}
-    </div>
-    </div>
     </>
   );
 };

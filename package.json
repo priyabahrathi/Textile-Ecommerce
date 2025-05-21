@@ -31,7 +31,7 @@
     "emailjs-com": "^3.2.0",
     "face-api.js": "^0.22.2",
     "firebase": "^11.6.0",
-    "framer-motion": "^12.7.4",
+    "framer-motion": "^12.12.1",
     "ionicons": "^7.4.0",
     "lucide-react": "^0.488.0",
     "react": "^19.0.0",
