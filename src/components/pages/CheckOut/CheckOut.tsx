@@ -33,10 +33,11 @@ const CheckOut: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<CartItem | null>(null);
 
   useEffect(() => {
-    if (itemsToDisplay.length > 0 && !expandedItem) {
-      setExpandedItem(itemsToDisplay[0]);
-    }
-  }, [itemsToDisplay, expandedItem]);
+  if (itemsToDisplay.length > 0) {
+    setExpandedItem(itemsToDisplay[0]);
+  }
+}, [itemsToDisplay]);
+
 
   const handleIncrement = (item: CartItem) => {
     isBuyNow

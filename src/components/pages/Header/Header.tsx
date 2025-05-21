@@ -255,14 +255,7 @@ const Header: React.FC = () => {
               <h3 style={{ margin: 0, cursor: 'pointer' }} onClick={() => dispatch(setPage("home"))}>StyleSync</h3>
             </div>
 
-            {!isMobile && (
-              <div className="pro-header-search">
-                <IonInput placeholder="Search for products..." clearInput />
-                <IonButton fill="clear" size="small">
-                  <IonIcon icon={search} />
-                </IonButton>
-              </div>
-            )}
+            
 
             <div className="nav-icon">
               {!isMobile && (

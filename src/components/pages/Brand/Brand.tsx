@@ -44,7 +44,7 @@ const Brand: React.FC = () => {
           <Swiper
             loop={Brands.length > 5}
             slidesPerView={5}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            autoplay={{ delay: 500, disableOnInteraction: false }}
             modules={[Autoplay]}
             breakpoints={{
               1300: { slidesPerView: 5 },

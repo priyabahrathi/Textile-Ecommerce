@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const BrandLogo = (imageName: string) => {
-    return new URL(`../../../assets/Brand/${imageName}`, import.meta.url).href;
+    return new URL(`../../../public/assets/Brand/${imageName}`, import.meta.url).href;
   };
 
 interface Brand {
