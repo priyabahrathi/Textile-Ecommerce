@@ -66,7 +66,10 @@ const CheckOut: React.FC = () => {
             >
               ← Back
             </button>
+
       <h2>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
+     
+
       <IonGrid>
         <IonRow>
           <IonCol sizeXl="8" sizeLg="8" sizeMd="12" sizeSm="12" sizeXs="12">

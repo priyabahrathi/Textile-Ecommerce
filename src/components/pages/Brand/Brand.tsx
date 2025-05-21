@@ -27,7 +27,7 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
       ref={ref}
       initial={{ opacity: 0, y: -100 }}
       animate={controls}
-      transition={{ duration: 1.2, ease: "easeOut" }}
+      transition={{ duration: 1, ease: "easeOut" }}
 
     >{children}</motion.div>
   )
