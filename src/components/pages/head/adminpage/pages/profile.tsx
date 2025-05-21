@@ -73,6 +73,14 @@ const ProfilePage: React.FC = () => {
                         </span>
                     </div>
                 </div>
+                <div className='logout'>
+                    <button className="logout-button" onClick={() => {
+                        localStorage.removeItem('adminUserId');
+                        window.location.href = '/admin';
+                    }}>
+                        Logout
+                    </button>
+                </div>
             </div>
             {/* Stats */}
             <div className="profile-stats">
@@ -132,6 +140,7 @@ const ProfilePage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            
         </div>
     );
 };
