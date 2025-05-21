@@ -61,10 +61,10 @@ const Header: React.FC = () => {
     name: string;
     price: number;
     quantity: number;
-    
+
     size?: string;
-  img?: string; // ✅ Add this
-  images?: string[];
+    img?: string; // ✅ Add this
+    images?: string[];
   }
 
   const cartItems = useSelector((state: any) => state.cart?.items || []);
@@ -233,12 +233,17 @@ const Header: React.FC = () => {
           boxShadow: "0 -2px 4px rgba(0,0,0,0.05)"
         }}>
           <IonButton
-            expand="block"
-            disabled={cartItems.length === 0}
-            onClick={() => history.push('/checkout')}
+            onClick={() => {
+              history.push('/checkout');
+              dispatch(setPage("checkout"));
+            }}
+            expand="full"
+            fill="solid"
           >
             Proceed ({cartCount} items)
           </IonButton>
+
+
         </div>
       </IonMenu>
 

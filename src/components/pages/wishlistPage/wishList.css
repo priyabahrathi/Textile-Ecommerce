@@ -1,0 +1,116 @@
+.wishlist-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #222;
+}
+
+/* Empty wishlist styling */
+.empty-wishlist {
+  text-align: center;
+  color: #777;
+  margin-top: 5rem;
+}
+
+.empty-wishlist ion-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-wishlist p {
+  font-size: 1.1rem;
+  margin: 0.25rem 0;
+}
+
+/* Grid of wishlist cards */
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Individual product card */
+.wishlist-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.wishlist-card:hover {
+  box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
+}
+
+/* Product image */
+.wishlist-img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+/* Info below image */
+.wishlist-info {
+  padding: 0.75rem 1rem 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.25rem;
+  color: #333;
+  flex-grow: 1;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #008000;
+  margin-bottom: 0.75rem;
+}
+
+/* Action buttons container */
+.wishlist-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Clear button (heart icon) */
+.wishlist-actions ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  --min-width: 36px;
+  --border-radius: 50%;
+  --background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.wishlist-actions ion-button:hover {
+  background-color: #fdecea;
+}
+
+/* Add to cart button */
+.wishlist-actions ion-button[color="primary"] {
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.wishlist-actions ion-button[color="primary"]:hover {
+  background-color: #0053a6;
+  color: #fff;
+}
