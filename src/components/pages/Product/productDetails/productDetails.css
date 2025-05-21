@@ -255,6 +255,7 @@
   cursor: pointer;
   color: #ff5722;
   transition: color 0.2s;
+  z-index: 1001;
 }
 .close-btn:hover {
   color: #d84315;

@@ -397,49 +397,7 @@ const Tryon: React.FC<TryOnProps> = ({
               <IonCol size="12">
                 <h3 className="suggestion-heading">Here, Some Suggestions for You</h3>
                 <IonGrid>
-                  <div className="predictor-container">
-                    <IonList className="input-list">
-                      <IonItem className="input-item">
-                        <IonInput
-                          className="input-field"
-                          label="Height"
-                          labelPlacement="floating"
-                          type="number"
-                          placeholder="Enter height in cm"
-                          value={height}
-                          onIonChange={(e) => setHeight(parseFloat(e.detail.value!))}
-                        />
-                      </IonItem>
-                      <IonItem className="input-item">
-                        <IonInput
-                          className="input-field"
-                          label="Weight"
-                          labelPlacement="floating"
-                          type="number"
-                          placeholder="Enter weight in kg"
-                          value={weight}
-                          onIonChange={(e) => setWeight(parseFloat(e.detail.value!))}
-                        />
-                      </IonItem>
-                      <IonItem className="input-item">
-                        <IonInput
-                          className="input-field"
-                          label="Chest Size"
-                          labelPlacement="floating"
-                          type="number"
-                          placeholder="Enter chest in cm"
-                          value={chest}
-                          onIonChange={(e) => setChest(parseFloat(e.detail.value!))}
-                        />
-                      </IonItem>
-                    </IonList>
-
-                    {shirtSize && (
-                      <IonText color="primary" className="result-text">
-                        <h2>Predicted Size: {shirtSize}</h2>
-                      </IonText>
-                    )}
-                  </div>
+                  
                   <IonRow>
                     {filteredSuggestions.map(product => (
                       <IonCol size="12" sizeMd="12" sizeLg="6" key={product.id}>

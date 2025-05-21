@@ -98,7 +98,7 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
         <div className="product-info">
-          <h2>{selectedProduct.name}</h2>
+          <h2 style={{textAlign:'left'}}>{selectedProduct.name}</h2>
           <div className="price-rating">
             <span className="price">&#8377;{selectedProduct.price}</span>
             <span className="rating">★★★★☆ (4.2)</span>
