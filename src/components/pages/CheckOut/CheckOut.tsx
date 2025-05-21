@@ -148,10 +148,10 @@ const CheckOut: React.FC = () => {
                                 <p className='empty-msg'>Your cart is empty.</p>
                             ) : (
                                 <div className="buy-data">
-                                    {cartItems.map((item: BuyItem) => (
+                                    {cartItems.map((item: CartItem) => (
                                         <div
                                             className="buy-item"
-                                            key={item.id}
+                                            key={item.id + (item.size || '')}
                                             onClick={() => setExpandedItem(item)}
                                         >
                                             <img src={item.img || '/fallback.jpg'} alt={item.name} className="buy-img" />
@@ -160,12 +160,12 @@ const CheckOut: React.FC = () => {
                                             <div className="quantity-controls buy-name">
                                                 <button onClick={(e) => {
                                                     e.stopPropagation();
-                                                    dispatch(decreaseQuantity(item.id));
+                                                    dispatch(decrementQuantity({ id: item.id, size: item.size }));
                                                 }} className='buy-name id-btn'>-</button>
                                                 <span>{item.quantity}</span>
                                                 <button onClick={(e) => {
                                                     e.stopPropagation();
-                                                    dispatch(increaseQuantity(item.id));
+                                                    dispatch(incrementQuantity({ id: item.id, size: item.size }));
                                                 }} className='buy-name id-btn'>+</button>
                                             </div>
                                             <p className='buy-name'>Subtotal: ₹{(item.price * item.quantity).toFixed(2)}</p>
@@ -173,7 +173,7 @@ const CheckOut: React.FC = () => {
                                                 className="remove-btn"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    dispatch(removeFromCart(item.id));
+                                                    dispatch(removeFromCart({ id: item.id, size: item.size }));
                                                 }}
                                             >Remove</button>
                                         </div>
@@ -188,12 +188,12 @@ const CheckOut: React.FC = () => {
                         {/* Expanded Product View */}
                         {expandedItem && (
                             <div className="expanded-card">
-                                <h3 className='preview-title' >{expandedItem.name}</h3>
-                                <img src={expandedItem.img} alt={expandedItem.name} className="expanded-img" />
+                                <h3 className='preview-title' >{expandedItem!.name}</h3>
+                                <img src={expandedItem!.img} alt={expandedItem!.name} className="expanded-img" />
                                 <div className='preview-data'>
-                                    <p><strong>Price:</strong> ₹{expandedItem.price}</p>
-                                    <p><strong>Quantity:</strong> {expandedItem.quantity}</p>
-                                    <p><strong>Total:</strong> ₹{(expandedItem.price * expandedItem.quantity).toFixed(2)}</p>
+                                    <p><strong>Price:</strong> ₹{expandedItem!.price}</p>
+                                    <p><strong>Quantity:</strong> {expandedItem!.quantity}</p>
+                                    <p><strong>Total:</strong> ₹{(expandedItem!.price * expandedItem!.quantity).toFixed(2)}</p>
                                 </div>
                                 <button onClick={() => setExpandedItem(null)} className="close-expanded-btn">Close</button>
                             </div>
