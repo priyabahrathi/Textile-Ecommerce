@@ -51,13 +51,21 @@ const ManageProduct: React.FC = () => {
         }));
     };
 
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files && e.target.files[0];
-        if (file) {
-            const url = URL.createObjectURL(file);
-            setProduct(prev => ({ ...prev, img: url }));
-            setImgPreview(url);
-        }
+   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64String = reader.result as string;
+            setProduct(prev => ({ ...prev, img: base64String }));
+            setImgPreview(base64String);
+        };
+        reader.readAsDataURL(file); // This converts to Base64
+    }
+};
+    const handleImageRemove = () => {
+        setProduct((prev) => ({ ...prev, img: "" }));
+        setImgPreview("");
     };
 
     const handleSubmit = (e: React.FormEvent) => {
