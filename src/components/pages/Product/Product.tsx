@@ -115,7 +115,7 @@ const Product: React.FC = () => {
   return (
     <>
       <div className="product-page">
-        {/* <Header /> */}
+        <Header />
         <div id="product-section" className="page-product">
 
           <div className='product-head'>

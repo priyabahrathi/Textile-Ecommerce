@@ -27,8 +27,9 @@ const Master: React.FC = () => {
       {/* <Header /> */}
       {currentPage === "wishlist" ? (
         <WishList />
-      ) 
-      : currentPage === "productDetails" ? (
+      ) : currentPage === "products" ? (
+        <Product />
+      ) : currentPage === "productDetails" ? (
         <ProductDetail />
       ) : currentPage === "arrival" ? (
         <Arrival />
@@ -47,7 +48,7 @@ const Master: React.FC = () => {
       (
         <>
           <Hero />
-          <Product />
+          {/* <Arrival /> */}
           <Brand />
           <Footer />
         </>
