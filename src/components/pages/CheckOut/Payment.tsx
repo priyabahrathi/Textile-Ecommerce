@@ -64,7 +64,19 @@ const Payment: React.FC = () => {
       <h2 className='payment-head'>Payment</h2>
       <IonGrid>
         <IonRow>
-          <IonCol sizeMd="8">
+          <IonCol sizeXl='6' sizeLg='6' sizeMd="12" sizeSm="12">
+            <div className="summary">
+              <h3 className='summary-head'>Order Summary</h3>
+              {itemsToPay.map(item => (
+                <div key={item.id}>
+                  <p>{item.name} × {item.quantity}</p>
+                </div>
+              ))}
+              <hr />
+              <h4>Total: ₹{totalPrice.toFixed(2)}</h4>
+            </div>
+          </IonCol>
+          <IonCol sizeXl='6' sizeLg='6' sizeMd="12" sizeSm="12">
             <form className="payment-form" onSubmit={handlePaymentSubmit}>
 
               <input type="text" name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
@@ -92,18 +104,7 @@ const Payment: React.FC = () => {
             </form>
           </IonCol>
 
-          <IonCol sizeMd="4">
-            <div className="summary">
-              <h3>Order Summary</h3>
-              {itemsToPay.map(item => (
-                <div key={item.id}>
-                  <p>{item.name} × {item.quantity}</p>
-                </div>
-              ))}
-              <hr />
-              <h4>Total: ₹{totalPrice.toFixed(2)}</h4>
-            </div>
-          </IonCol>
+          
         </IonRow>
       </IonGrid>
     </div>

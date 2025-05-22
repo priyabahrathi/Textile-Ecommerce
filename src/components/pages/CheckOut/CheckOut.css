@@ -5,20 +5,85 @@
 .buy-container {
     box-shadow: 0px 0px 5px #a1a09f;
     border-radius: 15px;
-    max-height: 580px;
+    max-height: 500px;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-.buy-container::-webkit-scrollbar {
-  display: none;             /* Chrome, Safari, and Opera */
+.cart-header{
+  position: relative;
+
 }
-.checkout-head{
+.buy-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
+}
+
+.checkout-head {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 40px;
     font-weight: bold;
     text-align: center;
     color: #3A3E6C;
+}
+
+.buy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.buy-table-head{
+    position: sticky;
+  top: 0;
+  background-color: #fff; /* match your background */
+  z-index: 1;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.buy-table-body{
+
+}
+
+.buy-table thead th {
+    border-bottom: 1px solid #3A3E6C;
+
+}
+
+.buy-table th,
+.buy-table td {
+    padding: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.buy-table th {
+    font-weight: bold;
+    color: #3A3E6C;
+
+
+}
+
+.quantity-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id-btn {
+    padding: 4px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .buy-item {
@@ -30,8 +95,12 @@
 }
 
 .buy-img {
-    width: 100px;
-    height: auto;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+
 }
 
 .buy-name {
@@ -42,11 +111,11 @@
 
 .quantity-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     width: 100px;
     box-shadow: 0px 0px 5px #a1a09f;
     border-radius: 10px;
+    align-items: center;
 
 }
 
@@ -72,17 +141,21 @@
     justify-content: center;
     text-align: center;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 15px;
     width: 100%;
-    height: 100%;
+    height: 500px;
     box-sizing: border-box;
+    box-shadow: 0px 0px 5px #a1a09f;
+    
 }
+    
+    
 
 .total {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
-    color: #045806;
+    color: #3A3E6C;
 }
 
 .checkout-btn {
@@ -90,12 +163,12 @@
     font-size: 20px;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color:#3A3E6C;
+    color: #ffffff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-
+    font-weight: bold;
 }
 
 .empty-msg {
@@ -107,45 +180,38 @@
 }
 
 .expanded-card {
-    padding: 20px;
+    padding: 15px;
     border: 0px solid;
     animation: fadeIn 0.3s ease-in-out;
-    box-shadow: 0px 0px 5px #a1a09f;
     border-radius: 15px;
+    box-shadow: 0px 0px 5px #a1a09f;
 }
 
-.preview-title {
+.expanded-name {
     text-align: center;
     font-weight: bold;
+    color: #3A3E6C;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.preview-data {
+.expanded-details {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
-    border-radius: 12px;
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-
+    color: #3A3E6C;
 }
 
 .close-expanded-btn {
-    padding: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    padding: 10px;
     border-radius: 12px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     background-color: #ff5c5c;
     color: white;
@@ -174,4 +240,30 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+@media screen and (max-width: 768px) {
+    .buy-container {
+        max-height: 400px;
+    }
+
+    .buy-table th,
+    .buy-table td {
+        font-size: 14px;
+    }
+
+    .checkout-head {
+        font-size: 30px;
+        
+    }
+
+    .card-total {
+        width: 100%;
+        height: auto;
+    }
+
+    .checkout-btn {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+    
 }
