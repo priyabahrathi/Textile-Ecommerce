@@ -16,7 +16,11 @@ import {
   IonButtons,
   IonContent,
   IonList,
-  IonItem
+  IonItem,
+  IonMenu,
+  IonSelect,
+  IonSelectOption,
+  IonCheckbox
 } from '@ionic/react';
 import { closeOutline, ellipsisVertical, heart } from "ionicons/icons";
 import { cart, searchOutline, options, star } from 'ionicons/icons';
@@ -55,12 +59,13 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products);
-  const [genderFilter, setGenderFilter] = useState('');
+  const [genderFilter, setGenderFilter] = useState<'male' | 'female' | 'both'>('both');
 
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+
   const [filteredItems, setFilteredItems] = useState(Products);
   const selectedProduct = useSelector((state: RootState) => (state.selectedProduct as { product: any }).product);
   const [presentingEl, setPresentingEl] = useState<HTMLElement | null>(null);
@@ -97,13 +102,14 @@ const Product: React.FC = () => {
       checked ? [...prev, category] : prev.filter((c) => c !== category)
     );
   };
-  const handleCheckBoxMultiple = (selected: string[]) => {
-    setSelectedCategory(selected);
+  const handleCheckBoxMultiple = (values: string[]) => {
+    setSelectedCategory(values);
   };
+
 
   const applyFilter = () => {
     const result = Products.filter((product) => {
-      const matchGender = genderFilter === '' || product.gender === genderFilter; // Include all genders if genderFilter is empty
+      const matchGender = genderFilter === 'both' || product.gender === genderFilter; // Include all genders if genderFilter is empty
       const matchSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchPrice = product.price >= lower && product.price <= upper;
       const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(product.category);
@@ -114,32 +120,139 @@ const Product: React.FC = () => {
 
   return (
     <>
-      <div className="product-page">
+      <div className="filter-sideMenu">
+        <IonMenu side="start" menuId="filterMenu" contentId="main-content"
+          onIonDidOpen={() => {
+            const scrollBarCompensation = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollBarCompensation}px`; // Prevent layout shift
+          }}
+
+          onIonDidClose={() => {
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '0px'; // Reset padding
+          }}>
+
+                <IonHeader>
+          <IonToolbar color="light">
+            <IonTitle>Filters</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            <IonItem lines="none">
+              <IonLabel className="ion-padding-bottom">Category</IonLabel>
+            </IonItem>
+            {['Formals', 'Casuals', 'Ocassions', 'Sports', 'Wedding'].map((category) => (
+              <IonItem key={category}>
+                <IonCheckbox
+                  slot="start"
+                  checked={selectedCategory.includes(category)}
+                  onIonChange={(e) => handleCheckBox(category, e.detail.checked)}
+                />
+                <IonLabel>{category}</IonLabel>
+              </IonItem>
+            ))}
+            <IonItem>
+              <IonButton
+                expand="block"
+                color="medium"
+                onClick={() => {
+                  // Select all
+                  handleCheckBoxMultiple(['Formals', 'Casuals', 'Ocassions', 'Sports', 'Wedding']);
+                }}
+              >
+                Select All
+              </IonButton>
+            </IonItem>
+            <IonItem>
+              <IonButton
+                expand="block"
+                color="medium"
+                onClick={() => {
+                  // Clear all
+                  handleCheckBoxMultiple([]);
+                }}
+              >
+                Clear All
+              </IonButton>
+            </IonItem>
+
+            <IonItem>
+              <div className="card-range">
+                {/* <h1 className="range-title">Price Range</h1> */}
+                <IonRange
+                  dualKnobs={true}
+                  min={500}
+                  max={5000}
+                  value={{ lower, upper }}
+                  onIonChange={handleRangeChange}
+                  style={{
+                    '--bar-background': '#F5CBA7',
+                    '--bar-background-active': '#E59866',
+                    '--knob-background': '#E59866',
+                    '--pin-background': '#F5CBA7'
+                  }}
+                />
+                <div className="range-values">
+                  <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
+                  <IonLabel>Max Price: {upper}</IonLabel>
+                </div>
+              </div>
+            </IonItem>
+            <IonItem>
+              <IonButton expand="block" color="primary">Apply Filters</IonButton>
+            </IonItem>
+          </IonList>
+        </IonContent>
+      </IonMenu>
+
+
+    </div >
+
+      <div id="main-content" className="product-page">
         <Header />
         <div id="product-section" className="page-product">
+          <div className="product-header">
+            <div className="filter-sideMenu">
 
-          <div className='product-head'>
-            {/* <span>Find Your Match</span> */}
-            <div className="gender-toggle">
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={genderFilter === 'female'}
-                  onChange={() =>
-                    setGenderFilter((prev) =>
-                      prev === '' ? 'male' : prev === 'male' ? 'female' : 'male'
-                    )
-                  }
-                />
-                <span className="slider"></span>
-              </label>
-              <span className="gender-label">
-                {genderFilter === '' ? 'Both' : genderFilter === 'male' ? 'Male' : 'Female'}
-              </span>
+
+              <IonButton
+                className="filter-button"
+                onClick={() => (document.querySelector('ion-menu[menu-id="filterMenu"]') as HTMLIonMenuElement)?.open()}
+
+                fill="clear"
+                slot="start"
+                color="dark"
+              >
+                <IonIcon icon={options} />
+              </IonButton>
+            </div>
+
+            <div className="gender-selection-btn">
+              {[
+                { label: 'All', value: 'both', img: '/assets/btn-img/both.png' },
+                { label: 'Male', value: 'male', img: '/assets/btn-img/male.png' },
+                { label: 'Female', value: 'female', img: '/assets/btn-img/woman.png' },
+              ].map((option) => (
+                <div
+                  key={option.value}
+                  className={`gender-button ${genderFilter === option.value ? 'selected' : ''}`}
+                  onClick={() => setGenderFilter(option.value as 'male' | 'female' | 'both')}
+                >
+                  <div className="circle-button">
+                    <img src={option.img} alt={option.label} className="gender-icon" />
+                  </div>
+                  <div className="gender-label">{option.label}</div>
+                </div>
+              ))}
             </div>
           </div>
+
+
+
           <IonGrid>
-            <IonRow>
+            {/* <IonRow>
               <IonCol>
                 <div className="card-search">
                   <div className="search-bar">
@@ -153,93 +266,55 @@ const Product: React.FC = () => {
                   </div>
                 </div>
               </IonCol>
-              <IonCol>
-                <div className="card-range">
-                  {/* <h1 className="range-title">Price Range</h1> */}
-                  <IonRange
-                    dualKnobs={true}
-                    min={500}
-                    max={5000}
-                    value={{ lower, upper }}
-                    onIonChange={handleRangeChange}
-                    style={{
-                      '--bar-background': '#F5CBA7',
-                      '--bar-background-active': '#E59866',
-                      '--knob-background': '#E59866',
-                      '--pin-background': '#F5CBA7'
-                    }}
-                  />
-                  <div className="range-values">
-                    <IonLabel className='range-value'>Min Price: {lower}</IonLabel>
-                    <IonLabel>Max Price: {upper}</IonLabel>
-                  </div>
-                </div>
-              </IonCol>
-              <IonCol>
-                <div className="card-filter">
-                  <select
-                    value={selectedCategory[0] || ""}
-                    onChange={(e) => handleCheckBoxMultiple([e.target.value])}
-                    className="category-select search-input"
-                  >
-                    <option value="" disabled>Select a category</option>
-                    {['Formals', 'Casuals', 'Ocassions'].map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-
-
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              
-                
-                  {filteredItems.length > 0 ? (
-                    filteredItems.map((product) => (
-                      <IonCol className="ion-padding" sizeXs="6" sizeSm="6" sizeMd="4" sizeLg='3' sizeXl='3' key={product.id}>
-                        <MotionCard>
-                          <div
-                            className="product-card"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                              dispatch(setSelectedProduct(product));
-                              dispatch(setPage("productDetails"));
-                            }}
-                          >
-                            <img className="product-image" src={product.img} />
-                            <IonCardContent className="data">
-                              <div className="product-data">
-                                <div className="product-title">{product.name}</div>
-                                <div className="product-price">&#8377;{product.price}</div>
-                              </div>
-                              <p className="product-category">{product.category}</p>
-                              <div className="rate-buy">
-                                <div className="ratings">
-                                  {[...Array(5)].map((_, i) => (
-                                    <IonIcon key={i} icon={star} className="buy-button" />
-                                  ))}
-                                </div>
-                                <button
-                                  className={`add-to-wishlist`}
-                                  onClick={() => dispatch(addToWishlist(product))}
-                                >
-                                  <IonIcon icon={heart} />
-                                </button>
-                              </div>
-                            </IonCardContent>
-                          </div>
-                        </MotionCard>
-                      </IonCol>
-                    ))
-                  ) : (
-                    <IonCol size="12"><p>No products found.</p></IonCol>
-                  )}
-                
              
+
+              
+            </IonRow> */}
+            <IonRow>
+
+
+              {filteredItems.length > 0 ? (
+                filteredItems.map((product) => (
+                  <IonCol className="ion-padding" sizeXs="6" sizeSm="6" sizeMd="4" sizeLg='3' sizeXl='3' key={product.id}>
+                    <MotionCard>
+                      <div
+                        className="product-card"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          dispatch(setSelectedProduct(product));
+                          dispatch(setPage("productDetails"));
+                        }}
+                      >
+                        <img className="product-image" src={product.img} />
+                        <IonCardContent className="data">
+                          <div className="product-data">
+                            <div className="product-title">{product.name}</div>
+                            <div className="product-price">&#8377;{product.price}</div>
+                          </div>
+                          <p className="product-category">{product.category}</p>
+                          <div className="rate-buy">
+                            <div className="ratings">
+                              {[...Array(5)].map((_, i) => (
+                                <IonIcon key={i} icon={star} className="buy-button" />
+                              ))}
+                            </div>
+                            <button
+                              className={`add-to-wishlist`}
+                              onClick={() => dispatch(addToWishlist(product))}
+                            >
+                              <IonIcon icon={heart} />
+                            </button>
+                          </div>
+                        </IonCardContent>
+                      </div>
+                    </MotionCard>
+                  </IonCol>
+                ))
+              ) : (
+                <IonCol size="12"><p>No products found.</p></IonCol>
+              )}
+
+
 
               {/* Sidebar */}
               {/* <IonCol className="sidebar" sizeMd="12" size="12" sizeLg="12" sizeXl="4">

@@ -17,11 +17,16 @@ interface Product {
 interface ProductState {
   Products: Product[];
   genderFilter: string; // ✅ Add this line
+  categoryFilter: string;        // ✅ Add this
+  subcategoryFilter: string;
 }
 
 const initialState: ProductState = {
   Products: [],
   genderFilter: '', // ✅ Default empty value
+  categoryFilter: '',      
+  subcategoryFilter: '',  
+    
 };
 
 // Async thunk to fetch data

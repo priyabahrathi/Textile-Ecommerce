@@ -19,6 +19,7 @@ export const store = configureStore({
     selectedProduct: selectedProductReducer,
     buy:buyReducer,
     cart: cartReducer, // <-- Add this line
+    
   },
 });
 

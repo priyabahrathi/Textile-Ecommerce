@@ -444,28 +444,70 @@ overflow-y: auto;
   .inline-modal-body {
     margin-top: 1rem;
   }
-  
-  
-
-.gender-toggle {
-
+ .product-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-left: 0; /* Align to the left */
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  gap: 16px;
 }
 
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
+
+/* Place filter button on the left */
+.filter-sideMenu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+/* Center the gender buttons */
+.gender-selection-btn {
+  flex: 20;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.gender-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.circle-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  border: 3px solid transparent;
+  overflow: hidden;
+}
+
+.gender-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.gender-label {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.gender-button.selected .circle-button {
+  border-color: #e67e22;
+  background-color: #fcecdc;
 }
 
 .slider {
