@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import './Payment.css';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
-import { clearBuy } from '../../../Store/Slice/checkout'; 
-import { setPage } from '../../../Store/Slice/pageSlice'; 
+import { clearBuy } from '../../../Store/Slice/checkout';
+import { setPage } from '../../../Store/Slice/pageSlice';
 import { getDatabase, ref, push } from 'firebase/database';
 
 const Payment: React.FC = () => {
@@ -25,61 +25,64 @@ const Payment: React.FC = () => {
     email: '',
     phone: '',
     address: '',
-    paymentMethod: 'cod', // cod, upi, card
+    paymentMethod: '', // cod, upi, card
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handlePaymentSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const order = {
-    userName: form.name,
-    productName: itemsToPay.map(item => item.name).join(', '), // combine if multiple items
-    quantity: itemsToPay.reduce((sum, item) => sum + item.quantity, 0),
-    price: itemsToPay.reduce((sum, item) => sum + item.price * item.quantity, 0),
-    status: 'Pending',
-    date: new Date().toISOString().split('T')[0],
-    email: form.email,
-    phone: form.phone,
+    const order = {
+      userName: form.name,
+      productName: itemsToPay.map(item => item.name).join(', '), // combine if multiple items
+      quantity: itemsToPay.reduce((sum, item) => sum + item.quantity, 0),
+      price: itemsToPay.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      status: 'Pending',
+      date: new Date().toISOString().split('T')[0],
+      email: form.email,
+      phone: form.phone,
+    };
+
+    try {
+      const db = getDatabase(); // Ensure Firebase is initialized
+      await push(ref(db, 'orders'), order); // 'orders' is the collection path in Realtime DB
+
+      alert('Payment submitted and order stored successfully!');
+      dispatch(clearBuy());
+      dispatch(setPage('products'));
+    } catch (error) {
+      console.error('Firebase error:', error);
+      alert('Something went wrong while submitting the order.');
+    }
   };
-
-  try {
-    const db = getDatabase(); // Ensure Firebase is initialized
-    await push(ref(db, 'orders'), order); // 'orders' is the collection path in Realtime DB
-
-    alert('Payment submitted and order stored successfully!');
-    dispatch(clearBuy());
-    dispatch(setPage('products'));
-  } catch (error) {
-    console.error('Firebase error:', error);
-    alert('Something went wrong while submitting the order.');
-  }
-};
 
   return (
     <div className="payment-page">
-      <h2>Payment</h2>
+      <h2 className='payment-head'>Payment</h2>
       <IonGrid>
         <IonRow>
           <IonCol sizeMd="8">
             <form className="payment-form" onSubmit={handlePaymentSubmit}>
-              <label>Name:</label>
-              <input type="text" name="name" value={form.name} onChange={handleInputChange} required />
 
-              <label>Email:</label>
-              <input type="email" name="email" value={form.email} onChange={handleInputChange} required />
+              <input type="text" name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
 
-              <label>Phone:</label>
-              <input type="tel" name="phone" value={form.phone} onChange={handleInputChange} required />
 
-              <label>Address:</label>
-              <textarea name="address" value={form.address} onChange={handleInputChange} required />
+              <input type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
 
-              <label>Payment Method:</label>
+
+              <input type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
+
+
+              <textarea name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
+
+              
               <select name="paymentMethod" value={form.paymentMethod} onChange={handleInputChange}>
+                <option value="" disabled hidden>
+                  Select a payment method
+                </option>
                 <option value="cod">Cash on Delivery</option>
                 <option value="upi">UPI</option>
                 <option value="card">Credit/Debit Card</option>

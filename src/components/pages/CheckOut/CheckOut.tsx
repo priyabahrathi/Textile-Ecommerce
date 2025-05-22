@@ -13,8 +13,9 @@ import {
   removeFromCart as removeFromBuy,
 } from '../../../Store/Slice/checkout';
 import './CheckOut.css';
-import { IonCol, IonGrid, IonRow } from '@ionic/react';
+import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
 import { setPage } from '../../../Store/Slice/pageSlice';
+import { closeCircle } from 'ionicons/icons';
 
 const CheckOut: React.FC = () => {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const CheckOut: React.FC = () => {
               ← Back
             </button>
 
-      <h2>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
+      <h2 className='checkout-head'>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
      
 
       <IonGrid>
@@ -129,7 +130,7 @@ const CheckOut: React.FC = () => {
                           handleRemove(item);
                         }}
                       >
-                        Remove
+                        <IonIcon icon={closeCircle} />
                       </button>
                     </div>
                   ))}
