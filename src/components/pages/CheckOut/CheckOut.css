@@ -1,138 +1,104 @@
 .cart-page {
     padding: 20px;
 }
-
-.buy-container {
-    box-shadow: 0px 0px 5px #a1a09f;
-    border-radius: 15px;
-    max-height: 500px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 10px; 
 }
-.cart-header{
-  position: relative;
-
-}
-.buy-container::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, and Opera */
+.btn-cart {
+  background-color: #3A3E6C;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 8px 20px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkout-head {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    color: #3A3E6C;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 32px; 
+  font-weight: bold;
+  color: #3A3E6C;
+  margin: 0 auto; 
+}
+.buy-container {
+  padding: 16px;
+}
+.buy-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.buy-card {
+  width: 260px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
 }
 
-.buy-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-.buy-table-head{
-    position: sticky;
-  top: 0;
-  background-color: #fff; /* match your background */
-  z-index: 1;
-  border-bottom: 2px solid #ccc;
-  padding: 10px;
-  text-align: left;
-}
-.buy-table-body{
-
+.buy-card:hover {
+  transform: scale(1.02);
 }
 
-.buy-table thead th {
-    border-bottom: 1px solid #3A3E6C;
-
+.buy-card-details {
+  text-align: center;
 }
 
-.buy-table th,
-.buy-table td {
-    padding: 10px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-align: center;
-    vertical-align: middle;
-
-}
-
-.buy-table th {
-    font-weight: bold;
-    color: #3A3E6C;
-
-
-}
-
-.quantity-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.id-btn {
-    padding: 4px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.remove-btn {
-    background: none;
-    border: none;
-    color: red;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.buy-item {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 10px;
-
-}
 
 .buy-img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
-.buy-name {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
 
-}
 
 .quantity-controls {
-    display: flex;
-    justify-content: center;
-    width: 100px;
-    box-shadow: 0px 0px 5px #a1a09f;
-    border-radius: 10px;
-    align-items: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
 }
 
 .id-btn {
-    padding: 10px;
-    background: none;
-
+  background-color: #3A3E6C;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .remove-btn {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    color: #ff5c5c;
-    background: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 22px;
+  cursor: pointer;
 }
+
 
 .card-total {
     display: flex;
