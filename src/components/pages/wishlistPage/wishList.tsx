@@ -9,10 +9,27 @@ import { setSelectedProduct, clearSelectedProduct } from "../../../Store/Slice/s
 import { setPage } from "../../../Store/Slice/pageSlice";
 import "./wishList.css";
 import Header from "../Header/Header";
-
+import { clearWishlist } from "../../../Store/Slice/wishlistSlice"; // Import the new action
 const WishList: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
   const dispatch = useDispatch();
+  const addToCartHandler = (product: any) => {
+    dispatch(addToCart(product));
+    dispatch(setSelectedProduct(product)); // Set the selected product
+    alert("Product added to cart");
+  };
+  const handleClearWishlist = () => {
+    dispatch(clearWishlist());
+  };
+
+ 
+  function addAllToCart(wishlist: any): any {
+    wishlist.forEach((product: any) => {
+      dispatch(addToCart(product));
+    });
+    dispatch(clearSelectedProduct()); // Clear the selected product
+    alert("All products added to cart");
+  }
 
   // The getStarRating function is no longer needed for the table view
   // const getStarRating = (rating: number = 4) => {
@@ -86,7 +103,7 @@ const WishList: React.FC = () => {
                     <td>
                       <IonButton
                         fill="solid"
-                        color="primary"
+                        
                         onClick={() => dispatch(addToCart(product))}
                         aria-label="Add to cart"
                         className="add-to-cart-table-btn"
@@ -101,14 +118,25 @@ const WishList: React.FC = () => {
 
             {/* Wishlist Link and Buttons (below the table) */}
             <div className="wishlist-bottom-actions">
-              <div className="wishlist-link-share">
-                <label htmlFor="wishlist-link">Wishlist link:</label>
-                <input type="text" id="wishlist-link" value="https://www.example.com" readOnly />
-                <IonButton fill="outline" className="copy-link-btn">Copy Link</IonButton>
+              <div className="wishlist-link">
+                <IonButton
+                  fill="clear"
+                  onClick={() => dispatch(setPage("products"))}
+                  className="continue-shopping-btn"
+                >
+                  Continue Shopping
+                </IonButton>
               </div>
               <div className="action-buttons-right">
-                <IonButton fill="outline" color="danger" className="clear-wishlist-btn">Clear Wishlist</IonButton>
-                <IonButton fill="solid" color="primary" className="add-all-to-cart-btn">Add All To Cart</IonButton>
+                <IonButton
+                  fill="outline"
+                  color="danger"
+                  className="clear-wishlist-btn"
+                  onClick={handleClearWishlist} // Attach the new function here
+                >
+                  Clear Wishlist
+                </IonButton>
+                <IonButton fill="solid"  className="add-all-to-cart-btn" onClick={() => dispatch(addAllToCart(wishlist))}>Add All To Cart</IonButton>
               </div>
             </div>
           </div>
