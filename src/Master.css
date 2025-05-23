@@ -1,4 +1,15 @@
 
+.no-scroll #main-content {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+.body-no-scroll {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width);
+}
+
 ion-app{
     overflow-y: auto;
 }

@@ -1,13 +1,25 @@
-// Store/Slice/wishlistSlice.ts
+// src/Store/Slice/wishlistSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// Assuming your Product interface is defined and imported or available globally
+// import { Product } from '../../components/pages/Product/Product'; // Example import if Product is not global
 
+// Define the Product interface here if it's not imported from a central types file
 interface Product {
   id: string;
   name: string;
   price: number;
+  category: string;
   img: string;
-  size?: string;
-  [key: string]: any;
+  gender: 'male' | 'female' | 'both';
+  rating?: number;
+  isNew?: boolean;
+  stock: number;
+  fabricType?: string;
+  dressStyle?: string;
+  occasion?: string;
+  colors?: string[];
+  dateAdded?: string; // Add this if you're using it in the wishlist table
+  stockStatus?: string; // Add this if you're using it in the wishlist table
 }
 
 interface WishlistState {
@@ -22,17 +34,25 @@ const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState,
   reducers: {
-    addToWishlist: (state, action: PayloadAction<Product>) => {
-      const exists = state.items.find(item => item.id === action.payload.id && item.size === action.payload.size);
-      if (!exists) {
-        state.items.push(action.payload);
+    toggleWishlist: (state, action: PayloadAction<Product>) => {
+      const product = action.payload;
+      const existingItem = state.items.find(item => item.id === product.id);
+
+      if (existingItem) {
+        state.items = state.items.filter(item => item.id !== product.id);
+      } else {
+        state.items.push(product);
       }
     },
     removeFromWishlist: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);
     },
+    // NEW REDUCER: Clears all items from the wishlist
+    clearWishlist: (state) => {
+      state.items = [];
+    },
   },
 });
 
-export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { toggleWishlist, removeFromWishlist, clearWishlist } = wishlistSlice.actions; // Export the new action
 export default wishlistSlice.reducer;

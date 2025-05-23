@@ -20,7 +20,7 @@
 /* Container Styling */
 .container {
     
-    background: #dd8a5283; /* Light transparent background */
+    background: #a7aad3; /* Light transparent background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border-radius: 10px;
@@ -41,7 +41,7 @@
 
 .nav-item h3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: #d45907;
+    color: #3A3E6C;
     margin: 0;
     font-weight: 700;
     font-size: 2.6rem;
@@ -314,7 +314,7 @@
 
 .nav-icon ion-button {
     --background: transparent;
-    --color: #d45907;
+    --color: #3A3E6C;
     font-size: 1.7rem;
     border-radius: 50%;
     transition: background 0.2s;
@@ -329,9 +329,10 @@
 
 .nav-icon ion-icon {
     font-size: 1.7rem;
-    color: #d45907;
+    color: #3A3E6C;
     transition: color 0.2s;
 }
+
 
 @media screen and (max-width: 1057px) {
     .container{

@@ -5,23 +5,37 @@ import { ref, onValue } from 'firebase/database';
 
 interface Product {
   id: string;
-  skinTone: any;
+  // Keep skinTone if it's a property in your Firebase product data and relevant for dresses
+  // skinTone: any; // Consider making this more specific if possible (e.g., string)
   name: string;
   price: number;
   category: string;
   img: string;
-  gender: string; // ✅ Add this line
-  outfitType?: string; // Optional if you use it elsewhere
+  gender: 'male' | 'female' | 'both'; // Correct type to match Product.tsx
+  // outfitType?: string; // Keep this if you use it, or remove if not needed
+
+  // NEW PROPERTIES TO ADD/UPDATE FROM Product.tsx:
+  rating?: number;       // Add this if your products have a rating
+  isNew?: boolean;       // Add this if your products have an 'isNew' flag
+  stock: number;         // Crucial: This was the missing property causing the error
+  fabricType?: string;   // Add this for fabric filtering
+  dressStyle?: string;   // Add this for dress style filtering
+  occasion?: string;     // Add this for occasion filtering
+  colors?: string[];     // Add this for color filtering (array of strings)
 }
 
 interface ProductState {
   Products: Product[];
-  genderFilter: string; // ✅ Add this line
+  genderFilter: string;
+  categoryFilter: string;
+  subcategoryFilter: string;
 }
 
 const initialState: ProductState = {
   Products: [],
-  genderFilter: '', // ✅ Default empty value
+  genderFilter: '',
+  categoryFilter: '',
+  subcategoryFilter: '',
 };
 
 // Async thunk to fetch data
