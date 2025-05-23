@@ -64,47 +64,64 @@ const Payment: React.FC = () => {
       <h2 className='payment-head'>Payment</h2>
       <IonGrid>
         <IonRow>
-          <IonCol sizeXl='6' sizeLg='6' sizeMd="12" sizeSm="12">
+          <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
             <div className="summary">
               <h3 className='summary-head'>Order Summary</h3>
               {itemsToPay.map(item => (
-                <div key={item.id}>
-                  <p>{item.name} × {item.quantity}</p>
+                <div className='item-list' key={item.id}>
+                  <p>{item.name}</p>
+                  <p className='bill-item'>  x {item.quantity}</p>
                 </div>
               ))}
               <hr />
-              <h4>Total: ₹{totalPrice.toFixed(2)}</h4>
+              <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
             </div>
           </IonCol>
-          <IonCol sizeXl='6' sizeLg='6' sizeMd="12" sizeSm="12">
+          <IonCol sizeXl='8' sizeLg='8' sizeMd="12" sizeSm="12" sizeXs='12'>
             <form className="payment-form" onSubmit={handlePaymentSubmit}>
 
-              <input type="text" name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
+              <div className='name-phone'>
+                <div className='break'>
+                  <label htmlFor="">Name</label>
+                  <input type="text" className='form-name' name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
+                </div>
+                <div className='break'>
+                  <label htmlFor="">Phone</label>
+                  <input type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
+                </div>
+              </div>
+              <div className='break'>
+                <label htmlFor="">Email</label>
+                <input type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
+              </div>
 
 
-              <input type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
 
 
-              <input type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
+              <div className='break'>
+                <label htmlFor="">Address</label>
+                <textarea name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
+              </div>
 
+              <div className='break'>
+                <label htmlFor="">Payment Method</label>
+                <select name="paymentMethod" className="option" value={form.paymentMethod} onChange={handleInputChange}>
+                  <option value="" disabled hidden>
+                    Select a payment method
+                  </option>
+                  <div className='option-list'>
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="upi">UPI</option>
+                    <option value="card">Credit/Debit Card</option>
+                  </div>
+                </select>
+              </div>
 
-              <textarea name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
-
-              
-              <select name="paymentMethod" value={form.paymentMethod} onChange={handleInputChange}>
-                <option value="" disabled hidden>
-                  Select a payment method
-                </option>
-                <option value="cod">Cash on Delivery</option>
-                <option value="upi">UPI</option>
-                <option value="card">Credit/Debit Card</option>
-              </select>
-
-              <button type="submit">Confirm & Pay ₹{totalPrice.toFixed(2)}</button>
+              <button className='pay-btn' type="submit">Confirm & Pay ₹{totalPrice.toFixed(2)}</button>
             </form>
           </IonCol>
 
-          
+
         </IonRow>
       </IonGrid>
     </div>

@@ -1,6 +1,101 @@
-.summary{
+.payment-page {
+    padding: 20px;
+    background: fixed;
+    background-color: #ddd;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.summary {
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0px 0px 5px #a1a09f;
     text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.summary-head {
+    font-size: 25px;
+    font-weight: bold;
+    border-bottom: 2px solid #3A3E6C;
+    padding-bottom: 15px;
+    color: #3A3E6C;
+}
+.payment-head{
+    color: #3A3E6C;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 40px;
+}
+
+.item-list {
+    font-size: 18px;
+    color: #2e2c2c;
+    display: flex;
+    padding: 0 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.pay-total {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3A3E6C;
+    padding: 15px 0;
+    border-top: 2px solid #3A3E6C;
+    border-bottom: 2px solid #3A3E6C;
+}
+
+.payment-form {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+
+input,
+textarea,
+select,
+button {
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #3A3E6C;
+    border-radius: 8px;
+
+}
+
+label {
+    color: #3A3E6C;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.option {
+    color: #3A3E6C;
+}
+
+.break {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: grey;
+}
+
+.pay-btn {
+    background-color: #3A3E6C;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
