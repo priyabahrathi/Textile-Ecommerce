@@ -536,9 +536,9 @@ const Product: React.FC = () => {
               {/* Gender Selection */}
               <div className="gender-selection-btn">
                 {[
-                  { label: 'All', value: 'both', img: '/assets/btn-img/both.png' },
-                  { label: 'Male', value: 'male', img: '/assets/btn-img/male.png' },
-                  { label: 'Female', value: 'female', img: '/assets/btn-img/woman.png' },
+                  { label: 'All', value: 'both', img: '/public/assets/btn-img/both.png' },
+                  { label: 'Male', value: 'male', img: '/public/assets/btn-img/male.png' },
+                  { label: 'Female', value: 'female', img: '/public/assets/btn-img/woman.png' },
                 ].map((option) => (
                   <div
                     key={option.value}
