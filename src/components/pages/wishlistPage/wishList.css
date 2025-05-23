@@ -7,12 +7,12 @@
 h2 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  /* margin-bottom: 1.5rem; */ /* Adjust as per new layout */
+  /* text-align: center; */ /* Adjust as per new layout */
   color: #222;
 }
 
-/* Empty wishlist styling */
+/* Empty wishlist styling - Keep as is mostly */
 .empty-wishlist {
   text-align: center;
   color: #777;
@@ -30,87 +30,226 @@ h2 {
   margin: 0.25rem 0;
 }
 
-/* Grid of wishlist cards */
-.wishlist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-/* Individual product card */
-.wishlist-card {
+/* New Table Specific Styles */
+.wishlist-table-wrapper {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
-  transition: box-shadow 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  overflow-x: auto; /* For responsive table */
 }
 
-.wishlist-card:hover {
-  box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
-}
-
-/* Product image */
-.wishlist-img {
+table {
   width: 100%;
-  object-fit: cover;
-  aspect-ratio: 1 / 1;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
 }
 
-/* Info below image */
-.wishlist-info {
-  padding: 0.75rem 1rem 1rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.product-name {
+thead th {
+  background-color: #f8f8f8;
+  text-align: left;
+  padding: 12px 15px;
   font-weight: 600;
-  font-size: 1.1rem;
-  margin: 0.5rem 0 0.25rem;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  font-size: 0.95rem;
   color: #333;
-  flex-grow: 1;
 }
 
-.product-price {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #008000;
-  margin-bottom: 0.75rem;
+tbody tr:last-child td {
+  border-bottom: none;
 }
 
-/* Action buttons container */
-.wishlist-actions {
+.product-info-cell {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 15px;
 }
 
-/* Clear button (heart icon) */
-.wishlist-actions ion-button {
-  --padding-start: 0;
-  --padding-end: 0;
-  --min-width: 36px;
-  --border-radius: 50%;
-  --background: transparent;
-  transition: background-color 0.3s ease;
+.wishlist-table-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.wishlist-actions ion-button:hover {
-  background-color: #fdecea;
+.product-name-table {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  color: #333;
 }
 
-/* Add to cart button */
-.wishlist-actions ion-button[color="primary"] {
-  flex-grow: 1;
+.product-category-table {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+.remove-from-wishlist-icon {
+  font-size: 1.2rem;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.remove-from-wishlist-icon:hover {
+  color: #e74c3c; /* Red for removal */
+}
+
+.stock-status-cell .in-stock {
+  color: #28a745; /* Green */
   font-weight: 600;
 }
 
-.wishlist-actions ion-button[color="primary"]:hover {
-  background-color: #0053a6;
+.stock-status-cell .out-of-stock {
+  color: #dc3545; /* Red */
+  font-weight: 600;
+}
+
+.add-to-cart-table-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Wishlist bottom actions */
+.wishlist-bottom-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.wishlist-link-share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wishlist-link-share label {
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+}
+
+.wishlist-link-share input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #333;
+  min-width: 200px;
+}
+
+.wishlist-link-share .copy-link-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  color: #007bff;
+  border: 1px solid #007bff;
+  --border-radius: 5px;
+  --background: transparent;
+}
+
+.wishlist-link-share .copy-link-btn:hover {
+  --background: #007bff;
   color: #fff;
+}
+
+.action-buttons-right {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.clear-wishlist-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  --border-radius: 5px;
+  --background: transparent;
+}
+
+.clear-wishlist-btn:hover {
+  --background: #dc3545;
+  color: #fff;
+}
+
+.add-all-to-cart-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  --border-radius: 5px;
+}
+
+
+/* Removed grid and card specific styles */
+/*
+.wishlist-grid { display: none; }
+.wishlist-card { display: none; }
+.wishlist-img { display: none; }
+.wishlist-info { display: none; }
+.product-name { display: none; }
+.product-rating { display: none; }
+.product-price { display: none; }
+.wishlist-actions { display: none; }
+.wishlist-actions ion-button { display: none; }
+.wishlist-actions ion-button[color="primary"] { display: none; }
+*/
+
+/* Responsive adjustments for the table */
+@media (max-width: 768px) {
+  .wishlist-table-wrapper {
+    padding: 1rem;
+  }
+  thead th, tbody td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .wishlist-table-img {
+    width: 60px;
+    height: 60px;
+  }
+  .product-name-table {
+    font-size: 0.9rem;
+  }
+  .add-to-cart-table-btn {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 0.75rem;
+  }
+  .wishlist-bottom-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wishlist-link-share, .action-buttons-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .wishlist-link-share input[type="text"] {
+    min-width: unset;
+    width: 100%;
+  }
 }

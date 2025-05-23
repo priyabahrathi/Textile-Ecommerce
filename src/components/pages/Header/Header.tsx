@@ -45,7 +45,6 @@ import {
 import { FaTag } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { setPage } from "../../Store/Slice/pageSlice";
 import { setPage } from '../../../Store/Slice/pageSlice';
 import { RootState } from '../../../Store/store';
 import { addToCart, incrementQuantity, decrementQuantity } from '../../../Store/Slice/cartSlice';
@@ -56,23 +55,22 @@ const Header: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // Define CartItem interface clearly
   interface CartItem {
     id: string;
     name: string;
     price: number;
     quantity: number;
-
     size?: string;
-    img?: string; // ✅ Add this
-    images?: string[];
+    img?: string;        // Already present and correct
+    images?: string[];   // Already present and correct
   }
 
-  const cartItems = useSelector((state: any) => state.cart?.items || []);
+  const cartItems = useSelector((state: RootState) => state.cart?.items || []);
 
-  const cartCount = useSelector((state: any) =>
+  const cartCount = useSelector((state: RootState) =>
     state.cart?.items?.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0)
   );
-
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 1057);
@@ -88,6 +86,7 @@ const Header: React.FC = () => {
 
   return (
     <>
+      {/* Main Left Menu */}
       <IonMenu side="start" menuId="main-menu" contentId="main-content">
         <IonContent style={{ background: "white" }}>
           <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
@@ -110,13 +109,16 @@ const Header: React.FC = () => {
               <IonIcon icon={heart} slot="start" />
               Wishlist
             </IonItem>
+            {/* The Cart item in the main menu is redundant if there's a dedicated cart menu */}
+            {/* You might want to remove this or make it open the cart menu directly */}
             <IonItem button>
               <IonIcon icon={cart} slot="start" />
               Cart
             </IonItem>
           </IonList>
+          {/* Cart items display in the main menu (if you want it here) */}
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {cartItems.map((item: any, idx: number) => (
+            {cartItems.map((item: CartItem, idx: number) => (
               <li key={item.id + (item.size || '')} style={{ borderBottom: "1px solid #eee", padding: "10px 0" }}>
                 <div style={{ fontWeight: 600 }}>{item.name}</div>
                 <div style={{ fontSize: 14, color: "#555", display: "flex", alignItems: "center", gap: 8 }}>
@@ -168,6 +170,7 @@ const Header: React.FC = () => {
         </IonContent>
       </IonMenu>
 
+      {/* Cart Right Menu */}
       <IonMenu side="end" menuId="cart-menu" contentId="main-content">
         <IonContent style={{ background: "white", paddingBottom: "60px" }}>
           <div style={{ padding: "20px" }}>
@@ -193,24 +196,23 @@ const Header: React.FC = () => {
                           </div>
                         </div>
                       </div>
-
-                      <div style={{ fontSize: 14, color: "#555", display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ fontSize: 14, color: "#555", display: "flex", alignItems: "center", gap: 8, marginTop: 5 }}>
                         <button
-                          style={{ background: "#ffebee", borderRadius: "50%", width: 24, height: 24, border: "none", color: "#ff5722", cursor: "pointer" }}
+                          style={{ background: "#ffebee", borderRadius: "50%", width: 24, height: 24, border: "none", color: "#ff5722", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                           onClick={() => dispatch(decrementQuantity({ id: item.id, size: item.size }))}
                         >
                           <IoRemove />
                         </button>
                         <span>{item.quantity}</span>
                         <button
-                          style={{ background: "#e8f5e9", borderRadius: "50%", width: 24, height: 24, border: "none", color: "#388e3c", cursor: "pointer" }}
+                          style={{ background: "#e8f5e9", borderRadius: "50%", width: 24, height: 24, border: "none", color: "#388e3c", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                           onClick={() => dispatch(incrementQuantity({ id: item.id, size: item.size }))}
                         >
                           <IoAdd />
                         </button>
                         {item.size && <span>| Size: {item.size}</span>}
                       </div>
-                      <div style={{ fontSize: 14, color: "#ff5722" }}>
+                      <div style={{ fontSize: 14, color: "#ff5722", marginTop: 5 }}>
                         ₹{item.price * item.quantity}
                       </div>
                     </li>
@@ -239,14 +241,12 @@ const Header: React.FC = () => {
             }}
             expand="full"
             fill="solid"
+            disabled={cartItems.length === 0} // Disable button if cart is empty
           >
             Proceed ({cartCount} items)
           </IonButton>
-
-
         </div>
       </IonMenu>
-
 
       <div id="main-content">
         <header className="container">
@@ -255,9 +255,8 @@ const Header: React.FC = () => {
               <h3 style={{ margin: 0, cursor: 'pointer' }} onClick={() => dispatch(setPage("home"))}>StyleSync</h3>
             </div>
 
-            
-
             <div className="nav-icon">
+              {/* Desktop Icons */}
               {!isMobile && (
                 <>
                   <IonButton fill="clear" onClick={() => dispatch(setPage("wishlist"))}>
@@ -293,6 +292,7 @@ const Header: React.FC = () => {
                   </IonButton>
                 </>
               )}
+              {/* Mobile Menu Button */}
               {isMobile && (
                 <IonMenuButton menu="main-menu" className="menu-icon" onClick={handleMenuOpen}>
                   <IoMenu size={32} />
