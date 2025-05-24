@@ -1,100 +1,109 @@
-import React, { useState } from "react"; // Import useState
+import React, { useEffect, useState } from "react"; // Import useState and useEffect
 import { useDispatch, useSelector } from "react-redux";
 import { setPage, setProducts } from "../../../Store/Slice/pageSlice";
 import { RootState } from "../../../Store/store";
+import { database } from "../../../Store/Slice/firebase"; // Import database instance
+import { ref, get, child } from "firebase/database"; // Import Firebase Realtime Database functions
 
-import "./Hero.css"
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper modules
+import { Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/autoplay"; // If you're using autoplay module
+
+import "./Hero.css"; // Ensure this CSS file is correctly linked
 import { IonIcon } from "@ionic/react";
-import {  pricetags,chevronForward } from 'ionicons/icons';
+import { pricetags, chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
 import Header from "../Header/Header";
 
-// Import Swiper React components and modules
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
+// Utility to get the logged-in user's ID
+function getCurrentUserId() {
+    return localStorage.getItem('adminUserId');
+}
 
 const Hero: React.FC = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.page.products);
+    const dispatch = useDispatch();
+    const products = useSelector((state: RootState) => state.page.products);
 
-  // Define your slide data including image and text content
-  const slideData = [
-    {
-      image: 'https://images.pexels.com/photos/1036069/pexels-photo-1036069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      heading: 'Fashion <span class="year">2025</span>',
-      paragraph: 'One good outfit can make your confident level high,Have a good day with good deals.'
-    },
-    {
-      image: 'https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      heading: 'New Arrivals <span class="year">Now!</span>',
-      paragraph: 'Discover the latest trends and freshest styles. Shop now and elevate your wardrobe.'
-    },
-    {
-      image: 'https://images.pexels.com/photos/1478440/pexels-photo-1478440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      heading: 'Exclusive <span class="year">Offers</span>',
-      paragraph: 'Don\'t miss out on our limited-time discounts. Grab your favorites before they\'re gone!'
-    }
-  ];
+    // State to store fetched background images
+    const [backgroundImages, setBackgroundImages] = useState<string[]>([]);
+    const [loadingImages, setLoadingImages] = useState(true);
 
-  // State to keep track of the active slide's content
-  const [activeSlideContent, setActiveSlideContent] = useState(slideData[0]);
+    useEffect(() => {
+        const userId = getCurrentUserId();
+        if (!userId) {
+            setLoadingImages(false);
+            return;
+        }
 
-  // Handler for when the Swiper changes slides
-  const handleSlideChange = (swiper: any) => {
-    setActiveSlideContent(slideData[swiper.realIndex]); // swiper.realIndex is important for loop mode
-  };
+        const dbRef = ref(database);
+        get(child(dbRef, `users/${userId}/heroBackgrounds`)).then(snapshot => {
+            if (snapshot.exists()) {
+                const images = snapshot.val();
+                if (Array.isArray(images)) {
+                    // Filter out any empty strings or null values to only show actual images
+                    setBackgroundImages(images.filter(img => img && typeof img === 'string'));
+                }
+            }
+            setLoadingImages(false);
+        }).catch(error => {
+            console.error("Error fetching hero background images:", error);
+            setLoadingImages(false);
+        });
+    }, []);
 
+    return (
+        <>
+            <div className="hero-section">
+                {/* Conditional rendering of Swiper background */}
+                {!loadingImages && backgroundImages.length > 0 ? (
+                    <Swiper
+                        className="hero-swiper-container" // Add a class for styling
+                        spaceBetween={0}
+                        slidesPerView={1}
+                        loop={true} // Loop through slides
+                        autoplay={{
+                            delay: 5000, // 5 seconds delay
+                            disableOnInteraction: false, // Continue autoplay after user interaction
+                        }}
+                        modules={[Autoplay]}
+                    >
+                        {backgroundImages.map((image, index) => (
+                            <SwiperSlide key={index}>
+                                <img src={image} alt={`Hero Background ${index + 1}`} className="hero-swiper-image" />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                ) : (
+                    // Fallback background image if no images are uploaded or while loading
+                    <div className="hero-static-background"></div>
+                )}
 
-  return (
-    <>
-    <div className="hero-section">
-      <div className="hero-swiper-container">
-        <Swiper
-          spaceBetween={30}
-          effect={'fade'}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={false}
-          modules={[Autoplay, EffectFade, Pagination, Navigation]}
-          loop={false}
-          className="mySwiper"
-          onSlideChange={handleSlideChange} // Add this event listener
-        >
-          {slideData.map((slide, index) => (
-            <SwiperSlide key={index} className="hero-swiper-slide" style={{ backgroundImage: `url(${slide.image})` }}></SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      <section className="ion-padding">
-        <Header/>
-        <div className="hero">
-          <div className="hero-content">
-            {/* Dynamically render heading and paragraph using activeSlideContent */}
-            <h2 dangerouslySetInnerHTML={{ __html: activeSlideContent.heading }}></h2>
-            <p>{activeSlideContent.paragraph}</p>
-            <div className="hero-buttons">
-              <button className="icon-btn" ><FaTags /></button>
-              <div className="arr-btn"><button className="arrival-btn" onClick={() => dispatch(setPage("arrival"))}>New Arrival<IonIcon icon={chevronForward}></IonIcon> </button></div>
+                <section className="ion-padding">
+                    <Header />
+                    <div className="hero">
+                        <div className="hero-content">
+                            <h2>Fashion <span className="year">2025</span></h2>
+                            <p>One good outfit can make your confident level high, Have a good day with good deals</p>
+                            <div className="hero-buttons">
+                                <button className="icon-btn" ><FaTags /></button>
+                                <div className="arr-btn">
+                                    <button className="arrival-btn" onClick={() => dispatch(setPage("arrival"))}>
+                                        New Arrival<IonIcon icon={chevronForward}></IonIcon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default Hero;

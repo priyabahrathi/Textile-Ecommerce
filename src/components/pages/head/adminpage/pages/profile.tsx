@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { database } from '../../../../../Store/Slice/firebase';
-import { ref, get, child } from 'firebase/database';
-import "./profile.css";
+import { ref, get, child, set } from 'firebase/database'; // Import 'set' for saving data
+import "./profile.css"; // Ensure this CSS file is correctly linked
 
 // Utility to get the logged-in user's ID
 function getCurrentUserId() {
@@ -11,6 +11,13 @@ function getCurrentUserId() {
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    // State to store background images (initially empty or fetched from user data)
+    const [backgroundImages, setBackgroundImages] = useState<string[]>(['', '', '']);
+    // State to keep track of original images for comparison
+    const [originalBackgroundImages, setOriginalBackgroundImages] = useState<string[]>(['', '', '']);
+    const [uploadingImageIndex, setUploadingImageIndex] = useState<number | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
     useEffect(() => {
         const userId = getCurrentUserId();
@@ -21,11 +28,82 @@ const ProfilePage: React.FC = () => {
         const dbRef = ref(database);
         get(child(dbRef, `users/${userId}`)).then(snapshot => {
             if (snapshot.exists()) {
-                setUser(snapshot.val());
+                const userData = snapshot.val();
+                setUser(userData);
+                // Load existing background images if they are stored in user data
+                if (userData.heroBackgrounds && Array.isArray(userData.heroBackgrounds)) {
+                    // Ensure we have exactly 3 slots, filling with empty strings if less
+                    const loadedImages = userData.heroBackgrounds.concat(Array(3).fill('')).slice(0, 3);
+                    setBackgroundImages(loadedImages);
+                    setOriginalBackgroundImages(loadedImages); // Set original images on load
+                } else {
+                    setBackgroundImages(['', '', '']);
+                    setOriginalBackgroundImages(['', '', '']);
+                }
+            } else {
+                setBackgroundImages(['', '', '']);
+                setOriginalBackgroundImages(['', '', '']);
             }
+            setLoading(false);
+        }).catch(error => {
+            console.error("Error fetching user data:", error);
             setLoading(false);
         });
     }, []);
+
+    // Function to handle image upload
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setUploadingImageIndex(index);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                const newBackgroundImages = [...backgroundImages];
+                newBackgroundImages[index] = base64String;
+                setBackgroundImages(newBackgroundImages);
+                setUploadingImageIndex(null);
+                setSaveMessage(null); // Clear any previous save messages
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    // Function to remove an image
+    const handleRemoveImage = (index: number) => {
+        const newBackgroundImages = [...backgroundImages];
+        newBackgroundImages[index] = ''; // Set to empty string to clear the image
+        setBackgroundImages(newBackgroundImages);
+        setSaveMessage(null); // Clear any previous save messages
+    };
+
+    // Check if there are any changes to save
+    const hasChanges = JSON.stringify(backgroundImages) !== JSON.stringify(originalBackgroundImages);
+
+    // Function to save all changes to Firebase
+    const handleSaveChanges = async () => {
+        const userId = getCurrentUserId();
+        if (!userId) {
+            setSaveMessage("Error: User not logged in.");
+            return;
+        }
+        setIsSaving(true);
+        setSaveMessage("Saving changes...");
+
+        try {
+            await set(ref(database, `users/${userId}/heroBackgrounds`), backgroundImages);
+            setOriginalBackgroundImages([...backgroundImages]); // Update original images after saving
+            setSaveMessage("Changes saved successfully!");
+        } catch (error) {
+            console.error("Error saving background images:", error);
+            setSaveMessage("Error saving changes. Please try again.");
+        } finally {
+            setIsSaving(false);
+            // Clear message after a short delay
+            setTimeout(() => setSaveMessage(null), 3000);
+        }
+    };
+
 
     if (loading) {
         return <div style={{ textAlign: 'center', marginTop: 40 }}>Loading...</div>;
@@ -72,14 +150,14 @@ const ProfilePage: React.FC = () => {
                             <strong>Last Login:</strong> {stats.lastLogin}
                         </span>
                     </div>
-                </div>
-                <div className='logout'>
-                    <button className="logout-button" onClick={() => {
-                        localStorage.removeItem('adminUserId');
-                        window.location.href = '/admin';
-                    }}>
-                        Logout
-                    </button>
+                    <div className='logout'>
+                        <button className="logout-button" onClick={() => {
+                            localStorage.removeItem('adminUserId');
+                            window.location.href = '/admin';
+                        }}>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
             {/* Stats */}
@@ -97,6 +175,57 @@ const ProfilePage: React.FC = () => {
                     <div>Revenue</div>
                 </div>
             </div>
+
+            {/* NEW: Swiper Background Image Upload Section */}
+            <div className="profile-section">
+                <h3>Hero Background Images (Swiper)</h3>
+                <p>Upload up to 3 images for your hero section background. Image should be maximum 5MB.</p>
+                <div className="image-upload-cards-container">
+                    {backgroundImages.map((image, index) => (
+                        <div key={index} className="image-upload-card">
+                            <h4>Image {index + 1}</h4>
+                            {image ? (
+                                <div className="uploaded-image-preview">
+                                    <img src={image} alt={`Uploaded ${index + 1}`} />
+                                    <button
+                                        className="remove-image-btn"
+                                        onClick={() => handleRemoveImage(index)}
+                                        disabled={uploadingImageIndex === index || isSaving}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="upload-placeholder">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id={`image-upload-${index}`}
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleImageUpload(e, index)}
+                                        disabled={uploadingImageIndex === index || isSaving}
+                                    />
+                                    <label htmlFor={`image-upload-${index}`} className="upload-button">
+                                        {uploadingImageIndex === index ? 'Uploading...' : 'Upload Image'}
+                                    </label>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                {/* Save button and message */}
+                <div className="save-changes-area">
+                    <button
+                        className="save-button"
+                        onClick={handleSaveChanges}
+                        disabled={!hasChanges || isSaving}
+                    >
+                        {isSaving ? 'Saving...' : 'Save Changes'}
+                    </button>
+                    {saveMessage && <span className="save-message">{saveMessage}</span>}
+                </div>
+            </div>
+
             {/* My Account Section */}
             <div className="profile-section">
                 <h3>My Account</h3>
@@ -140,10 +269,9 @@ const ProfilePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 };
 
 export default ProfilePage;
-

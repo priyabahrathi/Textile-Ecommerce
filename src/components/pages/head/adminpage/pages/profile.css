@@ -144,3 +144,163 @@
   font-size: 1.2rem;
   font-weight: 600;
 }
+/* Existing CSS for profile.css */
+
+/* ... (Your existing profile.css styles) ... */
+
+/* NEW STYLES FOR IMAGE UPLOAD CARDS */
+.image-upload-cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+    margin-top: 20px;
+}
+
+.image-upload-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 280px; /* Fixed width for the card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.image-upload-card:hover {
+    transform: translateY(-5px);
+}
+
+.image-upload-card h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px; /* Minimum height for upload area */
+    width: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.upload-placeholder:hover {
+    border-color: #d45907;
+}
+
+.upload-button {
+    background-color: #d45907;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #b24a00;
+}
+
+.uploaded-image-preview {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden; /* Ensure image doesn't overflow */
+    position: relative;
+}
+
+.uploaded-image-preview img {
+    max-width: 100%;
+    max-height: 150px; /* Limit height to fit within preview */
+    object-fit: contain; /* Ensure the whole image is visible */
+    display: block; /* Remove extra space below image */
+    margin-bottom: 10px; /* Space for the button */
+}
+
+.remove-image-btn {
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+}
+
+.remove-image-btn:hover {
+    background-color: #c82333;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .image-upload-cards-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center;
+    }
+    .image-upload-card {
+        width: 90%; /* Make cards wider on small screens */
+        max-width: 350px; /* Limit max width */
+    }
+}
+/* Add these styles to your profile.css file */
+
+.save-changes-area {
+    margin-top: 30px;
+    text-align: center;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    gap: 15px; /* Space between button and message */
+}
+
+.save-button {
+    background-color: #28a745; /* Green for save */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.save-button:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+.save-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.save-message {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #555;
+}
+
+/* You might want to adjust message color based on success/error if you expand saveMessage state */
+/* .save-message.success { color: #28a745; } */
+/* .save-message.error { color: #dc3545; } */
