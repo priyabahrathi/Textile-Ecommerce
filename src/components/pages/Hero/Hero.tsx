@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"; // Import useState and useEffect
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage, setProducts } from "../../../Store/Slice/pageSlice";
 import { RootState } from "../../../Store/store";
-import { database } from "../../../Store/Slice/firebase"; // Import database instance
-import { ref, get, child } from "firebase/database"; // Import Firebase Realtime Database functions
+import { database } from "../../../Store/Slice/firebase";
+import { ref, get, child } from "firebase/database";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,13 +13,20 @@ import { Autoplay } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/autoplay"; // If you're using autoplay module
+import "swiper/css/autoplay";
 
-import "./Hero.css"; // Ensure this CSS file is correctly linked
+import "./Hero.css";
 import { IonIcon } from "@ionic/react";
 import { pricetags, chevronForward } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
 import Header from "../Header/Header";
+
+// Define the structure for each hero slide
+interface HeroSlide {
+    image: string;
+    heading: string;
+    paragraph: string;
+}
 
 // Utility to get the logged-in user's ID
 function getCurrentUserId() {
@@ -30,57 +37,90 @@ const Hero: React.FC = () => {
     const dispatch = useDispatch();
     const products = useSelector((state: RootState) => state.page.products);
 
-    // State to store fetched background images
-    const [backgroundImages, setBackgroundImages] = useState<string[]>([]);
-    const [loadingImages, setLoadingImages] = useState(true);
+    // State to store fetched hero slides (images + text)
+    const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
+    const [loadingSlides, setLoadingSlides] = useState(true);
+    // State to keep track of the currently active slide index
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
     useEffect(() => {
         const userId = getCurrentUserId();
         if (!userId) {
-            setLoadingImages(false);
+            setLoadingSlides(false);
             return;
         }
 
         const dbRef = ref(database);
-        get(child(dbRef, `users/${userId}/heroBackgrounds`)).then(snapshot => {
+
+        // Fetch hero slides
+        get(child(dbRef, `users/${userId}/heroSlides`)).then(snapshot => {
             if (snapshot.exists()) {
-                const images = snapshot.val();
-                if (Array.isArray(images)) {
-                    // Filter out any empty strings or null values to only show actual images
-                    setBackgroundImages(images.filter(img => img && typeof img === 'string'));
+                const slidesData = snapshot.val();
+                if (Array.isArray(slidesData)) {
+                    // Filter out any invalid slides and ensure structure
+                    const validSlides: HeroSlide[] = slidesData.map((slide: any) => ({
+                        image: typeof slide.image === 'string' ? slide.image : '',
+                        heading: typeof slide.heading === 'string' ? slide.heading : 'Default Heading',
+                        paragraph: typeof slide.paragraph === 'string' ? slide.paragraph : 'Default Paragraph'
+                    })).filter((slide: HeroSlide) => slide.image); // Only keep slides with an image
+
+                    // If no valid slides, use some default ones
+                    if (validSlides.length === 0) {
+                        setHeroSlides([
+                            { image: '', heading: 'Welcome to Fashion', paragraph: 'Discover your perfect style.' },
+                            { image: '', heading: 'Great Deals Await', paragraph: 'Shop now and save big.' },
+                            { image: '', heading: 'New Collections', paragraph: 'Stay ahead of the trend.' },
+                        ]);
+                    } else {
+                        setHeroSlides(validSlides);
+                    }
                 }
+            } else {
+                // If no data in Firebase, set some initial placeholder slides
+                 setHeroSlides([
+                    { image: '', heading: 'Welcome to Fashion', paragraph: 'Discover your perfect style.' },
+                    { image: '', heading: 'Great Deals Await', paragraph: 'Shop now and save big.' },
+                    { image: '', heading: 'New Collections', paragraph: 'Stay ahead of the trend.' },
+                ]);
             }
-            setLoadingImages(false);
+            setLoadingSlides(false);
         }).catch(error => {
-            console.error("Error fetching hero background images:", error);
-            setLoadingImages(false);
+            console.error("Error fetching hero slides:", error);
+            setLoadingSlides(false);
         });
     }, []);
+
+    // Get the current slide data based on currentSlideIndex
+    const currentSlide = heroSlides[currentSlideIndex];
 
     return (
         <>
             <div className="hero-section">
-                {/* Conditional rendering of Swiper background */}
-                {!loadingImages && backgroundImages.length > 0 ? (
+                {/* Swiper background */}
+                {!loadingSlides && heroSlides.length > 0 ? (
                     <Swiper
-                        className="hero-swiper-container" // Add a class for styling
+                        className="hero-swiper-container"
                         spaceBetween={0}
                         slidesPerView={1}
-                        loop={true} // Loop through slides
+                        loop={true}
                         autoplay={{
-                            delay: 5000, // 5 seconds delay
-                            disableOnInteraction: false, // Continue autoplay after user interaction
+                            delay: 5000,
+                            disableOnInteraction: false,
                         }}
                         modules={[Autoplay]}
+                        onSlideChange={(swiper) => {
+                            // Swiper's realIndex accounts for loop clones
+                            setCurrentSlideIndex(swiper.realIndex);
+                        }}
                     >
-                        {backgroundImages.map((image, index) => (
+                        {heroSlides.map((slide, index) => (
                             <SwiperSlide key={index}>
-                                <img src={image} alt={`Hero Background ${index + 1}`} className="hero-swiper-image" />
+                                <img src={slide.image} alt={`Hero Background ${index + 1}`} className="hero-swiper-image" />
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 ) : (
-                    // Fallback background image if no images are uploaded or while loading
+                    // Fallback static background if no images are uploaded or while loading
                     <div className="hero-static-background"></div>
                 )}
 
@@ -88,8 +128,29 @@ const Hero: React.FC = () => {
                     <Header />
                     <div className="hero">
                         <div className="hero-content">
-                            <h2>Fashion <span className="year">2025</span></h2>
-                            <p>One good outfit can make your confident level high, Have a good day with good deals</p>
+                            {loadingSlides ? (
+                                <p>Loading content...</p>
+                            ) : currentSlide ? (
+                                <>
+                                    <h2>{currentSlide.heading.includes(" ") ? (
+                                        // Split the heading to apply 'year' class to the last word
+                                        <>
+                                            {currentSlide.heading.split(' ').slice(0, -1).join(' ')}{" "}
+                                            <span className="year">{currentSlide.heading.split(' ').slice(-1)[0]}</span>
+                                        </>
+                                    ) : (
+                                        // If no space, just display the heading
+                                        currentSlide.heading
+                                    )}</h2>
+                                    <p>{currentSlide.paragraph}</p>
+                                </>
+                            ) : (
+                                // Fallback text if no slides or currentSlide is undefined
+                                <>
+                                    <h2>Welcome <span className="year">2025</span></h2>
+                                    <p>Discover your perfect style, one good outfit can make your confident level high!</p>
+                                </>
+                            )}
                             <div className="hero-buttons">
                                 <button className="icon-btn" ><FaTags /></button>
                                 <div className="arr-btn">
