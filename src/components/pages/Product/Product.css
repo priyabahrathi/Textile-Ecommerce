@@ -1,6 +1,6 @@
 /* OverAll Page */
 .main-content-wrapper{
-  background-color: #a7aad35e;
+  background-color: #F8F8F8; /* Soft Sand */
 }
 .page-product {
   display: grid;
@@ -26,7 +26,7 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .sidebar-filters {
-  background-color: #a7aad3;
+  background-color: #D3E0EA; /* Seafoam Mist */
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -39,7 +39,7 @@ ion-menu[menu-id="filterMenu"] {
 .filter-group-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
   margin-bottom: 10px;
   text-align: left;
   padding-left: 5px;
@@ -60,14 +60,14 @@ ion-menu[menu-id="filterMenu"] {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  color: #555;
+  color: #333333; /* Dark Graphite */
   font-size: 0.95rem;
 }
 
 /* Custom Checkbox Styling for filters */
 .filter-option-item ion-checkbox {
-  --checkbox-background-checked: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
-  --border-color-checked: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+  --checkbox-background-checked: #2A4B6F; /* Deep Ocean */
+  --border-color-checked: #2A4B6F; /* Deep Ocean */
   --border-radius: 4px;
 }
 
@@ -88,7 +88,7 @@ ion-menu[menu-id="filterMenu"] {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1px solid #eee;
+  border: 1px solid #9AA8B7; /* Pebble Grey */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -98,9 +98,9 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .color-swatch.selected {
-  border: 2px solid #3A3E6C; /* Changed from #e67e22 to #3A3E6C */
+  border: 2px solid #2A4B6F; /* Deep Ocean border for selected */
+  box-shadow: 0 0 0 3px rgba(42, 75, 111, 0.5); /* Deep Ocean shadow for selected */
   transform: scale(1.1);
-  box-shadow: 0 0 0 3px rgba(58, 62, 108, 0.5); /* Changed from rgba(230, 126, 34, 0.5) to rgba(58, 62, 108, 0.5) */
 }
 
 .color-swatch ion-icon {
@@ -118,14 +118,15 @@ ion-menu[menu-id="filterMenu"] {
 .horizontal-filters {
   display: flex;
   flex-wrap: wrap;
+  position: sticky;
   gap: 18px;
   justify-content: flex-start;
   align-items: flex-end;
   margin: 0 auto 32px auto;
   padding: 18px 24px;
-  background: #a7aad3;
+  background: #D3E0EA; /* Seafoam Mist */
+  box-shadow: 0 2px 12px rgba(42, 75, 111, 0.1); /* Deep Ocean shadow */
   border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(58, 62, 108, 0.1); /* Changed from #e5986622 to rgba(58, 62, 108, 0.1) */
   max-width: 100%;
   min-height: 80px;
   position: relative;
@@ -133,10 +134,10 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .horizontal-card {
-  background: #a7aad3; /* Changed from #faf7f3 to #fff */
+  background: #FFFFFF; /* Pure White */
+  box-shadow: 0 1px 4px rgba(42, 75, 111, 0.05); /* Deep Ocean shadow */
+  border: 1px solid #9AA8B7; /* Pebble Grey border */
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(58, 62, 108, 0.05); /* Changed from #e5986611 to rgba(58, 62, 108, 0.05) */
-  border: 1px solid #ccc; /* Changed from #f5cba7 to #ccc */
   margin: 0;
   padding: 12px 18px 10px 18px;
   min-width: 180px;
@@ -159,9 +160,9 @@ ion-menu[menu-id="filterMenu"] {
   display: flex;
   align-items: center;
   width: 180px;
-  background: #fff;
+  background: #FFFFFF; /* Pure White for input background */
+  border: 1px solid #D3E0EA; /* Seafoam Mist border */
   border-radius: 6px;
-  border: 1px solid #a1a09f; /* Changed from #e59866 to #a1a09f */
 }
 
 .horizontal-filters .search-input {
@@ -171,12 +172,12 @@ ion-menu[menu-id="filterMenu"] {
   padding: 8px 12px;
   font-size: 1rem;
   background: transparent;
-  color: #3A3E6C; /* Changed from #a85c0c to #3A3E6C */
+  color: #333333; /* Dark Graphite */
   transition: border 0.2s;
 }
 
 .horizontal-filters .search-input::placeholder {
-  color: #a1a09f; /* Changed from #a85c0c to #a1a09f */
+  color: #9AA8B7; /* Pebble Grey for placeholder */
 }
 
 .horizontal-filters .search-input:focus {
@@ -187,7 +188,7 @@ ion-menu[menu-id="filterMenu"] {
 .horizontal-filters .filter-title {
   font-size: 1rem;
   font-weight: 600;
-  color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
   margin-bottom: 8px;
 }
 
@@ -195,7 +196,7 @@ ion-menu[menu-id="filterMenu"] {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  color: #3A3E6C; /* Changed from #e59866 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
   font-size: 0.95rem;
   font-weight: 600;
   margin-top: 6px;
@@ -217,29 +218,29 @@ ion-menu[menu-id="filterMenu"] {
 
 .horizontal-filters .cat-label {
   font-size: 0.98rem;
-  color: #3A3E6C; /* Changed from #e59866 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
   font-weight: 600;
   padding-left: 3px;
 }
 
 .horizontal-filters .sort-by-select {
-  --background: #a7aad3;
-  --border-color: #a1a09f; /* Changed from #e59866 to #a1a09f */
+  --background: #D3E0EA; /* Seafoam Mist */
+  --border-color: #2A4B6F; /* Deep Ocean */
+  color: #2A4B6F; /* Deep Ocean */
   --padding-start: 10px;
   --padding-end: 10px;
   border-radius: 6px;
   font-size: 0.95rem;
-  color: #3A3E6C; /* Changed from #a85c0c to #3A3E6C */
   min-width: 150px;
   height: 40px;
   box-shadow: none;
   line-height: 1;
 }
 .horizontal-filters .sort-by-select::part(text) {
-  color: #3A3E6C; /* Changed from #a85c0c to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
 }
 .horizontal-filters .sort-by-select::part(icon) {
-  color: #3A3E6C; /* Changed from #e59866 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
 }
 
 /* Product Grid */
@@ -255,8 +256,8 @@ ion-menu[menu-id="filterMenu"] {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: #fff;
-  border: 1px solid #3A3E6C; /* Changed from #f5cba7 to #ccc */
+  background: #FFFFFF; /* Pure White */
+  border: 1px solid #D3E0EA; /* Seafoam Mist */
 }
 
 .product-card:hover {
@@ -268,7 +269,7 @@ ion-menu[menu-id="filterMenu"] {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #ff5c5c; /* Changed from #e67e22 to #ff5c5c */
+  background-color: #FF6B6B; /* Coral Glow */
   color: white;
   padding: 4px 8px;
   font-size: 0.75rem;
@@ -299,19 +300,19 @@ ion-menu[menu-id="filterMenu"] {
 .product-title {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #333;
+  color: #333333; /* Dark Graphite */
   line-height: 1.2;
 }
 
 .product-price {
   font-size: 1.2rem;
-  color: #3A3E6C; /* Changed from #e67e22 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
   font-weight: bold;
 }
 
 .product-category {
   font-size: 0.85rem;
-  color: #888;
+  color: #9AA8B7; /* Pebble Grey */
   margin-bottom: 10px;
 }
 
@@ -328,7 +329,7 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .ratings ion-icon {
-  color: gold;
+  color: #FF6B6B; /* Coral Glow for ratings (using accent for visibility) */
   font-size: 1.1rem;
 }
 
@@ -342,12 +343,12 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .add-to-wishlist ion-icon {
-  color: #a1a09f; /* Changed from #ccc to #a1a09f */
+  color: #9AA8B7; /* Pebble Grey for inactive wishlist */
   font-size: 1.6rem;
 }
 
 .add-to-wishlist.active ion-icon {
-  color: #ff5c5c; /* Changed from #e74c3c to #ff5c5c */
+  color: #FF6B6B; /* Coral Glow for active wishlist */
 }
 
 /* Gender Selection Buttons */
@@ -370,7 +371,7 @@ ion-menu[menu-id="filterMenu"] {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: #f0f0f0;
+  background-color: #F8F8F8; /* Soft Sand */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,17 +393,17 @@ ion-menu[menu-id="filterMenu"] {
   font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
-  color: #555;
+  color: #333333; /* Dark Graphite */
 }
 
 .gender-button.selected .circle-button {
-  border-color: #3A3E6C; /* Changed from #e67e22 to #3A3E6C */
-  background-color: rgba(58, 62, 108, 0.1); /* Changed from #fcecdc to rgba(58, 62, 108, 0.1) */
-  box-shadow: 0 0 0 3px rgba(58, 62, 108, 0.3); /* Changed from rgba(230, 126, 34, 0.3) to rgba(58, 62, 108, 0.3) */
+  border-color: #2A4B6F; /* Deep Ocean */
+  background-color: rgba(42, 75, 111, 0.1); /* Deep Ocean with transparency */
+  box-shadow: 0 0 0 3px rgba(42, 75, 111, 0.3); /* Deep Ocean shadow */
 }
 
 .gender-button.selected .gender-label {
-  color: #3A3E6C; /* Changed from #e67e22 to #3A3E6C */
+  color: #2A4B6F; /* Deep Ocean */
 }
 
 /* Responsive Adjustments */
@@ -590,7 +591,7 @@ ion-menu[menu-id="filterMenu"] {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 45px;
     font-weight: bold;
-    color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean */
     text-shadow: 0 0 2px black;
     margin-bottom: 30px;
 }
@@ -610,12 +611,12 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #a1a09f; /* Changed from #E59866 to #a1a09f */
+    box-shadow: inset 0 0 5px #9AA8B7; /* Pebble Grey */
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #3A3E6C; /* Changed from #FFF5ED to #3A3E6C */
+    background: #2A4B6F; /* Deep Ocean */
     border-radius: 10px;
 }
 
@@ -631,14 +632,14 @@ ion-menu[menu-id="filterMenu"] {
     z-index: 2;
 }
 .try-btn{
-    color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean */
 }
 .try-hide{
     display: none;
 }
 .try-btn:hover + .try-hide{
     display: block;
-    color: #3A3E6C; /* Changed from #E59866 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean (using primary blue, or could use Accent for pop) */
 }
 
 .filter-section {
@@ -647,7 +648,7 @@ ion-menu[menu-id="filterMenu"] {
 
 .filter-title {
     text-align: center;
-    color: #3A3E6C; /* Changed from #863905 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean */
     font-weight: 700;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 35px;
@@ -671,7 +672,7 @@ input[type="checkbox"] {
     -webkit-appearance: none;
     width:20px;
     height: 20px;
-    background: #a7aad3;
+    background: #D3E0EA; /* Seafoam Mist */
     border-radius: 5px;
     cursor: pointer;
     position: relative;
@@ -682,7 +683,7 @@ input[type="checkbox"] {
 input[type="checkbox"]::after {
     content: "✔";
     font-size: 16px;
-    color: #3A3E6C; /* Changed from #E59866 to #3A3E6C */
+    color: #FFFFFF; /* Pure White checkmark for contrast */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -691,7 +692,7 @@ input[type="checkbox"]::after {
 }
 
 input[type="checkbox"]:checked {
-    background: #a1a09f; /* Changed from #F5CBA7 to #a1a09f */
+    background: #2A4B6F; /* Deep Ocean */
 }
 
 input[type="checkbox"]:checked::after {
@@ -699,7 +700,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .tryon-head{
-    color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean */
     font-size: 2rem;
     font-weight: bold;
     margin-left: auto;
@@ -718,17 +719,17 @@ input[type="checkbox"]:checked::after {
 }
 
 .inline-modal-content {
-    background: rgba(255, 255, 255, 0.8); /* Changed from rgba(255, 247, 240, 0.8) to rgba(255, 255, 255, 0.8) */
+    background: rgba(255, 255, 255, 0.95); /* Adjusted for better modal background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid #ccc; /* Changed from #e0a15c to #ccc */
+    border: 1px solid #9AA8B7; /* Pebble Grey border */
     border-radius: 20px;
     padding: 20px;
     width: 80%;
     max-height: 90vh;
     min-height: 50vh;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    color: #3A3E6C; /* Changed from #8c3c0c to #3A3E6C */
+    color: #333333; /* Dark Graphite */
     overflow-y: auto;
 }
 
@@ -741,7 +742,7 @@ input[type="checkbox"]:checked::after {
 .inline-modal-close {
     background: none;
     border: none;
-    color: #3A3E6C; /* Changed from #d45907 to #3A3E6C */
+    color: #2A4B6F; /* Deep Ocean */
     font-size: 40px;
     cursor: pointer;
 }
@@ -773,7 +774,7 @@ input[type="checkbox"]:checked::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ff5c5c; /* Changed from #ec8080 to #ff5c5c */
+  background-color: #FF6B6B; /* Coral Glow */
   transition: 0.4s;
   border-radius: 24px;
 }
@@ -791,7 +792,7 @@ input[type="checkbox"]:checked::after {
 }
 
 input:checked + .slider {
-  background-color: #3A3E6C; /* Changed from #f09ef0 to #3A3E6C */
+  background-color: #2A4B6F; /* Deep Ocean */
 }
 
 input:checked + .slider:before {
@@ -872,296 +873,5 @@ input:checked + .slider:before {
     .inline-modal-content {
       max-height: 75vh;
       min-height: 35vh;
-    }
-}
-
-/* Cleanup of original styles (removed or consolidated) */
-/* .product-head, .col-card, ::-webkit-scrollbar, .btn-buy, .sidebar etc. */
-/* If these are still present in your original file, you can remove them */
-
-/* You might want to remove or consolidate some of these if they are now redundant */
-.product-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 45px;
-    font-weight: bold;
-    color: #3A3E6C;
-    text-shadow: 0 0 2px black;
-    margin-bottom: 30px;
-}
-
-.product-head span {
-    flex: 1;
-    text-align: center;
-}
-
-.col-card {
-    overflow-y: scroll;
-    height: 750px;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #a1a09f;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #3A3E6C;
-    border-radius: 10px;
-}
-
-.sidebar {
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.card-top-left {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    z-index: 2;
-}
-.try-btn{
-    color: #3A3E6C;
-}
-.try-hide{
-    display: none;
-}
-.try-btn:hover + .try-hide{
-    display: block;
-    color: #3A3E6C;
-}
-
-.filter-section {
-    margin-top: 35px;
-}
-
-.filter-title {
-    text-align: center;
-    color: #3A3E6C;
-    font-weight: 700;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 35px;
-}
-
-.filter-checkbox ul {
-    list-style: none;
-}
-
-.left-align {
-    padding-left: 80px;
-    text-align: left;
-}
-
-.filter-checkbox ul li {
-    padding-right: 35px;
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width:20px;
-    height: 20px;
-    background: #a7aad3;
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-}
-
-input[type="checkbox"]::after {
-    content: "✔";
-    font-size: 16px;
-    color: #3A3E6C;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.2s ease-in-out;
-}
-
-input[type="checkbox"]:checked {
-    background: #a1a09f;
-}
-
-input[type="checkbox"]:checked::after {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.tryon-head{
-    color: #3A3E6C;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inline-modal {
-    position: absolute;
-    bottom: 170px;
-    z-index: 999;
-    width: 100%;
-    min-height: 80vh;
-    background-color: rgba(0, 0, 0, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.inline-modal-content {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 20px;
-    width: 80%;
-    max-height: 90vh;
-    min-height: 50vh;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    color: #3A3E6C;
-    overflow-y: auto;
-}
-
-.inline-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.inline-modal-close {
-    background: none;
-    border: none;
-    color: #3A3E6C;
-    font-size: 40px;
-    cursor: pointer;
-}
-
-.inline-modal-body {
-    margin-top: 1rem;
-}
-
-.product-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  padding: 10px 16px;
-  gap: 16px;
-}
-
-.filter-sideMenu {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ff5c5c;
-  transition: 0.4s;
-  border-radius: 24px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 4px;
-  bottom: 3px;
-  background-color: rgb(250, 250, 250);
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #3A3E6C;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-@media screen and (max-width: 768px) {
-    .product-data {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .rate-buy {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product-head {
-        font-size: 30px;
-    }
-    .product-category {
-        text-align: center !important;
-    }
-
-    .tryon-head{
-        font-size: 1rem;
-    }
-
-    .inline-modal {
-        bottom: 940px;
-    }
-
-    .inline-modal-content {
-        padding: 5px;
-        width: 100%;
-    }
-
-    .inline-modal-header {
-        padding: 12px;
-    }
-
-    .inline-modal-close {
-        font-size: 19px;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .product-data{
-        flex-direction: column;
-        align-items: center;
-        line-height: 1;
-    }
-    .rate-buy{
-        line-height: 0.2;
-    }
-    .product-image {
-        height: 150px;
-        width: auto;
-    }
-    .product-title {
-        font-size: 15px;
-    }
-    .product-price {
-        font-size: 15px !important;
-    }
-    .product-category {
-        font-size: 15px !important;
-    }
-    .add-to-wishlist ion-icon {
-        font-size: 1.4rem;
-    }
-    .ratings ion-icon {
-        font-size: 1rem;
     }
 }
