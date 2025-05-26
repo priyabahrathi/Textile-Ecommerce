@@ -42,8 +42,9 @@ const Master: React.FC = () => {
         return (
           <>
             <Hero />
-            <Arrival />
+            
             <Brand />
+            <Footer/>
           </>
         );
       default:
