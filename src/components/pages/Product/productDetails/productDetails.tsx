@@ -128,9 +128,10 @@ const ProductDetail: React.FC = () => {
                     name: selectedProduct.name,
                     price: selectedProduct.price,
                     img: selectedProduct.img,
+                    size: selectedSize,
                     quantity: 1,
                   }));
-                  dispatch(setPage('checkout')); // navigate using Redux-based page system
+                  dispatch(setPage('checkout')); 
                 }
               }}
             >
