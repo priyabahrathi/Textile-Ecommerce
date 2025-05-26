@@ -104,8 +104,8 @@ const CheckOut: React.FC = () => {
                               className="buy-img"
                             />
                             <div className="buy-card-details">
-                              <h3>{item.name}</h3>
-                              <p>Price: ₹{item.price}</p>
+                              <div className='buy-name'>{item.name}</div>
+                              <div className='buy-divrice'>Price: ₹{item.price}</div>
 
                               {'size' in item && item.size && <div className='size'>Size: {item.size}</div>}
                             </div>
