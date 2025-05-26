@@ -68,9 +68,10 @@ const Header: React.FC = () => {
 
   const cartItems = useSelector((state: RootState) => state.cart?.items || []);
 
-  const cartCount = useSelector((state: RootState) =>
-    state.cart?.items?.reduce((sum: number, item: CartItem) => sum + (item.quantity || 1), 0)
-  );
+const cartCount = useSelector((state: RootState) =>
+  state.cart?.items?.length || 0
+);
+
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 1057);
