@@ -64,16 +64,18 @@ ion-menu[menu-id="filterMenu"] {
   font-size: 0.95rem;
 }
 
-/* Custom Checkbox Styling for filters */
-.filter-option-item ion-checkbox {
-  --checkbox-background-checked: #2A4B6F; /* Deep Ocean */
-  --border-color-checked: #2A4B6F; /* Deep Ocean */
-  --border-radius: 4px;
+/* Custom Checkbox Styling for filters - changed to standard HTML checkbox */
+.filter-option-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #d45907; /* Orange accent for checked state */
+  margin-right: 8px;
 }
 
-.filter-option-item ion-label {
-  padding-left: 8px;
+.filter-option-item label {
+  padding-left: 0; /* Remove default padding for Ionic label */
 }
+
 
 /* Color Swatches */
 .color-swatch-container {
@@ -381,12 +383,15 @@ ion-menu[menu-id="filterMenu"] {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.gender-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+
+.circle-button img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+    padding: 10px;  
+  box-sizing: border-box; 
 }
+
 
 .gender-label {
   margin-top: 8px;
@@ -407,7 +412,6 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 /* Responsive Adjustments */
-
 /* Desktop Specific (hide mobile filter button) */
 @media (min-width: 993px) {
   .filter-button-mobile {
@@ -422,456 +426,40 @@ ion-menu[menu-id="filterMenu"] {
     gap: 15px;
     grid-template-columns: 220px 1fr;
   }
-
   .sidebar-filters {
     padding: 10px;
   }
-
   .filter-group-title {
     font-size: 1.1rem;
   }
-
   .horizontal-filters {
     gap: 12px;
     padding: 12px 18px;
   }
-
   .horizontal-card {
     min-width: 150px;
     padding: 10px 15px 8px 15px;
   }
-
   .horizontal-filters .search-bar {
     width: 140px;
   }
-
   .gender-selection-btn {
     gap: 15px;
   }
-
   .circle-button {
     width: 60px;
     height: 60px;
   }
-
-  .gender-label {
-    font-size: 0.8rem;
+  .product-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
-
   .product-image {
     height: 180px;
   }
   .product-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
   .product-price {
     font-size: 1.1rem;
   }
-  .product-category {
-    font-size: 0.8rem;
-  }
-}
-
-/* Small screens (mobiles and small tablets) */
-@media screen and (max-width: 992px) {
-  .page-product {
-    grid-template-columns: 1fr;
-    padding: 10px;
-  }
-
-  .sidebar-col {
-    display: none;
-  }
-
-  .main-content-col {
-    grid-column: 1;
-    padding: 0;
-  }
-
-  ion-menu[menu-id="filterMenu"] {
-    display: block;
-    --width: 280px;
-  }
-
-  .filter-button-mobile {
-    display: flex !important;
-    justify-content: flex-start;
-    width: auto;
-    font-size: 1.5rem;
-    margin-right: auto;
-  }
-
-  .horizontal-filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .horizontal-card {
-    min-width: unset;
-    width: 100%;
-    padding: 10px;
-  }
-
-  .horizontal-filters .search-bar {
-    width: 100%;
-  }
-
-  .gender-selection-btn {
-    width: 100%;
-    justify-content: space-around;
-  }
-
-  .circle-button {
-    width: 50px;
-    height: 50px;
-  }
-  .gender-label {
-    font-size: 0.75rem;
-  }
-
-  .product-image {
-    height: 160px;
-  }
-  .product-title {
-    font-size: 0.9rem;
-  }
-  .product-price {
-    font-size: 1rem;
-  }
-  .product-category {
-    font-size: 0.75rem;
-  }
-
-  ion-col[sizeXs="6"] {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .product-image {
-    height: 120px;
-  }
-  .product-title {
-    font-size: 0.85rem;
-  }
-  .product-price {
-    font-size: 0.9rem;
-  }
-  .product-category {
-    font-size: 0.7rem;
-  }
-  .add-to-wishlist ion-icon {
-    font-size: 1.4rem;
-  }
-  .ratings ion-icon {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-    .inline-modal-content {
-      max-height: 75vh;
-      min-height: 35vh;
-    }
-}
-
-/* Cleanup of original styles (removed or consolidated) */
-/* .product-head, .col-card, ::-webkit-scrollbar, .btn-buy, .sidebar etc. */
-/* If these are still present in your original file, you can remove them */
-
-/* You might want to remove or consolidate some of these if they are now redundant */
-.product-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 45px;
-    font-weight: bold;
-    color: #2A4B6F; /* Deep Ocean */
-    text-shadow: 0 0 2px black;
-    margin-bottom: 30px;
-}
-
-.product-head span {
-    flex: 1;
-    text-align: center;
-}
-
-.col-card {
-    overflow-y: scroll;
-    height: 750px;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #9AA8B7; /* Pebble Grey */
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #2A4B6F; /* Deep Ocean */
-    border-radius: 10px;
-}
-
-.sidebar {
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.card-top-left {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    z-index: 2;
-}
-.try-btn{
-    color: #2A4B6F; /* Deep Ocean */
-}
-.try-hide{
-    display: none;
-}
-.try-btn:hover + .try-hide{
-    display: block;
-    color: #2A4B6F; /* Deep Ocean (using primary blue, or could use Accent for pop) */
-}
-
-.filter-section {
-    margin-top: 35px;
-}
-
-.filter-title {
-    text-align: center;
-    color: #2A4B6F; /* Deep Ocean */
-    font-weight: 700;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 35px;
-}
-
-.filter-checkbox ul {
-    list-style: none;
-}
-
-.left-align {
-    padding-left: 80px;
-    text-align: left;
-}
-
-.filter-checkbox ul li {
-    padding-right: 35px;
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width:20px;
-    height: 20px;
-    background: #D3E0EA; /* Seafoam Mist */
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-}
-
-input[type="checkbox"]::after {
-    content: "✔";
-    font-size: 16px;
-    color: #FFFFFF; /* Pure White checkmark for contrast */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.2s ease-in-out;
-}
-
-input[type="checkbox"]:checked {
-    background: #2A4B6F; /* Deep Ocean */
-}
-
-input[type="checkbox"]:checked::after {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.tryon-head{
-    color: #2A4B6F; /* Deep Ocean */
-    font-size: 2rem;
-    font-weight: bold;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inline-modal {
-    position: absolute;
-    bottom: 170px;
-    z-index: 999;
-    width: 100%;
-    min-height: 80vh;
-    background-color: rgba(0, 0, 0, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.inline-modal-content {
-    background: rgba(255, 255, 255, 0.95); /* Adjusted for better modal background */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid #9AA8B7; /* Pebble Grey border */
-    border-radius: 20px;
-    padding: 20px;
-    width: 80%;
-    max-height: 90vh;
-    min-height: 50vh;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    color: #333333; /* Dark Graphite */
-    overflow-y: auto;
-}
-
-.inline-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.inline-modal-close {
-    background: none;
-    border: none;
-    color: #2A4B6F; /* Deep Ocean */
-    font-size: 40px;
-    cursor: pointer;
-}
-
-.inline-modal-body {
-    margin-top: 1rem;
-}
-
-.product-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  padding: 10px 16px;
-  gap: 16px;
-}
-
-.filter-sideMenu {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #FF6B6B; /* Coral Glow */
-  transition: 0.4s;
-  border-radius: 24px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 4px;
-  bottom: 3px;
-  background-color: rgb(250, 250, 250);
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2A4B6F; /* Deep Ocean */
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-@media screen and (max-width: 768px) {
-    .product-data {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .rate-buy {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product-head {
-        font-size: 30px;
-    }
-    .product-category {
-        text-align: center !important;
-    }
-
-    .tryon-head{
-        font-size: 1rem;
-    }
-
-    .inline-modal {
-        bottom: 940px;
-    }
-
-    .inline-modal-content {
-        padding: 5px;
-        width: 100%;
-    }
-
-    .inline-modal-header {
-        padding: 12px;
-    }
-
-    .inline-modal-close {
-        font-size: 19px;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .product-data{
-        flex-direction: column;
-        align-items: center;
-        line-height: 1;
-    }
-    .rate-buy{
-        line-height: 0.2;
-    }
-    .product-image {
-        height: 150px;
-        width: auto;
-    }
-    .product-title {
-        font-size: 15px;
-    }
-    .product-price {
-        font-size: 15px !important;
-    }
-    .product-category {
-        font-size: 15px !important;
-    }
-    .add-to-wishlist ion-icon {
-        font-size: 1.4rem;
-    }
-    .ratings ion-icon {
-        font-size: 1rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .inline-modal-content {
-      max-height: 75vh;
-      min-height: 35vh;
-    }
 }

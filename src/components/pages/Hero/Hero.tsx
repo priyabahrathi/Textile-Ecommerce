@@ -125,7 +125,7 @@ const Hero: React.FC = () => {
                 )}
 
                 <section className="ion-padding">
-                    <Header />
+                    
                     <div className="hero">
                         <div className="hero-content">
                             {loadingSlides ? (

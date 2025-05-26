@@ -76,7 +76,7 @@ const Arrival: React.FC = () => {
   return (
     <>
       <div className="arrival-page">
-        <Header />
+      
         <div className="arrival-body">
           <h2 className="product-head">New Arrivals</h2>
           <div className="slider-container">

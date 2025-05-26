@@ -43,7 +43,7 @@ import {
   IoRemove,
 } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // REMOVED: No longer using useNavigate
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from '../../../Store/Slice/pageSlice';
 import { RootState } from '../../../Store/store';
@@ -52,7 +52,7 @@ import "./Header.css";
 
 const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1057);
-  const history = useHistory();
+  // const navigate = useNavigate(); // REMOVED: No longer using useNavigate
   const dispatch = useDispatch();
 
   // Define CartItem interface clearly
@@ -62,8 +62,8 @@ const Header: React.FC = () => {
     price: number;
     quantity: number;
     size?: string;
-    img?: string;        // Already present and correct
-    images?: string[];   // Already present and correct
+    img?: string;
+    images?: string[];
   }
 
   const cartItems = useSelector((state: RootState) => state.cart?.items || []);
@@ -237,8 +237,7 @@ const cartCount = useSelector((state: RootState) =>
         }}>
           <IonButton
             onClick={() => {
-              history.push('/checkout');
-              dispatch(setPage("checkout"));
+              dispatch(setPage("checkout")); // Changed: Dispatching setPage directly
             }}
             expand="full"
             fill="solid"

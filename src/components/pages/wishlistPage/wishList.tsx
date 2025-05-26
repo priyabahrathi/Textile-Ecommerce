@@ -44,7 +44,7 @@ const WishList: React.FC = () => {
 
   return (
     <>
-      <Header />
+      
       <div className="wishlist-container">
         <h2 style={{ textAlign: "left", marginBottom: "1rem" }}>Wishlist</h2> {/* Adjusted heading style */}
         <p style={{ textAlign: "left", marginBottom: "2rem", color: "#666" }}>Home / Wishlist</p> {/* Added breadcrumb */}
