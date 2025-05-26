@@ -98,15 +98,19 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
         <div className="product-info">
-          <h2 style={{textAlign:'left'}}>{selectedProduct.name}</h2>
-          <div className="price-rating">
-            <span className="price">&#8377;{selectedProduct.price}</span>
+          <div className='name-rating'>
+            <h2 className='pro-name' style={{ textAlign: 'left' }}>{selectedProduct.name}</h2>
             <span className="rating">★★★★☆ (4.2)</span>
+          </div>
+          
+          <div className="selectors">
+            <div className="price-rating">
+            <span className='price-tag'>Price :</span><span className="price"> &#8377;{selectedProduct.price}</span>
+
             <span className="reviews">{reviews.length} reviews</span>
           </div>
-          <div className="selectors">
             <div>
-              <label>Size:</label>
+              <label className='price-tag'>Size:</label>
               {['S', 'M', 'L', 'XL'].map(size => (
                 <button
                   key={size}
@@ -115,8 +119,9 @@ const ProductDetail: React.FC = () => {
                 >{size}</button>
               ))}
             </div>
-
           </div>
+          
+          <div className='desp'><span className='desp-head'>Description:</span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsum magni sit similique, assumenda blanditiis quaerat odio neque saepe cupiditate, ullam pariatur omnis unde quibusdam? Veniam illo error consectetur ex.</div>
           <div className="action-buttons">
             <button className="add-cart" onClick={handleAddToCart}>Add to Cart</button>
             <button
@@ -131,17 +136,15 @@ const ProductDetail: React.FC = () => {
                     size: selectedSize,
                     quantity: 1,
                   }));
-                  dispatch(setPage('checkout')); 
+                  dispatch(setPage('checkout'));
                 }
               }}
             >
               Buy
             </button>
-
-
-
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
           </div>
+
           <div className="product-highlights">
             <div>
               <span className="highlight-title">Fabric:</span> {selectedProduct.fabric || "Cotton Blend"}
