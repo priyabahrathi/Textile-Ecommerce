@@ -4,14 +4,14 @@
   overflow: auto;
 }
 .back-btn {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   position: sticky;
   top: 24px;
   left: 24px;
   z-index: 10;
-  margin: 32px 0 0 32px;
   background: none;
-  border: none;
-  color: #ff5722;
+  border: 1px solid #3A3E6C;
+  color: #3A3E6C;
   font-size: 18px;
   cursor: pointer;
   font-weight: 600;
@@ -21,7 +21,7 @@
   background: #fff;
   border-radius: 8px;
   padding: 8px 18px;
-  box-shadow: 0 2px 8px #fbeee6;
+  box-shadow: 0 1px 5px #3A3E6C;
 }
 
 .gallery-info {

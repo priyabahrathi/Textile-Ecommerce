@@ -13,8 +13,9 @@ import {
   removeFromCart as removeFromBuy,
 } from '../../../Store/Slice/checkout';
 import './CheckOut.css';
-import { IonCol, IonGrid, IonRow } from '@ionic/react';
+import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
 import { setPage } from '../../../Store/Slice/pageSlice';
+import { cart, closeCircle } from 'ionicons/icons';
 
 const CheckOut: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const CheckOut: React.FC = () => {
 
   const isBuyNow = buyItems.length > 0;
   const itemsToDisplay = isBuyNow ? buyItems : cartItems;
+  const totalItems = itemsToDisplay.reduce((total, item) => total + item.quantity, 0);
 
   const totalPrice = itemsToDisplay.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -33,10 +35,10 @@ const CheckOut: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<CartItem | null>(null);
 
   useEffect(() => {
-  if (itemsToDisplay.length > 0) {
-    setExpandedItem(itemsToDisplay[0]);
-  }
-}, [itemsToDisplay]);
+    if (itemsToDisplay.length > 0) {
+      setExpandedItem(itemsToDisplay[0]);
+    }
+  }, [itemsToDisplay]);
 
 
   const handleIncrement = (item: CartItem) => {
@@ -59,89 +61,104 @@ const CheckOut: React.FC = () => {
 
   return (
     <div className="cart-page">
-      <button
-              className="back-btn"
-              onClick={() => {
-                dispatch(setPage("productDetails"));
-              }}
-            >
-              ← Back
-            </button>
+      <div className='cart-header'>
+        <button
+          className="back-btn"
+          onClick={() => {
+            dispatch(setPage("productDetails"));
+          }}
+        >
+          ← Back
+        </button>
 
-      <h2>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
-     
+        <h2 className='checkout-head'>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
+        <button className='btn-cart'><IonIcon icon={cart} /></button>
+      </div>
+
 
       <IonGrid>
         <IonRow>
-          <IonCol sizeXl="8" sizeLg="8" sizeMd="12" sizeSm="12" sizeXs="12">
+          <IonCol>
             <div className="buy-container">
               {itemsToDisplay.length === 0 ? (
                 <p>Your cart is empty.</p>
               ) : (
-                <div className="buy-data">
-                  {itemsToDisplay.map((item) => (
-                    <div
-                      className="buy-item"
-                      key={item.id + ('size' in item && item.size ? item.size : '')}
-                      onClick={() => setExpandedItem(item)}
-                    >
-                      <img
-                        src={
-                          item.img ||
-                          '/fallback.jpg'
-                        }
-                        alt={item.name}
-                        className="buy-img"
-                      />
-                      <div className="buy-name">{item.name}</div>
-                      <p className="buy-name">Price: ₹{item.price}</p>
-
-                      <div className="quantity-controls buy-name">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDecrement(item);
-                          }}
-                          className="buy-name id-btn"
-                        >
-                          -
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleIncrement(item);
-                          }}
-                          className="buy-name id-btn"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      <p className="buy-name">
-                        Subtotal: ₹{(item.price * item.quantity).toFixed(2)}
-                      </p>
-
-                      <button
-                        className="remove-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemove(item);
-                        }}
+                <IonGrid>
+                  <IonRow>
+                    {itemsToDisplay.map((item) => (
+                      <IonCol
+                        size="6"
+                        sizeMd="4"
+                        sizeLg="3"
+                        sizeXl='3'
+                        key={item.id + ('size' in item && item.size ? item.size : '')}
                       >
-                        Remove
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                        <div
+                          className="buy-card"
+                          onClick={() => setExpandedItem(item)}
+                        >
+                          <div className='buy-data'>
+                            <img
+                              src={item.img || '/fallback.jpg'}
+                              alt={item.name}
+                              className="buy-img"
+                            />
+                            <div className="buy-card-details">
+                              <h3>{item.name}</h3>
+                              <p>Price: ₹{item.price}</p>
+
+                              {'size' in item && item.size && <div className='size'>Size: {item.size}</div>}
+                            </div>
+                          </div>
+                          <button
+                            className="remove-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemove(item);
+                            }}
+                          >
+                            <IonIcon icon={closeCircle} />
+                          </button>
+                          <div className="quantity-controls">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDecrement(item);
+                              }}
+                              className="id-btn"
+                              disabled={item.quantity === 1}
+                            >
+                              -
+                            </button>
+                            <span className="quantity">{item.quantity}</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleIncrement(item);
+                              }}
+                              className="id-btn"
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                      </IonCol>
+                    ))}
+                  </IonRow>
+                </IonGrid>
+
               )}
             </div>
+
+
           </IonCol>
 
-          <IonCol sizeXl="4" sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
+          {/* <IonCol sizeXl="4" sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
             {expandedItem !== null && (
               <div className="expanded-card">
-                <h3>{expandedItem.name}</h3>
+                <h3 className='expanded-name'>{expandedItem.name}</h3>
                 <img
                   src={
                     expandedItem.img ||
@@ -150,7 +167,7 @@ const CheckOut: React.FC = () => {
                   alt={expandedItem.name}
                   className="expanded-img"
                 />
-                <div>
+                <div className='expanded-details'>
                   <p>
                     <strong>Price:</strong> ₹{expandedItem.price}
                   </p>
@@ -170,19 +187,34 @@ const CheckOut: React.FC = () => {
                 </button>
               </div>
             )}
-          </IonCol>
-        </IonRow>
+          </IonCol> */}
 
+
+
+        </IonRow>
         <IonRow>
           <IonCol>
             <div className="card-total">
+              <h3 className='total'>Total No of Products : {totalItems} </h3>
+              <h3 className="total">Total : ₹{totalPrice.toFixed(2)}</h3>
+              <button className="checkout-btn" onClick={() => dispatch(setPage('payment'))}>
+                {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
+              </button>
+            </div>
+
+          </IonCol>
+        </IonRow>
+
+        {/* <IonRow>
+          <IonCol>
+            <div className="card-total">
               <h3 className="total">Total: ₹{totalPrice.toFixed(2)}</h3>
-              <button className="checkout-btn" onClick={()=>dispatch(setPage('payment'))}>
+              <button className="checkout-btn" onClick={() => dispatch(setPage('payment'))}>
                 {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
               </button>
             </div>
           </IonCol>
-        </IonRow>
+        </IonRow> */}
       </IonGrid>
     </div>
   );
