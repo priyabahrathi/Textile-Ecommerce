@@ -2,7 +2,8 @@
   padding: 20px;
   background: fixed;
   background-color: #f1f1f1;
-  height: 100% auto;
+  height: 1100px;
+  
 
 }
 
@@ -65,23 +66,16 @@ ion-col {
 
 .buy-card-details {
   font-weight: bold;
-  font-size: 17px;
+  font-size: 18px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 1.5;
+  line-height: 35px;
   width: 100%;
   color: #3A3E6C;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
-.description {
-  font-size: 12px;
-  line-height: normal;
-
-}
-
 .subtotal {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 20px;
@@ -89,6 +83,7 @@ ion-col {
   text-align: center;
   border-top: #3A3E6C solid 2px;
   padding-top: 15px;
+  margin-top: 0;
   margin-bottom: -1px;
   font-weight: bold;
 }
@@ -105,11 +100,8 @@ ion-col {
 
 .quantity-controls {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-evenly;
   align-items: baseline;
-  margin-bottom: -20px;
-  margin-top: -20px;
 }
 
 .quantity {
@@ -288,6 +280,7 @@ ion-col {
     display: flex;
     justify-content: space-around;
     width: 100%;
+    
   }
   .buy-img {
     height: 180px;
