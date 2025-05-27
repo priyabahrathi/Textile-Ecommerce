@@ -95,7 +95,9 @@ const Hero: React.FC = () => {
 
     return (
         <>
+         <h3 className="welcome-message">Welcome, Have a nice day</h3>
             <div className="hero-section">
+               
                 {/* Swiper background */}
                 {!loadingSlides && heroSlides.length > 0 ? (
                     <Swiper
@@ -127,6 +129,7 @@ const Hero: React.FC = () => {
                 <section className="ion-padding">
                     
                     <div className="hero">
+                        
                         <div className="hero-content">
                             {loadingSlides ? (
                                 <p>Loading content...</p>

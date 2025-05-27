@@ -3,34 +3,37 @@
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
+.welcome-message{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  
+  color: #3A3E6C;
+  margin: 0;
+  padding: 0;
+}
 .hero-section {
   position: relative;
-  min-height: 100vh; /* Crucial for child's 100% height */
-  overflow: hidden; /* Important for containing absolutely positioned children */
-  /* Temporary debug background: */
-  /* background-color: rgba(255, 0, 0, 0.1); */
+  min-height: 70vh; /* Set minimum height to 80% of viewport height */
+  width: 90%; /* Set width to 80% */
+  margin: auto; /* Center the hero section horizontally */
+  overflow: hidden; /* Important for containing absolutely positioned children and rounded corners */
+  border-radius: 20px; /* Apply border-radius */
+  box-shadow: 0 4px 30px rgba(226, 212, 10); /* Apply box-shadow */
+  border: 1px solid rgb(226, 212, 10); /* Optional border for better visibility */
+  margin-top: 20px; /* Add top margin */
+  margin-bottom: 20px; /* Add bottom margin */
+  display: flex; /* Use flexbox to arrange main swiper and thumbs */
+  flex-direction: column; /* Stack them vertically */
+  justify-content: space-between; /* Push thumbs to bottom */
 }
 
-/* We need to be very explicit about disabling the background of ::before
-   if Swiper is the intended background. */
+
 .hero-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* Remove background-image completely if Swiper is replacing it */
-  background-image: none; /* ENSURE NO IMAGE HERE */
-  background-color: transparent; /* ENSURE TRANSPARENT */
-  background-size: cover;
-  background-position: center;
-  z-index: -1; /* This z-index is fine if it's transparent */
-  transition: filter 0.3s ease;
-  /* Temporary debug background: */
-  /* background-color: rgba(0, 0, 255, 0.1); */
+  content: none; /* Disable the ::before pseudo-element */
 }
+
 
 .hero-swiper-container {
   position: absolute;
@@ -49,20 +52,21 @@ body {
   width: 100%;
   height: 100%;
 }
-
+.hero-swiper-image{
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* Ensure the image covers the entire slide */
+  background-position: center; /* Center the image */
+  object-fit: cover;
+  background-repeat: no-repeat; /* Prevent image repetition */
+}
 .hero-swiper-slide {
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  /* Temporary debug border/text: */
-  /* border: 2px solid yellow; */
-  /* color: white; */
-  /* font-size: 50px; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
+ 
 }
 
 /* Rest of your CSS remains unchanged */
@@ -85,7 +89,7 @@ body {
 .hero-content h2 {
   font-size: 50px !important;
   margin-bottom: 0.5rem;
-  color: #d45907;
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -96,11 +100,11 @@ body {
 }
 
 .year {
-  color: #555352;
+  color: #3A3E6C;
 }
 
 .hero-buttons .icon-btn {
-  background: #d45907;
+  background: #3A3E6C;
   color: #ffffff;
   font-size: 1.2rem;
   height: 50px;
@@ -111,9 +115,9 @@ body {
 }
 
 .icon-btn:hover {
-  color: #d45907;
+  color: #3A3E6C;
   background-color: #ffffff;
-  border: 1px solid #d45907;
+  border: 1px solid #3A3E6C;
 }
 
 .hero-buttons {
@@ -131,7 +135,7 @@ body {
   font-size: 18px;
   height: 50px;
   font-weight: bold;
-  background: #d45907;
+  background: #3A3E6C;
   color: #ffffff;
   border-radius: 25px;
   cursor: pointer;
@@ -140,9 +144,9 @@ body {
 }
 
 .arrival-btn:hover {
-  color: #d45907;
+  color: #3A3E6C;
   background: #ffffff;
-  border: 1px solid #d45907;
+  border: 1px solid #3A3E6C;
   transform: scale(1);
 }
 

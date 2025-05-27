@@ -1,9 +1,6 @@
 // src/Store/Slice/wishlistSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// Assuming your Product interface is defined and imported or available globally
-// import { Product } from '../../components/pages/Product/Product'; // Example import if Product is not global
 
-// Define the Product interface here if it's not imported from a central types file
 interface Product {
   id: string;
   name: string;
@@ -51,6 +48,7 @@ const wishlistSlice = createSlice({
     clearWishlist: (state) => {
       state.items = [];
     },
+    
   },
 });
 

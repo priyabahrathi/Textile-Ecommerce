@@ -24,11 +24,11 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     
-    /* border: 0px solid rgba(255, 255, 255, 0.2); */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 20px;
     max-width: 100%;
     margin: auto;
-    /* box-shadow: 0 0 2px #7d7e7e; */
+    /* box-shadow: 0 0 15px #7d7e7e; */
 }
 
 /* Navigation Styling */
