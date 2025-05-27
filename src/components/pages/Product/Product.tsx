@@ -301,6 +301,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedOutfitNames.includes(outfit)}
                       onIonChange={(e) => handleToggleFilter('outfitName', outfit, e.detail.checked)}
+                      className="filter-checkbox"
                     />
                     <IonLabel>{outfit}</IonLabel>
                   </li>
@@ -315,6 +316,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedFabricType.includes(type)}
                       onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
+                       className="filter-checkbox"
                     />
                     <IonLabel>{type}</IonLabel>
                   </li>
@@ -329,6 +331,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedCategories.includes(cat)}
                       onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
+                       className="filter-checkbox"
                     />
                     <IonLabel>{cat}</IonLabel>
                   </li>
@@ -361,7 +364,7 @@ const Product: React.FC = () => {
               {/* By Color */}
               <h4 className="filter-group-title">By Color</h4>
               <div className="color-swatch-container">
-                {['Pink', 'White', 'Yellow', 'Red', 'Black', 'Blue', 'Green', 'Mixed'].map((color) => (
+                {['Pink', 'White', 'Yellow', 'Red', 'mixed'].map((color) => (
                   <div
                     key={color}
                     className={`color-swatch ${selectedColors.includes(color) ? 'selected' : ''}`}
@@ -373,18 +376,7 @@ const Product: React.FC = () => {
                 ))}
               </div>
 
-              {/* Availability */}
-              <h4 className="filter-group-title">Availability</h4>
-              <ul className="filter-option-list">
-                <li className="filter-option-item">
-                  <IonCheckbox
-                    slot="start"
-                    checked={inStockOnly}
-                    onIonChange={(e) => setInStockOnly(e.detail.checked)}
-                  />
-                  <IonLabel>In Stock</IonLabel>
-                </li>
-              </ul>
+             
             </div>
           </IonCol>
 

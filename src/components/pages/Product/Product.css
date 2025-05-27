@@ -66,17 +66,21 @@ ion-menu[menu-id="filterMenu"] {
   font-size: 0.95rem;
 }
 
-/* Custom Checkbox Styling for filters - changed to standard HTML checkbox */
-.filter-option-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #d45907; /* Orange accent for checked state */
-  margin-right: 8px;
+.filter-checkbox {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+  background-color: #D3E0EA; /* Seafoam Mist */
+  border: 1px solid #9AA8B7; /* Pebble Grey */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+ 
 }
 
-.filter-option-item label {
-  padding-left: 0; /* Remove default padding for Ionic label */
-}
 
 
 /* Color Swatches */
