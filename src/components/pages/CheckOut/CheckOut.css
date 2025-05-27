@@ -49,7 +49,7 @@ ion-col {
   padding: 8px;
   position: relative;
   transition: transform 0.2s ease-in-out;
-  background-color: #ddd;
+  background-color: #fff;
 
 }
 
@@ -66,6 +66,7 @@ ion-col {
 .buy-card-details {
   font-weight: bold;
   font-size: 17px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -98,7 +99,7 @@ ion-col {
   object-fit: contain;
   border-radius: 8px;
   margin-bottom: 12px;
-
+  background-color: #f1f1f1;
 }
 
 
@@ -281,6 +282,7 @@ ion-col {
   .buy-card-details {
     font-size: 16px;
     line-height: 1.6;
+    margin-left: 0;
   }
 .price-size{
     display: flex;
@@ -354,6 +356,7 @@ ion-col {
   .buy-card-details {
     font-size: 16px;
     line-height: 1.5;
+    margin-left: 0;
   }
 
   .buy-img {
@@ -415,6 +418,7 @@ ion-col {
   .buy-card-details {
     font-size: 16px;
     line-height: 1.5;
+    margin-left: 0;
   }
 
   .buy-img {
@@ -486,6 +490,7 @@ ion-col {
   .buy-card-details {
     font-size: 11px;
     text-align: center;
+    margin-left: 0;
   }
 .price-size{
     display: flex;
@@ -559,6 +564,7 @@ ion-col {
   .buy-card-details {
     font-size: 10px;
     text-align: center;
+    margin-left: 0;
   }
 
   .buy-img {

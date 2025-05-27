@@ -80,6 +80,7 @@
 }
 
 .pro-name {
+  font-family: "Lobster", sans-serif;
   font-size: 3.5rem;
   font-weight: bold;
   color: #3A3E6C;
@@ -193,17 +194,16 @@
   padding: 14px 38px;
   border: none;
   background: #f8f8f8;
-  color: #333;
+  color: #3A3E6C;
   border-radius: 8px 8px 0 0;
   cursor: pointer;
   font-weight: 700;
-  font-size: 17px;
-  transition: background 0.2s, color 0.2s;
+  font-size: 20px;
   letter-spacing: 0.5px;
 }
 .tab.active, .tab:hover {
-  background: #fff3e0;
-  color: #ff5722;
+  background: #ddd;
+  color: #3A3E6C;
 }
 
 .tab-content {
@@ -216,9 +216,9 @@
 }
 
 .tab-content h3 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #ff5722;
+  color: #3A3E6C;
   margin-bottom: 14px;
 }
 
@@ -252,17 +252,13 @@
   border: none;
   font-size: 2.2rem;
   cursor: pointer;
-  color: #ff5722;
+  color: #3A3E6C;
   transition: color 0.2s;
   z-index: 1001;
 }
-.close-btn:hover {
-  color: #d84315;
-}
-
 .add-review-btn {
   margin-top: 22px;
-  background: #ff5722;
+  background: #3A3E6C;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -270,30 +266,25 @@
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px #ffe0b2;
-}
-.add-review-btn:hover {
-  background: #d84315;
-}
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px #3A3E6C;}
 
 .review-list {
   margin-top: 18px;
 }
 .review-item {
-  background: #fff8f1;
+  background: #ddd;
   border-radius: 8px;
   padding: 16px 22px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 6px #fbeee6;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 .review-author {
   font-weight: 700;
-  color: #ff5722;
-  font-size: 1.08rem;
+  color: #3A3E6C;
+  font-size: 1.3rem;
 }
 .review-rating {
   color: #ffc107;
@@ -303,8 +294,8 @@
 }
 .review-text {
   margin-top: 4px;
-  color: #444;
-  font-size: 1rem;
+  color: black;
+  font-size: 1.2rem;
 }
 
 .review-form label {

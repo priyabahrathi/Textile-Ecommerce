@@ -159,17 +159,17 @@ const ProductDetail: React.FC = () => {
         </div>
       </div>
       <div className="tabs">
-        <button className={activeTab === 'desc' ? 'tab active' : 'tab'} onClick={() => setActiveTab('desc')}>Description</button>
+        {/* <button className={activeTab === 'desc' ? 'tab active' : 'tab'} onClick={() => setActiveTab('desc')}>Description</button> */}
         <button className={activeTab === 'reviews' ? 'tab active' : 'tab'} onClick={() => setActiveTab('reviews')}>Reviews</button>
         <button className={activeTab === 'qa' ? 'tab active' : 'tab'} onClick={() => setActiveTab('qa')}>Q&A</button>
       </div>
       <div className="tab-content">
-        {activeTab === 'desc' && (
+        {/* {activeTab === 'desc' && (
           <div>
             <h3>Description</h3>
             <p>{selectedProduct.description || 'No description available.'}</p>
           </div>
-        )}
+        )} */}
         {activeTab === 'reviews' && (
           <div>
             <h3>Reviews</h3>
