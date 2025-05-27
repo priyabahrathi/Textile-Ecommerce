@@ -37,7 +37,7 @@ interface Product {
   isNew?: boolean;
   stock: number;
   fabricType?: string;
-  dressStyle?: string;
+  outfitName?: string;
   occasion?: string;
   colors?: string[];
   // Add any other properties your products might have
@@ -66,17 +66,36 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
 const Product: React.FC = () => {
   const Products = useSelector((state: RootState) => state.product.Products as Product[]);
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
+  const outfitNameOptions = Array.from(
+    new Set(
+      Products.map(p => p.outfitName).filter((name): name is string => Boolean(name))
+    )
+  );
+  const categoryOptions = Array.from(
+    new Set(
+      Products.map(p => p.category).filter((c): c is string => Boolean(c))
+    )
+  );
+
+
+
+
+
   const [genderFilter, setGenderFilter] = useState<'male' | 'female' | 'both'>('both');
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [selectedFabricType, setSelectedFabricType] = useState<string[]>([]);
-  const [selectedDressStyle, setSelectedDressStyle] = useState<string[]>([]);
-  const [selectedOccasion, setSelectedOccasion] = useState<string[]>([]);
+  const [selectedOutfitNames, setSelectedOutfitNames] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>('default');
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
 
   const [filteredItems, setFilteredItems] = useState<Product[]>([]);
   const dispatch = useDispatch<AppDispatch>();
@@ -95,8 +114,8 @@ const Product: React.FC = () => {
     selectedCategory,
     genderFilter,
     selectedFabricType,
-    selectedDressStyle,
-    selectedOccasion,
+    selectedOutfitNames,
+  
     selectedColors,
     inStockOnly,
     sortBy,
@@ -114,17 +133,26 @@ const Product: React.FC = () => {
     );
   };
 
-  const handleToggleFilter = (filterType: 'fabricType' | 'dressStyle' | 'occasion' | 'colors', value: string, checked: boolean) => {
+  const handleToggleFilter = (
+    filterType: 'fabricType' | 'outfitName' | 'category' | 'colors',
+    value: string,
+    checked: boolean
+  ) => {
     if (filterType === 'fabricType') {
       setSelectedFabricType((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
-    } else if (filterType === 'dressStyle') {
-      setSelectedDressStyle((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
-    } else if (filterType === 'occasion') {
-      setSelectedOccasion((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
-    } else if (filterType === 'colors') {
+    } else if (filterType === 'outfitName') {
+      setSelectedOutfitNames((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
+    } else if (filterType === 'category') {
+      setSelectedCategories((prev) =>
+        checked ? [...prev, value] : prev.filter((item) => item !== value)
+      );
+    }
+    else if (filterType === 'colors') {
       setSelectedColors((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
     }
   };
+
+
 
   const applyFilter = () => {
     let result = Products;
@@ -159,19 +187,22 @@ const Product: React.FC = () => {
       );
     }
 
-    // Apply Dress Style filter
-    if (selectedDressStyle.length > 0) {
+    // Apply Outfit Name filter
+    if (selectedOutfitNames.length > 0) {
       result = result.filter((product) =>
-        product.dressStyle && selectedDressStyle.includes(product.dressStyle)
+        product.outfitName && selectedOutfitNames.includes(product.outfitName)
       );
     }
 
     // Apply Occasion filter
-    if (selectedOccasion.length > 0) {
+    if (selectedCategories.length > 0) {
       result = result.filter((product) =>
-        product.occasion && selectedOccasion.includes(product.occasion)
+        selectedCategories.includes(product.category)
       );
     }
+
+
+
 
     // Apply Color filter
     if (selectedColors.length > 0) {
@@ -216,8 +247,46 @@ const Product: React.FC = () => {
 
   return (
     <>
+      <IonButton fill="clear" className="filter-toggle-btn" onClick={() => setDrawerOpen(true)}>
+        <IonIcon icon={options} slot="icon-only" />
+      </IonButton>
       <div id="main-content" className="main-content-wrapper">
-        
+
+        <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
+          <div className="mobile-drawer-overlay" onClick={() => setDrawerOpen(false)} />
+          <div className="mobile-drawer-content">
+            <h3 className="filter-group-title">Filter Options</h3>
+            <h4 className="filter-group-title">By Fabric Type</h4>
+            <ul className="filter-option-list">
+              {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
+                <li key={type} className="filter-option-item">
+                  <IonCheckbox
+                    slot="start"
+                    checked={selectedFabricType.includes(type)}
+                    onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
+                  />
+                  <IonLabel>{type}</IonLabel>
+                </li>
+              ))}
+            </ul>
+            <h4 className="filter-group-title">By Outfit Name</h4>
+            <ul className="filter-option-list">
+              {outfitNameOptions.map((outfit) => (
+                <li key={outfit} className="filter-option-item">
+                  <IonCheckbox
+                    slot="start"
+                    checked={selectedOutfitNames.includes(outfit)}
+                    onIonChange={(e) => handleToggleFilter('outfitName', outfit, e.detail.checked)}
+                  />
+                  <IonLabel>{outfit}</IonLabel>
+                </li>
+              ))}
+            </ul>
+
+
+          </div>
+        </div>
+
         <div className="page-product">
           {/* Fixed Sidebar for Desktop */}
           <IonCol className="sidebar-col">
@@ -239,20 +308,21 @@ const Product: React.FC = () => {
                 ))}
               </ul>
 
-              {/* By Dress Style */}
-              <h4 className="filter-group-title">By Dress Style</h4>
+              {/* By Outfit Name */}
+              <h4 className="filter-group-title">By Outfit Name</h4>
               <ul className="filter-option-list">
-                {['A-Line', 'Bodycon', 'Maxi', 'Midi', 'Mini', 'Wrap', 'Shift', 'Empire'].map((style) => (
-                  <li key={style} className="filter-option-item">
+                {outfitNameOptions.map((outfit) => (
+                  <li key={outfit} className="filter-option-item">
                     <IonCheckbox
                       slot="start"
-                      checked={selectedDressStyle.includes(style)}
-                      onIonChange={(e) => handleToggleFilter('dressStyle', style, e.detail.checked)}
+                      checked={selectedOutfitNames.includes(outfit)}
+                      onIonChange={(e) => handleToggleFilter('outfitName', outfit, e.detail.checked)}
                     />
-                    <IonLabel>{style}</IonLabel>
+                    <IonLabel>{outfit}</IonLabel>
                   </li>
                 ))}
               </ul>
+
 
               {/* Price Range */}
               <h4 className="filter-group-title">Price</h4>
@@ -277,19 +347,22 @@ const Product: React.FC = () => {
               </div>
 
               {/* By Occasion */}
-              <h4 className="filter-group-title">By Occasion</h4>
+              <h4 className="filter-group-title">By Occasion (Category)</h4>
               <ul className="filter-option-list">
-                {['Casual', 'Party', 'Formal', 'Workwear', 'Wedding', 'Cocktail'].map((occasion) => (
-                  <li key={occasion} className="filter-option-item">
+                {categoryOptions.map((cat) => (
+                  <li key={cat} className="filter-option-item">
                     <IonCheckbox
                       slot="start"
-                      checked={selectedOccasion.includes(occasion)}
-                      onIonChange={(e) => handleToggleFilter('occasion', occasion, e.detail.checked)}
+                      checked={selectedCategories.includes(cat)}
+                      onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
                     />
-                    <IonLabel>{occasion}</IonLabel>
+                    <IonLabel>{cat}</IonLabel>
                   </li>
                 ))}
               </ul>
+
+
+
 
               {/* By Color */}
               <h4 className="filter-group-title">By Color</h4>
@@ -342,9 +415,9 @@ const Product: React.FC = () => {
               {/* Gender Selection */}
               <div className="gender-selection-btn">
                 {[
-                  { label: 'All', value: 'both', imgPath:"/assets/btn-img/both.png" },
-                  { label: 'Male', value: 'male', imgPath:"/assets/btn-img/male.png" },
-                  { label: 'Female', value: 'female', imgPath:"/assets/btn-img/woman.png" },
+                  { label: 'All', value: 'both', imgPath: "/assets/btn-img/both.png" },
+                  { label: 'Male', value: 'male', imgPath: "/assets/btn-img/male.png" },
+                  { label: 'Female', value: 'female', imgPath: "/assets/btn-img/woman.png" },
                 ].map((option) => (
                   <div
                     key={option.value}
@@ -352,10 +425,10 @@ const Product: React.FC = () => {
                     onClick={() => setGenderFilter(option.value as 'male' | 'female' | 'both')}
                   >
                     <div className="circle-button">
-                      <img 
-                        src={option.imgPath} 
-                        alt={option.label} 
-                        
+                      <img
+                        src={option.imgPath}
+                        alt={option.label}
+
                       />
                     </div>
                     <div className="gender-label">{option.label}</div>
