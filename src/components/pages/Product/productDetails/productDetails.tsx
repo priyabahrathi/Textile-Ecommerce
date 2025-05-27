@@ -98,15 +98,19 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
         <div className="product-info">
-          <h2 style={{textAlign:'left'}}>{selectedProduct.name}</h2>
-          <div className="price-rating">
-            <span className="price">&#8377;{selectedProduct.price}</span>
+          <div className='name-rating'>
+            <h2 className='pro-name' style={{ textAlign: 'left' }}>{selectedProduct.name}</h2>
             <span className="rating">★★★★☆ (4.2)</span>
+          </div>
+          
+          <div className="selectors">
+            <div className="price-rating">
+            <span className='price-tag'>Price :</span><span className="price"> &#8377;{selectedProduct.price}</span>
+
             <span className="reviews">{reviews.length} reviews</span>
           </div>
-          <div className="selectors">
             <div>
-              <label>Size:</label>
+              <label className='price-tag'>Size:</label>
               {['S', 'M', 'L', 'XL'].map(size => (
                 <button
                   key={size}
@@ -115,8 +119,9 @@ const ProductDetail: React.FC = () => {
                 >{size}</button>
               ))}
             </div>
-
           </div>
+          
+          <div className='desp'><span className='desp-head'>Description:</span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsum magni sit similique, assumenda blanditiis quaerat odio neque saepe cupiditate, ullam pariatur omnis unde quibusdam? Veniam illo error consectetur ex.</div>
           <div className="action-buttons">
             <button className="add-cart" onClick={handleAddToCart}>Add to Cart</button>
             <button
@@ -128,19 +133,18 @@ const ProductDetail: React.FC = () => {
                     name: selectedProduct.name,
                     price: selectedProduct.price,
                     img: selectedProduct.img,
+                    size: selectedSize,
                     quantity: 1,
                   }));
-                  dispatch(setPage('checkout')); // navigate using Redux-based page system
+                  dispatch(setPage('checkout'));
                 }
               }}
             >
               Buy
             </button>
-
-
-
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
           </div>
+
           <div className="product-highlights">
             <div>
               <span className="highlight-title">Fabric:</span> {selectedProduct.fabric || "Cotton Blend"}
@@ -155,17 +159,17 @@ const ProductDetail: React.FC = () => {
         </div>
       </div>
       <div className="tabs">
-        <button className={activeTab === 'desc' ? 'tab active' : 'tab'} onClick={() => setActiveTab('desc')}>Description</button>
+        {/* <button className={activeTab === 'desc' ? 'tab active' : 'tab'} onClick={() => setActiveTab('desc')}>Description</button> */}
         <button className={activeTab === 'reviews' ? 'tab active' : 'tab'} onClick={() => setActiveTab('reviews')}>Reviews</button>
         <button className={activeTab === 'qa' ? 'tab active' : 'tab'} onClick={() => setActiveTab('qa')}>Q&A</button>
       </div>
       <div className="tab-content">
-        {activeTab === 'desc' && (
+        {/* {activeTab === 'desc' && (
           <div>
             <h3>Description</h3>
             <p>{selectedProduct.description || 'No description available.'}</p>
           </div>
-        )}
+        )} */}
         {activeTab === 'reviews' && (
           <div>
             <h3>Reviews</h3>

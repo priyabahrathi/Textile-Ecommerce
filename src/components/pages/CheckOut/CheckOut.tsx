@@ -105,9 +105,33 @@ const CheckOut: React.FC = () => {
                             />
                             <div className="buy-card-details">
                               <div className='buy-name'>{item.name}</div>
-                              <div className='buy-divrice'>Price: ₹{item.price}</div>
-
-                              {'size' in item && item.size && <div className='size'>Size: {item.size}</div>}
+                              <div className='price-size'>
+                                <div className='buy-price'>Price: ₹{item.price}</div>
+                                {'size' in item && item.size && <div className='size'>Size: {item.size}</div>}
+                              </div>
+                              <div className="quantity-controls">
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDecrement(item);
+                                  }}
+                                  className="id-btn"
+                                  disabled={item.quantity === 1}
+                                >
+                                  -
+                                </button>
+                                <span className="quantity">{item.quantity}</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleIncrement(item);
+                                  }}
+                                  className="id-btn"
+                                >
+                                  +
+                                </button>
+                              </div>
+                              {/* <div className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. ratione, rem aliquam iste?</div> */}
                             </div>
                           </div>
                           <button
@@ -119,28 +143,7 @@ const CheckOut: React.FC = () => {
                           >
                             <IonIcon icon={closeCircle} />
                           </button>
-                          <div className="quantity-controls">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDecrement(item);
-                              }}
-                              className="id-btn"
-                              disabled={item.quantity === 1}
-                            >
-                              -
-                            </button>
-                            <span className="quantity">{item.quantity}</span>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleIncrement(item);
-                              }}
-                              className="id-btn"
-                            >
-                              +
-                            </button>
-                          </div>
+
 
                           <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
                         </div>

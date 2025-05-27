@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import './Payment.css';
-import { IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonIcon } from '@ionic/react';
 import { clearBuy } from '../../../Store/Slice/checkout';
 import { setPage } from '../../../Store/Slice/pageSlice';
 import { getDatabase, ref, push } from 'firebase/database';
+import { cart } from 'ionicons/icons';
 
 const Payment: React.FC = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,19 @@ const Payment: React.FC = () => {
 
   return (
     <div className="payment-page">
-      <h2 className='payment-head'>Payment</h2>
+      <div className='cart-header'>
+              <button
+                className="back-btn"
+                onClick={() => {
+                  dispatch(setPage("checkout"));
+                }}
+              >
+                ← Back
+              </button>
+              <h2 className='checkout-head'>Payment</h2>
+              <button className='btn-cart'><IonIcon icon={cart} /></button>
+            </div>
+      
       <IonGrid>
         <IonRow>
           <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>

@@ -2,6 +2,7 @@
   padding: 0 0 40px 0;
   position: relative;
   overflow: auto;
+  background-color: #f1f1f1;
 }
 .back-btn {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -29,7 +30,7 @@
   gap: 48px;
   border-bottom: 1px solid #f0f0f0;
   padding: 40px 48px 32px 48px;
-  background: linear-gradient(90deg, #fff 70%, #f6f7fb 100%);
+ 
 }
 
 .image-gallery {
@@ -40,13 +41,8 @@
 }
 
 .main-img {
-  width: 400px;
-  height: 400px;
+ 
   object-fit: contain;
-  border-radius: 14px;
-  border: 1.5px solid #ececec;
-  background: #f9f9f9;
-  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.08);
   transition: border 0.2s;
 }
 
@@ -57,19 +53,22 @@
 }
 
 .thumb {
-  width: 68px;
-  height: 68px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
   transition: border 0.2s, box-shadow 0.2s;
-  background: #fff;
   box-shadow: 0 1px 6px #ececec;
 }
 .thumb.active, .thumb:hover {
-  border: 2px solid #ff5722;
-  box-shadow: 0 2px 12px #ffe0b2;
+  border: 2px solid #3A3E6C;
+  box-shadow: 0 2px 12px #3A3E6C;
+  transform: scale(1.05);
+  transition: transform 0.2s;
+  background: #fff;
+
 }
 
 .product-info {
@@ -80,25 +79,30 @@
   justify-content: flex-start;
 }
 
-.product-info h2 {
-  font-size: 2.1rem;
-  font-weight: 700;
-  color: #222;
+.pro-name {
+  font-family: "Lobster", sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #3A3E6C;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
 }
-
+.name-rating{
+  line-height: 0;
+}
 .price-rating {
   display: flex;
   align-items: center;
   gap: 28px;
-  font-size: 22px;
 }
-
+.price-tag{
+  font-weight: 700;
+  color: #3A3E6C;
+  font-size: 25px;
+}
 .price {
-  color: #ff5722;
+  color: green;
   font-weight: bold;
-  font-size: 2rem;
   letter-spacing: 1px;
 }
 
@@ -115,73 +119,69 @@
 
 .selectors {
   display: flex;
-  gap: 36px;
-  align-items: center;
-  margin-top: 8px;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 20px;
 }
 
 .selector {
   margin: 0 6px;
-  padding: 10px 22px;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
   border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  background: #fafafa;
+  border-radius: 50%;
+  background-color: #ddd;
   cursor: pointer;
   transition: background 0.2s, border 0.2s, box-shadow 0.2s;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   box-shadow: 0 1px 4px #fbeee6;
 }
 .selector.active, .selector:hover {
-  border: 2px solid #ff5722;
-  background: #fff3e0;
-  box-shadow: 0 2px 8px #ffe0b2;
+  border: 2px solid #3A3E6C;
+  box-shadow: 0 0 7px #3A3E6C;
 }
-
+.desp{
+  font-size: 20px;
+  color: black;
+  line-height: 1.2;
+  margin-top: 12px;
+}
+.desp-head{
+  color: #3A3E6C;
+  font-weight: bold;
+  font-size: 25px;
+}
 .action-buttons {
   display: flex;
   gap: 22px;
-  margin-top: 18px;
 }
 
-.add-cart, .buy, .tryon-btn {
+.add-cart,.buy,.tryon-btn {
   padding: 14px 32px;
   border: none;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-  font-size: 17px;
-  box-shadow: 0 2px 8px #fbeee6;
+  font-size: 20px;
+  box-shadow: 0 2px 8px #3A3E6C;
   letter-spacing: 0.5px;
 }
 
 .add-cart {
-  background: linear-gradient(90deg, #ff5722 60%, #ff9800 100%);
+  background-color: #3A3E6C;
   color: #fff;
-  box-shadow: 0 4px 16px #ffe0b2;
-}
-.add-cart:hover {
-  background: linear-gradient(90deg, #d84315 60%, #ff5722 100%);
-}
-
-.buy {
-  background: #fff;
-  color: #ff5722;
-  border: 1.5px solid #ff5722;
-}
-.buy:hover {
-  background: #fff3e0;
-  color: #d84315;
+  box-shadow: 0 4px 16px #3A3E6C;
 }
 
 .tryon-btn {
-  background: #ffc107;
-  color: #fff;
+  background: #ffffff;
+  color: #3A3E6C;
+  border: 2px solid #3A3E6C;
 }
-.tryon-btn:hover {
-  background: #ff5722;
-}
+
 
 .tabs {
   display: flex;
@@ -194,17 +194,16 @@
   padding: 14px 38px;
   border: none;
   background: #f8f8f8;
-  color: #333;
+  color: #3A3E6C;
   border-radius: 8px 8px 0 0;
   cursor: pointer;
   font-weight: 700;
-  font-size: 17px;
-  transition: background 0.2s, color 0.2s;
+  font-size: 20px;
   letter-spacing: 0.5px;
 }
 .tab.active, .tab:hover {
-  background: #fff3e0;
-  color: #ff5722;
+  background: #ddd;
+  color: #3A3E6C;
 }
 
 .tab-content {
@@ -217,9 +216,9 @@
 }
 
 .tab-content h3 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #ff5722;
+  color: #3A3E6C;
   margin-bottom: 14px;
 }
 
@@ -253,17 +252,13 @@
   border: none;
   font-size: 2.2rem;
   cursor: pointer;
-  color: #ff5722;
+  color: #3A3E6C;
   transition: color 0.2s;
   z-index: 1001;
 }
-.close-btn:hover {
-  color: #d84315;
-}
-
 .add-review-btn {
   margin-top: 22px;
-  background: #ff5722;
+  background: #3A3E6C;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -271,30 +266,25 @@
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px #ffe0b2;
-}
-.add-review-btn:hover {
-  background: #d84315;
-}
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px #3A3E6C;}
 
 .review-list {
   margin-top: 18px;
 }
 .review-item {
-  background: #fff8f1;
+  background: #ddd;
   border-radius: 8px;
   padding: 16px 22px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 6px #fbeee6;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 .review-author {
   font-weight: 700;
-  color: #ff5722;
-  font-size: 1.08rem;
+  color: #3A3E6C;
+  font-size: 1.3rem;
 }
 .review-rating {
   color: #ffc107;
@@ -304,8 +294,8 @@
 }
 .review-text {
   margin-top: 4px;
-  color: #444;
-  font-size: 1rem;
+  color: black;
+  font-size: 1.2rem;
 }
 
 .review-form label {
@@ -350,18 +340,16 @@
 
 .product-highlights {
   margin-top: 18px;
-  background: #f8f8f8;
-  border-radius: 8px;
   padding: 16px 20px;
   box-shadow: 0 1px 4px #fbeee6;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 1rem;
+  font-size: 20px;
 }
 .highlight-title {
-  font-weight: 600;
-  color: #ff5722;
+  font-weight: bold;
+  color: #3A3E6C;
   margin-right: 8px;
 }
 
