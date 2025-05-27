@@ -115,7 +115,7 @@ const Product: React.FC = () => {
     genderFilter,
     selectedFabricType,
     selectedOutfitNames,
-  
+
     selectedColors,
     inStockOnly,
     sortBy,
@@ -173,11 +173,7 @@ const Product: React.FC = () => {
     result = result.filter((product) => product.price >= lower && product.price <= upper);
 
     // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
-    if (selectedCategory.length > 0) {
-      result = result.filter((product) =>
-        selectedCategory.includes(product.category)
-      );
-    }
+  
 
     // NEW FILTERS for dresses
     // Apply Fabric Type filter
@@ -257,18 +253,7 @@ const Product: React.FC = () => {
           <div className="mobile-drawer-content">
             <h3 className="filter-group-title">Filter Options</h3>
             <h4 className="filter-group-title">By Fabric Type</h4>
-            <ul className="filter-option-list">
-              {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
-                <li key={type} className="filter-option-item">
-                  <IonCheckbox
-                    slot="start"
-                    checked={selectedFabricType.includes(type)}
-                    onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
-                  />
-                  <IonLabel>{type}</IonLabel>
-                </li>
-              ))}
-            </ul>
+
             <h4 className="filter-group-title">By Outfit Name</h4>
             <ul className="filter-option-list">
               {outfitNameOptions.map((outfit) => (
@@ -279,6 +264,18 @@ const Product: React.FC = () => {
                     onIonChange={(e) => handleToggleFilter('outfitName', outfit, e.detail.checked)}
                   />
                   <IonLabel>{outfit}</IonLabel>
+                </li>
+              ))}
+            </ul>
+            <ul className="filter-option-list">
+              {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
+                <li key={type} className="filter-option-item">
+                  <IonCheckbox
+                    slot="start"
+                    checked={selectedFabricType.includes(type)}
+                    onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
+                  />
+                  <IonLabel>{type}</IonLabel>
                 </li>
               ))}
             </ul>
@@ -293,20 +290,7 @@ const Product: React.FC = () => {
             <div className="sidebar-filters">
               <h3 className="filter-group-title">Filter Options</h3>
 
-              {/* By Fabric Type */}
-              <h4 className="filter-group-title">By Fabric Type</h4>
-              <ul className="filter-option-list">
-                {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
-                  <li key={type} className="filter-option-item">
-                    <IonCheckbox
-                      slot="start"
-                      checked={selectedFabricType.includes(type)}
-                      onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
-                    />
-                    <IonLabel>{type}</IonLabel>
-                  </li>
-                ))}
-              </ul>
+
 
               {/* By Outfit Name */}
               <h4 className="filter-group-title">By Outfit Name</h4>
@@ -322,7 +306,34 @@ const Product: React.FC = () => {
                   </li>
                 ))}
               </ul>
-
+              {/* By Fabric Type */}
+              <h4 className="filter-group-title">By Fabric Type</h4>
+              <ul className="filter-option-list">
+                {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
+                  <li key={type} className="filter-option-item">
+                    <IonCheckbox
+                      slot="start"
+                      checked={selectedFabricType.includes(type)}
+                      onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
+                    />
+                    <IonLabel>{type}</IonLabel>
+                  </li>
+                ))}
+              </ul>
+              {/* By Occasion */}
+              <h4 className="filter-group-title">By Occasion (Category)</h4>
+              <ul className="filter-option-list">
+                {categoryOptions.map((cat) => (
+                  <li key={cat} className="filter-option-item">
+                    <IonCheckbox
+                      slot="start"
+                      checked={selectedCategories.includes(cat)}
+                      onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
+                    />
+                    <IonLabel>{cat}</IonLabel>
+                  </li>
+                ))}
+              </ul>
 
               {/* Price Range */}
               <h4 className="filter-group-title">Price</h4>
@@ -345,23 +356,6 @@ const Product: React.FC = () => {
                   <IonLabel>${upper}</IonLabel>
                 </div>
               </div>
-
-              {/* By Occasion */}
-              <h4 className="filter-group-title">By Occasion (Category)</h4>
-              <ul className="filter-option-list">
-                {categoryOptions.map((cat) => (
-                  <li key={cat} className="filter-option-item">
-                    <IonCheckbox
-                      slot="start"
-                      checked={selectedCategories.includes(cat)}
-                      onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
-                    />
-                    <IonLabel>{cat}</IonLabel>
-                  </li>
-                ))}
-              </ul>
-
-
 
 
               {/* By Color */}
@@ -399,7 +393,6 @@ const Product: React.FC = () => {
             {/* Horizontal Filter Bar */}
             <div className="horizontal-filters">
               <div className="horizontal-card card-search">
-                <h4 className="filter-title">Filter by Keyword</h4>
                 <div className="search-bar">
                   <IonIcon icon={searchOutline} style={{ padding: "0 8px", color: "#E59866" }} />
                   <IonInput
@@ -428,7 +421,7 @@ const Product: React.FC = () => {
                       <img
                         src={option.imgPath}
                         alt={option.label}
-
+                        className="gender-icon"
                       />
                     </div>
                     <div className="gender-label">{option.label}</div>
@@ -436,22 +429,7 @@ const Product: React.FC = () => {
                 ))}
               </div>
 
-              {/* Main Category Filter in Horizontal Bar (Simplified) */}
-              <div className="horizontal-card card-filter">
-                <h4 className="filter-title">Category</h4>
-                <div className="category-list">
-                  {['Dresses', 'Skirts'].map((cat) => (
-                    <div key={cat} className="category-item">
-                      <IonCheckbox
-                        slot="start"
-                        checked={selectedCategory.includes(cat)}
-                        onIonChange={(e) => handleCheckBox(cat, e.detail.checked)}
-                      />
-                      <IonLabel className="cat-label">{cat}</IonLabel>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
 
               {/* Sort By Dropdown */}
               <div className="horizontal-card">

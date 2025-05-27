@@ -51,8 +51,10 @@ ion-menu[menu-id="filterMenu"] {
 }
 
 .filter-option-list {
+  align-items: center ; 
+  
   list-style-type: none;
-  padding: 0;
+  padding: 1px;
   margin-bottom: 20px;
 }
 
@@ -113,6 +115,7 @@ ion-menu[menu-id="filterMenu"] {
 /* Main Content Column */
 .main-content-col {
   grid-column: 2;
+  
   padding-left: 0;
 }
 
@@ -121,9 +124,9 @@ ion-menu[menu-id="filterMenu"] {
   display: flex;
   flex-wrap: wrap;
   position: sticky;
-  gap: 18px;
+  gap: 28px;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
   margin: 0 auto 32px auto;
   padding: 18px 24px;
   background: #f8f8f8; /* Seafoam Mist */
@@ -142,7 +145,7 @@ ion-menu[menu-id="filterMenu"] {
   border-radius: 10px;
   margin: 0;
   padding: 12px 18px 10px 18px;
-  min-width: 180px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -161,7 +164,7 @@ ion-menu[menu-id="filterMenu"] {
 .horizontal-filters .search-bar {
   display: flex;
   align-items: center;
-  width: 180px;
+  width: 280px;
   background: #FFFFFF; /* Pure White for input background */
   border: 1px solid #D3E0EA; /* Seafoam Mist border */
   border-radius: 6px;
@@ -383,15 +386,12 @@ ion-menu[menu-id="filterMenu"] {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-
-.circle-button img {
-  width: 100%; 
-  height: 100%; 
-  object-fit: contain; 
-    padding: 10px;  
-  box-sizing: border-box; 
+.gender-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
-
 
 .gender-label {
   margin-top: 8px;
@@ -410,6 +410,7 @@ ion-menu[menu-id="filterMenu"] {
 .gender-button.selected .gender-label {
   color: #2A4B6F; /* Deep Ocean */
 }
+
 
 /* Responsive Adjustments */
 /* Desktop Specific (hide mobile filter button) */
