@@ -33,7 +33,19 @@ body {
 .hero-section::before {
   content: none; /* Disable the ::before pseudo-element */
 }
-
+.features{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #3A3E6C;
+ 
+}
+.side-border{
+  padding: 3px;
+  border-left: 1px solid #3A3E6C;
+  border-right: 1px solid #3A3E6C;
+}
 
 .hero-swiper-container {
   position: absolute;

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { IonIcon, IonButton } from "@ionic/react";
-import { addCircle, statsChart, cart, settings,personCircle, people } from "ionicons/icons";
+import { addCircle, statsChart, cart, settings,personCircle, people, camera } from "ionicons/icons";
 import ManageProduct from "./pages/ManageProduct";
 import ViewSales from "./pages/ViewSales";
 import CheckoutAdminPage from "./pages/checkoutDetails";
 import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
+import BannerImg from "./pages/BannerImg";
 
 const tabs = [
   {name:"profile", icon:personCircle},
@@ -13,6 +14,7 @@ const tabs = [
   { name: "View Sales", icon: statsChart },
   { name: "Chekouts", icon: cart },
   { name: "Settings", icon: settings },
+  { name: "banner", icon: camera }
 ];
 
 const AdminDashboard: React.FC = () => {
@@ -30,7 +32,8 @@ const AdminDashboard: React.FC = () => {
         return <div><CheckoutAdminPage/></div>;
       case "Settings":
         return <div><Settings/></div>;
-        
+      case "banner":
+        return <div><BannerImg/></div>;
       default:
         return null;
     }
