@@ -3,65 +3,93 @@
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
-
+.welcome-message{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  
+  color: #3A3E6C;
+  margin: 0;
+  padding: 0;
+}
 .hero-section {
   position: relative;
-  /* Needed for pseudo-element positioning */
-  min-height: 100vh;
-  /* Adjust height as needed */
-
-
+  min-height: 70vh; /* Set minimum height to 80% of viewport height */
+  width: 90%; /* Set width to 80% */
+  margin: auto; /* Center the hero section horizontally */
+  overflow: hidden; /* Important for containing absolutely positioned children and rounded corners */
+  border-radius: 20px; /* Apply border-radius */
+  box-shadow: 0 4px 30px rgba(226, 212, 10); /* Apply box-shadow */
+  border: 1px solid rgb(226, 212, 10); /* Optional border for better visibility */
+  margin-top: 20px; /* Add top margin */
+  margin-bottom: 20px; /* Add bottom margin */
+  display: flex; /* Use flexbox to arrange main swiper and thumbs */
+  flex-direction: column; /* Stack them vertically */
+  justify-content: space-between; /* Push thumbs to bottom */
 }
 
-.hero {
-  position: relative;
-  /* Needed for pseudo-element positioning */
-  min-height: 60vh;
-  /* Adjust height as needed */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  /* Align content left by default */
-  padding: 5rem 5%;
-  /* Add some padding */
-  margin-top: 60px;
-  overflow: hidden;
-  /* Hide overflowing pseudo-element */
-
-}
 
 .hero-section::before {
-  content: "";
+  content: none; /* Disable the ::before pseudo-element */
+}
+
+
+.hero-swiper-container {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('../../assets/images/bg-hero.jpg');
-  /* Replace with your hero image URL */
-  background-size: cover;
+  width: 100%;
+  height: 100%; /* Will take 100% of hero-section's height (100vh) */
+  z-index: -2; /* Should be behind ::before if ::before is transparent */
+  overflow: hidden; /* Important for containing the Swiper slides */
+  /* Temporary debug background: */
+  background-color: rgba(0, 255, 0, 0.3); /* MAKE THIS VISIBLE TO CHECK CONTAINER */
+}
+
+/* Swiper's internal elements - ensure they have dimensions */
+.hero-swiper-container .swiper {
+  width: 100%;
+  height: 100%;
+}
+.hero-swiper-image{
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* Ensure the image covers the entire slide */
+  background-position: center; /* Center the image */
+  object-fit: cover;
+  background-repeat: no-repeat; /* Prevent image repetition */
+}
+.hero-swiper-slide {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
   background-position: center;
-  z-index: -1;
-  /* Place the background behind the content */
-  transition: filter 0.3s ease;
-  /* Smooth transition for blur */
+  background-repeat: no-repeat;
+ 
+}
+
+/* Rest of your CSS remains unchanged */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5rem 5%;
+  margin-top: 60px;
+  overflow: hidden;
 }
 
 .hero-content {
-
   max-width: 500px;
-  /* Limit content width */
-  z-index: 1;
-  /* Ensure content is above the pseudo-element */
-
+  z-index: 1; /* Ensure content is on top */
 }
 
 .hero-content h2 {
   font-size: 50px !important;
-  /* Adjust size as needed */
   margin-bottom: 0.5rem;
-  color: #d45907;
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -72,12 +100,11 @@ body {
 }
 
 .year {
-  color: #555352;
+  color: #3A3E6C;
 }
 
 .hero-buttons .icon-btn {
-  background: #d45907;
-  /* Slightly lighter on hover */
+  background: #3A3E6C;
   color: #ffffff;
   font-size: 1.2rem;
   height: 50px;
@@ -88,43 +115,38 @@ body {
 }
 
 .icon-btn:hover {
-
-  color: #d45907;
+  color: #3A3E6C;
   background-color: #ffffff;
-  border: 1px solid #d45907;
+  border: 1px solid #3A3E6C;
 }
 
 .hero-buttons {
-
   display: flex;
   justify-content: start;
   align-items: center;
 }
 
-
-
-.arrival-btn  {
+.arrival-btn {
   margin: 5px;
   display: flex;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 12px 24px;
   font-size: 18px;
-  height:50px;
+  height: 50px;
   font-weight: bold;
-  background: #d45907;
+  background: #3A3E6C;
   color: #ffffff;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
-
 }
 
 .arrival-btn:hover {
-  color: #d45907;
+  color: #3A3E6C;
   background: #ffffff;
-  border: 1px solid #d45907;
+  border: 1px solid #3A3E6C;
   transform: scale(1);
 }
 
@@ -132,24 +154,19 @@ body {
   from {
     opacity: 0;
     transform: translateY(-30px);
-    /* Start slightly above */
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
-    /* Move to normal position */
   }
 }
 
-/* Apply the animation to each div with different delays */
 .hero-content>* {
   opacity: 0;
-  /* Start hidden */
   animation: slideDown 0.8s ease-in-out forwards;
 }
 
-/* Delay each child div for a staggered effect */
 .hero-content h2 {
   animation-delay: 0.2s;
 }
@@ -170,48 +187,34 @@ body {
   animation-delay: 1s;
 }
 
-@media screen and (max-width:1025) {
-
+@media screen and (max-width:1025px) { /* Corrected syntax */
   .hero-content {
     max-width: 60%;
-    /* Allow content to take more width */
-
   }
   .hero h2 {
     font-size: 3.2rem;
   }
-
   .hero p {
     font-size: 2.2rem;
   }
-
 }
-/* Responsive adjustments for smaller screens */
+
 @media screen and (max-width: 720px) {
   .hero {
     justify-content: center;
-    /* Center content horizontally */
     text-align: start;
-    /* Center text within the content block */
     min-height: 50vh;
     padding: 2rem 1rem;
-    /* Adjust padding */
   }
-  
-
 
   .hero-section::before {
     filter: blur(10px);
-    /* Apply blur effect */
-    /* Optional: Add a slight darkening overlay for better text contrast on blurred bg */
-    background-color: rgba(255, 255, 255, 0.767);
-    /* background-blend-mode: overlay; */
+    /* Make sure this is transparent if Swiper is the background. */
+    background-color: transparent; /* ENSURE TRANSPARENT ON SMALL SCREENS TOO */
   }
 
   .hero-content {
     max-width: 90%;
-    /* Allow content to take more width */
-
   }
 
   .hero h2 {
@@ -225,25 +228,19 @@ body {
   .hero-buttons {
     display: flex;
     flex-direction: row;
-    /* Stack buttons vertically */
-
     align-items: start;
-    /* Center buttons */
     gap: 0.5rem;
-    /* Add space between stacked buttons */
   }
 
   .hero-buttons .btn {
     margin-right: 0;
-    /* Remove right margin */
     width: 80%;
-    /* Make buttons wider */
     max-width: 250px;
   }
 }
-@media screen and (max-width:500) {
+
+@media screen and (max-width:500px) { /* Corrected syntax */
   .hero p {
     font-size: 1.5rem !important;
   }
-  
 }

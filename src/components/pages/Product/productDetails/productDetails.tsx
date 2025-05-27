@@ -71,7 +71,7 @@ const ProductDetail: React.FC = () => {
   if (!selectedProduct) return <div>No product selected.</div>;
 
   return (<>
-    <Header />
+   
     <div className="product-detail-page">
       <button
         className="back-btn"

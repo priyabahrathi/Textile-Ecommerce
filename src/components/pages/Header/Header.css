@@ -20,15 +20,15 @@
 /* Container Styling */
 .container {
     
-    background: #a7aad3; /* Light transparent background */
+    background: #a7aad300; /* Light transparent background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
-    border-radius: 10px;
-    border: 0px solid rgba(255, 255, 255, 0.2);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 20px;
-    max-width: 90%;
+    max-width: 100%;
     margin: auto;
-    box-shadow: 0 0 2px #7d7e7e;
+    /* box-shadow: 0 0 15px #7d7e7e; */
 }
 
 /* Navigation Styling */
@@ -136,22 +136,49 @@
 }
 
 /* Navigation Icon Button */
-.nav-icon button {
-    margin: 3px;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width: 50px;
-   background: none;
-  
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+.nav-icon {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* better spacing between icons */
 }
 
-.nav-icon button  {
-    font-size: 30px;
-    color: rgb(255, 255, 255);
-    transition: color 0.3s ease;
+.icon-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 60px; /* ensures consistent width */
+}
+
+.icon-with-label ion-button,
+.icon-with-label ion-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  width: 40px;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.icon-label {
+  font-size: 0.75rem;
+  color: #3A3E6C;
+  margin-top: 4px;
+  line-height: 1;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.active-icon ion-icon {
+  color: #E59866 !important; /* Active icon color (orange) */
+}
+
+.active-icon .icon-label {
+  color: #E59866 !important; /* Active label color */
+  font-weight: 600;
 }
 
 
@@ -168,7 +195,7 @@
     cursor: pointer;
     background: none;
     border: none;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     z-index: 10;
 }
 
@@ -336,7 +363,7 @@
 
 @media screen and (max-width: 1057px) {
     .container{
-        max-width: 95%;
+        max-width: 100%;
         margin: auto;
     }
     .nav-item h3 {
@@ -387,4 +414,36 @@
        
     }
    
+}
+.icon-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.icon-label {
+  font-size: 0.75rem;
+  color: #3A3E6C;
+  margin-top: 4px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #ff5722;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 1px 4px #fbeee6;
 }

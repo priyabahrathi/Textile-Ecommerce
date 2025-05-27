@@ -33,28 +33,32 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import Master from './Master';
 import "./App.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './Store/store';
+// Removed Redux imports as currentPage logic will now be handled within Master.tsx
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from './Store/store';
 
-// Import the AdminPanel component
+// Import the Admin components
 import AdminAuth from './components/pages/head/admin';
 import AdminDashboard from './components/pages/head/adminpage/AdminDashboard';
-import AdminPanel from './components/pages/head/admin';
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  const currentPage = useSelector((state: RootState) => state.page.currentPage);
-  const dispatch = useDispatch();
-  console.log("Current Page", currentPage);
+  // The currentPage and dispatch logic, along with the conditional rendering,
+  // should now be moved inside your Master component, as it's the one
+  // rendered at the root path and will handle the internal "page" display.
+  // console.log("Current Page", currentPage); // This line is now irrelevant here.
 
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
+          {/* Master component will now handle rendering Home, Products, Wishlist etc. based on Redux state */}
           <Route exact path="/" component={Master} />
-          <Route exact path="/admin" component={AdminPanel} />
+          {/* Admin routes remain as traditional URL routes */}
+          <Route exact path="/admin" component={AdminAuth} />
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          {/* Fallback route */}
           <Route render={() => <Redirect to="/" />} />
         </IonRouterOutlet>
       </IonReactRouter>

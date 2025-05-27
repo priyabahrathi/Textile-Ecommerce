@@ -12,6 +12,7 @@ import Header from "../Header/Header";
 import { clearWishlist } from "../../../Store/Slice/wishlistSlice"; // Import the new action
 const WishList: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
+  
   const dispatch = useDispatch();
   const addToCartHandler = (product: any) => {
     dispatch(addToCart(product));
@@ -31,20 +32,11 @@ const WishList: React.FC = () => {
     alert("All products added to cart");
   }
 
-  // The getStarRating function is no longer needed for the table view
-  // const getStarRating = (rating: number = 4) => {
-  //   return [...Array(5)].map((_, i) => (
-  //     <IonIcon
-  //       key={i}
-  //       icon={star}
-  //       style={{ color: i < rating ? "gold" : "#ccc", fontSize: "1.1rem" }}
-  //     />
-  //   ));
-  // };
+
 
   return (
     <>
-      <Header />
+      
       <div className="wishlist-container">
         <h2 style={{ textAlign: "left", marginBottom: "1rem" }}>Wishlist</h2> {/* Adjusted heading style */}
         <p style={{ textAlign: "left", marginBottom: "2rem", color: "#666" }}>Home / Wishlist</p> {/* Added breadcrumb */}
@@ -76,7 +68,7 @@ const WishList: React.FC = () => {
                   <tr key={product.id}>
                     <td>
                       <IonIcon
-                        icon={heart} // Changed to heart as per image for removal
+                        icon={heart} 
                         className="remove-from-wishlist-icon"
                         onClick={() => dispatch(removeFromWishlist(product.id))}
                       />
@@ -89,12 +81,10 @@ const WishList: React.FC = () => {
                       />
                       <div className="product-details-text">
                         <h3 className="product-name-table">{product.name}</h3>
-                        {/* If you have product categories, you can add them here as per image */}
-                        {/* <p className="product-category-table">{product.category}</p> */}
                       </div>
                     </td>
                     <td>₹{product.price.toFixed(2)}</td>
-                    <td>{product.dateAdded || 'DD Month YYYY'}</td> {/* You might need to add dateAdded to your product interface */}
+                    <td>{product.dateAdded || 'DD Month YYYY'}</td> 
                     <td className="stock-status-cell">
                       <span className={product.stockStatus === 'Instock' ? 'in-stock' : 'out-of-stock'}>
                         {product.stockStatus || 'Instock'}
@@ -132,7 +122,7 @@ const WishList: React.FC = () => {
                   fill="outline"
                   color="danger"
                   className="clear-wishlist-btn"
-                  onClick={handleClearWishlist} // Attach the new function here
+                  onClick={handleClearWishlist} 
                 >
                   Clear Wishlist
                 </IonButton>

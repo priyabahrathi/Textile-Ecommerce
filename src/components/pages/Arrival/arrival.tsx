@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../Store/store";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../../Store/store";
+import { fetchProductsFromFirebase } from "../../../Store/Slice/arrival";
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@ionic/react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { cart } from "ionicons/icons";
 import "./arrival.css";
-import { useDispatch } from 'react-redux';
-import { fetchProductsFromFirebase } from '../../../Store/Slice/arrival';
-import { AppDispatch } from '../../../Store/store';
-import Header from "../Header/Header";
+import { setSelectedProduct } from "../../../Store/Slice/selectedProductSlice";
+import { goBack, setPage } from "../../../Store/Slice/pageSlice";
+
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -21,120 +20,78 @@ const getStars = (rating: number) => {
 };
 
 const Arrival: React.FC = () => {
-  const Products = useSelector((state: RootState) => state.arrival.Products);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(3);
-  const [cardWidth, setCardWidth] = useState(300);
-  const maxIndex = Math.max(0, Products.length - cardsPerView);
-  const minIndex = 0;
-
-
-  const sliderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
+  const Products = useSelector((state: RootState) => state.arrival.Products);
+
+  const [showAll, setShowAll] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductsFromFirebase());
   }, [dispatch]);
 
-  // Update cardsPerView based on screen size
   useEffect(() => {
-    const updateCardsPerView = () => {
-      const width = window.innerWidth;
-      if (width >= 1024) setCardsPerView(3);  // 3 cards for large screens
-      else if (width >= 768) setCardsPerView(2);  // 2 cards for medium screens
-      else setCardsPerView(1);  // 1 card for small screens
+    const handleScroll = () => {
+      setShowScroll(window.scrollY > 300);
     };
-
-    updateCardsPerView();
-    window.addEventListener("resize", updateCardsPerView);
-    return () => window.removeEventListener("resize", updateCardsPerView);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Update card width based on ref and cards per view
-  useEffect(() => {
-    const updateCardWidth = () => {
-      if (sliderRef.current) {
-        const width = sliderRef.current.offsetWidth;
-        setCardWidth(width / cardsPerView);
-      }
-    };
-
-    updateCardWidth();
-    window.addEventListener("resize", updateCardWidth);
-    return () => window.removeEventListener("resize", updateCardWidth);
-  }, [cardsPerView]);
-
-  const nextSlide = () => {
-    setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
-  };
-  const prevSlide = () => {
-    setCurrentIndex(prev => Math.max(prev - 1, 0));
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
+  const visibleProducts = showAll ? Products : Products.slice(0, 4);
 
   return (
-    <>
-      <div className="arrival-page">
-        <Header />
-        <div className="arrival-body">
+    <div className="arrival-page">
+      <div className="arrival-body">
+        <div className="arrival-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <button onClick={() => dispatch(goBack())}>Go Back</button>
           <h2 className="product-head">New Arrivals</h2>
-          <div className="slider-container">
-            <button
-              className="arrow left"
-              onClick={prevSlide}
-              disabled={currentIndex === 0}
-            >
-              ‹
-            </button>
-            <div className="slider-viewport" ref={sliderRef}>
-              {cardWidth > 0 && (
-                <motion.div
-                  className="slider-track"
-                  style={{
-                    width: `${Products.length * cardWidth}px`,
-                    transform: `translateX(-${currentIndex * cardWidth}px)`,
-                  }}
-                  transition={{ type: "spring", stiffness: 100 }}
-                >
-                  {Products.map((product, index) => (
-                    <div
-                      key={index}
-                      className="slider-card"
-                      style={{ width: `${cardWidth}px` }}
-                    >
-                      <IonCard className="arr-product">
-                        <img className="card-img" src={product.img} alt={product.name} />
-                        <IonCardHeader className="card-head">
-                          <IonCardTitle className="card-title">
-                            <strong>{product.name}</strong>
-                          </IonCardTitle>
-                        </IonCardHeader>
-                        <IonCardContent className="card-para">
-                          <p> &#8377;{product.price}</p>
-                          <div className="stars">{getStars(product.rating)}</div>
-                        </IonCardContent>
-                        <button type="button" className="buy-btn">
-                          <IonIcon icon={cart} className="card-icon" />
-                          Buy now
-                        </button>
-                      </IonCard>
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </div>
-            <button
-              className="arrow right"
-              onClick={nextSlide}
-              disabled={currentIndex === maxIndex}
-            >
-              ›
-            </button>
-          </div>
         </div>
+        
+
+        <div className="grid-card-list">
+          {visibleProducts.map((product, index) => (
+            <IonCard key={index} className="arr-product" onClick={() => {
+              dispatch(setSelectedProduct(product));
+              dispatch(setPage("productDetails")); // Navigate via Redux state
+            }}>
+              <img className="card-img" src={product.img} alt={product.name} />
+              <IonCardHeader className="card-head">
+                <IonCardTitle className="card-title">
+                  <strong>{product.name}</strong>
+                </IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent className="card-para">
+                <p>&#8377;{product.price}</p>
+                <div className="stars">{getStars(product.rating)}</div>
+              </IonCardContent>
+              <button type="button" className="buy-btn">
+                <IonIcon icon={cart} className="card-icon" />
+                Buy now
+              </button>
+            </IonCard>
+          ))}
+        </div>
+
+        {/* Show More / Show Less Button */}
+        {Products.length > 4 && (
+          <button className="toggle-btn" onClick={() => setShowAll(!showAll)}>
+            {showAll ? "Show Less" : "Show More"}
+          </button>
+        )}
       </div>
-    </>
+
+      {/* Scroll to Top Button */}
+      {showScroll && (
+        <button className="scroll-top" onClick={scrollToTop}>
+          ↑ Top
+        </button>
+      )}
+    </div>
   );
 };
 
