@@ -90,39 +90,11 @@ const ProfilePage: React.FC = () => {
     }, []);
 
     // Functions for Hero Slide Management
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            setUploadingImageIndex(index);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64String = reader.result as string;
-                const newHeroSlides = [...heroSlides];
-                newHeroSlides[index] = { ...newHeroSlides[index], image: base64String };
-                setHeroSlides(newHeroSlides);
-                setUploadingImageIndex(null);
-                setSaveMessage(null);
-            };
-            reader.readAsDataURL(file);
-        }
+   const handleSlideChange = (index: number, field: keyof HeroSlide, value: string) => {
+        const updatedSlides = [...heroSlides];
+        updatedSlides[index] = { ...updatedSlides[index], [field]: value };
+        setHeroSlides(updatedSlides);
     };
-
-    const handleRemoveImage = (index: number) => {
-        const newHeroSlides = [...heroSlides];
-        newHeroSlides[index] = { ...newHeroSlides[index], image: '' };
-        setHeroSlides(newHeroSlides);
-        setSaveMessage(null);
-    };
-
-    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number, field: keyof HeroSlide) => {
-        const newHeroSlides = [...heroSlides];
-        if (field === 'heading' || field === 'paragraph') {
-            newHeroSlides[index] = { ...newHeroSlides[index], [field]: event.target.value };
-            setHeroSlides(newHeroSlides);
-        }
-    };
-
-    const hasHeroSlideChanges = JSON.stringify(heroSlides) !== JSON.stringify(originalHeroSlides);
 
     const handleSaveHeroSlides = async () => {
         const userId = getCurrentUserId();
@@ -223,79 +195,55 @@ const ProfilePage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Hero Slide Management Section (Editable) */}
+            {/* Hero Slides */}
             <div className="profile-section">
-                <h3>Hero Section Slides (Images & Text)</h3>
-                <p>Upload up to 3 images, each with a custom heading and paragraph. Text will automatically update on the Hero page.</p>
+                <h3>Hero Section Slides</h3>
+                <p>Paste image URLs, update text, and save.</p>
                 <div className="image-upload-cards-container">
                     {heroSlides.map((slide, index) => (
                         <div key={index} className="image-upload-card hero-slide-card">
                             <h4>Slide {index + 1}</h4>
-                            {slide.image ? (
-                                <div className="uploaded-image-preview">
-                                    <img src={slide.image} alt={`Slide ${index + 1}`} />
-                                    <button
-                                        className="remove-image-btn"
-                                        onClick={() => handleRemoveImage(index)}
-                                        disabled={uploadingImageIndex === index || isSaving}
-                                    >
-                                        Remove Image
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="upload-placeholder">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        id={`slide-image-upload-${index}`}
-                                        style={{ display: 'none' }}
-                                        onChange={(e) => handleImageUpload(e, index)}
-                                        disabled={uploadingImageIndex === index || isSaving}
-                                    />
-                                    <label htmlFor={`slide-image-upload-${index}`} className="upload-button">
-                                        {uploadingImageIndex === index ? 'Uploading...' : 'Upload Image'}
-                                    </label>
-                                </div>
+
+                            <label>Image URL:</label>
+                            <input
+                                type="text"
+                                placeholder="Paste image URL here"
+                                value={slide.image}
+                                onChange={(e) => handleSlideChange(index, 'image', e.target.value)}
+                            />
+                            {slide.image && (
+                                <img
+                                    src={slide.image}
+                                    alt={`Slide ${index + 1}`}
+                                    style={{ width: '100%', height: 'auto', marginTop: '8px' }}
+                                />
                             )}
 
-                            <div className="slide-text-inputs">
-                                <label htmlFor={`slide-heading-${index}`}>Heading:</label>
-                                <input
-                                    type="text"
-                                    id={`slide-heading-${index}`}
-                                    value={slide.heading}
-                                    onChange={(e) => handleTextChange(e, index, 'heading')}
-                                    placeholder={`Heading for Slide ${index + 1}`}
-                                    disabled={isSaving}
-                                    maxLength={50}
-                                />
-                                <label htmlFor={`slide-paragraph-${index}`}>Paragraph:</label>
-                                <textarea
-                                    id={`slide-paragraph-${index}`}
-                                    value={slide.paragraph}
-                                    onChange={(e) => handleTextChange(e, index, 'paragraph')}
-                                    placeholder={`Paragraph for Slide ${index + 1}`}
-                                    rows={3}
-                                    disabled={isSaving}
-                                    maxLength={200}
-                                />
-                            </div>
+                            <label>Heading:</label>
+                            <input
+                                type="text"
+                                value={slide.heading}
+                                onChange={(e) => handleSlideChange(index, 'heading', e.target.value)}
+                            />
+
+                            <label>Paragraph:</label>
+                            <textarea
+                                value={slide.paragraph}
+                                onChange={(e) => handleSlideChange(index, 'paragraph', e.target.value)}
+                            ></textarea>
                         </div>
                     ))}
                 </div>
-                {/* Save button and message for Hero Slides */}
-                <div className="save-changes-area">
-                    <button
-                        className="save-button"
-                        onClick={handleSaveHeroSlides}
-                        disabled={!hasHeroSlideChanges || isSaving}
-                    >
-                        {isSaving ? 'Saving...' : 'Save Hero Slides'}
-                    </button>
-                    {saveMessage && <span className="save-message">{saveMessage}</span>}
-                </div>
-            </div>
 
+                <button
+                    onClick={handleSaveHeroSlides}
+                    className="save-button"
+                    disabled={isSaving}
+                >
+                    {isSaving ? "Saving..." : "Save Changes"}
+                </button>
+                {saveMessage && <p className="save-message">{saveMessage}</p>}
+            </div>
             {/* My Account Section (Non-editable) */}
             <div className="profile-section">
                 <h3>My Account</h3>
