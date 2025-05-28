@@ -23,7 +23,7 @@ const ProductDetail: React.FC = () => {
   const [mainImg, setMainImg] = useState(productImages[0]);
   const [selectedSize, setSelectedSize] = useState<string>('M');
   const [selectedColor, setSelectedColor] = useState<string>('Red');
-  const [activeTab, setActiveTab] = useState<'desc' | 'reviews' | 'qa'>('desc');
+  const [activeTab, setActiveTab] = useState<'reviews' | 'qa'>('reviews');
   const [showTryOn, setShowTryOn] = useState(false);
 
   // --- Add Review Feature State ---

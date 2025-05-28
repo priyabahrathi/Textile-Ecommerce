@@ -38,18 +38,26 @@ const Payment: React.FC = () => {
 
     const order = {
       userName: form.name,
-      productName: itemsToPay.map(item => item.name).join(', '), // combine if multiple items
+      items: itemsToPay.map(item => ({
+        id: item.id,
+        name: item.name,
+        size: item.size,
+        quantity: item.quantity,
+        price: item.price,
+      })),
       quantity: itemsToPay.reduce((sum, item) => sum + item.quantity, 0),
       price: itemsToPay.reduce((sum, item) => sum + item.price * item.quantity, 0),
       status: 'Pending',
       date: new Date().toISOString().split('T')[0],
       email: form.email,
       phone: form.phone,
+      address: form.address,
+      paymentMethod: form.paymentMethod,
     };
 
     try {
-      const db = getDatabase(); // Ensure Firebase is initialized
-      await push(ref(db, 'orders'), order); // 'orders' is the collection path in Realtime DB
+      const db = getDatabase(); 
+      await push(ref(db, 'orders'), order);
 
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());
@@ -83,6 +91,7 @@ const Payment: React.FC = () => {
               {itemsToPay.map(item => (
                 <div className='item-list' key={item.id}>
                   <p>{item.name}</p>
+                  <p>{item.size}</p>
                   <p className='bill-item'>  x {item.quantity}</p>
                 </div>
               ))}

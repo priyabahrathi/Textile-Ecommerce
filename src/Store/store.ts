@@ -54,9 +54,9 @@ const loadCartState = () => {
 const saveCartState = (state: RootState) => {
   try {
     // Only save the 'items' array from the cart slice
-    const serializedState = JSON.stringify(state.cart.items);
+    const serializedState = JSON.stringify((state as RootState).cart.items);
     localStorage.setItem('cart', serializedState); // Use a distinct key for cart
-    console.log("Cart saved to local storage:", state.cart.items);
+    console.log("Cart saved to local storage:", (state as RootState).cart.items);
   } catch (err) {
     console.error("Error saving cart to local storage:", err);
   }
