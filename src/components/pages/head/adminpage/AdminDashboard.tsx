@@ -1,70 +1,76 @@
 import React, { useState } from "react";
-import { IonIcon, IonButton } from "@ionic/react";
-import { addCircle, statsChart, cart, settings,personCircle, people, camera } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+import { addCircle, statsChart, cart, settings, personCircle, camera, chevronBack, chevronForward } from "ionicons/icons";
 import ManageProduct from "./pages/ManageProduct";
 import ViewSales from "./pages/ViewSales";
 import CheckoutAdminPage from "./pages/checkoutDetails";
 import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
 import BannerImg from "./pages/BannerImg";
+import "./AdminDashboard.css";
 
 const tabs = [
-  {name:"profile", icon:personCircle},
-  { name: "Add Products", icon: addCircle },
-  { name: "View Sales", icon: statsChart },
-  { name: "Chekouts", icon: cart },
-  { name: "Settings", icon: settings },
-  { name: "banner", icon: camera }
+  { name: "profile", label: "Profile", icon: personCircle },
+  { name: "Add Products", label: "Add Products", icon: addCircle },
+  { name: "View Sales", label: "View Sales", icon: statsChart },
+  { name: "Orders", label: "Orders", icon: cart },
+  { name: "Settings", label: "Settings", icon: settings },
+  { name: "banner", label: "Banners", icon: camera }
 ];
 
 const AdminDashboard: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("profile");
+  const [collapsed, setCollapsed] = useState(false);
 
   const renderContent = () => {
     switch (selectedTab) {
       case "profile":
-        return <div><ProfilePage/></div>;
+        return <ProfilePage />;
       case "Add Products":
-        return <div><ManageProduct /></div>;
+        return <ManageProduct />;
       case "View Sales":
-        return <div><ViewSales/></div>;
-      case "Chekouts":
-        return <div><CheckoutAdminPage/></div>;
+        return <ViewSales />;
+      case "Orders":
+        return <CheckoutAdminPage />;
       case "Settings":
-        return <div><Settings/></div>;
+        return <Settings />;
       case "banner":
-        return <div><BannerImg/></div>;
+        return <BannerImg />;
       default:
         return null;
     }
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <div style={{
-        width: 220,
-        background: "#f4f4f4",
-        padding: 20,
-        boxShadow: "2px 0 5px rgba(0,0,0,0.05)"
-      }}>
-        <h2>Admin</h2>
+    <>
+    
+    <div className="dashboard-container">
+      <div className={`dashboard-sidebar ${collapsed ? "collapsed" : ""}`}>
+        <button
+          className="sidebar-toggle"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          <IonIcon icon={collapsed ? chevronForward : chevronBack} />
+        </button>
+
+        <div className="sidebar-title">Admin</div>
+
         {tabs.map(tab => (
-          <IonButton
+          <button
             key={tab.name}
-            fill={selectedTab === tab.name ? "solid" : "clear"}
-            expand="block"
+            className={`sidebar-button ${selectedTab === tab.name ? "sidebar-button-active" : ""}`}
             onClick={() => setSelectedTab(tab.name)}
-            style={{ marginBottom: 10, textAlign: "left" }}
+            title={collapsed ? tab.label : ""}
           >
             <IonIcon icon={tab.icon} slot="start" />
-            {tab.name}
-          </IonButton>
+            <span>{tab.label}</span>
+          </button>
         ))}
       </div>
-      <div style={{ flex: 1, padding: 32,  maxHeight: "100vh", overflowY: "auto" }}>
-        {renderContent()}
-      </div>
+
+      <div className="dashboard-content">{renderContent()}</div>
     </div>
+    </>
   );
 };
 

@@ -1,14 +1,4 @@
-.manage-product-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 32px;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 2px 12px #e0e7ef;
-  /* max-height: 80vh;
-    overflow-y: auto; */
-}
+
 
 .manage-product-title {
   text-align: center;

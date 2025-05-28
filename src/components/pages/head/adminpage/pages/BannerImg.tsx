@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { database } from '../../../../../Store/Slice/firebase';
 import { ref, get, child, set } from 'firebase/database';
-// import './bannerimg.css';
+import './bannerimg.css';
 
 interface HeroSlide {
     image: string;
@@ -81,7 +81,7 @@ const BannerImg: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <button onClick={handleSave} disabled={isSaving}>
+            <button className="save-button" onClick={handleSave} disabled={isSaving}>
                 {isSaving ? "Saving..." : "Save Slides"}
             </button>
             {saveMessage && <p className="save-message">{saveMessage}</p>}

@@ -80,60 +80,6 @@
     
 }
 
-/* Dropdown Menu Styling */
-
-.dropdown {
-    background-color: #ffffff;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.418);
-    padding: 10px;
-    min-width: 150px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(10px);
-    z-index: 10;
-}
-
-.nav-list li:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-.nav-li{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-}
-.nav-drop{
-    display:flex;
-    align-items: center;
-    justify-content: start;
-    gap: 4px; 
-}
-.dropdown li {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #E59866;
-    transition: color 0.3s ease-in-out;
-}
-
-
-.dropdown li:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    text-decoration: underline;
-}
 
 /* Navigation Icon Button */
 .nav-icon {
