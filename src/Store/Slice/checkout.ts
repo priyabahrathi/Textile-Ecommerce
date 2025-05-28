@@ -7,7 +7,7 @@ interface BuyItem {
   price: number;
   img: string;
   quantity: number;
-  size: string; // Assuming size is a string, adjust as necessary
+  size: string; 
 }
 
 interface BuyState {

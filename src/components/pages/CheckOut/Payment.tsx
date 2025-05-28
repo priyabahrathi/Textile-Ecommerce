@@ -105,16 +105,16 @@ const Payment: React.FC = () => {
               <div className='name-phone'>
                 <div className='break'>
                   <label htmlFor="">Name</label>
-                  <input type="text" className='form-name' name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
+                  <input type="text" className='field-style' name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
                 </div>
                 <div className='break'>
                   <label htmlFor="">Phone</label>
-                  <input type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
+                  <input className='field-style' type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
                 </div>
               </div>
               <div className='break'>
                 <label htmlFor="">Email</label>
-                <input type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
+                <input className='field-style' type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
               </div>
 
 
@@ -122,12 +122,12 @@ const Payment: React.FC = () => {
 
               <div className='break'>
                 <label htmlFor="">Address</label>
-                <textarea name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
+                <textarea className='field-style' name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
               </div>
 
               <div className='break'>
                 <label htmlFor="">Payment Method</label>
-                <select name="paymentMethod" className="option" value={form.paymentMethod} onChange={handleInputChange}>
+                <select name="paymentMethod" className='field-style' value={form.paymentMethod} onChange={handleInputChange}>
                   <option value="" disabled hidden>
                     Select a payment method
                   </option>

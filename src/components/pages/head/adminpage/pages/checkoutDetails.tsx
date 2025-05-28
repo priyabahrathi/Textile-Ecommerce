@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import emailjs from 'emailjs-com';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import './checkoutDetails.css';
-import { IonIcon, IonItemSliding } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItemSliding, IonModal, IonTitle, IonToolbar } from '@ionic/react';
 import { call } from 'ionicons/icons';
 
 type Order = {
@@ -16,7 +16,7 @@ type Order = {
         quantity: number;
     }[];
 
-    productName: string | string[]; // Can be a single name or an array of names
+    productName: string | string[];
     quantity: number;
     price: number;
     status: 'Pending' | 'Approved' | 'Cancelled';
@@ -32,11 +32,11 @@ type Order = {
 const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [activeTab, setActiveTab] = useState<'approved' | 'unapproved' | 'cancelled'>('approved');
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const db = getDatabase();
-        const ordersRef = ref(db, 'orders'); // Make sure 'orders' node includes base64 image
-
+        const ordersRef = ref(db, 'orders');
         const unsubscribe = onValue(ordersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -49,7 +49,6 @@ const CheckoutAdminPage: React.FC = () => {
                 setOrders([]);
             }
         });
-
         return () => {
             // Cleanup if needed
         };
@@ -127,70 +126,101 @@ Thank you for shopping with us!
         <div style={{ padding: '2rem', maxWidth: 1100, margin: '0 auto' }}>
             <div className='admin-container'>
                 <div className="admin-tabs">
+                    <button className={activeTab === 'unapproved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('unapproved')}>Pending</button>
                     <button className={activeTab === 'approved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('approved')}>Approved</button>
-                    <button className={activeTab === 'unapproved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('unapproved')}>Unapproved</button>
                     <button className={activeTab === 'cancelled' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('cancelled')}>Cancelled</button>
                 </div>
                 <div className="admin-tab-content">
                     {activeTab === 'approved' && (
                         <div className='admin-approved'>
                             <h3 className='admin-head'>Approved Orders</h3>
+
                             {orders.length === 0 ? (
                                 <p>No approved orders found.</p>
                             ) : (
-                                <ul className='order-list'>
-                                    {orders.filter(order => order.status === 'Approved').map(order => (
-                                        <li key={order.id} className='order-item'>
-                                            <div className='order-product'>
-                                                <div className='customer-data' key={order.id}>
-                                                    <h4 className='customer-name'>{order.userName}</h4>
-                                                    {order.address && <p className='customer-address'>{order.address}</p>}
-                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
-                                                        {order.email}
-                                                    </a>
-                                                    }
-                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
-                                                </div>
-                                                {/* <img
-                                                    src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''}
-                                                    alt={Array.isArray(order.productName) ? order.productName.join(', ') : order.productName}
-                                                    className='product-image'/> */}
-                                                <div className='order-product-details'>
-                                                    <ul className='order-product-name'>
-                                                        <table>
-                                                            <thead>
-                                                                <th>Product</th>
-                                                                <th>Size</th>
-                                                                <th>Quantity</th>
-                                                                <th>Price</th>
-                                                            </thead>
-                                                            {order.items && order.items.map((item: any, index: number) => (
-                                                                <div className='each-product-data'>
-                                                                    <tbody>
-                                                                        <tr className='row'>
-                                                                            <td key={index}>{item.name}</td>
-                                                                            <td key={index}>{item.size ? ` (${item.size})` : ''}</td>
-                                                                            <td key={index}>{item.quantity}</td>
-                                                                            <td key={index}>₹{item.price}</td>
-                                                                        </tr>
-                                                                    </tbody>
+                                <>
+                                    <ul className='order-list'>
+                                        <table>
+                                            <th>
+                                                <td>S No</td>
+                                                <td>Order Date</td>
+                                                <td>Customer Name</td>
+                                                <td>Phone</td>
+                                                <td>Address</td>
+                                                <td>Email</td>
+                                                <td>Products</td>
+                                                <td>Total Quantity</td>
+                                                <td>Total Price</td>
+                                                <td>Status</td>
+                                                <td>Action</td>
+                                            </th>
+                                        </table>
+
+                                        {orders.filter(order => order.status === 'Approved').map(order => (
+                                            <li key={order.id} className='order-item'>
+                                                <div className='order-product'>
+                                                    <div className='customer-data' key={order.id} onClick={() => setIsOpen(true)}>
+                                                        <h4 className='customer-name'>{order.userName}</h4>
+                                                        {order.address && <p className='customer-address'>{order.address}</p>}
+                                                        {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
+                                                            {order.email}
+                                                        </a>}
+                                                        {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
+                                                    </div>
+                                                    {/* <img
+                                                            src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''}
+                                                            alt={Array.isArray(order.productName) ? order.productName.join(', ') : order.productName}
+                                                            className='product-image'/> */}
+
+
+                                                    <IonModal isOpen={isOpen}>
+                                                        <IonHeader>
+                                                            <IonToolbar>
+                                                                <IonTitle>Order Details of {order.userName}</IonTitle>
+                                                                <IonButtons slot="end">
+                                                                    <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+                                                                </IonButtons>
+                                                            </IonToolbar>
+                                                        </IonHeader>
+                                                        <IonContent className="ion-padding">
+                                                            <div className='order-product-details'>
+                                                                <ul className='order-product-name'>
+                                                                    <table>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Product</th>
+                                                                                <th>Size</th>
+                                                                                <th>Quantity</th>
+                                                                                <th>Price</th>
+                                                                                <th>SubTotal</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {order.items && order.items.map((item: any, index: number) => (
+                                                                                <tr key={index} className="row">
+                                                                                    <td>{item.name}</td>
+                                                                                    <td>{item.size ? item.size : '-'}</td>
+                                                                                    <td>{item.quantity}</td>
+                                                                                    <td>₹{item.price}</td>
+                                                                                    <td>₹{(item.price * item.quantity).toFixed(2)}</td>
+                                                                                </tr>
+                                                                            ))}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </ul>
+                                                                <div className='order-info'>
+                                                                    <p>Quantity: {order.quantity}</p>
+                                                                    <p>Price: ${order.price}</p>
+                                                                    <p>Date: {order.date}</p>
                                                                 </div>
-                                                            ))}
+                                                            </div>
+                                                        </IonContent>
+                                                    </IonModal>
 
-                                                        </table>
-                                                    </ul>
-                                                    {/* <div className='order-info'>
-                                                        <p>Quantity: {order.quantity}</p>
-                                                        <p>Price: ${order.price}</p>
-                                                        <p>Date: {order.date}</p>
-                                                    </div> */}
                                                 </div>
-
-
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                                            </li>
+                                        ))}
+                                    </ul></>
 
                             )}
 
