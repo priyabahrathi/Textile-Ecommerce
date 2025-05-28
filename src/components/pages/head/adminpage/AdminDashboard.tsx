@@ -8,27 +8,33 @@ import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
 import BannerImg from "./pages/BannerImg";
 import "./AdminDashboard.css";
+import ProductManage from "./pages/productmanage";
 
 const tabs = [
-  { name: "profile", label: "Profile", icon: personCircle },
-  { name: "Add Products", label: "Add Products", icon: addCircle },
-  { name: "View Sales", label: "View Sales", icon: statsChart },
+  { name: "Dashboard", label: "Dashboard", icon: statsChart },
+  { name: "ManageProduct", label: "Manage Products", icon: addCircle },
   { name: "Orders", label: "Orders", icon: cart },
-  { name: "Settings", label: "Settings", icon: settings },
-  { name: "banner", label: "Banners", icon: camera }
+  { name: "banner", label: "Banners", icon: camera },
+  { name: "profile", label: "Profile", icon: personCircle },
+{ name: "Settings", label: "Settings", icon: settings },
+{ name:"Logout", label: "Logout", icon: chevronForward },
 ];
 
 const AdminDashboard: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState("profile");
+  const [selectedTab, setSelectedTab] = useState("Dashboard");
   const [collapsed, setCollapsed] = useState(false);
-
+const removeItem = (key: string) => {
+  localStorage.removeItem(key);
+};
   const renderContent = () => {
     switch (selectedTab) {
       case "profile":
         return <ProfilePage />;
       case "Add Products":
         return <ManageProduct />;
-      case "View Sales":
+     case "ManageProduct":
+        return <ProductManage />;
+      case "Dashboard":
         return <ViewSales />;
       case "Orders":
         return <CheckoutAdminPage />;
@@ -36,6 +42,10 @@ const AdminDashboard: React.FC = () => {
         return <Settings />;
       case "banner":
         return <BannerImg />;
+        case "Logout":
+          removeItem('adminUserId');
+          window.location.href = '/admin'; // Redirect to admin login page
+        return null; // No content for logout, just redirect
       default:
         return null;
     }

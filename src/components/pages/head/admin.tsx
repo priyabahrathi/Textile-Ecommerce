@@ -110,9 +110,6 @@ const AdminPanel: React.FC = () => {
         <p>Manage your textile e-commerce platform efficiently.</p>
       </div>
 
-      <div className="admin-auth-top-btns">
-        <IonButton color="primary">Sign In</IonButton>
-      </div>
 
       <div className="admin-auth-anim">
         <div className="admin-auth-panel show" style={{ zIndex: 2 }}>
@@ -124,7 +121,7 @@ const AdminPanel: React.FC = () => {
                 </IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
-                <SignInForm
+                <SignInForm 
                   userId={userId}
                   password={password}
                   setUserId={setUserId}
