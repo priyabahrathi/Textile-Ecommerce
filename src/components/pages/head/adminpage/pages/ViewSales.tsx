@@ -34,7 +34,7 @@ return (
                         <Typography variant="h6" gutterBottom>
                             Monthly Sales Trend
                         </Typography>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width={300} height={300}>
                             <LineChart data={salesData}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="month" />
@@ -53,7 +53,7 @@ return (
                         <Typography variant="h6" gutterBottom>
                             Sales Distribution
                         </Typography>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width={300} height={300}>
                             <PieChart>
                                 <Pie
                                     data={pieData}

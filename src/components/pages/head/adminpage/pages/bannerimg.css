@@ -1,0 +1,106 @@
+/* bannerimg.css */
+
+
+
+.bannerimg-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #222;
+    position: relative;
+}
+
+.image-upload-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.image-upload-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease;
+}
+
+.image-upload-card:hover {
+    transform: translateY(-5px);
+}
+
+.image-upload-card h4 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.image-upload-card input,
+.image-upload-card textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.image-upload-card input:focus,
+.image-upload-card textarea:focus {
+    border-color: #4f46e5;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.image-upload-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.save-button {
+    display: block;
+    margin: 2rem auto 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+}
+
+.save-button:hover {
+    background-color: #3730a3;
+}
+
+.save-button:disabled {
+    background-color: #a5b4fc;
+    cursor: not-allowed;
+}
+
+.save-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #16a34a;
+    margin-top: 1rem;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
