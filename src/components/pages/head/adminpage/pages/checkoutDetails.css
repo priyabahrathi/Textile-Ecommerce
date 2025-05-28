@@ -1,9 +1,7 @@
 /* Container styles */
 .admin-container {
-  background-color: #f9f9f9;
-  border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 /* Tabs */
@@ -40,8 +38,12 @@
   font-weight: 600;
   color: #3A3E6C;
 }
+.admin-tab-content{
+  
+}
 .order-list {
   list-style: none;
+  margin: 0;
   
 }
 .order-item {
@@ -49,6 +51,7 @@
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
+
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;

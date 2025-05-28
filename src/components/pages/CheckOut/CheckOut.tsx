@@ -33,7 +33,7 @@ const CheckOut: React.FC = () => {
   );
 
   const [expandedItem, setExpandedItem] = useState<CartItem | null>(null);
-
+  // const subTotal=(item.price * item.quantity).toFixed(2);
   useEffect(() => {
     if (itemsToDisplay.length > 0) {
       setExpandedItem(itemsToDisplay[0]);
