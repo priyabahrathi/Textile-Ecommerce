@@ -32,7 +32,7 @@ type Order = {
 const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [activeTab, setActiveTab] = useState<'approved' | 'unapproved' | 'cancelled'>('approved');
-
+    
     useEffect(() => {
         const db = getDatabase();
         const ordersRef = ref(db, 'orders'); // Make sure 'orders' node includes base64 image
@@ -159,31 +159,30 @@ Thank you for shopping with us!
                                                     <ul className='order-product-name'>
                                                         <table>
                                                             <thead>
+                                                                <tr>
                                                                 <th>Product</th>
                                                                 <th>Size</th>
                                                                 <th>Quantity</th>
                                                                 <th>Price</th>
+                                                                </tr>
                                                             </thead>
-                                                            {order.items && order.items.map((item: any, index: number) => (
-                                                                <div className='each-product-data'>
-                                                                    <tbody>
-                                                                        <tr className='row'>
-                                                                            <td key={index}>{item.name}</td>
-                                                                            <td key={index}>{item.size ? ` (${item.size})` : ''}</td>
-                                                                            <td key={index}>{item.quantity}</td>
-                                                                            <td key={index}>₹{item.price}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </div>
-                                                            ))}
-
+                                                            <tbody>
+                                                                {order.items && order.items.map((item: any, index: number) => (
+                                                                <tr key={index} className="row">
+                                                                    <td>{item.name}</td>
+                                                                    <td>{item.size ? item.size : '-'}</td>
+                                                                    <td>{item.quantity}</td>
+                                                                    <td>₹{item.price}</td>
+                                                                </tr>
+                                                                ))}
+                                                            </tbody>
                                                         </table>
                                                     </ul>
-                                                    {/* <div className='order-info'>
+                                                    <div className='order-info'>
                                                         <p>Quantity: {order.quantity}</p>
                                                         <p>Price: ${order.price}</p>
                                                         <p>Date: {order.date}</p>
-                                                    </div> */}
+                                                    </div>
                                                 </div>
 
 
