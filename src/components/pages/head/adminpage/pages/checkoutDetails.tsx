@@ -1,22 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import emailjs from 'emailjs-com';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
+import './checkoutDetails.css';
+import { IonIcon, IonItemSliding } from '@ionic/react';
+import { call } from 'ionicons/icons';
 
 type Order = {
     id: string;
     userName: string;
-    productName: string;
+    items: {
+        id: string;
+        name: string;
+        size?: string;
+        price: number;
+        quantity: number;
+    }[];
+
+    productName: string | string[]; // Can be a single name or an array of names
     quantity: number;
     price: number;
-    status: 'Pending' | 'Approved';
+    status: 'Pending' | 'Approved' | 'Cancelled';
     date: string;
     email?: string;
     phone?: string;
-    productImage?: string; // Base64 image string
+    productImage?: string;
+    size?: string;
+    address?: string;
+
 };
 
 const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
+    const [activeTab, setActiveTab] = useState<'approved' | 'unapproved' | 'cancelled'>('approved');
 
     useEffect(() => {
         const db = getDatabase();
@@ -110,7 +125,163 @@ Thank you for shopping with us!
 
     return (
         <div style={{ padding: '2rem', maxWidth: 1100, margin: '0 auto' }}>
-            <h2>Checkout Approvals</h2>
+            <div className='admin-container'>
+                <div className="admin-tabs">
+                    <button className={activeTab === 'approved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('approved')}>Approved</button>
+                    <button className={activeTab === 'unapproved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('unapproved')}>Unapproved</button>
+                    <button className={activeTab === 'cancelled' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('cancelled')}>Cancelled</button>
+                </div>
+                <div className="admin-tab-content">
+                    {activeTab === 'approved' && (
+                        <div className='admin-approved'>
+                            <h3 className='admin-head'>Approved Orders</h3>
+                            {orders.length === 0 ? (
+                                <p>No approved orders found.</p>
+                            ) : (
+                                <ul className='order-list'>
+                                    {orders.filter(order => order.status === 'Approved').map(order => (
+                                        <li key={order.id} className='order-item'>
+                                            <div className='order-product'>
+                                                <div className='customer-data' key={order.id}>
+                                                    <h4 className='customer-name'>{order.userName}</h4>
+                                                    {order.address && <p className='customer-address'>{order.address}</p>}
+                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
+                                                        {order.email}
+                                                    </a>
+                                                    }
+                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
+                                                </div>
+                                                {/* <img
+                                                    src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''}
+                                                    alt={Array.isArray(order.productName) ? order.productName.join(', ') : order.productName}
+                                                    className='product-image'/> */}
+                                                <div className='order-product-details'>
+                                                    <ul className='order-product-name'>
+                                                        <table>
+                                                            <thead>
+                                                                <th>Product</th>
+                                                                <th>Size</th>
+                                                                <th>Quantity</th>
+                                                                <th>Price</th>
+                                                            </thead>
+                                                            {order.items && order.items.map((item: any, index: number) => (
+                                                                <div className='each-product-data'>
+                                                                    <tbody>
+                                                                        <tr className='row'>
+                                                                            <td key={index}>{item.name}</td>
+                                                                            <td key={index}>{item.size ? ` (${item.size})` : ''}</td>
+                                                                            <td key={index}>{item.quantity}</td>
+                                                                            <td key={index}>₹{item.price}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </div>
+                                                            ))}
+
+                                                        </table>
+                                                    </ul>
+                                                    {/* <div className='order-info'>
+                                                        <p>Quantity: {order.quantity}</p>
+                                                        <p>Price: ${order.price}</p>
+                                                        <p>Date: {order.date}</p>
+                                                    </div> */}
+                                                </div>
+
+
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                            )}
+
+                        </div>
+                    )}
+                    {activeTab === 'unapproved' && (
+                        <div className='admin-unapproved'>
+                            <h3 className='admin-head'>Unapproved Orders</h3>
+                            {orders.length === 0 ? (
+                                <p>No unapproved orders found.</p>
+                            ) : (
+                                <ul className='order-list'>
+                                    {orders.filter(order => order.status === 'Pending').map(order => (
+                                        <li key={order.id} className='order-item'>
+                                            <div className='order-product'>
+                                                {/* <img src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''} className='product-image' /> */}
+
+                                                <div className='customer-data' key={order.id}>
+                                                    <h4>{order.userName}</h4>
+                                                    {order.address && <p className='customer-address'>{order.address}</p>}
+                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
+                                                        {order.email}
+                                                    </a>
+                                                    }
+                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
+
+                                                </div>
+                                                <div className='order-product-details'>
+                                                    <ul className='order-product-name'>
+                                                        {order.items && order.items.map((item: any, index: number) => (
+                                                            <li key={index}>{item.name}{item.size ? ` (${item.size})` : ''}</li>
+                                                        ))}
+                                                    </ul>
+                                                    <div className='order-info'>
+                                                        <p>Quantity: {order.quantity}</p>
+                                                        <p>Price: ${order.price}</p>
+                                                        <p>Date: {order.date}</p>
+                                                    </div>
+                                                </div>
+                                                <button onClick={() => handleApprove(order.id)} className='approve-btn'>Approve</button>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
+                        </div>
+                    )}
+                    {activeTab === 'cancelled' && (
+                        <div className='admin-cancelled'>
+                            <h3 className='admin-head'>Cancelled Orders</h3>
+                            {orders.length === 0 ? (
+                                <p>No cancelled orders found.</p>
+                            ) : (
+                                <ul className='order-list'>
+                                    {orders.filter(order => order.status === 'Cancelled').map(order => (
+                                        <li key={order.id} className='order-item'>
+                                            <div className='order-product'>
+                                                {/* <img src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''} className='product-image' /> */}
+                                                <div className='customer-data' key={order.id}>
+                                                    <h4>{order.userName}</h4>
+                                                    {order.address && <p className='customer-address'>{order.address}</p>}
+                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
+                                                        {order.email}
+                                                    </a>
+                                                    }
+                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
+                                                </div>
+                                                <div className='order-product-details'>
+                                                    <ul className='order-product-name'>
+                                                        {order.items && order.items.map((item: any, index: number) => (
+                                                            <li key={index}>{item.name}{item.size ? ` (${item.size})` : ''}</li>
+                                                        ))}
+                                                    </ul>
+                                                    <div>
+                                                        <h4>{order.productName}</h4>
+                                                        <p>Quantity: {order.quantity}</p>
+                                                        <p>Price: ${order.price}</p>
+                                                        <p>Date: {order.date}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+            {/* <h2>Checkout Approvals</h2>
             <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 1000 }}>
                     <thead>
@@ -192,7 +363,7 @@ Thank you for shopping with us!
                         )}
                     </tbody>
                 </table>
-            </div>
+            </div> */}
         </div>
     );
 };
