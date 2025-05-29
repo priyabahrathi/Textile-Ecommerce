@@ -1,171 +1,145 @@
-/* Container styles */
-.admin-container {
-  padding: 2rem;
-  width: 100%;
+/* styles.css */
+
+.segment-container {
+  --background: #ddd;
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
 }
 
-/* Tabs */
-.admin-tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+.seg-btn {
+  --color: #3A3E6C;
+  --indicator-color: #3A3E6C; /* active underline */
+  --background-checked: #a8abc7; /* background for selected tab */
+  --color-checked: #fff; /* text color for selected tab */
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
 }
 
-.admin-tab {
-  background-color: #e0e0e0;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.seg-label {
+  font-size: 25px;
+  letter-spacing: 0.5px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.admin-tab:hover {
-  background-color: #d0d0d0;
-}
 
-.admin-tab.active {
-  background-color: #007bff;
-  color: white;
+
+
+.table-wrapper {
+  margin-top: 20px;
+  overflow-x: scroll;
 }
 
 .admin-head{
   text-align: center;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 2rem;
-  font-weight: 600;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+  /* font-weight: bold !important; */
   color: #3A3E6C;
 }
-.admin-tab-content{
-  
-}
-.order-list {
-  list-style: none;
-  margin: 0;
-  
-}
-.order-item {
-  /* width: 100%; */
-  background-color: white;
-  border-radius: 10px;
-  padding: 1rem;
-
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.order-product{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.customer-data{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
-.customer-name{
-  font-weight: 600;
-  color: #3A3E6C;
-  font-size: 1.5rem;
-}
-.customer-address{
+.orders-table th, .table-row td{
+  margin: 20px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 20px;
-  width: 300px;
-  text-align: center;
-  color: #3A3E6C;
+  vertical-align: middle !important;
+  text-align: center !important;
 }
-.customer-email{
-  font-weight: 500;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
+
+.order-status-approved{
+  color: rgb(6, 177, 6);
+  font-weight: 700;
 }
-.customer-phone{
-  font-weight: 500;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  color: #3A3E6C;
-  font-weight: 600;
+.order-status-pending{
+  color: rgb(226, 3, 3);
+  font-weight: 700;
 }
-.order-details {
-  /* width: 100%; */
-  display: flex;
-  align-items: center;
+.approve-btn{
+  background-color: rgb(6, 177, 6) ;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;  
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px !important;
+    min-width: 900px; 
+    margin-bottom: 40px;
+    font-family: 'Open Sans', sans-serif;
+}
+.customer-address{
+width: 250px;
+  min-width: 250px;
+  white-space: pre-wrap; /* ensures line breaks show */
+  word-wrap: break-word;
   
-
 }
-.order-product-details{
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  border-top: 1px solid #ccc;
+.view-btn{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #3A3E6C;
+  color: #fff;
+  font-weight: 700;
 }
-.order-product-name{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  padding: 10px 20px;
-}
-
-
-/* .each-product-data{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-} */
-.order-info {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-/* .order-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-} */
-
-/* Approve button */
-.approve-btn {
-  background-color: #28a745;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.orders-table th,
+.orders-table td {
+    padding: 18px 25px;
+    text-align: left;
+    white-space: nowrap;
 }
 
-.approve-btn:hover {
-  background-color: #218838;
+.orders-table thead th {
+    background: linear-gradient(90deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--secondary-purple);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .order-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.orders-table thead tr th:first-child {
+    border-top-left-radius: 12px;
+}
 
-  .order-details {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.orders-table thead tr th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.orders-table tbody tr {
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.orders-table tbody tr:hover {
+    background-color: #f5e6ff; /* Light purple hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.orders-table td {
+    border-bottom: 1px solid var(--border);
+}
+
+/* No products found message */
+.orders-table .no-products {
+    text-align: center;
+    color: var(--light-text);
+    padding: 20px;
+    font-style: italic;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import emailjs from 'emailjs-com';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import './checkoutDetails.css';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItemSliding, IonModal, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItemSliding, IonLabel, IonModal, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
 import { call } from 'ionicons/icons';
 
 type Order = {
@@ -33,6 +33,7 @@ const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [activeTab, setActiveTab] = useState<'approved' | 'unapproved' | 'cancelled'>('approved');
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     useEffect(() => {
         const db = getDatabase();
@@ -125,105 +126,122 @@ Thank you for shopping with us!
     return (
         <div style={{ padding: '2rem', maxWidth: 1100, margin: '0 auto' }}>
             <div className='admin-container'>
-                <div className="admin-tabs">
-                    <button className={activeTab === 'unapproved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('unapproved')}>Pending</button>
-                    <button className={activeTab === 'approved' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('approved')}>Approved</button>
-                    <button className={activeTab === 'cancelled' ? 'admin-tab active' : 'admin-tab'} onClick={() => setActiveTab('cancelled')}>Cancelled</button>
-                </div>
+                <IonSegment
+                className='segment-container'
+                    value={activeTab}
+                    onIonChange={(e) => {
+                        const value = e.detail.value;
+                        if (value === 'approved' || value === 'unapproved' || value === 'cancelled') {
+                            setActiveTab(value);
+                        }
+                    }}
+                >
+                    <IonSegmentButton className='seg-btn' value="unapproved">
+                        <IonLabel className='seg-label'>Pending</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton className='seg-btn' value="approved">
+                        <IonLabel className='seg-label'>Approved</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton className='seg-btn' value="cancelled">
+                        <IonLabel className='seg-label'>Cancelled</IonLabel>
+                    </IonSegmentButton>
+                </IonSegment>
                 <div className="admin-tab-content">
                     {activeTab === 'approved' && (
-                        <div className='admin-approved'>
-                            <h3 className='admin-head'>Approved Orders</h3>
-
-                            {orders.length === 0 ? (
+                        <div className="admin-approved">
+                            <h3 className="admin-head">Approved Orders</h3>
+                            {orders.filter(order => order.status === 'Approved').length === 0 ? (
                                 <p>No approved orders found.</p>
                             ) : (
-                                <>
-                                    <ul className='order-list'>
-                                        <table>
-                                            <th>
-                                                <td>S No</td>
-                                                <td>Order Date</td>
-                                                <td>Customer Name</td>
-                                                <td>Phone</td>
-                                                <td>Address</td>
-                                                <td>Email</td>
-                                                <td>Products</td>
-                                                <td>Total Quantity</td>
-                                                <td>Total Price</td>
-                                                <td>Status</td>
-                                                <td>Action</td>
-                                            </th>
-                                        </table>
-
-                                        {orders.filter(order => order.status === 'Approved').map(order => (
-                                            <li key={order.id} className='order-item'>
-                                                <div className='order-product'>
-                                                    <div className='customer-data' key={order.id} onClick={() => setIsOpen(true)}>
-                                                        <h4 className='customer-name'>{order.userName}</h4>
-                                                        {order.address && <p className='customer-address'>{order.address}</p>}
-                                                        {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
-                                                            {order.email}
-                                                        </a>}
-                                                        {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
-                                                    </div>
-                                                    {/* <img
-                                                            src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''}
-                                                            alt={Array.isArray(order.productName) ? order.productName.join(', ') : order.productName}
-                                                            className='product-image'/> */}
-
-
-                                                    <IonModal isOpen={isOpen}>
-                                                        <IonHeader>
-                                                            <IonToolbar>
-                                                                <IonTitle>Order Details of {order.userName}</IonTitle>
-                                                                <IonButtons slot="end">
-                                                                    <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
-                                                                </IonButtons>
-                                                            </IonToolbar>
-                                                        </IonHeader>
-                                                        <IonContent className="ion-padding">
-                                                            <div className='order-product-details'>
-                                                                <ul className='order-product-name'>
-                                                                    <table>
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Product</th>
-                                                                                <th>Size</th>
-                                                                                <th>Quantity</th>
-                                                                                <th>Price</th>
-                                                                                <th>SubTotal</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {order.items && order.items.map((item: any, index: number) => (
-                                                                                <tr key={index} className="row">
-                                                                                    <td>{item.name}</td>
-                                                                                    <td>{item.size ? item.size : '-'}</td>
-                                                                                    <td>{item.quantity}</td>
-                                                                                    <td>₹{item.price}</td>
-                                                                                    <td>₹{(item.price * item.quantity).toFixed(2)}</td>
-                                                                                </tr>
-                                                                            ))}
-                                                                        </tbody>
-                                                                    </table>
-                                                                </ul>
-                                                                <div className='order-info'>
-                                                                    <p>Quantity: {order.quantity}</p>
-                                                                    <p>Price: ${order.price}</p>
-                                                                    <p>Date: {order.date}</p>
-                                                                </div>
-                                                            </div>
-                                                        </IonContent>
-                                                    </IonModal>
-
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul></>
-
+                                <div className="table-wrapper">
+                                    <table className="orders-table">
+                                        <thead>
+                                            <tr>
+                                                <th>S No</th>
+                                                <th>Order Date</th>
+                                                <th>Customer Name</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <th>Email</th>
+                                                <th>Items</th>
+                                                <th>Total Quantity</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {orders
+                                                .filter(order => order.status === 'Approved')
+                                                .map((order, index) => (
+                                                    <tr key={order.id} className="table-row">
+                                                        <td>{index + 1}</td>
+                                                        <td>{order.date}</td>
+                                                        <td>{order.userName}</td>
+                                                        <td>{order.phone}</td>
+                                                        <td><div className='customer-address'>{order.address}</div></td>
+                                                        <td>
+                                                            <a href={`mailto:${order.email}`}>{order.email}</a>
+                                                        </td>
+                                                        <td>
+                                                            <button className="view-btn" onClick={() => setSelectedOrder(order)}>
+                                                                View
+                                                            </button>
+                                                        </td>
+                                                        <td>{order.quantity}</td>
+                                                        <td>₹{order.price}</td>
+                                                        <td className='order-status-approved'>{order.status}</td>
+                                                        
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             )}
 
+                            {selectedOrder && (
+                                <IonModal isOpen={true} onDidDismiss={() => setSelectedOrder(null)}>
+                                    <IonHeader>
+                                        <IonToolbar>
+                                            <IonTitle className='model-title'>Order Details of {selectedOrder.userName}</IonTitle>
+                                            <IonButtons slot="end">
+                                                <IonButton className='model-close-btn' onClick={() => setSelectedOrder(null)}>Close</IonButton>
+                                            </IonButtons>
+                                        </IonToolbar>
+                                    </IonHeader>
+                                    <IonContent className="ion-padding">
+                                        <div className='order-product-details'>
+                                            <table className="order-detail-table">
+                                                <thead className='order-detail-head'>
+                                                    <tr className='order-detail-row'>
+                                                        <th>Product</th>
+                                                        <th>Size</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>SubTotal</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className='order-detail-body'>
+                                                    {(selectedOrder.items ?? []).map((item, index) => (
+                                                        <tr key={index} className='order-items-detail'>
+                                                            <td className='item-name'>{item.name}</td>
+                                                            <td className='item-size'>{item.size || '-'}</td>
+                                                            <td className='item-quantity'>{item.quantity}</td>
+                                                            <td className='item-price'>₹{item.price}</td>
+                                                            <td className='item-subtotal'>₹{(item.price * item.quantity).toFixed(2)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                            <div className="order-info">
+                                                <p className='order-total-quantity'>Total Quantity: {selectedOrder.quantity}</p>
+                                                <p className='order-total-price'>Total Price: ₹{selectedOrder.price}</p>
+                                                <p className='item-order-date'>Order Date: {selectedOrder.date}</p>
+                                            </div>
+                                        </div>
+                                    </IonContent>
+                                </IonModal>
+                            )}
                         </div>
                     )}
                     {activeTab === 'unapproved' && (
@@ -232,39 +250,93 @@ Thank you for shopping with us!
                             {orders.length === 0 ? (
                                 <p>No unapproved orders found.</p>
                             ) : (
-                                <ul className='order-list'>
-                                    {orders.filter(order => order.status === 'Pending').map(order => (
-                                        <li key={order.id} className='order-item'>
-                                            <div className='order-product'>
-                                                {/* <img src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''} className='product-image' /> */}
-
-                                                <div className='customer-data' key={order.id}>
-                                                    <h4>{order.userName}</h4>
-                                                    {order.address && <p className='customer-address'>{order.address}</p>}
-                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
-                                                        {order.email}
-                                                    </a>
-                                                    }
-                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
-
-                                                </div>
-                                                <div className='order-product-details'>
-                                                    <ul className='order-product-name'>
-                                                        {order.items && order.items.map((item: any, index: number) => (
-                                                            <li key={index}>{item.name}{item.size ? ` (${item.size})` : ''}</li>
-                                                        ))}
-                                                    </ul>
-                                                    <div className='order-info'>
-                                                        <p>Quantity: {order.quantity}</p>
-                                                        <p>Price: ${order.price}</p>
-                                                        <p>Date: {order.date}</p>
-                                                    </div>
-                                                </div>
-                                                <button onClick={() => handleApprove(order.id)} className='approve-btn'>Approve</button>
+                                <div className="table-wrapper">
+                                    <table className="orders-table">
+                                        <thead>
+                                            <tr>
+                                                <th>S No</th>
+                                                <th>Order Date</th>
+                                                <th>Customer Name</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <th>Email</th>
+                                                <th>Items</th>
+                                                <th>Total Quantity</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
+                                                <th>Approve Here</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {orders
+                                                .filter(order => order.status === 'Pending')
+                                                .map((order, index) => (
+                                                    <tr key={order.id} className="table-row">
+                                                        <td>{index + 1}</td>
+                                                        <td>{order.date}</td>
+                                                        <td>{order.userName}</td>
+                                                        <td>{order.phone}</td>
+                                                        <td><div className='customer-address'>{order.address}</div></td>
+                                                        <td>
+                                                            <a href={`mailto:${order.email}`}>{order.email}</a>
+                                                        </td>
+                                                        <td>
+                                                            <button className="view-btn" onClick={() => setSelectedOrder(order)}>
+                                                                View
+                                                            </button>
+                                                        </td>
+                                                        <td>{order.quantity}</td>
+                                                        <td>₹{order.price}</td>
+                                                        <td className='order-status-pending'>{order.status}</td>
+                                                        <td><button onClick={() => handleApprove(order.id)} className='approve-btn'>Approve</button></td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                            {selectedOrder && (
+                                <IonModal isOpen={true} onDidDismiss={() => setSelectedOrder(null)}>
+                                    <IonHeader>
+                                        <IonToolbar>
+                                            <IonTitle className='model-title'>Order Details of {selectedOrder.userName}</IonTitle>
+                                            <IonButtons slot="end">
+                                                <IonButton className='model-close-btn' onClick={() => setSelectedOrder(null)}>Close</IonButton>
+                                            </IonButtons>
+                                        </IonToolbar>
+                                    </IonHeader>
+                                    <IonContent className="ion-padding">
+                                        <div className='order-product-details'>
+                                            <table className="order-detail-table">
+                                                <thead className='order-detail-head'>
+                                                    <tr className='order-detail-row'>
+                                                        <th>Product</th>
+                                                        <th>Size</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>SubTotal</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className='order-detail-body'>
+                                                    {(selectedOrder.items ?? []).map((item, index) => (
+                                                        <tr key={index} className='order-items-detail'>
+                                                            <td className='item-name'>{item.name}</td>
+                                                            <td className='item-size'>{item.size || '-'}</td>
+                                                            <td className='item-quantity'>{item.quantity}</td>
+                                                            <td className='item-price'>₹{item.price}</td>
+                                                            <td className='item-subtotal'>₹{(item.price * item.quantity).toFixed(2)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                            <div className="order-info">
+                                                <p className='order-total-quantity'>Total Quantity: {selectedOrder.quantity}</p>
+                                                <p className='order-total-price'>Total Price: ₹{selectedOrder.price}</p>
+                                                <p className='item-order-date'>Order Date: {selectedOrder.date}</p>
                                             </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                                        </div>
+                                    </IonContent>
+                                </IonModal>
                             )}
 
                         </div>
