@@ -1,47 +1,64 @@
+/* Define CSS Variables for the new color palette */
+:root {
+  --color-primary-background: #F5F5F5;    /* Soft white-gray */
+  --color-section-background: #E1E1E1;    /* Clean Silver Gray */
+  --color-elite-silver: #C0C0C0;          /* Elite Silver base */
+  --color-dark-text: #2A2A2A;             /* Headings, readable text */
+  --color-light-text: #6E6E6E;            /* Labels, descriptions */
+  --color-cta-accent: #9A9A9A;            /* Gunmetal gray for buttons */
+  --color-highlight-hover: #D0D0D0;        /* Hover backgrounds */
+  --color-white: #FFFFFF;                  /* White text/icons */
+  --color-yellow-star: #FFD700;            /* For ratings */
+
+  /* RGBs for transparency */
+  --rgb-elite-silver: 192, 192, 192;
+  --rgb-section-background: 225, 225, 225;
+  --rgb-cta-accent: 154, 154, 154;
+  --rgb-dark-text: 42, 42, 42;
+  --rgb-white: 255, 255, 255;
+}
+
 /* Works in Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
     width: 0px;
-  }
-  
-  /* Track (the area behind the scrollbar thumb) */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track (the area behind the scrollbar thumb) */
+::-webkit-scrollbar-track {
     /* background: #f1f1f100; */
     border-radius: 10px;
-  }
-  
-  /* Handle (the draggable part) */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
     /* background: #88888800; */
     border-radius: 10px;
-  }
-  
+}
 
 
 /* Container Styling */
 .container {
-    
-    background: #a7aad300; /* Light transparent background */
+    background: rgba(var(--rgb-primary-background), 0.3); /* Using primary background for transparent container */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
-    
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(var(--rgb-white), 0.2); /* Using white for border */
     padding: 20px;
     max-width: 100%;
     margin: auto;
-    /* box-shadow: 0 0 15px #7d7e7e; */
+    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */ /* Optional shadow, using a darker palette color for consistency */
 }
 
 /* Navigation Styling */
 .nav-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important ;
     align-items: center;
     flex-wrap: wrap;
 }
 
 .nav-item h3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: #3A3E6C;
+    color: var(--color-dark-text); /* Applied dark text for headings */
     margin: 0;
     font-weight: 700;
     font-size: 2.6rem;
@@ -56,7 +73,7 @@
     margin: 0;
 }
 .head-list{
-    color: #ffffff;
+    color: var(--color-white); /* Applied white for head list */
 }
 .nav-list li {
     position: relative;
@@ -64,7 +81,7 @@
     font-size: 1.3rem;
     font-weight: 500;
     cursor: pointer;
-    color: #ffffff;
+    color: var(--color-white); /* Applied white for list items */
     background: transparent;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
@@ -73,11 +90,9 @@
 
 .main-content h3,li{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
 }
 .nav-list li:hover {
-    background: rgba(255, 255, 255, 0.2);
-    
+    background: rgba(var(--rgb-white), 0.2); /* Transparent white for hover */
 }
 
 
@@ -112,24 +127,23 @@
 
 .icon-label {
   font-size: 0.75rem;
-  color: #3A3E6C;
+  color: var(--color-dark-text); /* Applied dark text for labels */
   margin-top: 4px;
   line-height: 1;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .active-icon ion-icon {
-  color: #E59866 !important; /* Active icon color (orange) */
+  color: var(--color-cta-accent) !important; /* Applied CTA accent for active icon */
 }
 
 .active-icon .icon-label {
-  color: #E59866 !important; /* Active label color */
+  color: var(--color-cta-accent) !important; /* Applied CTA accent for active label */
   font-weight: 600;
 }
 
 
-
-/* .nav-icon button:hover  {
+/* .nav-icon button:hover  {
     color: #002642;
 } */
 
@@ -141,113 +155,107 @@
     cursor: pointer;
     background: none;
     border: none;
-    color: rgb(0, 0, 0);
+    color: var(--color-dark-text); /* Applied dark text for menu icon */
     z-index: 10;
 }
 
-  ion-menu {
+ion-menu {
     --width:250px;
-    
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    --ion-background-color: #FFF5ED !important;
-    --ion-text-color: #E59866 ;
-  }
-  .close-icon{
-    --color:#E59866;
-  }
-  
-  
-  ion-menu .menu-menu {
-    
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    --background: #FFF5ED  !important;
-    --inner-border-width: 0px;
-    --border-width: 0px;
-    --border-style: none;
-    --border-color: transparent;
-  }
-  ion-menu .menu-menu:hover{
-    color: #FFF5ED ;
-  }
-  .head-list{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-   --background:  #FFF5ED;
-   /* --ion-text-color: #E59866 !important; */
-  }
-  .head-list.list-md { background: #FFF5ED; }
+    --ion-background-color: var(--color-primary-background) !important; /* Applied primary background for menu */
+    --ion-text-color: var(--color-dark-text); /* Applied dark text for menu text */
+}
+.close-icon{
+    --color:var(--color-dark-text); /* Applied dark text for close icon */
+}
 
-  
-  /* .new:hover{
-    --color: #002642 !important;
-  } */
-   
-  .head-list .head-item{
+
+ion-menu .menu-menu {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    /* --background: #00a698  !important; */
+    --background: var(--color-primary-background) !important; /* Applied primary background for menu */
     --inner-border-width: 0px;
-    --background:#FFF5ED;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
-   
-  }
- .item{
-    background-color: #E59866;
-   
- }
- .menu-drop{
+}
+ion-menu .menu-menu:hover{
+    color: var(--color-dark-text); /* Applied dark text for menu hover */
+}
+.head-list{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+   --background:  var(--color-primary-background); /* Applied primary background for head list */
+}
+.head-list.list-md { background: var(--color-primary-background); } /* Applied primary background for head list */
+
+
+/* .new:hover{
+    --color: #002642 !important;
+} */
+
+.head-list .head-item{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    /* --background: #00a698  !important; */
+    --inner-border-width: 0px;
+    --background:var(--color-primary-background); /* Applied primary background for head item */
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+
+}
+.item{
+    background-color: var(--color-section-background); /* Applied section background */
+}
+.menu-drop{
     position:relative;
     left:20%;
- }
-  
-  .ion-icon {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color:#E59866 !important;
-    font-size: 20px;
-  }
+}
 
-  .color{
+.ion-icon {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    color:var(--color-dark-text) !important; /* Applied dark text for ion icon */
+    font-size: 20px;
+}
+
+.color{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     --background:transparent;
     --inner-border-width: 0px;
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
-    color: #ffffff;
+    color: var(--color-white); /* Applied white for color */
 }
 
 .custom-item{
-    
     font-size: 0.8rem;
 }
 
 .inner-icon{
-    color: #ffffff;
+    color: var(--color-white); /* Applied white for inner icon */
 }
 
 .custom-item:hover {
-    --background: #ffffff36;  
-    --color: #ffffff;                
-    /* transition: background-color 0.2s ease; */
-  }
-  
-  /* To target the ion-icon */
-  .custom-item:hover ion-icon {
+    --background: rgba(var(--rgb-white), 0.2); /* Transparent white for hover */
+    --color: var(--color-white); /* Applied white for hover */
+}
+
+/* To target the ion-icon */
+.custom-item:hover ion-icon {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: #ffffff !important;
+    color: var(--color-white) !important; /* Applied white for hover icon */
     transform: scale(1);
     transition: all 0.3s ease-in-out;
-  }
+}
 /* Style for the search bar in the header */
 .pro-header-search {
     display: flex;
     align-items: center;
-    background: #ffffff75;
+    background: rgba(var(--rgb-white), 0.4); /* Transparent white for search background */
     border-radius: 8px;
     padding: 4px 12px;
     min-width: 260px;
     max-width: 400px;
-    box-shadow: 0 2px 8px rgba(221, 138, 82, 0.08);
+    box-shadow: 0 2px 8px rgba(var(--rgb-section-background), 0.08); /* Transparent section background for shadow */
     margin: 0 24px;
     flex: 1 1 320px;
 }
@@ -256,19 +264,19 @@
     border: none;
     background: transparent;
     font-size: 1.1rem;
-    color: #d45907;
+    color: var(--color-dark-text); /* Applied dark text for input */
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     width: 100%;
 }
 
 .pro-header-search ion-input::placeholder {
-    color: #d45907b0;
+    color: rgba(var(--rgb-light-text), 0.7); /* Transparent light text for placeholder */
     opacity: 1;
 }
 
 .pro-header-search ion-button {
     --background: transparent;
-    --color: #d45907;
+    --color: var(--color-dark-text); /* Applied dark text for button */
     font-size: 1.3rem;
     margin-left: 4px;
     border-radius: 50%;
@@ -276,7 +284,7 @@
 }
 
 .pro-header-search ion-button:hover {
-    --background: #ffe5d0;
+    --background: var(--color-highlight-hover); /* Applied highlight hover */
 }
 /* Style for the action icons on the right side of the header */
 .nav-icon {
@@ -287,7 +295,7 @@
 
 .nav-icon ion-button {
     --background: transparent;
-    --color: #3A3E6C;
+    --color: var(--color-dark-text); /* Applied dark text for button */
     font-size: 1.7rem;
     border-radius: 50%;
     transition: background 0.2s;
@@ -296,13 +304,13 @@
 }
 
 .nav-icon ion-button:hover {
-    --background:none
-    --color: #a33c00;
+    --background:none;
+    --color: var(--color-cta-accent); /* Applied CTA accent for hover */
 }
 
 .nav-icon ion-icon {
     font-size: 1.7rem;
-    color: #3A3E6C;
+    color: var(--color-dark-text); /* Applied dark text for icon */
     transition: color 0.2s;
 }
 
@@ -328,9 +336,9 @@
         top: 80px;
         left: 0;
         width: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(var(--rgb-primary-background), 0.9); /* Transparent primary background for menu */
         border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(var(--rgb-dark-text), 0.1); /* Transparent dark text for shadow */
         z-index: 5;
         padding: 10px;
         text-align: center;
@@ -357,39 +365,37 @@
         transform: translateX(10px);
         width: auto;
         min-width: 180px;
-       
     }
-   
 }
 .icon-with-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 8px;
-  cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    cursor: pointer;
 }
 
 .icon-label {
-  font-size: 0.75rem;
-  color: #3A3E6C;
-  margin-top: 4px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 0.75rem;
+    color: var(--color-dark-text); /* Applied dark text for label */
+    margin-top: 4px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .cart-badge {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  background: #ff5722;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  box-shadow: 0 1px 4px #fbeee6;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--color-cta-accent); /* Applied CTA accent for badge */
+    color: var(--color-white); /* Applied white for badge text */
+    border-radius: 50%;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 1px 4px rgba(var(--rgb-cta-accent), 0.5); /* Transparent CTA accent for shadow */
 }

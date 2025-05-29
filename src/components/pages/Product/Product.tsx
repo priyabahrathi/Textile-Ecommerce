@@ -173,7 +173,7 @@ const Product: React.FC = () => {
     result = result.filter((product) => product.price >= lower && product.price <= upper);
 
     // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
-  
+
 
     // NEW FILTERS for dresses
     // Apply Fabric Type filter
@@ -316,7 +316,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedFabricType.includes(type)}
                       onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
-                       className="filter-checkbox"
+                      className="filter-checkbox"
                     />
                     <IonLabel>{type}</IonLabel>
                   </li>
@@ -331,7 +331,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedCategories.includes(cat)}
                       onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
-                       className="filter-checkbox"
+                      className="filter-checkbox"
                     />
                     <IonLabel>{cat}</IonLabel>
                   </li>
@@ -376,7 +376,7 @@ const Product: React.FC = () => {
                 ))}
               </div>
 
-             
+
             </div>
           </IonCol>
 
@@ -446,28 +446,26 @@ const Product: React.FC = () => {
             <IonGrid id="product-section">
               <IonRow>
                 {filteredItems.map((product) => (
-                  <IonCol className="ion-padding" sizeXs="6" sizeSm="6" sizeMd="4" sizeLg="4" sizeXl="3" key={product.id}>
+                  <IonCol sizeXs="6" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="3" key={product.id}>
                     <MotionCard>
                       <div
-                        className="product-card"
-                        style={{ cursor: 'pointer', position: 'relative' }}
+                        className="product-card-v2"
                         onClick={() => {
                           dispatch(setSelectedProduct(product));
-                          dispatch(setPage("productDetails")); // Navigate via Redux state
+                          dispatch(setPage("productDetails"));
                         }}
                       >
-                        {product.isNew && <span className="product-badge">NEW</span>}
-                        <img className="product-image" src={product.img} alt={product.name} />
-                        <IonCardContent className="data">
-                          <div className="product-data">
-                            <div className="product-title">{product.name}</div>
-                            <div className="product-price">&#8377;{product.price}</div>
-                          </div>
-                          <p className="product-category">{product.category}</p>
-                          <div className="rate-buy">
-                            <div className="ratings">{getStarRating(product.rating)}</div>
+                        {product.isNew && <span className="badge-new">NEW</span>}
+
+                        <div className="image-container">
+                          <img src={product.img} alt={product.name} />
+                        </div>
+
+                        <IonCardContent className="card-content">
+                          <div className="card-header">
+                            <h3 className="product-name">{product.name}</h3>
                             <button
-                              className={`add-to-wishlist ${isInWishlist(product.id) ? "active" : ""}`}
+                              className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 dispatch(toggleWishlist(product));
@@ -476,13 +474,20 @@ const Product: React.FC = () => {
                               <IonIcon icon={heart} />
                             </button>
                           </div>
+                          <p className="product-category">{product.category}</p>
+                          <div className="price-rating">
+                            <span className="product-price">&#8377;{product.price}</span>
+                            <span className="product-rating">{getStarRating(product.rating)}</span>
+                          </div>
                         </IonCardContent>
                       </div>
                     </MotionCard>
                   </IonCol>
+
                 ))}
               </IonRow>
             </IonGrid>
+
           </IonCol>
         </div>
       </div>

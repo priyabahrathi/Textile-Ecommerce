@@ -12,7 +12,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { database } from "../../../Store/Slice/firebase";
 import { ref, set, get, child } from "firebase/database";
-import "./admin.css"; // Import the CSS file
+import "./admin.css"; 
 
 // Sign In Form Component
 const SignInForm: React.FC<{

@@ -1,64 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+/* Define CSS Variables for the new color palette */
+:root {
+  --palette-dark-navy-blue: #1A2F5A;
+  --palette-medium-beige: #C0A88D;
+  --palette-light-beige: #E0D4C5;
+  --palette-off-white: #F8F2E8;
+}
+
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
 .welcome-message{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-  
-  color: #3A3E6C;
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
   margin: 0;
   padding: 0;
 }
-.features{
+
+.hero-features{
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: #3A3E6C;
- 
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
 }
-.side-border{
-  padding: 0px 10px;
-  border-left: 1px solid #3A3E6C;
-  border-right: 1px solid #3A3E6C;
+.hero-feature-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
 }
 .hero-section {
   position: relative;
-  min-height: 70vh; /* Set minimum height to 80% of viewport height */
-  width: 90%; /* Set width to 80% */
-  margin: auto; /* Center the hero section horizontally */
-  overflow: hidden; /* Important for containing absolutely positioned children and rounded corners */
-  border-radius: 20px; /* Apply border-radius */
-  box-shadow: 0 4px 30px rgba(226, 212, 10); /* Apply box-shadow */
-  border: 1px solid rgb(226, 212, 10); /* Optional border for better visibility */
-  margin-top: 5px; /* Add top margin */
-  margin-bottom: 20px; /* Add bottom margin */
-  display: flex; /* Use flexbox to arrange main swiper and thumbs */
-  flex-direction: column; /* Stack them vertically */
-  justify-content: space-between; /* Push thumbs to bottom */
+  min-height: 83vh;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 20px;
+  /* Adjust box-shadow color to fit palette, using a darker shade of beige or a subtle blue */
+  box-shadow: 0 4px 30px rgba(26, 47, 90, 0.2); /* Using a transparent dark navy blue for shadow */
+  border: 1px solid var(--palette-light-beige); /* Applied new light beige for border */
+  margin-top: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
 
 .hero-section::before {
   content: none; /* Disable the ::before pseudo-element */
 }
-
-
 
 .hero-swiper-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* Will take 100% of hero-section's height (100vh) */
-  z-index: -2; /* Should be behind ::before if ::before is transparent */
-  overflow: hidden; /* Important for containing the Swiper slides */
-  /* Temporary debug background: */
-  background-color: rgba(0, 255, 0, 0.3); /* MAKE THIS VISIBLE TO CHECK CONTAINER */
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
 }
 
 /* Swiper's internal elements - ensure they have dimensions */
@@ -66,81 +70,103 @@ body {
   width: 100%;
   height: 100%;
 }
+
 .hero-swiper-image{
   width: 100%;
   height: 100%;
-  background-size: cover; /* Ensure the image covers the entire slide */
-  background-position: center; /* Center the image */
+  background-size: cover;
+  background-position: center;
   object-fit: cover;
-  background-repeat: no-repeat; /* Prevent image repetition */
+  background-repeat: no-repeat;
+  filter: brightness(0.7); /* Darken the image slightly for better text readability */
 }
+
 .hero-swiper-slide {
   width: 100%;
   height: 100%;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
- 
 }
 
-/* Rest of your CSS remains unchanged */
-.hero {
-  position: relative;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 5rem 5%;
-  margin-top: 60px;
-  overflow: hidden;
+/* Hero Content Overlay */
+.hero-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay for readability */
 }
 
 .hero-content {
-  max-width: 500px;
-  z-index: 1; /* Ensure content is on top */
+  min-width: 500px;
+  z-index: 1;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1); /* Slightly transparent background for content block */
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .hero-content h2 {
   font-size: 50px ;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: var(--palette-off-white); /* Applied new off-white */
   font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content p {
   font-size: 25px ;
   margin-bottom: 1.5rem;
-  color: #555352;
+  color: var(--palette-light-beige); /* Applied new light beige for paragraph text */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .year {
-  color: #3A3E6C;
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
 }
 
-.hero-buttons .icon-btn {
-  background: #3A3E6C;
-  color: #ffffff;
+.hero-heading-highlight {
+    color: var(--palette-medium-beige); /* Applied new medium beige for highlight */
+}
+
+.hero-buttons .hero-icon-btn {
+  background: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--palette-off-white); /* Applied new off-white */
   font-size: 1.2rem;
   height: 50px;
   border-radius: 50%;
   width: 50px;
   padding: 3px;
   margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.icon-btn:hover {
-  color: #3A3E6C;
-  background-color: #ffffff;
-  border: 1px solid #3A3E6C;
+.hero-icon-btn:hover {
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  background-color: var(--palette-off-white); /* Applied new off-white */
+  border: 1px solid var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  transform: scale(1.1);
 }
 
 .hero-buttons {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
+  
 }
 
-.arrival-btn {
+.hero-arrival-btn {
   margin: 5px;
   display: flex;
   align-items: center;
@@ -149,19 +175,24 @@ body {
   font-size: 18px;
   height: 50px;
   font-weight: bold;
-  background: #3A3E6C;
-  color: #ffffff;
+  background: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--palette-off-white); /* Applied new off-white */
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.arrival-btn:hover {
-  color: #3A3E6C;
-  background: #ffffff;
-  border: 1px solid #3A3E6C;
-  transform: scale(1);
+.hero-arrival-btn:hover {
+  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  background: var(--palette-off-white); /* Applied new off-white */
+  border: 1px solid var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  transform: translateY(-2px);
+}
+
+.hero-arrival-btn ion-icon {
+    font-size: 1.2rem;
 }
 
 @keyframes slideDown {
@@ -169,7 +200,6 @@ body {
     opacity: 0;
     transform: translateY(-30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -197,58 +227,116 @@ body {
   animation-delay: 0.8s;
 }
 
-.hero-buttons .arrival-btn {
+.hero-buttons .hero-arrival-btn {
   animation-delay: 1s;
 }
 
+
+
+
+/* Social Media Sidebar */
+.social-media-sidebar {
+    position: fixed;
+    right: 20px;
+    top: 60%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+    background: rgba(26, 47, 90, 0.3); /* Using transparent dark navy blue */
+    border-radius: 10px;
+    padding: 10px 5px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--palette-off-white); /* Applied new off-white */
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon-btn:hover {
+    background: var(--palette-medium-beige); /* Applied new medium beige */
+    color: var(--palette-off-white); /* Applied new off-white */
+    transform: scale(1.1);
+}
+
+
+/* Responsive Adjustments */
 @media screen and (max-width:1300px) {
- .welcome-message{
+  .welcome-message {
     font-size: 1.2rem;
+  }
+  .hero-features{
+    display: flex;
+    
+  }
+  .hero-feature-title{
+    font-size: 0.9rem;
+  }
+  .hero-section {
+    min-height: 85vh;
+
   }
   .hero-content h2 {
     font-size: 40px;
   }
   .hero-content p {
     font-size: 20px;
- }
- .features {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-
   }
-  .features h3{
+  .year {
     font-size: 1.2rem;
-    margin: 0;
-    padding: 0;
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 1rem;
+    height: 40px;
+    width: 40px;
+  }
+ .hero-arrival-btn {
+    font-size: 16px;
+    height: 40px;
+    padding: 10px 20px;
+  }
+  .hero-content {
+    min-width: 600px;
+    padding: 15px;
+  }
+  .hero-content-overlay {
+    padding: 10px;
+  }
+  .social-media-sidebar {
+    right: 10px;
+    top: 60%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+  
+  
+}
+@media screen and (max-width:1200px) {
+  .welcome-message {
+    font-size: 1rem;
+  }
+  .hero-feature-title{
+    font-size: 0.8rem;
   }
   .hero-section {
     width: 100%;
-    min-height: 80vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
-  }
-  .hero-swiper-container {
-    height: 100%; /* Ensure it takes full height of hero-section */
-  }
-  .hero-swiper-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Ensure the image covers the entire slide */
-    background-position: center; /* Center the image */
-    object-fit: cover;
-    background-repeat: no-repeat; /* Prevent image repetition */
-  }
-  .hero-content {
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
-  }
- 
-}
-@media screen and (max-width: 1025px) {
-  .welcome-message{
-    font-size: 1.2rem;
+    min-height: 83vh;
   }
   .hero-content h2 {
     font-size: 35px;
@@ -256,62 +344,49 @@ body {
   .hero-content p {
     font-size: 18px;
   }
-  .hero-buttons .icon-btn {
-    font-size: 1rem;
-    width: 40px;
-    height: 40px;
-  }
-  .hero-buttons .arrival-btn {
-    font-size: 16px;
-    height: 40px;
-    padding: 10px 20px;
-  }
-  .hero-section {
-    width: 100%;
-    min-height: 55vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
-  }
-  .hero-swiper-container {
-    height: 100%; /* Ensure it takes full height of hero-section */
-  }
-  .hero-swiper-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Ensure the image covers the entire slide */
-    background-position: center; /* Center the image */
-    object-fit: cover;
-    background-repeat: no-repeat; /* Prevent image repetition */
-  }
-  .hero {
-    padding: 0;
-    margin-top: 0px; /* Reduced top margin for smaller screens */
-    
-    width: 350px; /* Adjusted width for smaller screens */
-  }
   .hero-content {
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
-    position: absolute;
-    top: 20%; /* Adjusted position for smaller screens */
-    left: 10%;
+    min-width: 500px;
+    padding: 10px;
   }
-  .features{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+  .hero-content-overlay {
+    padding: 5px;
   }
-  .features h3{
-    font-size: 1.2rem;
-    margin: 0;
-    padding: 0;
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.9rem;
+    height: 35px;
+    width: 35px;
   }
+  .hero-arrival-btn {
+    font-size: 14px;
+    height: 35px;
+    padding: 8px 16px;
+  }
+  .year {
+    font-size: 1rem;
+  }
+  .social-media-sidebar {
+    right: 5px;
+    top: 60%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+
   
 }
-@media screen and (max-width:918px){
-  .welcome-message{
+@media screen and (max-width:1024px){
+  .welcome-message {
     font-size: 1.1rem;
+  }
+  .hero-feature-title{
+    font-size: 0.8rem;
+  }
+  .hero-section {
+    min-height: 60vh;
   }
   .hero-content h2 {
     font-size: 32px;
@@ -319,36 +394,51 @@ body {
   .hero-content p {
     font-size: 18px;
   }
-  .hero-buttons .icon-btn {
-    font-size: 1rem;
-    width: 40px;
-    height: 40px;
+  .hero-content {
+    min-width: 450px;
+    padding: 10px;
   }
-  .hero-buttons .arrival-btn {
-    font-size: 16px;
-    height: 40px;
-    padding: 10px 20px;
+  .hero-content-overlay {
+    padding: 5px;
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.9rem;
+    height: 35px;
+    width: 35px;
+  }
+  .hero-arrival-btn {
+    font-size: 14px;
+    height: 35px;
+    padding: 8px 16px;
+  }
+  .year {
+    font-size: 1rem;
+  }
+  .social-media-sidebar {
+    right: 5px;
+    top: 40%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
   .hero-section {
-    width: 100%;
-    min-height: 40vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
+    margin-top: 0;
+    margin-bottom: 10px;
   }
-  .hero{
-    padding: 0;
-    margin-top: 0px; /* Reduced top margin for smaller screens */
-    
-    
-  }
-  .hero-content{
-    position: absolute;
-    top: 20%;
-  }
+
 }
-@media screen and (max-width: 768px) {
-  .welcome-message{
-    font-size: 1rem;
+@media screen and (max-width:900px) {
+  .welcome-message {
+    font-size: 0.9rem;
+  }
+  .hero-feature-title{
+    font-size: 0.7rem;
+  }
+  .hero-section {
+    min-height: 70vh;
   }
   .hero-content h2 {
     font-size: 30px;
@@ -356,216 +446,320 @@ body {
   .hero-content p {
     font-size: 16px;
   }
-  .hero-buttons .icon-btn {
-    font-size: 0.9rem;
-    width: 35px;
-    height: 35px;
+  .hero-content {
+    min-width: 400px;
+    padding: 5px;
   }
-  .hero-buttons .arrival-btn {
-    font-size: 14px;
-    height: 35px;
-    padding: 8px 16px;
-  }
-  .hero{
+  .hero-content-overlay {
     padding: 0;
-    margin-top: 0px; /* Reduced top margin for smaller screens */
-    position: absolute;
-    top: 0;
-    width:350px
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.8rem;
+    height: 30px;
+    width: 30px;
+  }
+  .hero-arrival-btn {
+    font-size: 12px;
+    height: 30px;
+    padding: 6px 12px;
+  }
+  .year {
+    font-size: 0.9rem;
+  }
+  .social-media-sidebar {
+    right: 0;
+    top: 45%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
   }
   .hero-section {
-    width: 100%;
-    min-height: 45vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
+    margin-top: 0;
+    margin-bottom: 10px;
   }
-  .hero-swiper-container {
-    height: 100%; /* Ensure it takes full height of hero-section */
-    }
-  .hero-swiper-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Ensure the image covers the entire slide */
-    background-position: center; /* Center the image */
-    object-fit: cover;
-  }
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
-  }
-  .features{
-    display: flex;
-    align-items: center; /* Center align items */
-    justify-content: center; /* Center justify content */
-    gap: 0.5rem; /* Reduced gap for better spacing on smaller screens */
-  }
-  .features h3{
-    font-size: 1rem; /* Adjusted font size for smaller screens */
-    margin: 0;
-    padding: 0;
-  }
+  
+
+
 }
-@media screen and (max-width:530px){
-  .welcome-message{
-    font-size: 0.9rem;
+@media screen and (max-width:800px) {
+  .welcome-message {
+    font-size: 0.8rem;
+  }
+  .hero-feature-title{
+    font-size: 0.6rem;
+  }
+  .hero-section {
+    min-height: 60vh;
   }
   .hero-content h2 {
     font-size: 28px;
   }
   .hero-content p {
-    font-size: 14px;
+    font-size: 16px;
   }
-  .hero-buttons .icon-btn {
-    font-size: 0.8rem;
-    width: 30px;
+  .hero-content {
+    min-width: 350px;
+    padding: 5px;
+  }
+  .hero-content-overlay {
+    padding: 0;
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.7rem;
     height: 30px;
+    width: 30px;
   }
-  .hero-buttons .arrival-btn {
+  .hero-arrival-btn {
     font-size: 12px;
     height: 30px;
     padding: 6px 12px;
   }
-  .hero-section {
-    width: 100%;
-    min-height: 60vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
+  .year {
+    font-size: 0.8rem;
   }
+  .social-media-sidebar {
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+   
+
+  
 }
-@media screen and (max-width: 480px) {
-  .welcome-message{
+@media screen and (max-width:700px){
+  .welcome-message {
     font-size: 0.9rem;
   }
+  .hero-feature-title{
+    font-size: 0.7rem;
+  }
+  .hero-section {
+    min-height: 65vh;
+  }
   .hero-content h2 {
-    font-size: 25px;
+    font-size: 32px;
+  }
+  .hero-content p {
+    font-size: 18px;
+  }
+  .hero-content {
+    min-width: 450px;
+    padding: 10px;
+  }
+  .hero-content-overlay {
+    padding: 5px;
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.9rem;
+    height: 35px;
+    width: 35px;
+  }
+  .hero-arrival-btn {
+    font-size: 12px;
+    height: 30px;
+    padding: 8px 16px;
+  }
+  .year {
+    font-size: 1rem;
+  }
+  .social-media-sidebar {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .hero-content {
+    min-width: 400px;
+    padding: 10px;
+  }
+  .hero-content-overlay {
+    padding: 5px;
+  }
+
+  
+}
+
+@media screen and (max-width:600px) {
+  .welcome-message {
+    font-size: 0.8rem;
+  }
+  .hero-feature-title{
+    font-size: 0.6rem;
+  }
+  .hero-section {
+    min-height: 55vh;
+  }
+  .hero-content h2 {
+    font-size: 26px;
   }
   .hero-content p {
     font-size: 14px;
-    margin-bottom: 1rem; /* Reduced bottom margin for smaller screens */
   }
-  .hero-buttons .icon-btn {
-    font-size: 0.8rem;
-    width: 30px;
-    height: 30px;
+  .hero-content {
+    min-width: 300px;
+    padding: 5px;
   }
-  .hero-buttons .arrival-btn {
-    font-size: 12px;
-    height: 30px;
-    padding: 6px 12px;
-  }
-  .hero{
+  .hero-content-overlay {
     padding: 0;
-    margin-top: 0px; /* Reduced top margin for smaller screens */
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.7rem;
+    height: 25px;
+    width: 25px;
+  }
+  .hero-arrival-btn {
+    font-size: 10px;
+    height: 25px;
+    padding: 4px 8px;
+  }
+  .year {
+    font-size: 0.8rem;
+  }
+  .social-media-sidebar {
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
   }
   .hero-section {
-    width: 100%;
-    min-height: 30vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
+    margin-top: 0;
+    margin-bottom: 5px;
   }
-  .hero-content{
-    position: absolute;
-    top: 9%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
-  }.features{
-    display: flex;
-    align-items: center; /* Center align items */
-    justify-content: center; /* Center justify content */
-    gap: 0.5rem; /* Reduced gap for better spacing on smaller screens */
-  }
-  .features h3{
-    font-size: 0.9rem; /* Adjusted font size for smaller screens */
-    margin: 0;
+
+  .hero-content-overlay {
     padding: 0;
-  }
-  .hero-swiper-container {
-    height: 100%; /* Ensure it takes full height of hero-section */
-  }
-  .hero-swiper-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Ensure the image covers the entire slide */
-    background-position: center; /* Center the image */
-    object-fit: cover;
   }
 
 }
-@media screen and (max-width: 360px) {
-  .welcome-message{
-    font-size: 0.8rem;
+@media screen and (max-width:400px) {
+  .welcome-message {
+    font-size: 0.7rem;
+  }
+  .hero-feature-title{
+    font-size: 0.5rem;
+  }
+  .hero-section {
+    min-height: 40vh;
+  }
+  .hero-content h2 {
+    font-size: 24px;
+  }
+  .hero-content p {
+    font-size: 12px;
+  }
+  .hero-content {
+    min-width: 200px;
+    padding: 5px;
+  }
+  .hero-content-overlay {
+    padding: 0;
+  }
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.6rem;
+    height: 20px;
+    width: 20px;
+  }
+  .hero-arrival-btn {
+    font-size: 8px;
+    height: 20px;
+
+    padding: 2px 4px;
+  }
+  .year {
+    font-size: 0.7rem;
+  }
+  .social-media-sidebar {
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 15px;
+    height: 15px;
+    font-size: 0.7rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+
+}
+
+@media screen and (max-width:300px) {
+  .welcome-message {
+    font-size: 0.6rem;
+  }
+  .hero-feature-title{
+    font-size: 0.4rem;
+  }
+  .hero-section {
+    min-height: 35vh;
   }
   .hero-content h2 {
     font-size: 22px;
   }
   .hero-content p {
-    font-size: 12px;
-  }
-  .hero-buttons .icon-btn {
-    font-size: 0.7rem;
-    width: 25px;
-    height: 25px;
-  }
-  .hero-buttons .arrival-btn {
     font-size: 10px;
-    height: 25px;
-    padding: 4px 8px;
-  }
-  .hero{
-    padding: 0;
-    margin-top: 0px; /* Reduced top margin for smaller screens */
-  }
-  .hero-section {
-    width: 100%;
-    min-height: 30vh; /* Adjusted for smaller screens */
-    margin-top: 20px; /* Reduced top margin */
-    margin-bottom: 20px; /* Reduced bottom margin */
-  }
-  .hero-content{
-    position: absolute;
-    top: 9%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
-  }
-  .features{
-    display: flex;
-    align-items: center; /* Center align items */
-    justify-content: center; /* Center justify content */
-    gap: 0.5rem; /* Reduced gap for better spacing on smaller screens */
-  }
-  .features h3{
-    font-size: 0.8rem; /* Adjusted font size for smaller screens */
-    margin: 0;
-    padding: 0;
-  }
-  .hero-swiper-container {
-    height: 100%; /* Ensure it takes full height of hero-section */
-  }
-  .hero-swiper-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Ensure the image covers the entire slide */
-    background-position: center; /* Center the image */
-    object-fit: cover;
   }
   .hero-content {
-    max-width: 90%; /* Adjusted for smaller screens */
-    padding: 0 20px; /* Added padding for better spacing */
+    min-width: 150px;
+    padding: 5px;
   }
-  .hero-content>* {
-    opacity: 0;
-    animation: slideDown 0.8s ease-in-out forwards;
+  .hero-content-overlay {
+    padding: 0;
   }
-  .hero-content h2 {
-    animation-delay: 0.2s;
-  }     
+  .hero-buttons .hero-icon-btn {
+    font-size: 0.5rem;
+    height: 15px;
+    width: 15px;
+  }
+  .hero-arrival-btn {
+    font-size: 6px;
+    height: 15px;
+    padding: 1px 2px;
+  }
+  .year {
+    font-size: 0.6rem;
+  }
+  .social-media-sidebar {
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%);
+  }
+  .social-icon-btn {
+    width: 10px;
+    height: 10px;
+    font-size: 0.6rem;
+  }
+  .hero-section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+ 
+  
 }

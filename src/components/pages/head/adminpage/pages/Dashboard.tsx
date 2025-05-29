@@ -13,7 +13,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import './Dashboard.css'; // Import the stylesheet
+import './Dashboard.css'; 
 
 type Order = {
     id: string;
@@ -235,7 +235,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className={`dashboard-wrapper ${darkMode ? 'dark' : ''}`}>
-            <header>
+            <div>
                 <h1>Dashboard</h1>
                 <div className="header-actions">
                     <div className="notification-bell" title="Notifications">
@@ -263,7 +263,7 @@ const Dashboard: React.FC = () => {
                         {darkMode ? 'Light Mode' : 'Dark Mode'}
                     </button>
                 </div>
-            </header>
+            </div>
 
             <div className="sales-overview">
                 {[
