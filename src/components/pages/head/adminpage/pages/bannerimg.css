@@ -1,106 +1,537 @@
-/* bannerimg.css */
+:root {
+    /* Light Theme Colors */
+    --light-bg-primary: #f8f9fa; /* Very light grey */
+    --light-bg-secondary: #ffffff; /* White for cards */
+    --light-text-primary: #212529; /* Dark grey for main text */
+    --light-text-secondary: #6c757d; /* Medium grey for subtle text */
+    --light-border-color: #e0e0e0;
+    --light-shadow-color: rgba(0, 0, 0, 0.1);
 
+    /* Dark Theme Colors */
+    --dark-bg-primary: #1a1a2e; /* Deep dark blue */
+    --dark-bg-secondary: #2c2c47; /* Slightly lighter dark blue for cards */
+    --dark-text-primary: #e0e0e0; /* Light grey for main text */
+    --dark-text-secondary: #a0a0a0; /* Muted light grey for subtle text */
+    --dark-border-color: #3f3f5a;
+    --dark-shadow-color: rgba(0, 0, 0, 0.4);
 
+    /* Accent Colors (Consistent across themes) */
+    --brand-primary: #52057b; /* Deep rich purple */
+    --brand-secondary: #880d8f; /* Lighter purple / magenta */
+    --accent-blue: #007bff; /* Standard blue for links/highlights */
+    --status-success: #28a745; /* Green */
+    --status-error: #dc3545; /* Red */
+    --status-info: #007bff; /* Blue */
 
-.bannerimg-container h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #222;
-    position: relative;
+    /* Typography */
+    --font-family-sans: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-size-base: 1rem;
+    --line-height-base: 1.6;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 0.75rem;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.3s ease-in-out;
 }
 
-.image-upload-cards-container {
+/* Base styles for the light theme */
+body {
+    font-family: var(--font-family-sans);
+    line-height: var(--line-height-base);
+    background-color: var(--light-bg-primary);
+    color: var(--light-text-primary);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Dark theme toggle (example - you'd likely apply this via JS) */
+body.dark-theme {
+    background-color: var(--dark-bg-primary);
+    color: var(--dark-text-primary);
+}
+
+/* --- Main Container --- */
+.banner-admin-container {
+    max-width: 1200px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-lg);
+    background-color: var(--light-bg-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 30px var(--light-shadow-color);
+    transition: background-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+body.dark-theme .banner-admin-container {
+    background-color: var(--dark-bg-secondary);
+    box-shadow: 0 10px 30px var(--dark-shadow-color);
+}
+
+.banner-admin-title {
+    font-size: 2.2rem;
+    color: var(--brand-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+body.dark-theme .banner-admin-title {
+    color: var(--brand-secondary);
+}
+
+.banner-admin-description {
+    text-align: center;
+    color: var(--light-text-secondary);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark-theme .banner-admin-description {
+    color: var(--dark-text-secondary);
+}
+
+/* --- Banner Grid --- */
+.banner-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
-.image-upload-card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s ease;
+/* --- Banner Card --- */
+.banner-card {
+    background-color: var(--light-bg-primary);
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-normal);
+    position: relative; /* For actions */
 }
 
-.image-upload-card:hover {
+body.dark-theme .banner-card {
+    background-color: var(--dark-bg-primary);
+    border-color: var(--dark-border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.banner-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.image-upload-card h4 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: #444;
+body.dark-theme .banner-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.image-upload-card input,
-.image-upload-card textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
+.banner-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--light-border-color);
 }
 
-.image-upload-card input:focus,
-.image-upload-card textarea:focus {
-    border-color: #4f46e5;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+body.dark-theme .banner-card-header {
+    border-bottom-color: var(--dark-border-color);
 }
 
-.image-upload-card img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.banner-card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--brand-primary);
 }
 
-.save-button {
-    display: block;
-    margin: 2rem auto 1rem;
-    background-color: #4f46e5;
-    color: white;
+body.dark-theme .banner-card-header h3 {
+    color: var(--brand-secondary);
+}
+
+.banner-card-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.action-btn {
+    background: none;
     border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+    font-size: 1.1rem;
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.save-button:hover {
-    background-color: #3730a3;
+.action-btn:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
-.save-button:disabled {
-    background-color: #a5b4fc;
+body.dark-theme .action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.action-btn:disabled {
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
-.save-message {
-    text-align: center;
-    font-size: 1rem;
-    color: #16a34a;
-    margin-top: 1rem;
-    animation: fadeIn 0.5s ease-in-out;
+.remove-btn {
+    color: var(--status-error);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+.remove-btn:hover {
+    background-color: rgba(var(--status-error), 0.1);
+}
+
+/* --- Image Preview --- */
+.img-preview-container {
+    width: 100%;
+    height: 180px;
+    background-color: #f0f0f0;
+    border: 1px dashed var(--light-border-color);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+body.dark-theme .img-preview-container {
+    background-color: #3a3a50;
+    border-color: var(--dark-border-color);
+}
+
+.img-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-placeholder {
+    color: var(--light-text-secondary);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+body.dark-theme .img-placeholder {
+    color: var(--dark-text-secondary);
+}
+
+.clear-image-btn {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--status-error);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+body.dark-theme .clear-image-btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--status-error);
+}
+
+.clear-image-btn:hover {
+    background-color: var(--status-error);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* --- Form Groups --- */
+.form-group {
+    position: relative;
+    margin-bottom: var(--spacing-md);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-base);
+    color: var(--light-text-primary);
+    background-color: var(--light-bg-secondary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+body.dark-theme .form-input,
+body.dark-theme .form-textarea {
+    background-color: var(--dark-bg-secondary);
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-primary);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(var(--brand-primary-rgb), 0.2);
+}
+
+body.dark-theme .form-input:focus,
+body.dark-theme .form-textarea:focus {
+    border-color: var(--brand-secondary);
+    box-shadow: 0 0 0 3px rgba(var(--brand-secondary-rgb), 0.2);
+}
+
+.form-label {
+    position: absolute;
+    left: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--light-text-secondary);
+    font-size: 0.9rem;
+    pointer-events: none;
+    transition: all var(--transition-fast);
+    background-color: var(--light-bg-secondary); /* To hide input text behind it */
+    padding: 0 4px;
+}
+
+body.dark-theme .form-label {
+    background-color: var(--dark-bg-secondary);
+    color: var(--dark-text-secondary);
+}
+
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label, /* For pre-filled inputs */
+.form-textarea:focus + .form-label,
+.form-textarea:not(:placeholder-shown) + .form-label {
+    top: -10px; /* Moves label above input */
+    font-size: 0.75rem;
+    color: var(--brand-primary);
+}
+
+body.dark-theme .form-input:focus + .form-label,
+body.dark-theme .form-input:not(:placeholder-shown) + .form-label,
+body.dark-theme .form-textarea:focus + .form-label,
+body.dark-theme .form-textarea:not(:placeholder-shown) + .form-label {
+    color: var(--brand-secondary);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 90px;
+    padding-top: var(--spacing-md); /* Adjust for label when active */
+}
+
+.char-count {
+    font-size: 0.8rem;
+    color: var(--light-text-secondary);
+    margin-left: 5px;
+}
+
+body.dark-theme .char-count {
+    color: var(--dark-text-secondary);
+}
+
+/* --- Add New Slide Card --- */
+.add-slide-card {
+    background-color: var(--light-bg-primary);
+    border: 2px dashed var(--light-border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    min-height: 350px; /* Match height of other cards */
+    color: var(--light-text-secondary);
+}
+
+body.dark-theme .add-slide-card {
+    background-color: var(--dark-bg-primary);
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-secondary);
+}
+
+.add-slide-card:hover {
+    background-color: rgba(var(--brand-primary-rgb), 0.05);
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(var(--brand-primary-rgb), 0.1);
+}
+
+body.dark-theme .add-slide-card:hover {
+    background-color: rgba(var(--brand-secondary-rgb), 0.1);
+    border-color: var(--brand-secondary);
+    color: var(--brand-secondary);
+    box-shadow: 0 4px 15px rgba(var(--brand-secondary-rgb), 0.2);
+}
+
+.add-icon {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.add-slide-card p {
+    font-weight: 600;
+}
+
+/* --- Controls and Save Button --- */
+.banner-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.save-btn {
+    background-color: var(--brand-primary);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: 0 4px 10px rgba(var(--brand-primary-rgb), 0.3);
+}
+
+body.dark-theme .save-btn {
+    background-color: var(--brand-secondary);
+    box-shadow: 0 4px 10px rgba(var(--brand-secondary-rgb), 0.3);
+}
+
+.save-btn:hover {
+    background-color: var(--brand-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(var(--brand-primary-rgb), 0.4);
+}
+
+body.dark-theme .save-btn:hover {
+    background-color: color-mix(in srgb, var(--brand-secondary) 90%, white 10%);
+    box-shadow: 0 6px 12px rgba(var(--brand-secondary-rgb), 0.4);
+}
+
+.save-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* --- Save Toast Messages --- */
+.save-toast {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+    opacity: 0;
+    animation: fadeInOut 3s forwards; /* Animation for showing and hiding */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-toast.success {
+    background-color: rgba(var(--status-success-rgb), 0.1);
+    color: var(--status-success);
+    border: 1px solid var(--status-success);
+}
+
+.save-toast.error {
+    background-color: rgba(var(--status-error-rgb), 0.1);
+    color: var(--status-error);
+    border: 1px solid var(--status-error);
+}
+
+.save-toast.info {
+    background-color: rgba(var(--status-info-rgb), 0.1);
+    color: var(--status-info);
+    border: 1px solid var(--status-info);
+}
+
+/* Keyframes for fade in/out animation */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(10px); }
+}
+
+/* Utility to get RGB values from CSS variables */
+:root {
+    --brand-primary-rgb: 82, 5, 123; /* Equivalent to #52057b */
+    --brand-secondary-rgb: 136, 13, 143; /* Equivalent to #880d8f */
+    --status-success-rgb: 40, 167, 69;
+    --status-error-rgb: 220, 53, 69;
+    --status-info-rgb: 0, 123, 255;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .banner-admin-container {
+        padding: var(--spacing-lg) var(--spacing-md);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .banner-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-admin-container {
+        margin: var(--spacing-lg) var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    .banner-admin-title {
+        font-size: 1.8rem;
+    }
+    .banner-grid {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+    }
+    .banner-card {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-admin-title {
+        font-size: 1.5rem;
+    }
+    .banner-admin-description {
+        font-size: 0.95rem;
+    }
+    .save-btn {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
     }
 }
