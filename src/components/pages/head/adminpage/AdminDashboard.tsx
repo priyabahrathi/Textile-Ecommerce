@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { addCircle, statsChart, cart, settings, personCircle, camera, chevronBack, chevronForward } from "ionicons/icons";
+import { addCircle, statsChart, cart, settings, personCircle, camera, chevronBack, chevronForward, logOutOutline } from "ionicons/icons";
 import ManageProduct from "./pages/ManageProduct";
-import ViewSales from "./pages/ViewSales";
+
 import CheckoutAdminPage from "./pages/checkoutDetails";
 import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
 import BannerImg from "./pages/BannerImg";
 import "./AdminDashboard.css";
 import ProductManage from "./pages/productmanage";
+import Dashboard from "./pages/Dashboard";
 
 const tabs = [
   { name: "Dashboard", label: "Dashboard", icon: statsChart },
@@ -17,7 +18,7 @@ const tabs = [
   { name: "banner", label: "Banners", icon: camera },
   { name: "profile", label: "Profile", icon: personCircle },
 { name: "Settings", label: "Settings", icon: settings },
-{ name:"Logout", label: "Logout", icon: chevronForward },
+{ name:"Logout", label: "Logout", icon: logOutOutline },
 ];
 
 const AdminDashboard: React.FC = () => {
@@ -35,7 +36,7 @@ const removeItem = (key: string) => {
      case "ManageProduct":
         return <ProductManage />;
       case "Dashboard":
-        return <ViewSales />;
+        return <Dashboard />;
       case "Orders":
         return <CheckoutAdminPage />;
       case "Settings":

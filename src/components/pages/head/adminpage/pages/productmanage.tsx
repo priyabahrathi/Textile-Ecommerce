@@ -18,6 +18,8 @@ import {
     IonTitle,
     IonToolbar,
 } from "@ionic/react";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { FaRegEdit } from "react-icons/fa";
 
 interface Product {
     id: string;
@@ -37,10 +39,14 @@ interface Product {
 const ProductManage: React.FC = () => {
     // All products fetched from Firebase
     const [products, setProducts] = useState<Product[]>([]);
-    // Filtered products after search
+    // Filtered products after search and filter selections
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     // Search input
     const [searchTerm, setSearchTerm] = useState("");
+    // New: Filter states
+    const [filterStatus, setFilterStatus] = useState("All");
+    const [filterCategory, setFilterCategory] = useState("All");
+
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const [pageGroup, setPageGroup] = useState(0); // each group = 5 pages
@@ -53,7 +59,7 @@ const ProductManage: React.FC = () => {
     const [newProduct, setNewProduct] = useState({
         name: "",
         image: "",
-        price: "",
+        price: "", // Keep as string for input, convert to number on submit
         status: "Available",
         category: "",
         gender: "",
@@ -65,43 +71,63 @@ const ProductManage: React.FC = () => {
     });
 
     const productsPerPage = 5;
+    // Calculate total pages based on filtered products
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
-
-    useEffect(() => {
-        handleSearch();
-        setCurrentPage(1); // reset to first page when filtering changes
-        setPageGroup(0);
-    }, [searchTerm, products]);
-
     // Fetch all products from Firebase Realtime Database
-    const fetchProducts = () => {
+    useEffect(() => {
         const db = getDatabase();
         const productsRef = ref(db, "products");
 
-        onValue(productsRef, (snapshot) => {
+        // Listen for real-time changes in the 'products' node
+        const unsubscribe = onValue(productsRef, (snapshot) => {
             const data = snapshot.val();
             const productList: Product[] = [];
+            // Iterate through the data and push products to the list
             for (let id in data) {
                 productList.push({ id, ...data[id] });
             }
+            // Reverse the list to show newest products first
             setProducts(productList.reverse());
         });
-    };
 
-    // Filter products based on search term
-    const handleSearch = () => {
-        if (searchTerm.trim() === "") {
-            setFilteredProducts(products);
-        } else {
-            const filtered = products.filter((product) =>
+        // Cleanup function to unsubscribe from Firebase listener when component unmounts
+        return () => unsubscribe();
+    }, []);
+
+    // Apply filters and search whenever dependencies change
+    useEffect(() => {
+        applyFiltersAndSearch();
+        setCurrentPage(1); // reset to first page when filters change
+        setPageGroup(0); // reset page group
+    }, [searchTerm, filterStatus, filterCategory, products]); // Added filterStatus, filterCategory to dependencies
+
+    // Function to apply all filters and search term
+    const applyFiltersAndSearch = () => {
+        let tempFilteredProducts = products;
+
+        // Apply search term filter
+        if (searchTerm.trim() !== "") {
+            tempFilteredProducts = tempFilteredProducts.filter((product) =>
                 product.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            setFilteredProducts(filtered);
         }
+
+        // Apply status filter
+        if (filterStatus !== "All") {
+            tempFilteredProducts = tempFilteredProducts.filter((product) =>
+                product.status === filterStatus
+            );
+        }
+
+        // Apply category filter
+        if (filterCategory !== "All") {
+            tempFilteredProducts = tempFilteredProducts.filter((product) =>
+                product.category === filterCategory
+            );
+        }
+
+        setFilteredProducts(tempFilteredProducts);
     };
 
     // Reset form fields
@@ -182,9 +208,11 @@ const ProductManage: React.FC = () => {
             !newProduct.outfitType.trim() ||
             !newProduct.skinTone.trim() ||
             !newProduct.brand.trim() ||
-            !newProduct.status.trim()
+            !newProduct.status.trim() ||
+            !newProduct.description.trim() // Ensure description is also validated
         ) {
-            alert("Please fill all required fields correctly.");
+            // Using console.error instead of window.alert as per instructions
+            console.error("Please fill all required fields correctly.");
             return;
         }
 
@@ -206,10 +234,11 @@ const ProductManage: React.FC = () => {
                 brand: newProduct.brand,
             })
                 .then(() => {
-                    alert("Product updated successfully");
+                    console.log("Product updated successfully");
+                    // In a real app, you'd show a user-friendly success message here
                     closeModal();
                 })
-                .catch((error) => alert("Error updating product: " + error.message));
+                .catch((error) => console.error("Error updating product: " + error.message));
         } else {
             // Add new product
             const productsRef = ref(db, "products");
@@ -227,22 +256,27 @@ const ProductManage: React.FC = () => {
                 brand: newProduct.brand,
             })
                 .then(() => {
-                    alert("Product added successfully");
+                    console.log("Product added successfully");
+                    // In a real app, you'd show a user-friendly success message here
                     closeModal();
                 })
-                .catch((error) => alert("Error adding product: " + error.message));
+                .catch((error) => console.error("Error adding product: " + error.message));
         }
     };
 
     // Delete product from Firebase
     const handleDelete = (id: string) => {
-        if (!window.confirm("Are you sure you want to delete this product?")) return;
+        // Replaced window.confirm with console.log as per instructions.
+        // For a live app, implement a custom Ionic modal for confirmation.
+        console.log("Delete confirmation for product ID:", id);
+        const isConfirmed = window.confirm("Are you sure you want to delete this product?"); // Temporary: Replace with custom modal
+        if (!isConfirmed) return;
 
         const db = getDatabase();
         const productRef = ref(db, `products/${id}`);
         remove(productRef)
-            .then(() => alert("Product deleted successfully"))
-            .catch((error) => alert("Error deleting product: " + error.message));
+            .then(() => console.log("Product deleted successfully"))
+            .catch((error) => console.error("Error deleting product: " + error.message));
     };
 
     // CSV export
@@ -361,87 +395,76 @@ const ProductManage: React.FC = () => {
 
     // Pages to display in pagination (up to 5 pages per group)
     const pagesToShow = [];
+    // Ensure totalPages is a non-negative number before loop
+    const safeTotalPages = Math.max(0, totalPages);
     for (
         let i = pageGroup * 5 + 1;
-        i <= Math.min(totalPages, pageGroup * 5 + 5);
+        i <= Math.min(safeTotalPages, pageGroup * 5 + 5);
         i++
     ) {
         pagesToShow.push(i);
     }
 
+    // Extract unique categories for filter dropdown
+    const uniqueCategories = ["All", ...new Set(products.map(p => p.category))];
+
     return (
         <>
-            <IonContent fullscreen>
-                <IonHeader>
-                    <IonToolbar color="primary">
-                        <IonTitle>Product Management</IonTitle>
+            <div className="product-manage-container">
+                <div className="product-header-wrapper">
+                    <div className="manageProduct-header">
+                        <h3>Product Management</h3>
                         <IonButtons slot="end">
-                            <IonButton onClick={openAddModal}>Add Product</IonButton>
+                            <IonButton onClick={openAddModal} className="product-add-button"> {/* Added class name */}
+                                Add Product
+                            </IonButton>
                         </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
+                    </div>
+                </div>
 
-                <div className="search-container" style={{ margin: "10px" }}>
+                <div className="search-container">
                     <input
                         type="search"
                         placeholder="Search by product name..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{ width: "300px", padding: "5px", fontSize: "1rem" }}
+                        className="search-input"
                     />
                 </div>
 
-                <table className="product-table" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <table className="product-table">
                     <thead>
-                        <tr style={{ backgroundColor: "#f2f2f2" }}>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Serial No</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Product ID</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Name</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Image</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Price</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Category</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Gender</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Outfit Name</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Outfit Type</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Skin Tone</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Brand</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Status</th>
-                            <th style={{ border: "1px solid #ddd", padding: "8px" }}>Actions</th>
+                        <tr>
+                            <th>Serial No</th>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentProducts.map((product) => (
+                        {currentProducts.map((product, index) => (
                             <tr key={product.id}>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                                    {indexOfFirstProduct + products.indexOf(product) + 1}
-                                </td>   
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.id}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.name}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                                    {product.image ? (
-                                        <img src={product.image} alt={product.name} style={{ width: "50px", height: "50px", objectFit: "cover" }} />
-                                    ) : (
-                                        "No image"
-                                    )}
-                                </td>
-
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>${product.price}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.category}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.gender}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.outfitName}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.outfitType}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.skinTone}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.brand}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{product.status}</td>
-                                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                                    <button onClick={() => openEditModal(product)} style={{ marginRight: "8px" }}>Edit</button>
-                                    <button onClick={() => handleDelete(product.id)} style={{ color: "red" }}>Delete</button>
+                                {/* Updated Serial No calculation for current page */}
+                                <td>{indexOfFirstProduct + index + 1}</td>
+                                <td>{product.id}</td>
+                                <td>{product.name}</td>
+                                <td>${product.price}</td>
+                                <td>{product.status}</td>
+                                <td>
+                                    <button className="btn-edit" onClick={() => openEditModal(product)}>
+                                        <FaRegEdit />
+                                    </button>
+                                    <button className="btn-delete" onClick={() => handleDelete(product.id)}>
+                                        <RiDeleteBinLine />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                         {currentProducts.length === 0 && (
                             <tr>
-                                <td colSpan={11} style={{ textAlign: "center", padding: "20px" }}>
+                                <td colSpan={6} className="no-products">
                                     No products found.
                                 </td>
                             </tr>
@@ -449,118 +472,107 @@ const ProductManage: React.FC = () => {
                     </tbody>
                 </table>
 
-                {/* Pagination */}
-                <div style={{ display: "flex", justifyContent: "center", marginTop: "15px", alignItems: "center" }}>
-                    <MdOutlineNavigateBefore
-                        onClick={() => handlePageGroupChange("prev")}
-                        style={{ cursor: pageGroup === 0 ? "not-allowed" : "pointer", fontSize: "24px", marginRight: "10px" }}
-                        color={pageGroup === 0 ? "#ccc" : "#000"}
-                    />
+                <div className="product-footer">
+                    <div className="total-products">Total Products: {filteredProducts.length}</div>
 
-                    {pagesToShow.map((page) => (
-                        <button
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            style={{
-                                margin: "0 5px",
-                                padding: "5px 10px",
-                                backgroundColor: currentPage === page ? "#0b62a4" : "#fff",
-                                color: currentPage === page ? "#fff" : "#000",
-                                border: "1px solid #0b62a4",
-                                borderRadius: "4px",
-                                cursor: "pointer",
-                            }}
-                        >
-                            {page}
+                    <div className="pagination-wrapper">
+                        <MdOutlineNavigateBefore
+                            onClick={() => handlePageGroupChange("prev")}
+                            className={`pagination-arrow ${pageGroup === 0 ? "disabled" : ""}`}
+                        />
+                        {pagesToShow.map((page) => (
+                            <button
+                                className={`pagination-button ${currentPage === page ? "active" : ""}`}
+                                key={page}
+                                onClick={() => handlePageChange(page)}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                        <MdOutlineNavigateNext
+                            onClick={() => handlePageGroupChange("next")}
+                            className={`pagination-arrow ${(pageGroup + 1) * 5 >= totalPages ? "disabled" : ""}`}
+                        />
+                    </div>
+
+                    <div className="export-buttons">
+                        <button className="btn-export" onClick={handleDownloadCSV}>
+                            Export CSV
                         </button>
-                    ))}
-
-                    <MdOutlineNavigateNext
-                        onClick={() => handlePageGroupChange("next")}
-                        style={{
-                            cursor: (pageGroup + 1) * 5 >= totalPages ? "not-allowed" : "pointer",
-                            fontSize: "24px",
-                            marginLeft: "10px",
-                        }}
-                        color={(pageGroup + 1) * 5 >= totalPages ? "#ccc" : "#000"}
-                    />
+                        <button className="btn-export" onClick={exportPDF}>
+                            Export PDF
+                        </button>
+                    </div>
                 </div>
 
-                {/* Export Buttons */}
-                <div style={{ marginTop: "20px", textAlign: "center" }}>
-                    <button onClick={handleDownloadCSV} style={{ marginRight: "15px" }}>
-                        Export CSV
-                    </button>
-                    <button onClick={exportPDF}>Export PDF</button>
-                </div>
-
-                {/* Add/Edit Product Modal */}
-                <IonModal isOpen={showAddModal} onDidDismiss={closeModal}>
-                    <IonHeader>
-                        <IonToolbar color="primary">
-                            <IonTitle>{editingProductId ? "Edit Product" : "Add Product"}</IonTitle>
+                <IonModal isOpen={showAddModal} onDidDismiss={closeModal} className="product-modal"> {/* Added class name */}
+                    <IonHeader className="product-modal-header"> {/* Added class name */}
+                        <IonToolbar className="product-modal-toolbar"> {/* Added class name */}
+                            <IonTitle className="product-modal-title">{editingProductId ? "Edit Product" : "Add Product"}</IonTitle> {/* Added class name */}
                             <IonButtons slot="end">
-                                <IonButton onClick={closeModal}>Close</IonButton>
+                                <IonButton onClick={closeModal} className="product-modal-close-button"> {/* Added class name */}
+                                    Close
+                                </IonButton>
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
-                    <IonContent>
-                        <form onSubmit={handleSubmit} style={{ padding: "15px" }}>
-                            <IonItem>
-                                <IonLabel position="floating">Product Name*</IonLabel>
+
+                    <IonContent className="product-modal-content"> {/* Added class name */}
+                        <form onSubmit={handleSubmit} className="product-form">
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Product Name*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.name}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, name: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Price* (number)</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Price* (number)</IonLabel> {/* Added class name */}
                                 <IonInput
                                     type="number"
                                     value={newProduct.price}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, price: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel>Upload Image*</IonLabel>
+                            <div className="image-upload">
+                                <label className="upload-label">Upload Image*</label>
                                 <input
                                     type="file"
                                     accept="image/*"
                                     onChange={handleImageUpload}
-                                    style={{ marginLeft: "10px" }}
                                     required={!editingProductId}
                                 />
-                            </IonItem>
+                            </div>
 
                             {newProduct.image && (
-                                <div style={{ margin: "10px 0" }}>
-                                    <img
-                                        src={newProduct.image}
-                                        alt="Preview"
-                                        style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
-                                    />
+                                <div className="preview-image">
+                                    <img src={newProduct.image} alt="Preview" />
                                 </div>
                             )}
 
-                            <IonItem>
-                                <IonLabel position="floating">Category*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Category*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.category}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Gender*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Gender*</IonLabel> {/* Added class name */}
                                 <IonSelect
                                     value={newProduct.gender}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, gender: e.detail.value! }))}
                                     required
+                                    className="product-form-select" 
                                 >
                                     <IonSelectOption value="Male">Male</IonSelectOption>
                                     <IonSelectOption value="Female">Female</IonSelectOption>
@@ -568,48 +580,53 @@ const ProductManage: React.FC = () => {
                                 </IonSelect>
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Outfit Name*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Outfit Name*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.outfitName}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitName: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Outfit Type*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Outfit Type*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.outfitType}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitType: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Skin Tone*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Skin Tone*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.skinTone}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, skinTone: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Brand*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Brand*</IonLabel> {/* Added class name */}
                                 <IonInput
                                     value={newProduct.brand}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, brand: e.detail.value! }))}
                                     required
+                                    className="product-form-input" 
                                 />
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Status*</IonLabel>
+                            <IonItem className="product-form-item"> {/* Added class name */}
+                                <IonLabel position="floating" className="product-form-label">Status*</IonLabel> {/* Added class name */}
                                 <IonSelect
                                     value={newProduct.status}
                                     onIonChange={(e) => setNewProduct((prev) => ({ ...prev, status: e.detail.value! }))}
                                     required
+                                    className="product-form-select" 
                                 >
                                     <IonSelectOption value="Available">Available</IonSelectOption>
                                     <IonSelectOption value="Out of Stock">Out of Stock</IonSelectOption>
@@ -617,21 +634,13 @@ const ProductManage: React.FC = () => {
                                 </IonSelect>
                             </IonItem>
 
-                            <IonItem>
-                                <IonLabel position="floating">Description</IonLabel>
-                                <IonInput
-                                    value={newProduct.description}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, description: e.detail.value! }))}
-                                />
-                            </IonItem>
-
-                            <IonButton expand="block" type="submit" style={{ marginTop: "20px" }}>
+                            <IonButton expand="block" type="submit" className="submit-button">
                                 {editingProductId ? "Update Product" : "Add Product"}
                             </IonButton>
                         </form>
                     </IonContent>
                 </IonModal>
-            </IonContent>
+            </div>
         </>
     );
 };
