@@ -31,9 +31,11 @@ interface Product {
     gender: string;
     outfitName: string;
     outfitType: string;
-    skinTone: string;
+    skinTone: string[];
     description: string;
     brand: string;
+    fabricType: string; // ✅ Add this
+    color: string;
 }
 
 const ProductManage: React.FC = () => {
@@ -56,19 +58,32 @@ const ProductManage: React.FC = () => {
     const [editingProductId, setEditingProductId] = useState<string | null>(null);
 
     // Form fields for add/edit
-    const [newProduct, setNewProduct] = useState({
-        name: "",
-        image: "",
-        price: "", // Keep as string for input, convert to number on submit
-        status: "Available",
-        category: "",
-        gender: "",
-        outfitName: "",
-        outfitType: "",
-        skinTone: "",
-        description: "",
-        brand: "",
-    });
+const [newProduct, setNewProduct] = useState<
+  Omit<Product, 'id' | 'price' | 'status' | 'category' | 'gender' | 'outfitType' | 'skinTone' | 'fabricType' | 'color'> & {
+    price: string;
+    status: string;
+    category: string;
+    gender: string;
+    outfitType: string;
+    skinTone: string[];   // array
+    fabricType: string; // array
+    color: string;      // array
+  }
+>({
+  name: "",
+  image: "",
+  price: "",
+  status: "Available",
+  category: "",
+  gender: "",
+  outfitName: "",
+  outfitType: "",
+  skinTone: [],      // empty array
+  description: "",
+  brand: "",
+  fabricType: '',    // empty array
+  color: '',         // empty array
+});
 
     const productsPerPage = 5;
     // Calculate total pages based on filtered products
@@ -133,17 +148,19 @@ const ProductManage: React.FC = () => {
     // Reset form fields
     const resetForm = () => {
         setNewProduct({
-            name: "",
-            image: "",
-            price: "",
-            status: "Available",
-            category: "",
-            gender: "",
-            outfitName: "",
-            outfitType: "",
-            skinTone: "",
-            description: "",
-            brand: "",
+            name: '',
+            price: '',
+            image: '',
+            category: '',
+            gender: '',
+            outfitName: '',
+            outfitType: '',
+            skinTone: [],
+            fabricType: '', // ✅ Add this
+            color: '',
+            brand: '',
+            status: '',
+            description: '',
         });
         setEditingProductId(null);
     };
@@ -165,9 +182,11 @@ const ProductManage: React.FC = () => {
             gender: product.gender,
             outfitName: product.outfitName,
             outfitType: product.outfitType,
-            skinTone: product.skinTone,
+            skinTone: product.skinTone ? [...product.skinTone] : [],
             description: product.description,
             brand: product.brand,
+            fabricType: product.fabricType, // ✅ Add this
+            color: product.color,
         });
         setEditingProductId(product.id);
         setShowAddModal(true);
@@ -206,7 +225,7 @@ const ProductManage: React.FC = () => {
             !newProduct.gender.trim() ||
             !newProduct.outfitName.trim() ||
             !newProduct.outfitType.trim() ||
-            !newProduct.skinTone.trim() ||
+            !newProduct.skinTone.length ||
             !newProduct.brand.trim() ||
             !newProduct.status.trim() ||
             !newProduct.description.trim() // Ensure description is also validated
@@ -505,49 +524,31 @@ const ProductManage: React.FC = () => {
                     </div>
                 </div>
 
-                <IonModal isOpen={showAddModal} onDidDismiss={closeModal} className="product-modal"> {/* Added class name */}
-                    <IonHeader className="product-modal-header"> {/* Added class name */}
-                        <IonToolbar className="product-modal-toolbar"> {/* Added class name */}
-                            <IonTitle className="product-modal-title">{editingProductId ? "Edit Product" : "Add Product"}</IonTitle> {/* Added class name */}
+                <IonModal isOpen={showAddModal} onDidDismiss={closeModal} className="product-modal">
+                    <IonHeader className="product-modal-header">
+                        <IonToolbar className="product-modal-toolbar">
+                            <IonTitle className="product-modal-title">{editingProductId ? "Edit Product" : "Add Product"}</IonTitle>
                             <IonButtons slot="end">
-                                <IonButton onClick={closeModal} className="product-modal-close-button"> {/* Added class name */}
-                                    Close
-                                </IonButton>
+                                <IonButton onClick={closeModal} className="product-modal-close-button">Close</IonButton>
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
 
-                    <IonContent className="product-modal-content"> {/* Added class name */}
+                    <IonContent className="product-modal-content">
                         <form onSubmit={handleSubmit} className="product-form">
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Product Name*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.name}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, name: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Product Name*</IonLabel>
+                                <IonInput value={newProduct.name} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, name: e.detail.value! }))} required className="product-form-input" />
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Price* (number)</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    type="number"
-                                    value={newProduct.price}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, price: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Price* (number)</IonLabel>
+                                <IonInput type="number" value={newProduct.price} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, price: e.detail.value! }))} required className="product-form-input" />
                             </IonItem>
 
                             <div className="image-upload">
                                 <label className="upload-label">Upload Image*</label>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageUpload}
-                                    required={!editingProductId}
-                                />
+                                <input type="file" accept="image/*" onChange={handleImageUpload} required={!editingProductId} />
                             </div>
 
                             {newProduct.image && (
@@ -556,78 +557,84 @@ const ProductManage: React.FC = () => {
                                 </div>
                             )}
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Category*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.category}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Category*</IonLabel>
+                                <IonSelect value={newProduct.category} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.detail.value! }))} required className="product-form-select">
+                                    <IonSelectOption value="Formals">Formals</IonSelectOption>
+                                    <IonSelectOption value="Casuals">Casuals</IonSelectOption>
+                                    <IonSelectOption value="Occasions">Occasions</IonSelectOption>
+                                </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Gender*</IonLabel> {/* Added class name */}
-                                <IonSelect
-                                    value={newProduct.gender}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, gender: e.detail.value! }))}
-                                    required
-                                    className="product-form-select" 
-                                >
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Gender*</IonLabel>
+                                <IonSelect value={newProduct.gender} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, gender: e.detail.value! }))} required className="product-form-select">
                                     <IonSelectOption value="Male">Male</IonSelectOption>
                                     <IonSelectOption value="Female">Female</IonSelectOption>
                                     <IonSelectOption value="Unisex">Unisex</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Outfit Name*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.outfitName}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitName: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Outfit Name*</IonLabel>
+                                <IonInput value={newProduct.outfitName} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitName: e.detail.value! }))} required className="product-form-input" />
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Outfit Type*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.outfitType}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitType: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Outfit Type*</IonLabel>
+                                <IonSelect value={newProduct.outfitType} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitType: e.detail.value! }))} required className="product-form-select">
+                                    <IonSelectOption value="Top">Top</IonSelectOption>
+                                    <IonSelectOption value="Bottom">Bottom</IonSelectOption>
+                                    <IonSelectOption value="One-piece">One-piece</IonSelectOption>
+                                </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Skin Tone*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.skinTone}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, skinTone: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
-                            </IonItem>
-
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Brand*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.brand}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, brand: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
-                            </IonItem>
-
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Status*</IonLabel> {/* Added class name */}
+                            <IonItem className="product-form-item">
+                                <IonLabel className="product-form-label">Skin Tone*</IonLabel>
                                 <IonSelect
-                                    value={newProduct.status}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, status: e.detail.value! }))}
-                                    required
-                                    className="product-form-select" 
+                                    multiple={true}
+                                    value={newProduct.skinTone}
+                                    onIonChange={(e) => setNewProduct(prev => ({
+                                        ...prev,
+                                        skinTone: e.detail.value
+                                    }))}
                                 >
+                                    <IonSelectOption value="Fair skin">Fair skin</IonSelectOption>
+                                    <IonSelectOption value="Dusky skin">Dusky skin</IonSelectOption>
+                                    <IonSelectOption value="Dark skin">Dark skin</IonSelectOption>
+                                </IonSelect>
+
+                            </IonItem>
+
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Fabric Type*</IonLabel>
+                                <IonSelect value={newProduct.fabricType} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, fabricType: e.detail.value! }))} required className="product-form-select">
+                                    <IonSelectOption value="Cotton">Cotton</IonSelectOption>
+                                    <IonSelectOption value="Silk">Silk</IonSelectOption>
+                                    <IonSelectOption value="Linen">Linen</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Color*</IonLabel>
+                                <IonSelect value={newProduct.color} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, color: e.detail.value! }))} required className="product-form-select">
+                                    <IonSelectOption value="Pink">Pink</IonSelectOption>
+                                    <IonSelectOption value="White">White</IonSelectOption>
+                                    <IonSelectOption value="Yellow">Yellow</IonSelectOption>
+                                    <IonSelectOption value="Red">Red</IonSelectOption>
+                                    <IonSelectOption value="Green">Green</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Brand*</IonLabel>
+                                <IonInput value={newProduct.brand} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, brand: e.detail.value! }))} required className="product-form-input" />
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Status*</IonLabel>
+                                <IonSelect value={newProduct.status} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, status: e.detail.value! }))} required className="product-form-select">
                                     <IonSelectOption value="Available">Available</IonSelectOption>
                                     <IonSelectOption value="Out of Stock">Out of Stock</IonSelectOption>
                                     <IonSelectOption value="Discontinued">Discontinued</IonSelectOption>
@@ -640,6 +647,7 @@ const ProductManage: React.FC = () => {
                         </form>
                     </IonContent>
                 </IonModal>
+
             </div>
         </>
     );

@@ -85,7 +85,6 @@ const Product: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [selectedFabricType, setSelectedFabricType] = useState<string[]>([]);
   const [selectedOutfitNames, setSelectedOutfitNames] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -111,11 +110,10 @@ const Product: React.FC = () => {
     searchText,
     lower,
     upper,
-    selectedCategory,
+    selectedCategories,
     genderFilter,
     selectedFabricType,
     selectedOutfitNames,
-
     selectedColors,
     inStockOnly,
     sortBy,
@@ -128,10 +126,11 @@ const Product: React.FC = () => {
   };
 
   const handleCheckBox = (category: string, checked: boolean) => {
-    setSelectedCategory((prev) =>
-      checked ? [...prev, category] : prev.filter((c) => c !== category)
-    );
-  };
+  setSelectedCategories((prev) =>
+    checked ? [...prev, category] : prev.filter((c) => c !== category)
+  );
+};
+
 
   const handleToggleFilter = (
     filterType: 'fabricType' | 'outfitName' | 'category' | 'colors',
@@ -190,12 +189,16 @@ const Product: React.FC = () => {
       );
     }
 
-    // Apply Occasion filter
-    if (selectedCategories.length > 0) {
-      result = result.filter((product) =>
-        selectedCategories.includes(product.category)
-      );
-    }
+    
+    // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
+
+if (selectedCategories.length > 0) {
+  result = result.filter((product) =>
+    selectedCategories.includes(product.category)
+  );
+}
+
+
 
 
 
