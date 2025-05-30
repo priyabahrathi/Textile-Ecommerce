@@ -219,7 +219,7 @@ const Header: React.FC = () => {
 
       {/* Header */}
       <div id="main-content">
-        <header className="container">
+        <div className="container">
           <div className="nav-item" style={{ alignItems: "center" }}>
             <div>
               <h3 style={{ margin: 0, cursor: 'pointer' }} onClick={() => dispatch(setPage("home"))}>StyleSync</h3>
@@ -267,7 +267,7 @@ const Header: React.FC = () => {
               )}
             </div>
           </div>
-        </header>
+        </div>
       </div>
     </>
   );

@@ -37,6 +37,39 @@ body {
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
     line-height: 1.6;
 }
+.dashboard-header {
+    
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+.dashboard-header .logo {
+    display: flex;
+    align-items: center;
+}
+.dashboard-header .logo img {
+    height: 40px; /* Adjust logo size */
+    margin-right: 10px;
+}
+.dashboard-header .logo span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+.dashboard-header .logo span {
+    color: var(--light-text-primary);
+}
+.dashboard-header .logo span {
+    color: var(--dark-text-primary);
+}
 
 /* --- Dashboard Wrapper & Theme Switching --- */
 .dashboard-wrapper {
@@ -71,32 +104,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --- Header Section --- */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--light-border-color);
-}
 
-.dashboard-wrapper.dark header {
-    border-bottom: 1px solid var(--dark-border-color);
-}
-
-header h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--brand-primary);
-    margin: 0;
-    text-shadow: 2px 2px 5px var(--light-shadow-color);
-}
-
-.dashboard-wrapper.dark header h1 {
-    text-shadow: 2px 2px 5px var(--dark-shadow-color);
-}
 
 .header-actions {
     display: flex;
@@ -234,7 +242,7 @@ header h1 {
 
 .stat-card p {
     margin-top: 10px;
-    font-size: 2.2rem; /* Larger value */
+    font-size: 1.7rem; /* Larger value */
     font-weight: 700;
     color: var(--brand-primary); /* Brand color for values */
     background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary)); /* Gradient text */
@@ -500,9 +508,7 @@ header h1 {
     .dashboard-wrapper {
         padding: 25px;
     }
-    header h1 {
-        font-size: 2.4rem;
-    }
+   
     .sales-overview {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     }
@@ -516,14 +522,7 @@ header h1 {
     .dashboard-wrapper {
         padding: 20px;
     }
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    header h1 {
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
+
     .header-actions {
         width: 100%;
         justify-content: flex-end; /* Align actions to the right */

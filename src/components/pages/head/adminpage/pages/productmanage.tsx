@@ -24,16 +24,23 @@ import { FaRegEdit } from "react-icons/fa";
 interface Product {
     id: string;
     name: string;
-    image: string;
+    img: string;
     price: number;
     status: string;
     category: string;
     gender: string;
     outfitName: string;
     outfitType: string;
-    skinTone: string;
+    skinTone: string[];
     description: string;
     brand: string;
+    fabricType: string;
+    color: string;
+}
+
+// Define the shape of the newProduct state, where price is a string
+interface NewProductState extends Omit<Product, 'id' | 'price'> {
+    price: string;
 }
 
 const ProductManage: React.FC = () => {
@@ -43,7 +50,7 @@ const ProductManage: React.FC = () => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     // Search input
     const [searchTerm, setSearchTerm] = useState("");
-    // New: Filter states
+    // Filter states
     const [filterStatus, setFilterStatus] = useState("All");
     const [filterCategory, setFilterCategory] = useState("All");
 
@@ -56,18 +63,20 @@ const ProductManage: React.FC = () => {
     const [editingProductId, setEditingProductId] = useState<string | null>(null);
 
     // Form fields for add/edit
-    const [newProduct, setNewProduct] = useState({
+    const [newProduct, setNewProduct] = useState<NewProductState>({
         name: "",
-        image: "",
-        price: "", // Keep as string for input, convert to number on submit
+        img: "",
+        price: "",
         status: "Available",
         category: "",
         gender: "",
         outfitName: "",
         outfitType: "",
-        skinTone: "",
+        skinTone: [],
         description: "",
         brand: "",
+        fabricType: '',
+        color: '',
     });
 
     const productsPerPage = 5;
@@ -79,19 +88,21 @@ const ProductManage: React.FC = () => {
         const db = getDatabase();
         const productsRef = ref(db, "products");
 
-        // Listen for real-time changes in the 'products' node
         const unsubscribe = onValue(productsRef, (snapshot) => {
             const data = snapshot.val();
             const productList: Product[] = [];
-            // Iterate through the data and push products to the list
             for (let id in data) {
-                productList.push({ id, ...data[id] });
+                // Ensure price is a number and skinTone is an array upon fetching
+                productList.push({
+                    id,
+                    ...data[id],
+                    price: Number(data[id].price),
+                    skinTone: data[id].skinTone || [],
+                });
             }
-            // Reverse the list to show newest products first
             setProducts(productList.reverse());
         });
 
-        // Cleanup function to unsubscribe from Firebase listener when component unmounts
         return () => unsubscribe();
     }, []);
 
@@ -100,7 +111,7 @@ const ProductManage: React.FC = () => {
         applyFiltersAndSearch();
         setCurrentPage(1); // reset to first page when filters change
         setPageGroup(0); // reset page group
-    }, [searchTerm, filterStatus, filterCategory, products]); // Added filterStatus, filterCategory to dependencies
+    }, [searchTerm, filterStatus, filterCategory, products]);
 
     // Function to apply all filters and search term
     const applyFiltersAndSearch = () => {
@@ -133,17 +144,19 @@ const ProductManage: React.FC = () => {
     // Reset form fields
     const resetForm = () => {
         setNewProduct({
-            name: "",
-            image: "",
-            price: "",
-            status: "Available",
-            category: "",
-            gender: "",
-            outfitName: "",
-            outfitType: "",
-            skinTone: "",
-            description: "",
-            brand: "",
+            name: '',
+            price: '',
+            img: '',
+            category: '',
+            gender: '',
+            outfitName: '',
+            outfitType: '',
+            skinTone: [],
+            fabricType: '',
+            color: '',
+            brand: '',
+            status: 'Available',
+            description: '',
         });
         setEditingProductId(null);
     };
@@ -158,16 +171,18 @@ const ProductManage: React.FC = () => {
     const openEditModal = (product: Product) => {
         setNewProduct({
             name: product.name,
-            image: product.image,
+            img: product.img,
             price: product.price.toString(),
             status: product.status,
             category: product.category,
             gender: product.gender,
             outfitName: product.outfitName,
             outfitType: product.outfitType,
-            skinTone: product.skinTone,
+            skinTone: product.skinTone || [], // Ensure it's an array
             description: product.description,
             brand: product.brand,
+            fabricType: product.fabricType,
+            color: product.color,
         });
         setEditingProductId(product.id);
         setShowAddModal(true);
@@ -182,133 +197,109 @@ const ProductManage: React.FC = () => {
     // Upload image and convert to base64 string
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (!file) return;
+        if (!file) {
+            setNewProduct(prev => ({ ...prev, img: "" })); // Clear image if no file selected
+            return;
+        }
 
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64String = reader.result as string;
-            setNewProduct(prev => ({ ...prev, image: base64String }));
+            setNewProduct(prev => ({ ...prev, img: base64String }));
         };
         reader.readAsDataURL(file);
     };
 
     // Add or update product on form submit
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validate required fields
+        // Client-side validation
         if (
-            !newProduct.name.trim() ||
-            !newProduct.image.trim() ||
-            !newProduct.price.trim() ||
-            isNaN(Number(newProduct.price)) ||
-            !newProduct.category.trim() ||
-            !newProduct.gender.trim() ||
-            !newProduct.outfitName.trim() ||
-            !newProduct.outfitType.trim() ||
-            !newProduct.skinTone.trim() ||
-            !newProduct.brand.trim() ||
-            !newProduct.status.trim() ||
-            !newProduct.description.trim() // Ensure description is also validated
+            !newProduct.name ||
+            !newProduct.price ||
+            !newProduct.img ||
+            !newProduct.category ||
+            !newProduct.gender ||
+            !newProduct.outfitName ||
+            !newProduct.outfitType ||
+            newProduct.skinTone.length === 0 ||
+            !newProduct.fabricType ||
+            !newProduct.color ||
+            !newProduct.brand ||
+            !newProduct.description
         ) {
-            // Using console.error instead of window.alert as per instructions
-            console.error("Please fill all required fields correctly.");
+            alert("Please fill in all required fields.");
             return;
         }
 
         const db = getDatabase();
-        if (editingProductId) {
-            // Update existing product
-            const productRef = ref(db, `products/${editingProductId}`);
-            update(productRef, {
-                name: newProduct.name,
-                image: newProduct.image,
-                price: Number(newProduct.price),
-                status: newProduct.status,
-                category: newProduct.category,
-                gender: newProduct.gender,
-                outfitName: newProduct.outfitName,
-                outfitType: newProduct.outfitType,
-                skinTone: newProduct.skinTone,
-                description: newProduct.description,
-                brand: newProduct.brand,
-            })
-                .then(() => {
-                    console.log("Product updated successfully");
-                    // In a real app, you'd show a user-friendly success message here
-                    closeModal();
-                })
-                .catch((error) => console.error("Error updating product: " + error.message));
-        } else {
-            // Add new product
-            const productsRef = ref(db, "products");
-            push(productsRef, {
-                name: newProduct.name,
-                image: newProduct.image,
-                price: Number(newProduct.price),
-                status: newProduct.status,
-                category: newProduct.category,
-                gender: newProduct.gender,
-                outfitName: newProduct.outfitName,
-                outfitType: newProduct.outfitType,
-                skinTone: newProduct.skinTone,
-                description: newProduct.description,
-                brand: newProduct.brand,
-            })
-                .then(() => {
-                    console.log("Product added successfully");
-                    // In a real app, you'd show a user-friendly success message here
-                    closeModal();
-                })
-                .catch((error) => console.error("Error adding product: " + error.message));
+        const productData = {
+            name: newProduct.name,
+            img: newProduct.img,
+            price: Number(newProduct.price), // Convert price to number
+            status: newProduct.status,
+            category: newProduct.category,
+            gender: newProduct.gender,
+            outfitName: newProduct.outfitName,
+            outfitType: newProduct.outfitType,
+            skinTone: newProduct.skinTone,
+            description: newProduct.description,
+            brand: newProduct.brand,
+            fabricType: newProduct.fabricType,
+            color: newProduct.color,
+        };
+
+        try {
+            if (editingProductId) {
+                // Update existing product
+                const productRef = ref(db, `products/${editingProductId}`);
+                await update(productRef, productData);
+                console.log("Product updated successfully");
+                alert("Product updated successfully!");
+            } else {
+                // Add new product
+                const productsRef = ref(db, "products");
+                await push(productsRef, productData);
+                console.log("Product added successfully");
+                alert("Product added successfully!");
+            }
+            closeModal();
+        } catch (error: any) {
+            console.error(`Error ${editingProductId ? "updating" : "adding"} product: ${error.message}`);
+            alert(`Error ${editingProductId ? "updating" : "adding"} product: ${error.message}`);
         }
     };
 
     // Delete product from Firebase
-    const handleDelete = (id: string) => {
-        // Replaced window.confirm with console.log as per instructions.
-        // For a live app, implement a custom Ionic modal for confirmation.
-        console.log("Delete confirmation for product ID:", id);
-        const isConfirmed = window.confirm("Are you sure you want to delete this product?"); // Temporary: Replace with custom modal
+    const handleDelete = async (id: string) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this product?");
         if (!isConfirmed) return;
 
         const db = getDatabase();
         const productRef = ref(db, `products/${id}`);
-        remove(productRef)
-            .then(() => console.log("Product deleted successfully"))
-            .catch((error) => console.error("Error deleting product: " + error.message));
+        try {
+            await remove(productRef);
+            console.log("Product deleted successfully");
+            alert("Product deleted successfully!");
+        } catch (error: any) {
+            console.error("Error deleting product: " + error.message);
+            alert("Error deleting product: " + error.message);
+        }
     };
 
     // CSV export
     const handleDownloadCSV = () => {
         const csvContent = [
             [
-                "Product ID",
-                "Product Name",
-                "Product Image",
-                "Price",
-                "Status",
-                "Category",
-                "Gender",
-                "Outfit Name",
-                "Outfit Type",
-                "Skin Tone",
-                "Description",
-                "Brand",
+                "Product ID", "Product Name", "Product Image (Base64)", "Price", "Status",
+                "Category", "Gender", "Outfit Name", "Outfit Type", "Skin Tone",
+                "Description", "Brand", "Fabric Type", "Color",
             ],
             ...filteredProducts.map((p) => [
-                p.id,
-                p.name,
-                p.image,
-                p.price,
-                p.status,
-                p.category,
-                p.gender,
-                p.outfitName,
-                p.outfitType,
-                p.skinTone,
-                p.description,
-                p.brand,
+                p.id, p.name, p.img, p.price, p.status, p.category, p.gender,
+                p.outfitName, p.outfitType, p.skinTone.join("; "), // Join array elements for CSV
+                p.description, p.brand, p.fabricType, p.color,
             ]),
         ]
             .map((e) => e.join(","))
@@ -330,33 +321,15 @@ const ProductManage: React.FC = () => {
         doc.text("Product List", 14, 16);
 
         const tableColumn = [
-            "ID",
-            "Name",
-            "Image URL",
-            "Price",
-            "Status",
-            "Category",
-            "Gender",
-            "Outfit Name",
-            "Outfit Type",
-            "Skin Tone",
-            "Description",
-            "Brand",
+            "ID", "Name", "Price", "Status", "Category", "Gender",
+            "Outfit Name", "Outfit Type", "Skin Tone", "Description", "Brand",
+            "Fabric Type", "Color",
         ];
 
         const tableRows = filteredProducts.map((p) => [
-            p.id,
-            p.name,
-            p.image,
-            p.price.toString(),
-            p.status,
-            p.category,
-            p.gender,
-            p.outfitName,
-            p.outfitType,
-            p.skinTone,
-            p.description,
-            p.brand,
+            p.id, p.name, p.price.toString(), p.status, p.category, p.gender,
+            p.outfitName, p.outfitType, p.skinTone.join(", "),
+            p.description, p.brand, p.fabricType, p.color,
         ]);
 
         autoTable(doc, {
@@ -364,7 +337,11 @@ const ProductManage: React.FC = () => {
             body: tableRows,
             startY: 20,
             styles: { fontSize: 8, cellWidth: "wrap" },
-            columnStyles: { 2: { cellWidth: 40 }, 10: { cellWidth: 50 } },
+            // Removed image column from PDF as it's not directly displayable in jspdf-autotable without further processing
+            columnStyles: {
+                8: { cellWidth: 30 }, // Skin Tone
+                9: { cellWidth: 40 }, // Description
+            },
         });
 
         doc.save("products.pdf");
@@ -395,7 +372,6 @@ const ProductManage: React.FC = () => {
 
     // Pages to display in pagination (up to 5 pages per group)
     const pagesToShow = [];
-    // Ensure totalPages is a non-negative number before loop
     const safeTotalPages = Math.max(0, totalPages);
     for (
         let i = pageGroup * 5 + 1;
@@ -405,8 +381,9 @@ const ProductManage: React.FC = () => {
         pagesToShow.push(i);
     }
 
-    // Extract unique categories for filter dropdown
+    // Extract unique categories and statuses for filter dropdowns
     const uniqueCategories = ["All", ...new Set(products.map(p => p.category))];
+    const uniqueStatuses = ["All", ...new Set(products.map(p => p.status))];
 
     return (
         <>
@@ -415,21 +392,55 @@ const ProductManage: React.FC = () => {
                     <div className="manageProduct-header">
                         <h3>Product Management</h3>
                         <IonButtons slot="end">
-                            <IonButton onClick={openAddModal} className="product-add-button"> {/* Added class name */}
+                            <IonButton onClick={openAddModal} className="product-add-button">
                                 Add Product
                             </IonButton>
                         </IonButtons>
                     </div>
                 </div>
 
-                <div className="search-container">
-                    <input
-                        type="search"
-                        placeholder="Search by product name..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input"
-                    />
+                <div className="filters-and-search-container">
+                    <div className="search-container">
+                        <input
+                            type="search"
+                            placeholder="Search by product name..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+
+                    <div className="filter-container">
+                        <IonItem className="filter-item">
+                            <IonLabel>Status:</IonLabel>
+                            <IonSelect
+                                value={filterStatus}
+                                onIonChange={(e) => setFilterStatus(e.detail.value!)}
+                                className="filter-select"
+                            >
+                                {uniqueStatuses.map((status) => (
+                                    <IonSelectOption key={status} value={status}>
+                                        {status}
+                                    </IonSelectOption>
+                                ))}
+                            </IonSelect>
+                        </IonItem>
+
+                        <IonItem className="filter-item">
+                            <IonLabel>Category:</IonLabel>
+                            <IonSelect
+                                value={filterCategory}
+                                onIonChange={(e) => setFilterCategory(e.detail.value!)}
+                                className="filter-select"
+                            >
+                                {uniqueCategories.map((category) => (
+                                    <IonSelectOption key={category} value={category}>
+                                        {category}
+                                    </IonSelectOption>
+                                ))}
+                            </IonSelect>
+                        </IonItem>
+                    </div>
                 </div>
 
                 <table className="product-table">
@@ -440,18 +451,19 @@ const ProductManage: React.FC = () => {
                             <th>Name</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Category</th> {/* Added category to table header */}
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentProducts.map((product, index) => (
                             <tr key={product.id}>
-                                {/* Updated Serial No calculation for current page */}
                                 <td>{indexOfFirstProduct + index + 1}</td>
                                 <td>{product.id}</td>
                                 <td>{product.name}</td>
-                                <td>${product.price}</td>
+                                <td>${product.price.toFixed(2)}</td> {/* Format price */}
                                 <td>{product.status}</td>
+                                <td>{product.category}</td> {/* Display category */}
                                 <td>
                                     <button className="btn-edit" onClick={() => openEditModal(product)}>
                                         <FaRegEdit />
@@ -464,7 +476,7 @@ const ProductManage: React.FC = () => {
                         ))}
                         {currentProducts.length === 0 && (
                             <tr>
-                                <td colSpan={6} className="no-products">
+                                <td colSpan={7} className="no-products"> {/* Adjusted colspan */}
                                     No products found.
                                 </td>
                             </tr>
@@ -505,129 +517,127 @@ const ProductManage: React.FC = () => {
                     </div>
                 </div>
 
-                <IonModal isOpen={showAddModal} onDidDismiss={closeModal} className="product-modal"> {/* Added class name */}
-                    <IonHeader className="product-modal-header"> {/* Added class name */}
-                        <IonToolbar className="product-modal-toolbar"> {/* Added class name */}
-                            <IonTitle className="product-modal-title">{editingProductId ? "Edit Product" : "Add Product"}</IonTitle> {/* Added class name */}
+                <IonModal isOpen={showAddModal} onDidDismiss={closeModal} className="product-modal">
+                    <IonHeader className="product-modal-header">
+                        <IonToolbar className="product-modal-toolbar">
+                            <IonTitle className="product-modal-title">{editingProductId ? "Edit Product" : "Add Product"}</IonTitle>
                             <IonButtons slot="end">
-                                <IonButton onClick={closeModal} className="product-modal-close-button"> {/* Added class name */}
-                                    Close
-                                </IonButton>
+                                <IonButton onClick={closeModal} className="product-modal-close-button">Close</IonButton>
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
 
-                    <IonContent className="product-modal-content"> {/* Added class name */}
+                    <IonContent className="product-modal-content">
                         <form onSubmit={handleSubmit} className="product-form">
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Product Name*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.name}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, name: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Product Name*</IonLabel>
+                                <IonInput value={newProduct.name} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, name: e.detail.value || '' }))} required className="product-form-input" />
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Price* (number)</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    type="number"
-                                    value={newProduct.price}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, price: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Price* (number)</IonLabel>
+                                <IonInput type="number" value={newProduct.price} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, price: e.detail.value || '' }))} required className="product-form-input" />
                             </IonItem>
 
                             <div className="image-upload">
                                 <label className="upload-label">Upload Image*</label>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageUpload}
-                                    required={!editingProductId}
-                                />
+                                <input type="file" accept="image/*" onChange={handleImageUpload} required={!editingProductId} />
+                                {/* Image is required for new product, but optional for edit if one exists */}
                             </div>
 
-                            {newProduct.image && (
+                            {newProduct.img && (
                                 <div className="preview-image">
-                                    <img src={newProduct.image} alt="Preview" />
+                                    <img src={newProduct.img} alt="Preview" />
                                 </div>
                             )}
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Category*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.category}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
-                            </IonItem>
-
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Gender*</IonLabel> {/* Added class name */}
-                                <IonSelect
-                                    value={newProduct.gender}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, gender: e.detail.value! }))}
-                                    required
-                                    className="product-form-select" 
-                                >
-                                    <IonSelectOption value="Male">Male</IonSelectOption>
-                                    <IonSelectOption value="Female">Female</IonSelectOption>
-                                    <IonSelectOption value="Unisex">Unisex</IonSelectOption>
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Category*</IonLabel>
+                                <IonSelect value={newProduct.category} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.detail.value || '' }))} required className="product-form-select">
+                                    <IonSelectOption value="">Select Category</IonSelectOption> {/* Added default empty option */}
+                                    <IonSelectOption value="Formals">Formals</IonSelectOption>
+                                    <IonSelectOption value="Casuals">Casuals</IonSelectOption>
+                                    <IonSelectOption value="Occasions">Occasions</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Outfit Name*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.outfitName}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitName: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Gender*</IonLabel>
+                                <IonSelect value={newProduct.gender} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, gender: e.detail.value || '' }))} required className="product-form-select">
+                                    <IonSelectOption value="">Select Gender</IonSelectOption> {/* Added default empty option */}
+                                    <IonSelectOption value="Male">Male</IonSelectOption>
+                                    <IonSelectOption value="Female">Female</IonSelectOption>
+                                </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Outfit Type*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.outfitType}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitType: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Outfit Name*</IonLabel>
+                                <IonInput value={newProduct.outfitName} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitName: e.detail.value || '' }))} required className="product-form-input" />
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Skin Tone*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.skinTone}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, skinTone: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Outfit Type*</IonLabel>
+                                <IonSelect value={newProduct.outfitType} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, outfitType: e.detail.value || '' }))} required className="product-form-select">
+                                    <IonSelectOption value="">Select Outfit Type</IonSelectOption> {/* Added default empty option */}
+                                    <IonSelectOption value="Top">Top</IonSelectOption>
+                                    <IonSelectOption value="Bottom">Bottom</IonSelectOption>
+                                    <IonSelectOption value="One-piece">One-piece</IonSelectOption>
+                                </IonSelect>
                             </IonItem>
 
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Brand*</IonLabel> {/* Added class name */}
-                                <IonInput
-                                    value={newProduct.brand}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, brand: e.detail.value! }))}
-                                    required
-                                    className="product-form-input" 
-                                />
-                            </IonItem>
-
-                            <IonItem className="product-form-item"> {/* Added class name */}
-                                <IonLabel position="floating" className="product-form-label">Status*</IonLabel> {/* Added class name */}
+                            <IonItem className="product-form-item">
+                                <IonLabel className="product-form-label">Skin Tone*</IonLabel>
                                 <IonSelect
-                                    value={newProduct.status}
-                                    onIonChange={(e) => setNewProduct((prev) => ({ ...prev, status: e.detail.value! }))}
-                                    required
-                                    className="product-form-select" 
+                                    multiple={true}
+                                    value={newProduct.skinTone}
+                                    onIonChange={(e) => setNewProduct(prev => ({
+                                        ...prev,
+                                        skinTone: e.detail.value ? Array.isArray(e.detail.value) ? e.detail.value : [e.detail.value] : []
+                                    }))}
+                                    required // Marking skinTone as required
+                                    className="product-form-select"
                                 >
+                                    <IonSelectOption value="Fair skin">Fair skin</IonSelectOption>
+                                    <IonSelectOption value="Dusky skin">Dusky skin</IonSelectOption>
+                                    <IonSelectOption value="Dark skin">Dark skin</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Fabric Type*</IonLabel>
+                                <IonSelect value={newProduct.fabricType} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, fabricType: e.detail.value || '' }))} required className="product-form-select">
+                                    <IonSelectOption value="">Select Fabric Type</IonSelectOption> {/* Added default empty option */}
+                                    <IonSelectOption value="Cotton">Cotton</IonSelectOption>
+                                    <IonSelectOption value="Silk">Silk</IonSelectOption>
+                                    <IonSelectOption value="Linen">Linen</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Color*</IonLabel>
+                                <IonSelect value={newProduct.color} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, color: e.detail.value || '' }))} required className="product-form-select">
+                                    <IonSelectOption value="">Select Color</IonSelectOption> {/* Added default empty option */}
+                                    <IonSelectOption value="Pink">Pink</IonSelectOption>
+                                    <IonSelectOption value="White">White</IonSelectOption>
+                                    <IonSelectOption value="Yellow">Yellow</IonSelectOption>
+                                    <IonSelectOption value="Red">Red</IonSelectOption>
+                                    <IonSelectOption value="Green">Green</IonSelectOption>
+                                </IonSelect>
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Brand*</IonLabel>
+                                <IonInput value={newProduct.brand} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, brand: e.detail.value || '' }))} required className="product-form-input" />
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Description*</IonLabel>
+                                <IonInput value={newProduct.description} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, description: e.detail.value || '' }))} required className="product-form-input" />
+                            </IonItem>
+
+                            <IonItem className="product-form-item">
+                                <IonLabel position="floating" className="product-form-label">Status*</IonLabel>
+                                <IonSelect value={newProduct.status} onIonChange={(e) => setNewProduct((prev) => ({ ...prev, status: e.detail.value || '' }))} required className="product-form-select">
                                     <IonSelectOption value="Available">Available</IonSelectOption>
                                     <IonSelectOption value="Out of Stock">Out of Stock</IonSelectOption>
                                     <IonSelectOption value="Discontinued">Discontinued</IonSelectOption>
