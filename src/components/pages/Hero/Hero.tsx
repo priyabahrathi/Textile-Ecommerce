@@ -95,6 +95,7 @@ const Hero: React.FC = () => {
         <>
             {/* Main Hero Section with Swiper Background */}
             <div className="hero-section">
+                
                 {/* Swiper background */}
                 {!loadingSlides && heroSlides.length > 0 ? (
                     <Swiper

@@ -1,2 +1,36 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+:root {
+  /* 🎨 Backgrounds */
+  --color-primary-background: #dfeaeb;
+  --color-section-background: #EDEDED;
+  --color-panel-surface: #FFFFFF;
+
+  /* 🧭 Neutrals / Grays */
+  --color-elite-silver: #CCCCCC;
+  --color-light-gray: #F0F0F0;
+
+  /* 📝 Text */
+  --color-dark-text: #006D77;
+  --color-light-text: #666666;
+
+  /* 🔘 CTA (Buttons, Active Elements) */
+  --color-cta-accent: #006D77;
+  --color-cta-hover: #045E65;
+  --color-cta-text: #FFFFFF;
+
+  /* ⭐ Ratings */
+  --color-yellow-star: #FFC107;
+
+  /* 💰 Price or Success Feedback */
+  --color-price-green: #2E7D32;
+
+  /* 🚨 Alerts, Errors */
+  --color-alert-red: #D32F2F;
+
+  /* ✨ Highlight / Hover Effects */
+  --color-highlight-hover: #F0F0F0;
+
+  /* 🔍 RGB fallback */
+  --rgb-cta-accent: 0, 109, 119;
+  --rgb-white: 255, 255, 255;
+  --rgb-dark-text: 26, 26, 26;
+}
