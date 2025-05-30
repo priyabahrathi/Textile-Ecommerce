@@ -19,7 +19,7 @@ type Order = {
     productName: string | string[];
     quantity: number;
     price: number;
-    status: 'Pending' | 'Approved' | 'Cancelled';
+    status: 'Pending' | 'Approved' | 'delivered';
     date: string;
     email?: string;
     phone?: string;
@@ -54,6 +54,7 @@ const CheckoutAdminPage: React.FC = () => {
             // Cleanup if needed
         };
     }, []);
+
 
     const handleApprove = (id: string) => {
         const confirm = window.confirm('Are you sure you want to approve this order?');
@@ -123,9 +124,79 @@ Thank you for shopping with us!
             });
     };
 
+
+    const handleDelivery = (id: string) => {
+        const order = orders.find(o => o.id === id);
+        if (!order) return;
+
+        if (!order.email) {
+            alert('No email address found for this user.');
+            return;
+        }
+
+        // Email content
+        const bill = `
+Delivery Confirmation
+
+Hello ${order.userName},
+
+Thank you for your order!
+
+Your Order was Delivered Successfully!
+
+Order Details:
+Product: ${order.productName}
+Quantity: ${order.quantity}
+Price: $${order.price}
+Order Date: ${order.date}
+Total: $${order.price * order.quantity}
+
+Thank you for shopping with us!
+
+If Your Order was not delivered yet, Please contact the Customer Care !!!
+
+`;
+
+        // Send email via EmailJS
+        emailjs.send(
+            'service_to1ovkp',
+            'template_2ckz6qm',
+            {
+                to_email: order.email,
+                to_name: order.userName,
+                order_id: order.id,
+                product_name: order.productName,
+                quantity: order.quantity,
+                price: order.price,
+                order_date: order.date,
+                total: order.price * order.quantity,
+            },
+            'fr6LuZyY115BIJoVx'
+        ).then(
+            () => {
+                alert('Delivery email sent!');
+            },
+            (error) => {
+                alert('Failed to send email: ' + error.text);
+            }
+        );
+
+        // Update status in Firebase
+        const db = getDatabase();
+        const orderRef = ref(db, `orders/${id}`);
+        update(orderRef, { status: 'delivered' })
+            .then(() => {
+                console.log('Order delivery in Firebase');
+            })
+            .catch((err) => {
+                console.error('Failed to update status:', err);
+            });
+    };
+
     return (
         <div style={{ padding: '2rem', maxWidth: 1100, margin: '0 auto' }}>
             <div className='admin-container'>
+                <div className='order-title'>Orders Management</div>
                 <IonSegment
                 className='segment-container'
                     value={activeTab}
@@ -143,7 +214,7 @@ Thank you for shopping with us!
                         <IonLabel className='seg-label'>Approved</IonLabel>
                     </IonSegmentButton>
                     <IonSegmentButton className='seg-btn' value="cancelled">
-                        <IonLabel className='seg-label'>Cancelled</IonLabel>
+                        <IonLabel className='seg-label'>Delivered</IonLabel>
                     </IonSegmentButton>
                 </IonSegment>
                 <div className="admin-tab-content">
@@ -167,7 +238,7 @@ Thank you for shopping with us!
                                                 <th>Total Quantity</th>
                                                 <th>Total Price</th>
                                                 <th>Status</th>
-                                                
+                                                <th>Delivery</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -191,7 +262,7 @@ Thank you for shopping with us!
                                                         <td>{order.quantity}</td>
                                                         <td>₹{order.price}</td>
                                                         <td className='order-status-approved'>{order.status}</td>
-                                                        
+                                                        <td><button className='delivery-btn' onClick={() => handleDelivery(order.id)}>Delivery Completed</button></td>
                                                     </tr>
                                                 ))}
                                         </tbody>
@@ -343,41 +414,54 @@ Thank you for shopping with us!
                     )}
                     {activeTab === 'cancelled' && (
                         <div className='admin-cancelled'>
-                            <h3 className='admin-head'>Cancelled Orders</h3>
+                            <h3 className='admin-head'>Delivered Orders</h3>
                             {orders.length === 0 ? (
-                                <p>No cancelled orders found.</p>
+                                <p>No delivered orders found.</p>
                             ) : (
-                                <ul className='order-list'>
-                                    {orders.filter(order => order.status === 'Cancelled').map(order => (
-                                        <li key={order.id} className='order-item'>
-                                            <div className='order-product'>
-                                                {/* <img src={order.productImage ? `data:image/jpeg;base64,${order.productImage}` : ''} className='product-image' /> */}
-                                                <div className='customer-data' key={order.id}>
-                                                    <h4>{order.userName}</h4>
-                                                    {order.address && <p className='customer-address'>{order.address}</p>}
-                                                    {order.email && <a href={`mailto:${order.email}`} className='customer-email'>
-                                                        {order.email}
-                                                    </a>
-                                                    }
-                                                    {order.phone && <p className='customer-phone'><IonIcon icon={call} />{order.phone}</p>}
-                                                </div>
-                                                <div className='order-product-details'>
-                                                    <ul className='order-product-name'>
-                                                        {order.items && order.items.map((item: any, index: number) => (
-                                                            <li key={index}>{item.name}{item.size ? ` (${item.size})` : ''}</li>
-                                                        ))}
-                                                    </ul>
-                                                    <div>
-                                                        <h4>{order.productName}</h4>
-                                                        <p>Quantity: {order.quantity}</p>
-                                                        <p>Price: ${order.price}</p>
-                                                        <p>Date: {order.date}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <div className="table-wrapper">
+                                    <table className="orders-table">
+                                        <thead>
+                                            <tr>
+                                                <th>S No</th>
+                                                <th>Order Date</th>
+                                                <th>Customer Name</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <th>Email</th>
+                                                <th>Items</th>
+                                                <th>Total Quantity</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
+                                                <th>Delivery</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {orders
+                                                .filter(order => order.status === 'delivered')
+                                                .map((order, index) => (
+                                                    <tr key={order.id} className="table-row">
+                                                        <td>{index + 1}</td>
+                                                        <td>{order.date}</td>
+                                                        <td>{order.userName}</td>
+                                                        <td>{order.phone}</td>
+                                                        <td><div className='customer-address'>{order.address}</div></td>
+                                                        <td>
+                                                            <a href={`mailto:${order.email}`}>{order.email}</a>
+                                                        </td>
+                                                        <td>
+                                                            <button className="view-btn" onClick={() => setSelectedOrder(order)}>
+                                                                View
+                                                            </button>
+                                                        </td>
+                                                        <td>{order.quantity}</td>
+                                                        <td>₹{order.price}</td>
+                                                        <td className='order-status-approved'>{order.status}</td>
+                                                        <td><button className='delivery-btn' onClick={() => handleDelivery(order.id)}>Delivery Completed</button></td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             )}
                         </div>
                     )}
