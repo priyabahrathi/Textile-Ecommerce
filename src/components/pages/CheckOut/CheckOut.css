@@ -89,7 +89,7 @@ ion-col {
 }
 
 .buy-img {
-  width: 100%;
+  /* width: 150px; */
   height: 200px;
   object-fit: contain;
   border-radius: 8px;

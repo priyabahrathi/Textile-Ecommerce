@@ -102,6 +102,7 @@ const CheckOut: React.FC = () => {
                               src={item.img || '/fallback.jpg'}
                               alt={item.name}
                               className="buy-img"
+                              style={{width:'100px'}}
                             />
                             <div className="buy-card-details">
                               <div className='buy-name'>{item.name}</div>

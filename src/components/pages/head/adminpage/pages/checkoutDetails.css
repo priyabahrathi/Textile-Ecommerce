@@ -20,12 +20,12 @@
   --color-checked: #fff;
   /* font-weight: 700; */
   text-transform: capitalize;
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
   border-radius: 6px;
 }
 
 .seg-label {
-  font-size: 25px;
+  font-size: 10px;
   letter-spacing: 0.5px;
   font-family: "Bigshot One", serif;
 }

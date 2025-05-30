@@ -76,6 +76,11 @@ const Header: React.FC = () => {
               <IonInput placeholder="Search..." clearInput />
               <IonIcon icon={search} slot="end" />
             </IonItem>
+            
+            <IonItem button  onClick={() => dispatch(setPage("home"))}>
+              <IonIcon icon={home} slot="start" />
+              Product
+            </IonItem>
             <IonItem button onClick={() => dispatch(setPage("products"))}>
               <IonIcon icon={bag} slot="start" />
               Product
@@ -84,14 +89,14 @@ const Header: React.FC = () => {
               <IonIcon icon={heart} slot="start" />
               Wishlist
             </IonItem>
-            <IonItem button>
+            <IonItem button onClick={() => dispatch(setPage("checkout"))}>
               <IonIcon icon={cart} slot="start" />
               Cart
             </IonItem>
           </IonList>
 
           {/* Optional cart display */}
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {/* <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {cartItems.map((item: CartItem) => (
               <li key={item.id + (item.size || '')} style={{ borderBottom: "1px solid #eee", padding: "10px 0" }}>
                 <div style={{ fontWeight: 600 }}>{item.name}</div>
@@ -140,12 +145,12 @@ const Header: React.FC = () => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </IonContent>
       </IonMenu>
 
       {/* Right Cart Menu */}
-      
+
 
       {/* Header */}
       <div id="main-content">
