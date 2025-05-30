@@ -114,9 +114,9 @@ const ProfilePage: React.FC = () => {
             </div>
 
             <div className="profile-stats">
-                <div className="profile-stat-card"><div>{totalProducts}</div><div>Products Managed</div></div> {/* Updated label */}
-                <div className="profile-stat-card"><div>{totalSales}</div><div>Total Sales</div></div>
-                <div className="profile-stat-card"><div>₹{totalRevenue.toLocaleString()}</div><div>Revenue Generated</div></div> {/* Updated label */}
+                <div className="profile-stat-card"><div>{totalProducts}</div><div className='data-label'>Products Managed</div></div> {/* Updated label */}
+                <div className="profile-stat-card"><div>{totalSales}</div><div className='data-label'>Total Sales</div></div>
+                <div className="profile-stat-card"><div>₹{totalRevenue.toLocaleString()}</div><div className='data-label'>Revenue Generated</div></div> {/* Updated label */}
             </div>
 
             {/* Core User Information Section (already largely covered in banner, but can add more details here) */}

@@ -149,7 +149,7 @@ ion-col {
 
 .card-total {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-evenly;
   text-align: center;
   width: 100%;

@@ -16,7 +16,7 @@
     --dark-shadow-color: rgba(0, 0, 0, 0.4);
 
     /* Accent Colors (Consistent across themes) */
-    --brand-primary: #52057b; /* Deep rich purple */
+    --brand-primary: #0B2E33; /* Deep rich purple */
     --brand-secondary: #880d8f; /* Lighter purple / magenta */
     --accent-blue: #007bff; /* Standard blue for links/highlights */
     --status-success: #28a745; /* Green */
@@ -24,7 +24,7 @@
     --status-info: #007bff; /* Blue */
 
     /* Typography */
-    --font-family-sans: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --font-size-base: 1rem;
     --line-height-base: 1.6;
 

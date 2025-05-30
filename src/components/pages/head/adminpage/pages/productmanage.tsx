@@ -390,7 +390,7 @@ const ProductManage: React.FC = () => {
             <div className="product-manage-container">
                 <div className="product-header-wrapper">
                     <div className="manageProduct-header">
-                        <h3>Product Management</h3>
+                        <h3 className="order-title">Product Management</h3>
                         <IonButtons slot="end">
                             <IonButton onClick={openAddModal} className="product-add-button">
                                 Add Product

@@ -94,7 +94,7 @@ const BannerImg: React.FC = () => {
 
     return (
         <div className="banner-admin-container">
-            <h2 className="banner-admin-title">🚀 Manage Hero Banners</h2>
+            <h2 className="order-title">Manage Hero Banners</h2>
             <p className="banner-admin-description">
                 Customize the images, headings, and paragraphs for your website's main hero section.
             </p>

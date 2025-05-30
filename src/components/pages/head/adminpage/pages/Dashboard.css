@@ -6,7 +6,7 @@
     --light-bg-primary: #f8f9fa; /* Very light grey */
     --light-bg-secondary: #ffffff; /* White for cards */
     --light-text-primary: #212529; /* Dark grey for main text */
-    --light-text-secondary: #6c757d; /* Medium grey for subtle text */
+    --light-text-secondary: #4F7C82; /* Medium grey for subtle text */
     --light-border-color: #e0e0e0;
     --light-shadow-color: rgba(0, 0, 0, 0.1);
 
@@ -19,8 +19,8 @@
     --dark-shadow-color: rgba(0, 0, 0, 0.4);
 
     /* Accent Colors (Consistent across themes) */
-    --brand-primary: #52057b; /* Deep rich purple */
-    --brand-secondary: #880d8f; /* Lighter purple / magenta */
+    --brand-primary: #0B2E33; /* Deep rich purple */
+    --brand-secondary: #0B2E33; /* Lighter purple / magenta */
     --accent-blue: #007bff; /* Standard blue for links/highlights */
     --status-pending: #ffc107; /* Amber */
     --status-completed: #28a745; /* Green */
@@ -31,7 +31,7 @@
 /* Base Body Styling */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-color: var(--light-bg-primary);
     color: var(--light-text-primary);
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
@@ -87,7 +87,7 @@ body {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif; /* Slightly different font for headings */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Slightly different font for headings */
     color: var(--light-text-primary);
     margin-top: 0;
     margin-bottom: 1rem;
@@ -417,6 +417,7 @@ h1, h2, h3, h4, h5, h6 {
     border-spacing: 0;
     min-width: 750px; /* Ensure table looks good on smaller desktop views */
     font-size: 0.95rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .orders-table th,

@@ -247,7 +247,7 @@ const Dashboard: React.FC = () => {
     return (
         <div className={`dashboard-wrapper ${darkMode ? 'dark' : ''}`}>
             <div className="dashboard-header">
-                <h1>Dashboard</h1>
+                <div className='order-title'>Dashboard</div>
                 <div className="header-actions">
                     <div className="notification-bell" title="Notifications">
                         <svg

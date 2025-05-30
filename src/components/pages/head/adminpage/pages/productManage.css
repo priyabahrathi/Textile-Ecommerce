@@ -11,8 +11,8 @@
     --shadow: rgba(0, 0, 0, 0.08); /* Soft shadow */
 
     /* Brand & Accent Colors */
-    --primary-purple: #7b2cbf; /* Main brand purple */
-    --secondary-purple: #a238e0; /* Lighter brand purple */
+    --primary-purple: #0B2E33; /* Main brand purple */
+    --secondary-purple: #0B2E33; /* Lighter brand purple */
     --success-green: #28a745; /* Green for success */
     --danger-red: #dc3545; /* Red for danger/cancellation */
     --warning-orange: #fd7e14; /* Orange for warnings/pending */
@@ -20,7 +20,7 @@
 
 body {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-color: var(--main-bg);
     color: var(--main-text);
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
@@ -53,14 +53,7 @@ body {
     gap: 20px;
 }
 
-.manageProduct-header h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem; /* Larger title */
-    font-weight: 800;
-    color: var(--primary-purple);
-    margin: 0;
-    text-shadow: 2px 2px 5px var(--shadow);
-}
+
 
 /* IonButton (Add Product) - Applied to specific IonButton instances */
 .product-add-button { /* New class for the Add Product button */
@@ -70,7 +63,7 @@ body {
     --color: white;
     --border-radius: 30px;
     --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    font-family: 'Montserrat', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 700;
     font-size: 1rem;
     padding: 12px 25px;
@@ -115,7 +108,7 @@ body {
     border-spacing: 0 10px; /* Space between rows */
     min-width: 900px; /* Ensure table looks good on smaller desktop views */
     margin-bottom: 40px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .product-table th,
@@ -123,6 +116,7 @@ body {
     padding: 18px 25px;
     text-align: left;
     white-space: nowrap;
+
 }
 
 .product-table thead th {
@@ -159,6 +153,7 @@ body {
 
 .product-table td {
     border-bottom: 1px solid var(--border);
+    font-size: 20px;
 }
 
 /* No products found message */
@@ -312,7 +307,7 @@ body {
 
 .product-modal-title { /* Class for ion-title inside modal header */
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 700;
     font-size: 1.6rem; /* Slightly larger title */
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Add text shadow */

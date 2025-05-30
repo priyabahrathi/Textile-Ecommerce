@@ -226,7 +226,7 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                             ) : (
                                 <div className="table-wrapper">
                                     <table className="orders-table">
-                                        <thead>
+                                        <thead className='customer-table-head'>
                                             <tr>
                                                 <th>S No</th>
                                                 <th>Order Date</th>
@@ -241,7 +241,7 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                                                 <th>Delivery</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className='customer-table-body'>
                                             {orders
                                                 .filter(order => order.status === 'Approved')
                                                 .map((order, index) => (
@@ -262,7 +262,7 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                                                         <td>{order.quantity}</td>
                                                         <td>₹{order.price}</td>
                                                         <td className='order-status-approved'>{order.status}</td>
-                                                        <td><button className='delivery-btn' onClick={() => handleDelivery(order.id)}>Delivery Completed</button></td>
+                                                        <td><button className='delivery-btn' onClick={() => handleDelivery(order.id)}>Completed</button></td>
                                                     </tr>
                                                 ))}
                                         </tbody>
@@ -432,7 +432,7 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                                                 <th>Total Quantity</th>
                                                 <th>Total Price</th>
                                                 <th>Status</th>
-                                                <th>Delivery</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -456,7 +456,6 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                                                         <td>{order.quantity}</td>
                                                         <td>₹{order.price}</td>
                                                         <td className='order-status-approved'>{order.status}</td>
-                                                        <td><button className='delivery-btn' onClick={() => handleDelivery(order.id)}>Delivery Completed</button></td>
                                                     </tr>
                                                 ))}
                                         </tbody>

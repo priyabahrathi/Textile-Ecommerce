@@ -1,40 +1,43 @@
+
 .order-title {
-  color: #7b2cbf;
-  font-size: 55px;
+  color: #0B2E33;
+  font-size: 45px;
   font-family: "Oleo Script Swash Caps", system-ui;
 }
 
 .segment-container {
-  --background: #d4bae4;
+  --background: #93B1B5;
   border-radius: 8px;
   padding: 5px;
-  margin-bottom: 1rem;
+  margin-bottom: 5px;
   border: 1px solid #ccc;
 }
 
 .seg-btn {
-  --color: #7b2cbf;
+  --color: #0B2E33;
   --indicator-color: none;
-  --background-checked: #7b2cbf;
+  --background-checked: #4F7C82;
   --color-checked: #fff;
-  font-weight: 700;
+  /* font-weight: 700; */
   text-transform: capitalize;
   padding: 0.5rem 1rem;
   border-radius: 6px;
 }
 
 .seg-label {
-  font-size: 30px;
+  font-size: 25px;
   letter-spacing: 0.5px;
   font-family: "Bigshot One", serif;
 }
 
 
 .table-wrapper {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   overflow-x: scroll;
+  overflow-y: scroll;
   scrollbar-width: auto;
-  scrollbar-color: #7b2cbf #d2b0f0;
+  scrollbar-color: #4F7C82 #93B1B5;
+  max-height: 400px;
 }
 
 
@@ -43,11 +46,11 @@
 }
 
 .table-wrapper::-webkit-scrollbar-track {
-  background: #d2b0f0;
+  background: #93B1B5;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb {
-  background: #d2b0f0;
+  background: #93B1B5;
 }
 
 
@@ -55,9 +58,14 @@
   text-align: center;
   font-size: 30px;
   font-family: "Bigshot One", serif;
-  color: #7b2cbf;
+  color: #0B2E33;
 }
-
+.orders-table th{
+  background-color: #4F7C82 !important;
+  border-bottom: none !important;
+  /* color: #0B2E33 !important; */
+  
+}
 .orders-table th,
 .table-row td {
   margin: 20px;
@@ -68,7 +76,7 @@
 }
 
 .order-status-approved {
-  color: rgb(6, 177, 6);
+  color: rgb(6, 177, 6) !important;
   font-weight: 700;
 }
 
@@ -92,7 +100,7 @@
   border-collapse: separate;
   border-spacing: 0 10px !important;
   min-width: 900px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -110,11 +118,18 @@
   font-size: 20px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #7b2cbf;
-  color: #fff;
+  background-color: #0B2E33;
+  color: #93B1B5;
   font-weight: 700;
 }
-
+.delivery-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #93B1B5;
+  color: #0B2E33;
+  font-size: 20px;
+  font-weight: bold;
+}
 .orders-table th,
 .orders-table td {
   padding: 18px 25px;
@@ -123,13 +138,14 @@
 }
 
 .orders-table thead th {
-  background: linear-gradient(90deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+  /* background: linear-gradient(90deg, var(--primary-purple) 0%, var(--secondary-purple) 100%); */
+
   color: white;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.95rem;
   letter-spacing: 1px;
-  border-bottom: 2px solid var(--secondary-purple);
+  /* border-bottom: 2px solid var(--secondary-purple); */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -142,8 +158,8 @@
 }
 
 .orders-table tbody tr {
-  background-color: var(--card-bg);
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  /* background-color: var(--card-bg); */
+  /* transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
@@ -156,16 +172,19 @@
 }
 
 .orders-table td {
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
+  background-color: #d9dddd;
+  color: #0B2E33;
 }
 
 /* No products found message */
 .orders-table .no-products {
   text-align: center;
-  color: var(--light-text);
+  /* color: var(--light-text); */
   padding: 20px;
   font-style: italic;
-  background-color: var(--card-bg);
+  /* background-color: var(--card-bg); */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
