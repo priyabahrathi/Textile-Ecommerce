@@ -1,95 +1,93 @@
 .payment-page {
-    padding: 20px;
-    background: fixed;
-    background-color: #ddd;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 20px;
+  background: fixed;
+  background-color: var(--color-section-background); /* Changed from #ddd to var(--color-section-background) */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .summary {
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .summary-head {
-    font-size: 25px;
-    font-weight: bold;
-    border-bottom: 2px solid #3A3E6C;
-    padding-bottom: 15px;
-    color: #3A3E6C;
+  font-size: 25px;
+  font-weight: bold;
+  border-bottom: 2px solid var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  padding-bottom: 15px;
+  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
-.payment-head{
-    color: #3A3E6C;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 40px;
+.payment-head {
+  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 40px;
 }
 
 .item-list {
-    font-size: 18px;
-    color: #2e2c2c;
-    display: flex;
-    padding: 0 10px;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f1f1f1;
-    border-radius: 6px;
-    margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--color-dark-text); /* Changed from #2e2c2c to var(--color-dark-text) */
+  display: flex;
+  padding: 0 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-light-gray); /* Changed from #f1f1f1 to var(--color-light-gray) */
+  border-radius: 6px;
+  margin-bottom: 10px;
 }
 
 .pay-total {
-    font-size: 20px;
-    font-weight: bold;
-    color: #3A3E6C;
-    padding: 15px 0;
-    border-top: 2px solid #3A3E6C;
-    border-bottom: 2px solid #3A3E6C;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  padding: 15px 0;
+  border-top: 2px solid var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  border-bottom: 2px solid var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
 
 .payment-form {
-    background-color: #f1f1f1;
-    border-radius: 10px;
-
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
+  background-color: var(--color-light-gray); /* Changed from #f1f1f1 to var(--color-light-gray) */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
 }
 
-.field-style{
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #3A3E6C;
-    border-radius: 8px;
-    color: #3A3E6C;
-
+.field-style {
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  border-radius: 8px;
+  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
 
 label {
-    color: #3A3E6C;
-    font-weight: bold;
-    font-size: 20px;
+  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .break {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: grey;
+  color: var(--color-light-text); /* Changed from grey to var(--color-light-text) */
 }
 
 .pay-btn {
-    background-color: #3A3E6C;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 8px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: var(--color-cta-accent); /* Changed from #3A3E6C to var(--color-cta-accent) */
+  color: var(--color-cta-text); /* Changed from white to var(--color-cta-text) */
+  font-weight: bold;
+  font-size: 20px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

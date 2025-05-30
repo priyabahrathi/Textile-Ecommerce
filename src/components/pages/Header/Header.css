@@ -1,23 +1,3 @@
-/* Define CSS Variables for the new color palette */
-:root {
-  --color-primary-background: #F5F5F5;    /* Soft white-gray */
-  --color-section-background: #E1E1E1;    /* Clean Silver Gray */
-  --color-elite-silver: #C0C0C0;          /* Elite Silver base */
-  --color-dark-text: #2A2A2A;             /* Headings, readable text */
-  --color-light-text: #6E6E6E;            /* Labels, descriptions */
-  --color-cta-accent: #9A9A9A;            /* Gunmetal gray for buttons */
-  --color-highlight-hover: #D0D0D0;        /* Hover backgrounds */
-  --color-white: #FFFFFF;                  /* White text/icons */
-  --color-yellow-star: #FFD700;            /* For ratings */
-
-  /* RGBs for transparency */
-  --rgb-elite-silver: 192, 192, 192;
-  --rgb-section-background: 225, 225, 225;
-  --rgb-cta-accent: 154, 154, 154;
-  --rgb-dark-text: 42, 42, 42;
-  --rgb-white: 255, 255, 255;
-}
-
 /* Works in Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
     width: 0px;
@@ -38,14 +18,14 @@
 
 /* Container Styling */
 .container {
-    background: rgba(var(--rgb-primary-background), 0.3); /* Using primary background for transparent container */
+    background: #dfeaeb; /* Using primary background for transparent container */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border: 1px solid rgba(var(--rgb-white), 0.2); /* Using white for border */
     padding: 20px;
     max-width: 100%;
     margin: auto;
-    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */ /* Optional shadow, using a darker palette color for consistency */
+     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  /* Optional shadow, using a darker palette color for consistency */
 }
 
 /* Navigation Styling */
@@ -73,7 +53,7 @@
     margin: 0;
 }
 .head-list{
-    color: var(--color-white); /* Applied white for head list */
+    color: var(--color-cta-text); /* Applied white for head list */
 }
 .nav-list li {
     position: relative;
@@ -81,7 +61,7 @@
     font-size: 1.3rem;
     font-weight: 500;
     cursor: pointer;
-    color: var(--color-white); /* Applied white for list items */
+    color: var(--color-cta-text); /* Applied white for list items */
     background: transparent;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
@@ -223,7 +203,7 @@ ion-menu .menu-menu:hover{
     --border-width: 0px;
     --border-style: none;
     --border-color: transparent;
-    color: var(--color-white); /* Applied white for color */
+    color: var(--color-cta-text); /* Applied white for color */
 }
 
 .custom-item{
@@ -231,18 +211,18 @@ ion-menu .menu-menu:hover{
 }
 
 .inner-icon{
-    color: var(--color-white); /* Applied white for inner icon */
+    color: var(--color-cta-text); /* Applied white for inner icon */
 }
 
 .custom-item:hover {
     --background: rgba(var(--rgb-white), 0.2); /* Transparent white for hover */
-    --color: var(--color-white); /* Applied white for hover */
+    --color: var(--color-cta-text); /* Applied white for hover */
 }
 
 /* To target the ion-icon */
 .custom-item:hover ion-icon {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
-    color: var(--color-white) !important; /* Applied white for hover icon */
+    color: var(--color-cta-text) !important; /* Applied white for hover icon */
     transform: scale(1);
     transition: all 0.3s ease-in-out;
 }
@@ -255,7 +235,7 @@ ion-menu .menu-menu:hover{
     padding: 4px 12px;
     min-width: 260px;
     max-width: 400px;
-    box-shadow: 0 2px 8px rgba(var(--rgb-section-background), 0.08); /* Transparent section background for shadow */
+    box-shadow: 0 2px 8px rgba(var(--rgb-dark-text), 0.08); /* Changed to rgb-dark-text for shadow */
     margin: 0 24px;
     flex: 1 1 320px;
 }
@@ -388,7 +368,7 @@ ion-menu .menu-menu:hover{
     top: 2px;
     right: 2px;
     background: var(--color-cta-accent); /* Applied CTA accent for badge */
-    color: var(--color-white); /* Applied white for badge text */
+    color: var(--color-cta-text); /* Applied white for badge text */
     border-radius: 50%;
     font-size: 12px;
     width: 20px;
