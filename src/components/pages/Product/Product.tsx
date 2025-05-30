@@ -313,7 +313,7 @@ if (selectedCategories.length > 0) {
               {/* By Fabric Type */}
               <h4 className="filter-group-title">By Fabric Type</h4>
               <ul className="filter-option-list">
-                {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
+                {['Cotton', 'Silk', 'Linen'].map((type) => (
                   <li key={type} className="filter-option-item">
                     <IonCheckbox
                       slot="start"
