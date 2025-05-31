@@ -126,10 +126,10 @@ const Product: React.FC = () => {
   };
 
   const handleCheckBox = (category: string, checked: boolean) => {
-  setSelectedCategories((prev) =>
-    checked ? [...prev, category] : prev.filter((c) => c !== category)
-  );
-};
+    setSelectedCategories((prev) =>
+      checked ? [...prev, category] : prev.filter((c) => c !== category)
+    );
+  };
 
 
   const handleToggleFilter = (
@@ -189,14 +189,14 @@ const Product: React.FC = () => {
       );
     }
 
-    
+
     // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
 
-if (selectedCategories.length > 0) {
-  result = result.filter((product) =>
-    selectedCategories.includes(product.category)
-  );
-}
+    if (selectedCategories.length > 0) {
+      result = result.filter((product) =>
+        selectedCategories.includes(product.category)
+      );
+    }
 
 
 
@@ -452,19 +452,24 @@ if (selectedCategories.length > 0) {
                   <IonCol sizeXs="6" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="3" key={product.id}>
                     <MotionCard>
                       <div
-                        className="product-card-v2"
+                        className="product-card"
                         onClick={() => {
                           dispatch(setSelectedProduct(product));
                           dispatch(setPage("productDetails"));
                         }}
                       >
-                        {product.isNew && <span className="badge-new">NEW</span>}
 
-                        <div className="image-container">
-                          <img src={product.img} alt={product.name} />
+                        <div className="product-page-img">
+                          <div className="product-bg-style">
+                            <img className="card-img" src={product.img} alt={product.name} />
+                          </div>
                         </div>
 
-                        <IonCardContent className="card-content">
+
+                        <IonCardContent className="product-content">
+                          <div className="product-price">
+                            <span>&#8377;{product.price}</span>
+                          </div>
                           <div className="card-header">
                             <h3 className="product-name">{product.name}</h3>
                             <button
@@ -477,11 +482,16 @@ if (selectedCategories.length > 0) {
                               <IonIcon icon={heart} />
                             </button>
                           </div>
+                          <div className="product-details">
                           <p className="product-category">{product.category}</p>
-                          <div className="price-rating">
-                            <span className="product-price">&#8377;{product.price}</span>
-                            <span className="product-rating">{getStarRating(product.rating)}</span>
+                          <div className='ratings'>
+                            <div className="stars">
+                              {getStarRating(product.rating)}
+                            </div>
+                            </div>
+                            
                           </div>
+
                         </IonCardContent>
                       </div>
                     </MotionCard>

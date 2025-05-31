@@ -111,7 +111,7 @@
 
 .product-img {
     height: 38%; /* Adjusted height percentage */
-    background: linear-gradient(to top, var(--color-cta-accent), rgba(var(--rgb-cta-accent), 0.8));
+    background: linear-gradient(to top, #967a70, rgb(215 204 200));
     display: flex;
     justify-content: center;
     align-items: center;

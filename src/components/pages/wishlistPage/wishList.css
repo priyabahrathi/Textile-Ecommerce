@@ -134,7 +134,7 @@ tbody tr:last-child td {
   color: var(--color-alert-red); /* Changed from #ff5c5c to danger_red from CheckOut.css */
   font-size: 0.85rem;
   font-weight: 600;
-  --background: transparent* Changed from Ionic primary to primary_dark from CheckOut.css */
+  --background: transparent;
 }
 .remove-item-btn:hover {
   --background: var(--color-alert-red); /* Changed from #dc3545 to danger_red from CheckOut.css */
