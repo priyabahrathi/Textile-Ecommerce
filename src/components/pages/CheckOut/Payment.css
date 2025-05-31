@@ -135,3 +135,18 @@ textarea::placeholder {
   font-weight: bold;
 }
 
+@media screen and (max-width:450px) {
+  .payment-page{
+    padding: 0;
+  }
+  .item-list{
+    font-size: 15px;
+  }
+  .offer-content{
+    font-size: 15px;
+  }
+  .offer h2{
+  font-size: 18px;
+}
+}
+

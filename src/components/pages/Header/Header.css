@@ -117,11 +117,13 @@
 }
 
 .active-icon ion-icon {
-  color: var(--color-cta-accent) !important; /* Applied CTA accent for active icon */
+  color: var(--color-cta-accent) !important; 
+  /* color: #493026; */
 }
 
 .active-icon .icon-label {
-  color: var(--color-cta-accent) !important; /* Applied CTA accent for active label */
+  /* color: var(--color-cta-accent) !important;  */
+color: #382117;
   font-weight: 600;
 }
 

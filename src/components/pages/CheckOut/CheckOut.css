@@ -30,7 +30,7 @@
   font-family: "Bigshot One", serif;
   font-size: 32px;
   font-weight: bold;
-  color: var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
+  color: var(--color-dark-text); 
   margin: 0 auto;
 }
 
@@ -78,7 +78,7 @@ ion-col {
 .buy-name{
   font-size: 25px;
 }
-.ratings{
+.ratings-check{
   color: var( --color-yellow-star);
   font-size: 13px;
 }
@@ -257,7 +257,7 @@ ion-col {
   }
 
   .checkout-head {
-    font-size: 28px;
+    font-size: 35px;
   }
 
   .buy-card {
@@ -270,7 +270,7 @@ ion-col {
     text-align: center;
   }
   .buy-card-details {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.6;
     margin-left: 0;
   }
@@ -295,23 +295,21 @@ ion-col {
     font-size: 16px;
   }
   .subtotal {
-    font-size: 16px;
+    font-size: 20px;
     border-top: 1px solid var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
     padding-top: 10px;
   }
   .card-total {
     align-items: center;
   }
-  .total {
-    font-size: 20px;
-}
+
   .quantity {
     margin-bottom: 15px;
   }
 
   .checkout-btn {
     width: auto;
-    font-size: 18px;
+    font-size: 25px;
     padding: 10px;
   }
 
@@ -393,7 +391,7 @@ ion-col {
   }
 
   .checkout-head {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .buy-card {
@@ -406,7 +404,7 @@ ion-col {
     text-align: center;
   }
   .buy-card-details {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
     margin-left: 0;
   }
@@ -437,21 +435,21 @@ ion-col {
     font-size: 16px;
   }
   .subtotal{
-    font-size: 16px;
-    border-top: 1px solid var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
+    font-size: 20px;
+    border-top: 1px solid var(--color-dark-text); 
     padding-top: 10px;
   }
   .card-total{
-    flex-direction: column;
-    align-items: center;
+    align-items: baseline;
   }
   .total {
-    font-size: 20px;
+    font-size: 22px;
 }
   .checkout-btn {
-    width: 100%;
-    font-size: 18px;
+    /* width: 100%; */
+    font-size: 22px;
     padding: 8px;
+    /* margin: 0; */
   }
 
 }
@@ -464,10 +462,6 @@ ion-col {
     padding: 0;
   }
 
-  .checkout-head {
-    font-size: 22px;
-  }
-
   .buy-card {
     padding: 8px;
     border-radius: 8px;
@@ -478,14 +472,15 @@ ion-col {
   }
 
   .buy-card-details {
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     margin-left: 0;
   }
-.price-size{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+.buy-name{
+  font-size: 15px;
+}
+.ratings-check{
+  font-size: 10px;
 }
   .buy-img {
     height: 120px;
@@ -556,39 +551,5 @@ ion-col {
     margin-left: 0;
   }
 
-  .buy-img {
-    object-fit: contain;
-  }
-
-  .description {
-    font-size: 12px;
-  }
-.quantity-controls{
-  display: flex;
-  align-items: baseline;
-
 }
-  .quantity {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
-  .id-btn {
-    font-size: 10px;
-  }
-  .subtotal{
-    font-size: 13px;
-    border-top: 1px solid var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
-    padding-top: 10px;
-  }
-  .card-total{
-    flex-direction: column;
-    align-items: center;
-  }
-  .price-size{
-    display: flex;
-    justify-content: space-around;
-  }
-  .total {
-    font-size: 18px;
-  }
-}
+

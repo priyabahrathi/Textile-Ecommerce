@@ -107,7 +107,7 @@ const CheckOut: React.FC = () => {
                             <div className="buy-card-details">
                               <div className='buy-price'>₹{item.price}</div>
                               <div className='buy-name'>{item.name}</div>
-                              <div className='ratings'>★★★★☆ (4.2)</div>
+                              <div className='ratings-check'>★★★★☆ (4.2)</div>
                                 {'size' in item && item.size && <div className='buy-size'>Size: {item.size}</div>}
                               <div></div>
                               <div className="quantity-controls">
