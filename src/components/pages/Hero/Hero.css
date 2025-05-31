@@ -1,60 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Define CSS Variables for the new color palette */
-:root {
-  --palette-dark-navy-blue: #1A2F5A;
-  --palette-medium-beige: #C0A88D;
-  --palette-light-beige: #E0D4C5;
-  --palette-off-white: #F8F2E8;
-}
-
-body {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.welcome-message{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+/* Welcome Message */
+.welcome-message {
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
   margin: 0;
   padding: 0;
 }
 
-.hero-features{
+/* Hero Features */
+.hero-features {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
 }
+
 .hero-feature-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
 }
+
+/* Hero Section */
 .hero-section {
   position: relative;
-  min-height: 83vh;
+  z-index: -1;
+  min-height: 100vh;
   width: 100%;
-  margin: auto;
+  margin: 5px auto 20px;
   overflow: hidden;
-  border-radius: 20px;
-  /* Adjust box-shadow color to fit palette, using a darker shade of beige or a subtle blue */
-  box-shadow: 0 4px 30px rgba(26, 47, 90, 0.2); /* Using a transparent dark navy blue for shadow */
-  border: 1px solid var(--palette-light-beige); /* Applied new light beige for border */
-  margin-top: 5px;
-  margin-bottom: 20px;
+  /* border-radius: 20px; */
+  box-shadow: 0 4px 30px rgba(var(--rgb-dark-text), 0.2); /* Mapped from rgba(26, 47, 90, 0.2) */
+  border: 1px solid var(--color-panel-surface); /* Mapped from --palette-light-beige */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.hero-section::before {
-  content: none; /* Disable the ::before pseudo-element */
-}
-
+/* Swiper Background */
 .hero-swiper-container {
   position: absolute;
   top: 0;
@@ -65,87 +50,89 @@ body {
   overflow: hidden;
 }
 
-/* Swiper's internal elements - ensure they have dimensions */
-.hero-swiper-container .swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-swiper-image{
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  object-fit: cover;
-  background-repeat: no-repeat;
-  filter: brightness(0.7); /* Darken the image slightly for better text readability */
-}
-
+.hero-swiper-container .swiper,
 .hero-swiper-slide {
   width: 100%;
   height: 100%;
-  background-size: contain;
   background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* Hero Content Overlay */
+.hero-swiper-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+/* Overlay and Content */
 .hero-content-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay for readability */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: -1;
+
+  padding: 10px;
 }
 
 .hero-content {
-  min-width: 500px;
-  z-index: 1;
+  min-width: 400px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1); /* Slightly transparent background for content block */
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  animation: slideDown 0.8s ease-in-out forwards;
 }
 
 .hero-content h2 {
-  font-size: 50px ;
-  margin-bottom: 0.5rem;
-  color: var(--palette-off-white); /* Applied new off-white */
+  font-size: 50px;
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
   font-weight: 800;
+  margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content p {
-  font-size: 25px ;
+  font-size: 25px;
   margin-bottom: 1.5rem;
-  color: var(--palette-light-beige); /* Applied new light beige for paragraph text */
+  color: var(--color-panel-surface); /* Mapped from --palette-light-beige */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Year Highlight */
 .year {
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
 }
 
 .hero-heading-highlight {
-    color: var(--palette-medium-beige); /* Applied new medium beige for highlight */
+  color: var(--color-highlight-hover); /* Mapped from --palette-medium-beige */
 }
 
-.hero-buttons .hero-icon-btn {
-  background: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
-  color: var(--palette-off-white); /* Applied new off-white */
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  animation: slideDown 0.8s ease-in-out forwards;
+  animation-delay: 0.6s;
+}
+
+.hero-icon-btn {
+  background: var(--color-panel-surface); /* Mapped from --palette-off-white */
+  color: var(--color-dark-text); /* Adjusted to a dark text color for contrast */
   font-size: 1.2rem;
   height: 50px;
-  border-radius: 50%;
   width: 50px;
-  padding: 3px;
-  margin: 5px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,48 +140,38 @@ body {
 }
 
 .hero-icon-btn:hover {
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
-  background-color: var(--palette-off-white); /* Applied new off-white */
-  border: 1px solid var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
+  background-color: var(--color-dark-text); /* Mapped from --palette-off-white */
+  border: 1px solid var(--color-dark-text); /* Mapped from --palette-off-white */
   transform: scale(1.1);
 }
 
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-
 .hero-arrival-btn {
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 12px 24px;
   font-size: 18px;
-  height: 50px;
   font-weight: bold;
-  background: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
-  color: var(--palette-off-white); /* Applied new off-white */
   border-radius: 25px;
-  cursor: pointer;
+  height: 50px;
+  border: 1px solid rgba(var(--rgb-white), 0.3); /* Using white for transparency */
+  background: var(--color-panel-surface); /* Mapped from --palette-off-white */
+  color: var(--color-dark-text); /* Adjusted to a dark text color for contrast */
   transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .hero-arrival-btn:hover {
-  color: var(--palette-dark-navy-blue); /* Applied new dark navy blue */
-  background: var(--palette-off-white); /* Applied new off-white */
-  border: 1px solid var(--palette-dark-navy-blue); /* Applied new dark navy blue */
+  background: var(--color-dark-text); /* Mapped from --palette-off-white */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
+  border: 1px solid var(--color-dark-text); /* Mapped from --palette-off-white */
   transform: translateY(-2px);
 }
 
 .hero-arrival-btn ion-icon {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
+/* Slide Down Animation */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -206,87 +183,45 @@ body {
   }
 }
 
-.hero-content>* {
-  opacity: 0;
-  animation: slideDown 0.8s ease-in-out forwards;
-}
-
-.hero-content h2 {
-  animation-delay: 0.2s;
-}
-
-.hero-content p {
-  animation-delay: 0.4s;
-}
-
-.hero-buttons {
-  animation-delay: 0.6s;
-}
-
-.hero-buttons .icon-btn {
-  animation-delay: 0.8s;
-}
-
-.hero-buttons .hero-arrival-btn {
-  animation-delay: 1s;
-}
-
-
-
-
 /* Social Media Sidebar */
 .social-media-sidebar {
-    position: fixed;
-    right: 20px;
-    top: 60%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 100;
-    background: rgba(26, 47, 90, 0.3); /* Using transparent dark navy blue */
-    border-radius: 10px;
-    padding: 10px 5px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  right: 20px;
+  top: 60%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 100;
+  background: rgba(var(--rgb-dark-text), 0.3); /* Mapped from rgba(26, 47, 90, 0.3) */
+  border-radius: 10px;
+  padding: 10px 5px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--palette-off-white); /* Applied new off-white */
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background: rgba(var(--rgb-white), 0.1); /* Using white for transparency */
+  color: var(--color-cta-text); /* Mapped from --palette-off-white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .social-icon-btn:hover {
-    background: var(--palette-medium-beige); /* Applied new medium beige */
-    color: var(--palette-off-white); /* Applied new off-white */
-    transform: scale(1.1);
+  background: var(--color-highlight-hover); /* Mapped from --palette-medium-beige */
+  transform: scale(1.1);
 }
 
-
-/* Responsive Adjustments */
-@media screen and (max-width:1300px) {
-  .welcome-message {
-    font-size: 1.2rem;
-  }
-  .hero-features{
-    display: flex;
-    
-  }
-  .hero-feature-title{
-    font-size: 0.9rem;
-  }
-  .hero-section {
-    min-height: 85vh;
-
+/* Responsive Design */
+@media screen and (max-width: 1300px) {
+  .hero-content {
+    min-width: 80%;
   }
   .hero-content h2 {
     font-size: 40px;
@@ -294,151 +229,22 @@ body {
   .hero-content p {
     font-size: 20px;
   }
-  .year {
-    font-size: 1.2rem;
-  }
-  .hero-buttons .hero-icon-btn {
+  .hero-icon-btn {
     font-size: 1rem;
     height: 40px;
     width: 40px;
   }
- .hero-arrival-btn {
+  .hero-arrival-btn {
     font-size: 16px;
-    height: 40px;
+    height: 45px;
     padding: 10px 20px;
   }
+}
+
+@media screen and (max-width: 768px) {
   .hero-content {
-    min-width: 600px;
+    min-width: 90%;
     padding: 15px;
-  }
-  .hero-content-overlay {
-    padding: 10px;
-  }
-  .social-media-sidebar {
-    right: 10px;
-    top: 60%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-  }
-  
-  
-}
-@media screen and (max-width:1200px) {
-  .welcome-message {
-    font-size: 1rem;
-  }
-  .hero-feature-title{
-    font-size: 0.8rem;
-  }
-  .hero-section {
-    width: 100%;
-    min-height: 83vh;
-  }
-  .hero-content h2 {
-    font-size: 35px;
-  }
-  .hero-content p {
-    font-size: 18px;
-  }
-  .hero-content {
-    min-width: 500px;
-    padding: 10px;
-  }
-  .hero-content-overlay {
-    padding: 5px;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.9rem;
-    height: 35px;
-    width: 35px;
-  }
-  .hero-arrival-btn {
-    font-size: 14px;
-    height: 35px;
-    padding: 8px 16px;
-  }
-  .year {
-    font-size: 1rem;
-  }
-  .social-media-sidebar {
-    right: 5px;
-    top: 60%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-  }
-
-
-  
-}
-@media screen and (max-width:1024px){
-  .welcome-message {
-    font-size: 1.1rem;
-  }
-  .hero-feature-title{
-    font-size: 0.8rem;
-  }
-  .hero-section {
-    min-height: 60vh;
-  }
-  .hero-content h2 {
-    font-size: 32px;
-  }
-  .hero-content p {
-    font-size: 18px;
-  }
-  .hero-content {
-    min-width: 450px;
-    padding: 10px;
-  }
-  .hero-content-overlay {
-    padding: 5px;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.9rem;
-    height: 35px;
-    width: 35px;
-  }
-  .hero-arrival-btn {
-    font-size: 14px;
-    height: 35px;
-    padding: 8px 16px;
-  }
-  .year {
-    font-size: 1rem;
-  }
-  .social-media-sidebar {
-    right: 5px;
-    top: 40%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-
-}
-@media screen and (max-width:900px) {
-  .welcome-message {
-    font-size: 0.9rem;
-  }
-  .hero-feature-title{
-    font-size: 0.7rem;
-  }
-  .hero-section {
-    min-height: 70vh;
   }
   .hero-content h2 {
     font-size: 30px;
@@ -446,320 +252,28 @@ body {
   .hero-content p {
     font-size: 16px;
   }
-  .hero-content {
-    min-width: 400px;
-    padding: 5px;
-  }
-  .hero-content-overlay {
-    padding: 0;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.8rem;
-    height: 30px;
-    width: 30px;
-  }
-  .hero-arrival-btn {
-    font-size: 12px;
-    height: 30px;
-    padding: 6px 12px;
-  }
-  .year {
-    font-size: 0.9rem;
-  }
-  .social-media-sidebar {
-    right: 0;
-    top: 45%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 25px;
-    height: 25px;
-    font-size: 0.9rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  
-
-
-}
-@media screen and (max-width:800px) {
-  .welcome-message {
-    font-size: 0.8rem;
-  }
-  .hero-feature-title{
-    font-size: 0.6rem;
-  }
-  .hero-section {
-    min-height: 60vh;
-  }
-  .hero-content h2 {
-    font-size: 28px;
-  }
-  .hero-content p {
-    font-size: 16px;
-  }
-  .hero-content {
-    min-width: 350px;
-    padding: 5px;
-  }
-  .hero-content-overlay {
-    padding: 0;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.7rem;
-    height: 30px;
-    width: 30px;
-  }
-  .hero-arrival-btn {
-    font-size: 12px;
-    height: 30px;
-    padding: 6px 12px;
-  }
-  .year {
-    font-size: 0.8rem;
-  }
-  .social-media-sidebar {
-    right: 0;
-    top: 40%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 25px;
-    height: 25px;
-    font-size: 0.8rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-   
-
-  
-}
-@media screen and (max-width:700px){
-  .welcome-message {
-    font-size: 0.9rem;
-  }
-  .hero-feature-title{
-    font-size: 0.7rem;
-  }
-  .hero-section {
-    min-height: 65vh;
-  }
-  .hero-content h2 {
-    font-size: 32px;
-  }
-  .hero-content p {
-    font-size: 18px;
-  }
-  .hero-content {
-    min-width: 450px;
-    padding: 10px;
-  }
-  .hero-content-overlay {
-    padding: 5px;
-  }
-  .hero-buttons .hero-icon-btn {
+  .hero-icon-btn {
     font-size: 0.9rem;
     height: 35px;
     width: 35px;
   }
   .hero-arrival-btn {
-    font-size: 12px;
-    height: 30px;
+    font-size: 14px;
+    height: 40px;
     padding: 8px 16px;
   }
-  .year {
+  .welcome-message {
     font-size: 1rem;
   }
-  .social-media-sidebar {
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  .hero-content {
-    min-width: 400px;
-    padding: 10px;
-  }
-  .hero-content-overlay {
-    padding: 5px;
-  }
-
-  
-}
-
-@media screen and (max-width:600px) {
-  .welcome-message {
-    font-size: 0.8rem;
-  }
-  .hero-feature-title{
-    font-size: 0.6rem;
-  }
-  .hero-section {
-    min-height: 55vh;
-  }
-  .hero-content h2 {
-    font-size: 26px;
-  }
-  .hero-content p {
-    font-size: 14px;
-  }
-  .hero-content {
-    min-width: 300px;
-    padding: 5px;
-  }
-  .hero-content-overlay {
-    padding: 0;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.7rem;
-    height: 25px;
-    width: 25px;
-  }
-  .hero-arrival-btn {
-    font-size: 10px;
-    height: 25px;
-    padding: 4px 8px;
-  }
-  .year {
-    font-size: 0.8rem;
+  .hero-feature-title {
+    font-size: 0.9rem;
   }
   .social-media-sidebar {
-    right: 0;
-    top: 40%;
-    transform: translateY(-50%);
+    right: 10px;
   }
   .social-icon-btn {
-    width: 20px;
-    height: 20px;
-    font-size: 0.8rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
   }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 5px;
-  }
-
-  .hero-content-overlay {
-    padding: 0;
-  }
-
-}
-@media screen and (max-width:400px) {
-  .welcome-message {
-    font-size: 0.7rem;
-  }
-  .hero-feature-title{
-    font-size: 0.5rem;
-  }
-  .hero-section {
-    min-height: 40vh;
-  }
-  .hero-content h2 {
-    font-size: 24px;
-  }
-  .hero-content p {
-    font-size: 12px;
-  }
-  .hero-content {
-    min-width: 200px;
-    padding: 5px;
-  }
-  .hero-content-overlay {
-    padding: 0;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.6rem;
-    height: 20px;
-    width: 20px;
-  }
-  .hero-arrival-btn {
-    font-size: 8px;
-    height: 20px;
-
-    padding: 2px 4px;
-  }
-  .year {
-    font-size: 0.7rem;
-  }
-  .social-media-sidebar {
-    right: 0;
-    top: 30%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 15px;
-    height: 15px;
-    font-size: 0.7rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-
-}
-
-@media screen and (max-width:300px) {
-  .welcome-message {
-    font-size: 0.6rem;
-  }
-  .hero-feature-title{
-    font-size: 0.4rem;
-  }
-  .hero-section {
-    min-height: 35vh;
-  }
-  .hero-content h2 {
-    font-size: 22px;
-  }
-  .hero-content p {
-    font-size: 10px;
-  }
-  .hero-content {
-    min-width: 150px;
-    padding: 5px;
-  }
-  .hero-content-overlay {
-    padding: 0;
-  }
-  .hero-buttons .hero-icon-btn {
-    font-size: 0.5rem;
-    height: 15px;
-    width: 15px;
-  }
-  .hero-arrival-btn {
-    font-size: 6px;
-    height: 15px;
-    padding: 1px 2px;
-  }
-  .year {
-    font-size: 0.6rem;
-  }
-  .social-media-sidebar {
-    right: 0;
-    top: 30%;
-    transform: translateY(-50%);
-  }
-  .social-icon-btn {
-    width: 10px;
-    height: 10px;
-    font-size: 0.6rem;
-  }
-  .hero-section {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
- 
-  
 }

@@ -23,6 +23,7 @@ import {
     logoPinterest // Added Pinterest as it's common for e-commerce
 } from 'ionicons/icons';
 import { FaTags } from "react-icons/fa";
+import Header from "../Header/Header";
 
 interface HeroSlide {
     image: string;
@@ -95,7 +96,7 @@ const Hero: React.FC = () => {
         <>
             {/* Main Hero Section with Swiper Background */}
             <div className="hero-section">
-                
+                <Header />
                 {/* Swiper background */}
                 {!loadingSlides && heroSlides.length > 0 ? (
                     <Swiper
