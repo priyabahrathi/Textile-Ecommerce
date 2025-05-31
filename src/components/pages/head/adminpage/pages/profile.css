@@ -180,7 +180,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-top: -60px;
+    /* margin-top: 20px; */
     /* Pull stats cards up to overlap banner */
     position: relative;
     z-index: 1;
@@ -397,7 +397,7 @@ body {
 
     .profile-stats {
         grid-template-columns: 1fr;
-        margin-top: -40px;
+        margin-top: 10px;
     }
 
     .profile-stat-card {

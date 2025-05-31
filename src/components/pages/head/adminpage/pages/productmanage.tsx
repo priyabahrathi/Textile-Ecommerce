@@ -443,7 +443,8 @@ const ProductManage: React.FC = () => {
                     </div>
                 </div>
 
-                <table className="product-table">
+                <div className="table-wrapper">
+                    <table className="product-table">
                     <thead>
                         <tr>
                             <th>Serial No</th>
@@ -483,6 +484,7 @@ const ProductManage: React.FC = () => {
                         )}
                     </tbody>
                 </table>
+                </div>
 
                 <div className="product-footer">
                     <div className="total-products">Total Products: {filteredProducts.length}</div>
