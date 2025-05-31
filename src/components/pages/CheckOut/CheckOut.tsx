@@ -60,7 +60,7 @@ const CheckOut: React.FC = () => {
   };
 
   return (
-    <div className="cart-page">
+    <div className="c-cart-page">
       <div className='cart-header'>
         <button
           className="back-btn"

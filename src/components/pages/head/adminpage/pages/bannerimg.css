@@ -1,98 +1,53 @@
-:root {
-    /* Light Theme Colors */
-    --light-bg-primary: #f8f9fa; /* Very light grey */
-    --light-bg-secondary: #ffffff; /* White for cards */
-    --light-text-primary: #212529; /* Dark grey for main text */
-    --light-text-secondary: #6c757d; /* Medium grey for subtle text */
-    --light-border-color: #e0e0e0;
-    --light-shadow-color: rgba(0, 0, 0, 0.1);
 
-    /* Dark Theme Colors */
-    --dark-bg-primary: #1a1a2e; /* Deep dark blue */
-    --dark-bg-secondary: #2c2c47; /* Slightly lighter dark blue for cards */
-    --dark-text-primary: #e0e0e0; /* Light grey for main text */
-    --dark-text-secondary: #a0a0a0; /* Muted light grey for subtle text */
-    --dark-border-color: #3f3f5a;
-    --dark-shadow-color: rgba(0, 0, 0, 0.4);
-
-    /* Accent Colors (Consistent across themes) */
-    --brand-primary: #0B2E33; /* Deep rich purple */
-    --brand-secondary: #880d8f; /* Lighter purple / magenta */
-    --accent-blue: #007bff; /* Standard blue for links/highlights */
-    --status-success: #28a745; /* Green */
-    --status-error: #dc3545; /* Red */
-    --status-info: #007bff; /* Blue */
-
-    /* Typography */
-    --font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    --font-size-base: 1rem;
-    --line-height-base: 1.6;
-
-    /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-
-    /* Border Radius */
-    --border-radius-sm: 0.25rem;
-    --border-radius-md: 0.5rem;
-    --border-radius-lg: 0.75rem;
-
-    /* Transitions */
-    --transition-fast: 0.15s ease-out;
-    --transition-normal: 0.3s ease-in-out;
-}
 
 /* Base styles for the light theme */
 body {
-    font-family: var(--font-family-sans);
-    line-height: var(--line-height-base);
-    background-color: var(--light-bg-primary);
-    color: var(--light-text-primary);
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    font-family: var(--admin-font-family-sans);
+    line-height: var(--admin-line-height-base);
+    background-color: var(--admin-light-bg-primary);
+    color: var(--admin-light-text-primary);
+    transition: background-color var(--admin-transition-normal), color var(--admin-transition-normal);
 }
 
 /* Dark theme toggle (example - you'd likely apply this via JS) */
 body.dark-theme {
-    background-color: var(--dark-bg-primary);
-    color: var(--dark-text-primary);
+    background-color: var(--admin-dark-bg-primary);
+    color: var(--admin-dark-text-primary);
 }
 
 /* --- Main Container --- */
 .banner-admin-container {
     max-width: 1200px;
-    margin: var(--spacing-xl) auto;
-    padding: var(--spacing-lg);
-    background-color: var(--light-bg-secondary);
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 10px 30px var(--light-shadow-color);
-    transition: background-color var(--transition-normal), box-shadow var(--transition-normal);
+    margin: var(--admin-spacing-xl) auto;
+    padding: var(--admin-spacing-lg);
+    background-color: var(--admin-light-bg-secondary);
+    border-radius: var(--admin-border-radius-lg);
+    box-shadow: 0 10px 30px var(--admin-light-shadow-color);
+    transition: background-color var(--admin-transition-normal), box-shadow var(--admin-transition-normal);
 }
 
 body.dark-theme .banner-admin-container {
-    background-color: var(--dark-bg-secondary);
-    box-shadow: 0 10px 30px var(--dark-shadow-color);
+    background-color: var(--admin-dark-bg-secondary);
+    box-shadow: 0 10px 30px var(--admin-dark-shadow-color);
 }
 
 .banner-admin-title {
     font-size: 2.2rem;
-    color: var(--brand-primary);
+    color: var(--admin-brand-primary);
     text-align: center;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--admin-spacing-sm);
     font-weight: 700;
     letter-spacing: -0.02em;
 }
 
 body.dark-theme .banner-admin-title {
-    color: var(--brand-secondary);
+    color: var(--admin-brand-secondary);
 }
 
 .banner-admin-description {
     text-align: center;
-    color: var(--light-text-secondary);
-    margin-bottom: var(--spacing-xl);
+    color: var(--admin-light-text-secondary);
+    margin-bottom: var(--admin-spacing-xl);
     font-size: 1.1rem;
     max-width: 700px;
     margin-left: auto;
@@ -107,26 +62,26 @@ body.dark-theme .banner-admin-description {
 .banner-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
+    gap: var(--admin-spacing-lg);
+    margin-bottom: var(--admin-spacing-xl);
 }
 
 /* --- Banner Card --- */
 .banner-card {
-    background-color: var(--light-bg-primary);
-    border: 1px solid var(--light-border-color);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
+    background-color: var(--admin-light-bg-primary);
+    border: 1px solid var(--admin-light-border-color);
+    border-radius: var(--admin-border-radius-md);
+    padding: var(--admin-spacing-md);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    transition: all var(--transition-normal);
+    transition: all var(--admin-transition-normal);
     position: relative; /* For actions */
 }
 
 body.dark-theme .banner-card {
-    background-color: var(--dark-bg-primary);
-    border-color: var(--dark-border-color);
+    background-color: var(--admin-dark-bg-primary);
+    border-color: var(--admin-dark-border-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -143,28 +98,28 @@ body.dark-theme .banner-card:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--light-border-color);
+    margin-bottom: var(--admin-spacing-md);
+    padding-bottom: var(--admin-spacing-xs);
+    border-bottom: 1px solid var(--admin-light-border-color);
 }
 
 body.dark-theme .banner-card-header {
-    border-bottom-color: var(--dark-border-color);
+    border-bottom-color: var(--admin-dark-border-color);
 }
 
 .banner-card-header h3 {
     margin: 0;
     font-size: 1.25rem;
-    color: var(--brand-primary);
+    color: var(--admin-brand-primary);
 }
 
 body.dark-theme .banner-card-header h3 {
-    color: var(--brand-secondary);
+    color: var(--admin-brand-secondary);
 }
 
 .banner-card-actions {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: var(--admin-spacing-xs);
 }
 
 .action-btn {
@@ -172,9 +127,9 @@ body.dark-theme .banner-card-header h3 {
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    padding: var(--admin-spacing-xs);
+    border-radius: var(--admin-border-radius-sm);
+    transition: background-color var(--admin-transition-fast), transform var(--admin-transition-fast);
 }
 
 .action-btn:hover {
@@ -192,11 +147,11 @@ body.dark-theme .action-btn:hover {
 }
 
 .remove-btn {
-    color: var(--status-error);
+    color: var(--admin-status-error);
 }
 
 .remove-btn:hover {
-    background-color: rgba(var(--status-error), 0.1);
+    background-color: rgba(var(--admin-status-error), 0.1);
 }
 
 /* --- Image Preview --- */
@@ -204,19 +159,19 @@ body.dark-theme .action-btn:hover {
     width: 100%;
     height: 180px;
     background-color: #f0f0f0;
-    border: 1px dashed var(--light-border-color);
-    border-radius: var(--border-radius-sm);
+    border: 1px dashed var(--admin-light-border-color);
+    border-radius: var(--admin-border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--admin-spacing-md);
     position: relative;
 }
 
 body.dark-theme .img-preview-container {
     background-color: #3a3a50;
-    border-color: var(--dark-border-color);
+    border-color: var(--admin-dark-border-color);
 }
 
 .img-preview {
@@ -227,21 +182,21 @@ body.dark-theme .img-preview-container {
 }
 
 .img-placeholder {
-    color: var(--light-text-secondary);
+    color: var(--admin-light-text-secondary);
     font-style: italic;
     font-size: 0.9rem;
 }
 
 body.dark-theme .img-placeholder {
-    color: var(--dark-text-secondary);
+    color: var(--admin-dark-text-secondary);
 }
 
 .clear-image-btn {
     position: absolute;
-    top: var(--spacing-xs);
-    right: var(--spacing-xs);
+    top: var(--admin-spacing-xs);
+    right: var(--admin-spacing-xs);
     background-color: rgba(255, 255, 255, 0.8);
-    color: var(--status-error);
+    color: var(--admin-status-error);
     border: none;
     border-radius: 50%;
     width: 28px;
@@ -253,16 +208,16 @@ body.dark-theme .img-placeholder {
     font-size: 1.1rem;
     line-height: 1;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    transition: background-color var(--admin-transition-fast), transform var(--admin-transition-fast);
 }
 
 body.dark-theme .clear-image-btn {
     background-color: rgba(0, 0, 0, 0.6);
-    color: var(--status-error);
+    color: var(--admin-status-error);
 }
 
 .clear-image-btn:hover {
-    background-color: var(--status-error);
+    background-color: var(--admin-status-error);
     color: white;
     transform: scale(1.1);
 }
@@ -270,57 +225,57 @@ body.dark-theme .clear-image-btn {
 /* --- Form Groups --- */
 .form-group {
     position: relative;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--admin-spacing-md);
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--light-border-color);
-    border-radius: var(--border-radius-sm);
-    font-size: var(--font-size-base);
-    color: var(--light-text-primary);
-    background-color: var(--light-bg-secondary);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    padding: var(--admin-spacing-sm);
+    border: 1px solid var(--admin-light-border-color);
+    border-radius: var(--admin-border-radius-sm);
+    font-size: var(--admin-font-size-base);
+    color: var(--admin-light-text-primary);
+    background-color: var(--admin-light-bg-secondary);
+    transition: border-color var(--admin-transition-fast), box-shadow var(--admin-transition-fast);
 }
 
 body.dark-theme .form-input,
 body.dark-theme .form-textarea {
-    background-color: var(--dark-bg-secondary);
-    border-color: var(--dark-border-color);
-    color: var(--dark-text-primary);
+    background-color: var(--admin-dark-bg-secondary);
+    border-color: var(--admin-dark-border-color);
+    color: var(--admin-dark-text-primary);
 }
 
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--brand-primary);
-    box-shadow: 0 0 0 3px rgba(var(--brand-primary-rgb), 0.2);
+    border-color: var(--admin-brand-primary);
+    box-shadow: 0 0 0 3px rgba(var(--admin-brand-primary-rgb), 0.2);
 }
 
 body.dark-theme .form-input:focus,
 body.dark-theme .form-textarea:focus {
-    border-color: var(--brand-secondary);
-    box-shadow: 0 0 0 3px rgba(var(--brand-secondary-rgb), 0.2);
+    border-color: var(--admin-brand-secondary);
+    box-shadow: 0 0 0 3px rgba(var(--admin-brand-secondary-rgb), 0.2);
 }
 
 .form-label {
     position: absolute;
-    left: var(--spacing-sm);
+    left: var(--admin-spacing-sm);
     top: 50%;
     transform: translateY(-50%);
-    color: var(--light-text-secondary);
+    color: var(--admin-light-text-secondary);
     font-size: 0.9rem;
     pointer-events: none;
-    transition: all var(--transition-fast);
-    background-color: var(--light-bg-secondary); /* To hide input text behind it */
+    transition: all var(--admin-transition-fast);
+    background-color: var(--admin-light-bg-secondary); /* To hide input text behind it */
     padding: 0 4px;
 }
 
 body.dark-theme .form-label {
-    background-color: var(--dark-bg-secondary);
-    color: var(--dark-text-secondary);
+    background-color: var(--admin-dark-bg-secondary);
+    color: var(--admin-dark-text-secondary);
 }
 
 .form-input:focus + .form-label,
@@ -329,74 +284,74 @@ body.dark-theme .form-label {
 .form-textarea:not(:placeholder-shown) + .form-label {
     top: -10px; /* Moves label above input */
     font-size: 0.75rem;
-    color: var(--brand-primary);
+    color: var(--admin-brand-primary);
 }
 
 body.dark-theme .form-input:focus + .form-label,
 body.dark-theme .form-input:not(:placeholder-shown) + .form-label,
 body.dark-theme .form-textarea:focus + .form-label,
 body.dark-theme .form-textarea:not(:placeholder-shown) + .form-label {
-    color: var(--brand-secondary);
+    color: var(--admin-brand-secondary);
 }
 
 .form-textarea {
     resize: vertical;
     min-height: 90px;
-    padding-top: var(--spacing-md); /* Adjust for label when active */
+    padding-top: var(--admin-spacing-md); /* Adjust for label when active */
 }
 
 .char-count {
     font-size: 0.8rem;
-    color: var(--light-text-secondary);
+    color: var(--admin-light-text-secondary);
     margin-left: 5px;
 }
 
 body.dark-theme .char-count {
-    color: var(--dark-text-secondary);
+    color: var(--admin-dark-text-secondary);
 }
 
 /* --- Add New Slide Card --- */
 .add-slide-card {
-    background-color: var(--light-bg-primary);
-    border: 2px dashed var(--light-border-color);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
+    background-color: var(--admin-light-bg-primary);
+    border: 2px dashed var(--admin-light-border-color);
+    border-radius: var(--admin-border-radius-md);
+    padding: var(--admin-spacing-md);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: all var(--admin-transition-normal);
     min-height: 350px; /* Match height of other cards */
-    color: var(--light-text-secondary);
+    color: var(--admin-light-text-secondary);
 }
 
 body.dark-theme .add-slide-card {
-    background-color: var(--dark-bg-primary);
-    border-color: var(--dark-border-color);
-    color: var(--dark-text-secondary);
+    background-color: var(--admin-dark-bg-primary);
+    border-color: var(--admin-dark-border-color);
+    color: var(--admin-dark-text-secondary);
 }
 
 .add-slide-card:hover {
-    background-color: rgba(var(--brand-primary-rgb), 0.05);
-    border-color: var(--brand-primary);
-    color: var(--brand-primary);
+    background-color: rgba(var(--admin-brand-primary-rgb), 0.05);
+    border-color: var(--admin-brand-primary);
+    color: var(--admin-brand-primary);
     transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(var(--brand-primary-rgb), 0.1);
+    box-shadow: 0 4px 15px rgba(var(--admin-brand-primary-rgb), 0.1);
 }
 
 body.dark-theme .add-slide-card:hover {
-    background-color: rgba(var(--brand-secondary-rgb), 0.1);
-    border-color: var(--brand-secondary);
-    color: var(--brand-secondary);
-    box-shadow: 0 4px 15px rgba(var(--brand-secondary-rgb), 0.2);
+    background-color: rgba(var(--admin-brand-secondary-rgb), 0.1);
+    border-color: var(--admin-brand-secondary);
+    color: var(--admin-brand-secondary);
+    box-shadow: 0 4px 15px rgba(var(--admin-brand-secondary-rgb), 0.2);
 }
 
 .add-icon {
     font-size: 3rem;
     line-height: 1;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--admin-spacing-sm);
 }
 
 .add-slide-card p {
@@ -408,37 +363,37 @@ body.dark-theme .add-slide-card:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
+    gap: var(--admin-spacing-md);
+    margin-top: var(--admin-spacing-lg);
 }
 
 .save-btn {
-    background-color: var(--brand-primary);
+    background-color: var(--admin-brand-primary);
     color: white;
-    padding: var(--spacing-sm) var(--spacing-lg);
+    padding: var(--admin-spacing-sm) var(--admin-spacing-lg);
     border: none;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--admin-border-radius-md);
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    box-shadow: 0 4px 10px rgba(var(--brand-primary-rgb), 0.3);
+    transition: background-color var(--admin-transition-fast), transform var(--admin-transition-fast), box-shadow var(--admin-transition-fast);
+    box-shadow: 0 4px 10px rgba(var(--admin-brand-primary-rgb), 0.3);
 }
 
 body.dark-theme .save-btn {
-    background-color: var(--brand-secondary);
-    box-shadow: 0 4px 10px rgba(var(--brand-secondary-rgb), 0.3);
+    background-color: var(--admin-brand-secondary);
+    box-shadow: 0 4px 10px rgba(var(--admin-brand-secondary-rgb), 0.3);
 }
 
 .save-btn:hover {
-    background-color: var(--brand-secondary);
+    background-color: var(--admin-brand-secondary);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(var(--brand-primary-rgb), 0.4);
+    box-shadow: 0 6px 12px rgba(var(--admin-brand-primary-rgb), 0.4);
 }
 
 body.dark-theme .save-btn:hover {
-    background-color: color-mix(in srgb, var(--brand-secondary) 90%, white 10%);
-    box-shadow: 0 6px 12px rgba(var(--brand-secondary-rgb), 0.4);
+    background-color: color-mix(in srgb, var(--admin-brand-secondary) 90%, white 10%);
+    box-shadow: 0 6px 12px rgba(var(--admin-brand-secondary-rgb), 0.4);
 }
 
 .save-btn:disabled {
@@ -450,8 +405,8 @@ body.dark-theme .save-btn:hover {
 
 /* --- Save Toast Messages --- */
 .save-toast {
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: var(--border-radius-sm);
+    padding: var(--admin-spacing-xs) var(--admin-spacing-md);
+    border-radius: var(--admin-border-radius-sm);
     font-weight: 500;
     font-size: 0.95rem;
     opacity: 0;
@@ -462,21 +417,21 @@ body.dark-theme .save-btn:hover {
 }
 
 .save-toast.success {
-    background-color: rgba(var(--status-success-rgb), 0.1);
-    color: var(--status-success);
-    border: 1px solid var(--status-success);
+    background-color: rgba(var(--admin-status-success-rgb), 0.1);
+    color: var(--admin-status-success);
+    border: 1px solid var(--admin-status-success);
 }
 
 .save-toast.error {
-    background-color: rgba(var(--status-error-rgb), 0.1);
-    color: var(--status-error);
-    border: 1px solid var(--status-error);
+    background-color: rgba(var(--admin-status-error-rgb), 0.1);
+    color: var(--admin-status-error);
+    border: 1px solid var(--admin-status-error);
 }
 
 .save-toast.info {
-    background-color: rgba(var(--status-info-rgb), 0.1);
-    color: var(--status-info);
-    border: 1px solid var(--status-info);
+    background-color: rgba(var(--admin-status-info-rgb), 0.1);
+    color: var(--admin-status-info);
+    border: 1px solid var(--admin-status-info);
 }
 
 /* Keyframes for fade in/out animation */
@@ -489,28 +444,28 @@ body.dark-theme .save-btn:hover {
 
 /* Utility to get RGB values from CSS variables */
 :root {
-    --brand-primary-rgb: 82, 5, 123; /* Equivalent to #52057b */
-    --brand-secondary-rgb: 136, 13, 143; /* Equivalent to #880d8f */
-    --status-success-rgb: 40, 167, 69;
-    --status-error-rgb: 220, 53, 69;
-    --status-info-rgb: 0, 123, 255;
+    --admin-brand-primary-rgb: 82, 5, 123; /* Equivalent to #52057b */
+    --admin-brand-secondary-rgb: 136, 13, 143; /* Equivalent to #880d8f */
+    --admin-status-success-rgb: 40, 167, 69;
+    --admin-status-error-rgb: 220, 53, 69;
+    --admin-status-info-rgb: 0, 123, 255;
 }
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
     .banner-admin-container {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: var(--admin-spacing-lg) var(--admin-spacing-md);
     }
     .banner-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: var(--spacing-md);
+        gap: var(--admin-spacing-md);
     }
 }
 
 @media (max-width: 768px) {
     .banner-admin-container {
-        margin: var(--spacing-lg) var(--spacing-sm);
-        padding: var(--spacing-md);
+        margin: var(--admin-spacing-lg) var(--admin-spacing-sm);
+        padding: var(--admin-spacing-md);
     }
     .banner-admin-title {
         font-size: 1.8rem;
@@ -519,7 +474,7 @@ body.dark-theme .save-btn:hover {
         grid-template-columns: 1fr; /* Stack cards on smaller screens */
     }
     .banner-card {
-        padding: var(--spacing-md);
+        padding: var(--admin-spacing-md);
     }
 }
 

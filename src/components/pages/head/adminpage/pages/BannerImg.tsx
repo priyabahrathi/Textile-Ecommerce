@@ -5,6 +5,7 @@ import './bannerimg.css'; // Your existing CSS file
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoMdArrowRoundDown, IoMdArrowRoundUp } from 'react-icons/io';
 import { RxCross2 } from "react-icons/rx";
+
 interface HeroSlide {
     image: string;
     heading: string;
@@ -18,6 +19,7 @@ const BannerImg: React.FC = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState<string | null>(null);
     const [messageType, setMessageType] = useState<'success' | 'error' | 'info' | null>(null);
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768); // Example breakpoint
 
     useEffect(() => {
         const dbRef = ref(database);
@@ -39,6 +41,13 @@ const BannerImg: React.FC = () => {
                 setSaveMessage("Failed to load banners.");
                 setMessageType('error');
             });
+
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth > 768); // Update breakpoint as needed
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const handleChange = (index: number, field: keyof HeroSlide, value: string) => {
@@ -92,8 +101,8 @@ const BannerImg: React.FC = () => {
         }, 3000);
     };
 
-    return (
-        <div className="banner-admin-container">
+    const renderBannerContent = () => (
+        <>
             <h2 className="order-title">Manage Hero Banners</h2>
             <p className="banner-admin-description">
                 Customize the images, headings, and paragraphs for your website's main hero section.
@@ -160,6 +169,7 @@ const BannerImg: React.FC = () => {
                             />
                             <label className="form-label">Image URL</label>
                         </div>
+                        
                         <div className="form-group">
                             <input
                                 type="text"
@@ -200,6 +210,20 @@ const BannerImg: React.FC = () => {
                     </div>
                 )}
             </div>
+        </>
+    );
+
+    return (
+        <div className="banner-admin-container">
+            {isLargeScreen ? (
+                <div className="banner-admin-large-screen">
+                    {renderBannerContent()}
+                </div>
+            ) : (
+                <div className="banner-admin-small-screen">
+                    {renderBannerContent()}
+                </div>
+            )}
         </div>
     );
 };

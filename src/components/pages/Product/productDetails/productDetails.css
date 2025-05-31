@@ -380,4 +380,8 @@
   .close-btn {
     right: 24px;
   }
+  .add-cart, .buy, .tryon-btn{
+    font-size: 18px;
+    padding: 12px 24px;
+  }
 }

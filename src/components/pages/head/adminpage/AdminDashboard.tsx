@@ -8,7 +8,7 @@ import BannerImg from "./pages/BannerImg";
 import "./AdminDashboard.css";
 import ProductManage from "./pages/productmanage";
 import Dashboard from "./pages/Dashboard";
-
+import "./pages/global css/adminGlobal.css"
 const tabs = [
   { name: "Dashboard", label: "Dashboard", icon: statsChart },
   { name: "ManageProduct", label: "Manage Products", icon: addCircle },
