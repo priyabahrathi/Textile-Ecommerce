@@ -38,15 +38,13 @@ const WishList: React.FC = () => {
     <>
       
       <div className="wishlist-container">
-        <h2 style={{ textAlign: "left", marginBottom: "1rem" }}>Wishlist</h2> {/* Adjusted heading style */}
-        <p style={{ textAlign: "left", marginBottom: "2rem", color: "#666" }}>Home / Wishlist</p> {/* Added breadcrumb */}
-
+        <h3 className="wishlist-title">Your Favourites</h3>
         {wishlist.length === 0 ? (
           <div className="empty-wishlist">
             <IonIcon icon={heart} size="large" color="medium" />
             <p>Your wishlist is empty.</p>
             <p>Start adding your favorite products to save them here!</p>
-            <IonButton color="primary" onClick={() => dispatch(setPage("products"))}>
+            <IonButton className="continue-shopping-btn" onClick={() => dispatch(setPage("products"))}>
               Browse Products
             </IonButton>
           </div>
@@ -55,24 +53,19 @@ const WishList: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <th></th> {/* For the 'x' icon */}
+                  
                   <th>Product</th>
                   <th>Price</th>
                   <th>Date Added</th>
                   <th>Stock Status</th>
-                  <th></th> {/* For the 'Add to Cart' button */}
+                  <th></th>
+                  <th></th> 
                 </tr>
               </thead>
               <tbody>
                 {wishlist.map((product) => (
                   <tr key={product.id}>
-                    <td>
-                      <IonIcon
-                        icon={heart} 
-                        className="remove-from-wishlist-icon"
-                        onClick={() => dispatch(removeFromWishlist(product.id))}
-                      />
-                    </td>
+                    
                     <td className="product-info-cell">
                       <img
                         src={product.img}
@@ -91,14 +84,22 @@ const WishList: React.FC = () => {
                       </span>
                     </td>
                     <td>
-                      <IonButton
-                        fill="solid"
-                        
-                        onClick={() => dispatch(addToCart(product))}
-                        aria-label="Add to cart"
-                        className="add-to-cart-table-btn"
+                      <IonButton className="view-product-btn"
+                      onClick={() => {
+                        dispatch(setSelectedProduct(product)); // Set the selected product
+                        dispatch(setPage("productDetails")); // Navigate to product details page
+                      }}
+                      fill="clear"
                       >
-                        Add to Cart
+                        View Product
+                      </IonButton>
+                    </td>
+                    <td>
+                     <IonButton fill="clear"
+                     className="remove-item-btn"
+                      onClick={() => dispatch(removeFromWishlist(product.id))}
+                     >
+                      Remove Item
                       </IonButton>
                     </td>
                   </tr>
@@ -126,7 +127,7 @@ const WishList: React.FC = () => {
                 >
                   Clear Wishlist
                 </IonButton>
-                <IonButton fill="solid"  className="add-all-to-cart-btn" onClick={() => dispatch(addAllToCart(wishlist))}>Add All To Cart</IonButton>
+              
               </div>
             </div>
           </div>

@@ -18,12 +18,15 @@
 
 /* Container Styling */
 .container {
-    background: #dfeaeb; /* Using primary background for transparent container */
+    background: #dfeaeb33; /* Using primary background for transparent container */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border: 1px solid rgba(var(--rgb-white), 0.2); /* Using white for border */
     padding: 20px;
     max-width: 100%;
+     position: relative;
+    z-index: 1000; /* Ensure it appears above other elements */
+    pointer-events: auto;
     margin: auto;
      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  /* Optional shadow, using a darker palette color for consistency */
 }
