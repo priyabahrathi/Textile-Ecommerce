@@ -18,7 +18,7 @@
 
 /* Container Styling */
 .container {
-    background: #dfeaeb; /* Using primary background for transparent container */
+    background: var(--color-primary-background); /* Using primary background for transparent container */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
     border: 1px solid rgba(var(--rgb-white), 0.2); /* Using white for border */
