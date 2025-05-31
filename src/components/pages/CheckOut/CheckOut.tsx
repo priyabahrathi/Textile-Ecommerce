@@ -72,7 +72,7 @@ const CheckOut: React.FC = () => {
         </button>
 
         <h2 className='checkout-head'>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
-        <button className='btn-cart'><IonIcon icon={cart} /></button>
+        
       </div>
 
 

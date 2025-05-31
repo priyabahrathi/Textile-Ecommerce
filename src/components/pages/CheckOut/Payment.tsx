@@ -80,7 +80,7 @@ const Payment: React.FC = () => {
                 ← Back
               </button>
               <h2 className='checkout-head'>Payment</h2>
-              <button className='btn-cart'><IonIcon icon={cart} /></button>
+              
             </div>
       
       <IonGrid>

@@ -79,7 +79,7 @@ const Header: React.FC = () => {
             
             <IonItem button  onClick={() => dispatch(setPage("home"))}>
               <IonIcon icon={home} slot="start" />
-              Product
+              Home
             </IonItem>
             <IonItem button onClick={() => dispatch(setPage("products"))}>
               <IonIcon icon={bag} slot="start" />
