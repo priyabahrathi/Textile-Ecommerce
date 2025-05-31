@@ -81,7 +81,8 @@ const CheckOut: React.FC = () => {
               {itemsToDisplay.length === 0 ? (
                 <p>Your cart is empty.</p>
               ) : (
-                <IonGrid>
+                <div className='card-content'>
+                  <IonGrid>
                   <IonRow>
                     {itemsToDisplay.map((item) => (
                       <IonCol
@@ -151,6 +152,7 @@ const CheckOut: React.FC = () => {
                     ))}
                   </IonRow>
                 </IonGrid>
+                </div>
 
               )}
             </div>

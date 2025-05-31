@@ -83,12 +83,14 @@
   letter-spacing: 0.5px;
 }
 .name-rating {
-  line-height: 0;
+  line-height: 5px;
 }
 .price-rating {
-  display: flex;
-  align-items: center;
-  gap: 28px;
+ display: flex;
+ justify-content:flex-start;
+ gap: 10px;
+ font-size: 25px;
+  
 }
 .price-tag {
   font-weight: 700;
@@ -109,7 +111,7 @@
 
 .reviews {
   color: var(--color-light-text); /* Changed from #888 to var(--color-light-text) */
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .selectors {
@@ -143,6 +145,11 @@
   color: var(--color-dark-text); /* Changed from black to var(--color-dark-text) */
   line-height: 1.2;
   margin-top: 12px;
+}
+.desp{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  line-height: 25px;
 }
 .desp-head {
   color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
@@ -187,8 +194,11 @@
 .tab {
   padding: 14px 38px;
   border: none;
-  background: var(--color-section-background); /* Changed from #f8f8f8 to var(--color-section-background) */
-  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
+  background: var( --color-panel-surface); 
+  border-top: 2px solid var(--color-dark-text);
+  border-left: 2px solid var(--color-dark-text);
+  border-right: 2px solid var(--color-dark-text);
+  color: var(--color-dark-text);
   border-radius: 8px 8px 0 0;
   cursor: pointer;
   font-weight: 700;
@@ -196,7 +206,7 @@
   letter-spacing: 0.5px;
 }
 .tab.active, .tab:hover {
-  background: var(--color-section-background); /* Changed from #ddd to var(--color-section-background) */
+  background: var(--color-section-background);
   color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
 
@@ -207,8 +217,12 @@
   min-height: 160px;
   box-shadow: 0 1px 4px var(--color-light-gray); /* Changed from #fbeee6 to var(--color-light-gray) */
   font-size: 1.08rem;
+  
 }
-
+.review-head{
+  font-family: "Bigshot One", serif;
+  /* font-size: 30px; */
+}
 .tab-content h3 {
   font-size: 1.5rem;
   font-weight: 600;
@@ -268,7 +282,7 @@
   margin-top: 18px;
 }
 .review-item {
-  background: var(--color-section-background); /* Changed from #ddd to var(--color-section-background) */
+  background: var(--color-panel-surface); /* Changed from #ddd to var(--color-section-background) */
   border-radius: 8px;
   padding: 16px 22px;
   margin-bottom: 16px;

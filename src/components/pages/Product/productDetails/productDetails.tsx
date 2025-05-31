@@ -105,12 +105,11 @@ const ProductDetail: React.FC = () => {
           
           <div className="selectors">
             <div className="price-rating">
-            <span className='price-tag'>Price :</span><span className="price"> &#8377;{selectedProduct.price}</span>
-
-            <span className="reviews">{reviews.length} reviews</span>
+            <span className='price-tag'></span><span className="price"> &#8377;{selectedProduct.price}</span>
+            {/* <span className="reviews">{reviews.length} reviews</span> */}
           </div>
             <div>
-              <label className='price-tag'>Size:</label>
+              <label className='price-tag'></label>
               {['S', 'M', 'L', 'XL'].map(size => (
                 <button
                   key={size}
@@ -172,7 +171,7 @@ const ProductDetail: React.FC = () => {
         )} */}
         {activeTab === 'reviews' && (
           <div>
-            <h3>Reviews</h3>
+            <h3 className='review-head'>Reviews</h3>
             <div className="review-list">
               {reviews.length === 0 && <p>No reviews yet.</p>}
               {reviews.map((rev, idx) => (
