@@ -291,7 +291,6 @@ const Footer: React.FC=()=>{
                   ></iframe> </li>
                 </ul>
               </td>
-
                 <th><h6 className="b">Categories ➜</h6> </th>
                 <td><ul className="footer-links">
                   <li><a href="#">By Outfit</a></li>
