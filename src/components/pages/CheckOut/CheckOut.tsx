@@ -14,7 +14,7 @@ import {
 } from '../../../Store/Slice/checkout';
 import './CheckOut.css';
 import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
-import { setPage } from '../../../Store/Slice/pageSlice';
+import { goBack, setPage } from "../../../Store/Slice/pageSlice";
 import { cart, closeCircle } from 'ionicons/icons';
 
 const CheckOut: React.FC = () => {
@@ -64,9 +64,7 @@ const CheckOut: React.FC = () => {
       <div className='cart-header'>
         <button
           className="back-btn"
-          onClick={() => {
-            dispatch(setPage("productDetails"));
-          }}
+          onClick={() => dispatch(goBack())}
         >
           ← Back
         </button>
@@ -87,6 +85,7 @@ const CheckOut: React.FC = () => {
                   <IonRow>
                     {itemsToDisplay.map((item) => (
                       <IonCol
+                      className='check-card-container'
                         size="6"
                         sizeMd="4"
                         sizeLg="3"
@@ -105,11 +104,11 @@ const CheckOut: React.FC = () => {
                               style={{width:'100px'}}
                             />
                             <div className="buy-card-details">
+                              <div className='buy-price'>₹{item.price}</div>
                               <div className='buy-name'>{item.name}</div>
-                              <div className='price-size'>
-                                <div className='buy-price'>Price: ₹{item.price}</div>
-                                {'size' in item && item.size && <div className='size'>Size: {item.size}</div>}
-                              </div>
+                              <div className='ratings'>★★★★☆ (4.2)</div>
+                                {'size' in item && item.size && <div className='buy-size'>Size: {item.size}</div>}
+                              <div></div>
                               <div className="quantity-controls">
                                 <button
                                   onClick={(e) => {
@@ -209,16 +208,7 @@ const CheckOut: React.FC = () => {
           </IonCol>
         </IonRow>
 
-        {/* <IonRow>
-          <IonCol>
-            <div className="card-total">
-              <h3 className="total">Total: ₹{totalPrice.toFixed(2)}</h3>
-              <button className="checkout-btn" onClick={() => dispatch(setPage('payment'))}>
-                {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
-              </button>
-            </div>
-          </IonCol>
-        </IonRow> */}
+       
       </IonGrid>
     </div>
   );

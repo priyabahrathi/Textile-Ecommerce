@@ -27,7 +27,7 @@
 }
 
 .checkout-head {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: "Bigshot One", serif;
   font-size: 32px;
   font-weight: bold;
   color: var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
@@ -38,22 +38,25 @@
   padding: 10px;
 }
 
+
 ion-col {
   padding: 4px;
 }
 
 .buy-card {
   border-radius: 10px;
-  padding: 8px;
+  /* padding: 8px; */
   position: relative;
   transition: transform 0.2s ease-in-out;
-  background-color: var(--color-panel-surface); /* Changed from #fff to panel-surface */
+  background-color: var(--color-panel-surface);
+  border: 1px solid var(--color-dark-text);
 }
 
 .buy-data {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  /* margin-bottom: -15px; */
 }
 
 .buy-card:hover {
@@ -67,10 +70,17 @@ ion-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 35px;
+  line-height: 30px;
   width: 100%;
-  color: var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
+  color: var(--color-dark-text);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.buy-name{
+  font-size: 25px;
+}
+.ratings{
+  color: var( --color-yellow-star);
+  font-size: 13px;
 }
 .subtotal {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -78,7 +88,7 @@ ion-col {
   color: var(--color-dark-text); /* Changed from #3A3E6C to dark-text */
   text-align: center;
   border-top: var(--color-dark-text) solid 2px; /* Changed from #3A3E6C to dark-text */
-  padding-top: 15px;
+  /* padding-top: 15px; */
   margin-top: 0;
   margin-bottom: -1px;
   font-weight: bold;
@@ -90,12 +100,12 @@ ion-col {
   object-fit: contain;
   border-radius: 8px;
   margin-bottom: 12px;
-  background-color: var(--color-light-gray); /* Changed from #f1f1f1 to light-gray */
+  /* background-color: var(--color-light-gray);  */
 }
 
 .quantity-controls {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: left;
   align-items: baseline;
 }
 
@@ -149,6 +159,7 @@ ion-col {
   width: 100%;
   height: auto;
   box-sizing: border-box;
+  
 }
 
 .total {

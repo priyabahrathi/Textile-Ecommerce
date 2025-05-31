@@ -4,7 +4,7 @@ import { RootState } from '../../../Store/store';
 import './Payment.css';
 import { IonGrid, IonRow, IonCol, IonIcon } from '@ionic/react';
 import { clearBuy } from '../../../Store/Slice/checkout';
-import { setPage } from '../../../Store/Slice/pageSlice';
+import { goBack, setPage } from "../../../Store/Slice/pageSlice";
 import { getDatabase, ref, push } from 'firebase/database';
 import { cart } from 'ionicons/icons';
 
@@ -73,9 +73,7 @@ const Payment: React.FC = () => {
       <div className='cart-header'>
               <button
                 className="back-btn"
-                onClick={() => {
-                  dispatch(setPage("checkout"));
-                }}
+                 onClick={() => dispatch(goBack())}
               >
                 ← Back
               </button>
@@ -83,15 +81,15 @@ const Payment: React.FC = () => {
               
             </div>
       
-      <IonGrid>
+      <div className='payment-page-card'>
+        <IonGrid>
         <IonRow>
           <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
             <div className="summary">
               <h3 className='summary-head'>Order Summary</h3>
               {itemsToPay.map(item => (
                 <div className='item-list' key={item.id}>
-                  <p>{item.name}</p>
-                  <p>{item.size}</p>
+                  <p>{item.name}  ({item.size})</p>
                   <p className='bill-item'>  x {item.quantity}</p>
                 </div>
               ))}
@@ -99,7 +97,7 @@ const Payment: React.FC = () => {
               <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
             </div>
           </IonCol>
-          <IonCol sizeXl='8' sizeLg='8' sizeMd="12" sizeSm="12" sizeXs='12'>
+          <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
             <form className="payment-form" onSubmit={handlePaymentSubmit}>
 
               <div className='name-phone'>
@@ -143,9 +141,28 @@ const Payment: React.FC = () => {
             </form>
           </IonCol>
 
+          <IonCol sizeXl='4' sizeLg='4' sizeMd='12' sizeSm='12' sizeXs='12'  className='offer-container'>
+            <h1 className='offer-head'>Payment Offers</h1>
+            <div className='offer-content'>
+              <div className='offer'>
+              <h2>Online Payment</h2>
+              <p>5% Discount</p>
+            </div>
+            <div className='offer'>
+              <h2>Credit/Debit Cards</h2>
+              <p>10% Discount</p>
+            </div>
+            <div className='offer'>
+              <h2>Membership</h2>
+              <p>Upto 50% Offer & Exciting Gifts</p>
+            </div>
+            </div>
+          </IonCol>
+
 
         </IonRow>
       </IonGrid>
+      </div>
     </div>
   );
 };
