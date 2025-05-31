@@ -1,20 +1,20 @@
 :root {
   /* 🎨 Backgrounds */
-  --color-primary-background: #dfeaeb;
-  --color-section-background: #EDEDED;
-  --color-panel-surface: #FFFFFF;
+  --color-primary-background: #EFEBE9;
+  --color-section-background: #BCAAA4;
+  --color-panel-surface: #D7CCC8;
 
   /* 🧭 Neutrals / Grays */
   --color-elite-silver: #CCCCCC;
   --color-light-gray: #F0F0F0;
 
   /* 📝 Text */
-  --color-dark-text: #006D77;
-  --color-light-text: #666666;
+  --color-dark-text: #8D6E63;
+  --color-light-text: #ffffff;
 
   /* 🔘 CTA (Buttons, Active Elements) */
-  --color-cta-accent: #006D77;
-  --color-cta-hover: #045E65;
+  --color-cta-accent: #8D6E63;
+  --color-cta-hover: #A1887F;
   --color-cta-text: #FFFFFF;
 
   /* ⭐ Ratings */
@@ -27,7 +27,7 @@
   --color-alert-red: #D32F2F;
 
   /* ✨ Highlight / Hover Effects */
-  --color-highlight-hover: #F0F0F0;
+  --color-highlight-hover: #A1887F;
 
   /* 🔍 RGB fallback */
   --rgb-cta-accent: 0, 109, 119;

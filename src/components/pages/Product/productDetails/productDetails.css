@@ -11,18 +11,16 @@
   left: 24px;
   z-index: 10;
   background: none;
-  border: 1px solid var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
-  color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
-  font-size: 18px;
+  /* border: 1px solid var(--color-dark-text);  */
+  color: var(--color-dark-text); 
+  font-size: 20px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: bold;
   transition: color 0.2s;
   display: flex;
   align-items: center;
-  background: var(--color-panel-surface); /* Changed from #fff to var(--color-panel-surface) */
-  border-radius: 8px;
+  /* background: var(--color-panel-surface);  */
   padding: 8px 18px;
-  box-shadow: 0 1px 5px var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
 
 .gallery-info {

@@ -1,10 +1,12 @@
 .payment-page {
   padding: 20px;
   background: fixed;
-  background-color: var(--color-section-background); /* Changed from #ddd to var(--color-section-background) */
+  background-color: var(--color-primary-background); /* Changed from #ddd to var(--color-section-background) */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
+.payment-page-card{
+  padding: 10px;
+}
 .summary {
   padding: 1rem;
   border-radius: 8px;
@@ -26,13 +28,14 @@
 }
 
 .item-list {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
   color: var(--color-dark-text); /* Changed from #2e2c2c to var(--color-dark-text) */
   display: flex;
   padding: 0 10px;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-light-gray); /* Changed from #f1f1f1 to var(--color-light-gray) */
+  background-color: var(--color-panel-surface); /* Changed from #f1f1f1 to var(--color-light-gray) */
   border-radius: 6px;
   margin-bottom: 10px;
 }
@@ -47,13 +50,14 @@
 }
 
 .payment-form {
-  background-color: var(--color-light-gray); /* Changed from #f1f1f1 to var(--color-light-gray) */
+  background-color: var(--color-section-background); /* Changed from #f1f1f1 to var(--color-light-gray) */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 20px;
+  border: 1px solid var( --color-dark-text);
 }
 
 .field-style {
@@ -86,8 +90,48 @@ textarea::placeholder {
   color: var(--color-cta-text); /* Changed from white to var(--color-cta-text) */
   font-weight: bold;
   font-size: 20px;
-  padding: 8px 20px;
+  margin-top: 15px;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
 }
+
+.offer-container{
+  /* color: var(--color-dark-text); */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  padding: 8px;
+  /* background-color: var(--color-panel-surface); */
+  border-radius: 8px;
+}
+.offer-head{
+  color: var(--color-dark-text);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  text-align: center;
+  border-bottom: 2px solid var(--color-dark-text);
+  padding-bottom: 15px;
+}
+.offer-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  gap: 15px;
+}
+.offer{
+  border: 2px solid var(--color-dark-text);
+  border-radius: 8px;
+  padding: 10px;
+  line-height: 0;
+}
+.offer h2{
+  color: var(--color-dark-text);
+}
+.offer p{
+  color: var(--color-price-green);
+  font-weight: bold;
+}
+
