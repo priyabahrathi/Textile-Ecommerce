@@ -1,0 +1,257 @@
+.wishlist-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  /* margin-bottom: 1.5rem; */ /* Adjust as per new layout */
+  /* text-align: center; */ /* Adjust as per new layout */
+  color: #3A3E6C; /* Changed from #222 to primary_dark from CheckOut.css */
+}
+
+/* Empty wishlist styling - Keep as is mostly */
+.empty-wishlist {
+  text-align: center;
+  color: #777; /* Retained as no direct clear mapping in Checkout.css, similar to #a1a09f for text */
+  margin-top: 5rem;
+}
+
+.empty-wishlist ion-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-wishlist p {
+  font-size: 1.1rem;
+  margin: 0.25rem 0;
+}
+
+/* New Table Specific Styles */
+.wishlist-table-wrapper {
+  background: #fff; /* Changed from #fff to light_background from CheckOut.css */
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  overflow-x: auto; /* For responsive table */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+thead th {
+  background-color: #fff; /* Changed from #f8f8f8 to light_background from CheckOut.css */
+  text-align: left;
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #3A3E6C; /* Changed from #555 to primary_dark from CheckOut.css */
+  border-bottom: 1px solid #ccc; /* Changed from #eee to border_light from CheckOut.css */
+}
+
+tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #ccc; /* Changed from #eee to border_light from CheckOut.css */
+  vertical-align: middle;
+  font-size: 0.95rem;
+  color: #333; /* Retained as no direct clear mapping, similar to general text in Checkout.css */
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.product-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.wishlist-table-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-name-table {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  color: #333; /* Retained */
+}
+
+.product-category-table {
+    font-size: 0.85rem;
+    color: #777; /* Retained */
+    margin-top: 5px;
+}
+
+.remove-from-wishlist-icon {
+  font-size: 1.2rem;
+  color: #a1a09f; /* Changed from #aaa to medium_gray from CheckOut.css */
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.remove-from-wishlist-icon:hover {
+  color: #ff5c5c; /* Changed from #e74c3c to danger_red from CheckOut.css */
+}
+
+.stock-status-cell .in-stock {
+  color: #3A3E6C; /* Changed from #28a745 to primary_dark from CheckOut.css */
+  font-weight: 600;
+}
+
+.stock-status-cell .out-of-stock {
+  color: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  font-weight: 600;
+}
+
+.add-to-cart-table-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  --background: #3A3E6C; /* Changed from Ionic primary to primary_dark from CheckOut.css */
+}
+
+/* Wishlist bottom actions */
+.wishlist-bottom-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.wishlist-link-share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wishlist-link-share label {
+  font-weight: 600;
+  color: #555; /* Retained */
+  white-space: nowrap;
+}
+
+.wishlist-link-share input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc; /* Changed from #ddd to border_light from CheckOut.css */
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #333; /* Retained */
+  min-width: 200px;
+}
+
+.wishlist-link-share .copy-link-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  color: #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
+  border: 1px solid #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
+  --border-radius: 5px;
+  --background: transparent;
+}
+
+.wishlist-link-share .copy-link-btn:hover {
+  --background: #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
+  color: #fff;
+}
+
+.action-buttons-right {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.clear-wishlist-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  color: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  border: 1px solid #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  --border-radius: 5px;
+  --background: transparent;
+}
+
+.clear-wishlist-btn:hover {
+  --background: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  color: #fff;
+}
+
+.add-all-to-cart-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  --border-radius: 5px;
+  --background: #3A3E6C; /* Set to primary_dark from CheckOut.css */
+}
+
+
+/* Removed grid and card specific styles */
+/*
+.wishlist-grid { display: none; }
+.wishlist-card { display: none; }
+.wishlist-img { display: none; }
+.wishlist-info { display: none; }
+.product-name { display: none; }
+.product-rating { display: none; }
+.product-price { display: none; }
+.wishlist-actions { display: none; }
+.wishlist-actions ion-button { display: none; }
+.wishlist-actions ion-button[color="primary"] { display: none; }
+*/
+
+/* Responsive adjustments for the table */
+@media (max-width: 768px) {
+  .wishlist-table-wrapper {
+    padding: 1rem;
+  }
+  thead th, tbody td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .wishlist-table-img {
+    width: 60px;
+    height: 60px;
+  }
+  .product-name-table {
+    font-size: 0.9rem;
+  }
+  .add-to-cart-table-btn {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 0.75rem;
+  }
+  .wishlist-bottom-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wishlist-link-share, .action-buttons-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .wishlist-link-share input[type="text"] {
+    min-width: unset;
+    width: 100%;
+  }
+}

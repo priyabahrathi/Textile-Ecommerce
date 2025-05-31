@@ -1,0 +1,85 @@
+/*OverAll page*/
+.pagebrand {
+    /* background: linear-gradient(150deg, #002642 0%, #00a698 40%, #ffffff 100%) !important; */
+    /* background: linear-gradient(135deg, #FFF5ED, #F5CBA7, #E59866); */
+    background-color: #e9e9e9;
+    /* height: 100% !important; */
+    
+}
+
+.page-container {
+    margin-top: 250px;
+}
+/*Brand Container*/
+.brand-container {
+    height: 400px;
+    margin-top: 40px;
+    
+}
+/* .brand-container {
+    margin-top: 30px;
+} */
+
+/*Page Title*/
+.page-name {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 54px;
+    padding-bottom: 20px;
+    animation: title 3s ease;
+    position: relative;
+    letter-spacing: .015rem;
+    margin-top: 0;
+    color: #d45907;
+    text-shadow: 0 0 2px black;
+    /* text-shadow: 0 0 15px #002642; */
+}
+/* @keyframes title {
+    from{
+        margin-top: 10px;
+    }
+    to{
+        margin-top: 20px;
+    }
+} */
+/*Logos Styling*/
+.logo-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    width: 100%;
+    height: 60px;
+    object-fit: contain;
+}
+
+/*Responsive*/
+@media screen and (max-width:1024px)  {
+    .page-container {
+    
+        margin-top: 200px;
+     
+     }
+    .page-name{
+        font-size: 60px;
+    }
+}
+@media screen and (max-width:500px)  {
+    .page-container {
+    
+       margin-top: 100px;
+    
+     
+     }
+     .brand-container {
+        height: 200px;
+        margin-top: 40px;
+        
+    }
+    .page-name{
+        font-size: 35px;
+    }
+}

@@ -1,0 +1,355 @@
+{
+  "arrival": {
+    "arrival1": {
+      "category": "Casuals Men",
+      "img": "/assets/images/4.png",
+      "name": "T-Shirt",
+      "price": 900,
+      "rating": 4.5
+    },
+    "arrival2": {
+      "category": "Formals Men",
+      "img": "/assets/images/blazer1.png",
+      "name": "Blazer Men",
+      "price": 2800,
+      "rating": 5
+    },
+    "arrival3": {
+      "category": "Casuals Men",
+      "img": "/assets/images/5.png",
+      "name": "Hoodie Men",
+      "price": 700,
+      "rating": 4
+    },
+    "arrival4": {
+      "category": "Formals Women",
+      "img": "/assets/Product/shirt2.png",
+      "name": "Shirt Women",
+      "price": 850
+    },
+    "arrival5": {
+      "category": "Formals men",
+      "img": "/assets/Product/shirt1.png",
+      "name": "Red Shirt Men",
+      "price": 750
+    },
+    "arrival6": {
+      "category": "Casuals Men",
+      "img": "/assets/Product/rain.png",
+      "name": "Rain Coat",
+      "price": 1400
+    }
+  },
+  "products": {
+    "pro001": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/1.png",
+      "name": "Coat Suit Men",
+      "outfitName": "Coat Suit",
+      "outfitType": "one-piece",
+      "price": 3900,
+      "skinTone": ["Fair Skin", "Dusky Skin"]
+    },
+    "pro002": {
+      "category": "Formals",
+      "gender": "female",
+      "img": "public/assets/Product/Formals/20.png",
+      "name": "Blazer Women",
+      "outfitName": "Blazer Women",
+      "outfitType": "top",
+      "price": 2700,
+      "skinTone": "Fair Skin"
+    },
+    "pro003": {
+      "category": "Casuals",
+      "gender": "female",
+      "img": "public/assets/Product/Casuals/1.png",
+      "name": "Crop Top",
+      "outfitName": "Crop Top",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Fair Skin"
+    },
+    "pro004": {
+      "category": "Casuals",
+      "gender": "male",
+      "img": "public/assets/Product/Casuals/37.png",
+      "name": "Hoodie Men",
+      "outfitName": "Hoodie",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Fair Skin"
+    },
+    "pro005": {
+      "category": "Ocassions",
+      "gender": "male",
+      "img": "public/assets/Product/Ocassions/14.png",
+      "name": "Sherwani",
+      "outfitName": "Sherwani",
+      "outfitType": "one-piece",
+      "price": 2600,
+      "skinTone": "Fair Skin"
+    },
+    "pro006": {
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/15.png",
+      "name": "Anarkali",
+      "outfitName": "Anarkali",
+      "outfitType": "one-piece",
+      "price": 1700,
+      "skinTone": "Dark Skin"
+    },
+    "pro007": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/2.png",
+      "name": "Coat Suit Men",
+      "outfitName": "Coat Suit",
+      "outfitType": "one-piece",
+      "price": 2500,
+      "skinTone": "Dusky Skin"
+    },
+    "pro008": {
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/16.png",
+      "name": "Long Gown",
+      "outfitName": "Long Gown",
+      "outfitType": "one-piece",
+      "price": 2300,
+      "skinTone": "Dusky Skin"
+    },
+    "pro009": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/6.png",
+      "name": "Coat Suit",
+      "outfitName": "Coat Suit",
+      "outfitType": "one-piece",
+      "price": 3200,
+      "skinTone": "Dark Skin"
+    },
+    "pro010": {
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/17.png",
+      "name": "Anarkali",
+      "outfitName": "Anarkali",
+      "outfitType": "one-piece",
+      "price": 1000,
+      "skinTone": "Dark Skin"
+    },
+    "pro011": {
+      "category": "Casuals",
+      "gender": "male",
+      "img": "public/assets/Product/Casuals/2.png",
+      "name": "Hoodie Men",
+      "outfitName": "Hoodie",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Dark Skin"
+    },
+    "pro012": {
+      "category": "Formals",
+      "gender": "female",
+      "img": "public/assets/Product/Formals/21.png",
+      "name": "Blazer Women",
+      "outfitName": "Blazer",
+      "outfitType": "top",
+      "price": 2700,
+      "skinTone": "Dusky Skin"
+    },
+    "pro013": {
+      "category": "Casuals",
+      "gender": "male",
+      "img": "public/assets/Product/Casuals/35.png",
+      "name": "T Shirt Men",
+      "outfitName": "T Shirt",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Dark Skin"
+    },
+    "pro014": {
+      "category": "Casuals",
+      "gender": "female",
+      "img": "public/assets/Product/Casuals/3.png",
+      "name": "Crop Top",
+      "outfitName": "Crop Top",
+      "outfitType": "top",
+      "price": 700,
+      "skinTone": "Dusky Skin"
+    },
+    "pro015": {
+      "category": "Casuals",
+      "gender": "male",
+      "img": "public/assets/Product/Casuals/19.png",
+      "name": "Hoodie Men",
+      "outfitName": "Hoodie",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Dusky Skin"
+    },
+    "pro016": {
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/19.png",
+      "name": "Long Gown",
+      "outfitName": "Long Gown",
+      "outfitType": "one-piece",
+      "price": 2500,
+      "skinTone": "Fair Skin"
+    },
+    "pro017": {
+      "OutfitType": "one-piece",
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/22.png",
+      "name": "Long Gown",
+      "outfitName": "Long Gown",
+      "price": 2500,
+      "skinTone": "Fair Skin"
+    },
+    "pro018": {
+      "category": "Casuals",
+      "gender": "male",
+      "img": "public/assets/Product/Casuals/4.png",
+      "name": "Polo T-Shirt Men",
+      "outfitName": "Polo T-Shirt",
+      "outfitType": "top",
+      "price": 800,
+      "skinTone": "Dusky Skin"
+    },
+    "pro019": {
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/21.png",
+      "name": "Long Gown",
+      "outfitName": "Long Gown",
+      "outfitType": "one-piece",
+      "price": 2700,
+      "skinTone": "Fair Skin"
+    },
+    "pro020": {
+      "OutfitType": "one-piece",
+      "category": "Ocassions",
+      "gender": "female",
+      "img": "public/assets/Product/Ocassions/20.png",
+      "name": "Long Gown",
+      "outfitName": "Long Gown",
+      "price": 2500,
+      "skinTone": "Fair Skin"
+    },
+    "pro040": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/32.jpg",
+      "name": "White coat",
+      "outfitName": "Coat Suit",
+      "outfitType": "one-piece",
+      "price": 3800,
+      "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+    },
+    "pro041": {
+      "category": "Formals",
+      "gender": "male",
+      "img": "public/assets/Product/Formals/26.jpg",
+      "name": "pink coat",
+      "outfitName": "Coat Suit",
+      "outfitType": "top",
+      "price": 3800,
+      "skinTone": "Fair Skin"
+    },
+    "pro042": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bc01.jpg",
+    "name": "Striped Blue Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 864,
+    "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+  },
+  "pro043": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/wc01.jpg",
+    "name": "White Collar Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 1907,
+    "skinTone": ["Fair Skin", "Dusky Skin","Dark Skin"]
+  },
+  "pro044": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/nc01.jpg",
+    "name": "Navy Denim Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 1125,
+    "skinTone": "Fair Skin"
+  },
+  "pro045": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bg01.jpg",
+    "name": "Sky Checkered Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 899,
+    "skinTone": "Dusky Skin"
+  },
+  "pro046": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/oc01.jpg",
+    "name": "Classic Olive Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 881,
+    "skinTone": "Dusky Skin"
+  },
+  "pro047": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/bc02.jpg",
+    "name": "Classic black Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 871,
+    "skinTone": "Fair Skin"
+  },
+  "pro048": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/mc01.jpg",
+    "name": "Classic maroon Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 851,
+    "skinTone": "Fair Skin"
+  },
+  "pro049": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/pc01.jpg",
+    "name": "Classic pink Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "one-piece",
+    "price": 891,
+    "skinTone": "Fair Skin"
+  },
+  "pro050": {
+    "category": "Casual",
+    "gender": "male",
+    "img": "public/assets/Product/Casuals/pc02.jpg",
+    "name": "Classic purple Shirt",
+    "outfitName": "CasualShirts",
+    "outfitType": "top",
+    "price": 891,
+    "skinTone": "Fair Skin"
+  }
+  }
+}

@@ -1,8 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-//import Home from './pages/Home';
-import Footer from './Footer/Footer';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,22 +31,39 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Master from './Master';
+import "./App.css";
+// Removed Redux imports as currentPage logic will now be handled within Master.tsx
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from './Store/store';
+
+// Import the Admin components
+import AdminAuth from './components/pages/head/admin';
+import AdminDashboard from './components/pages/head/adminpage/AdminDashboard';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Footer />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  // The currentPage and dispatch logic, along with the conditional rendering,
+  // should now be moved inside your Master component, as it's the one
+  // rendered at the root path and will handle the internal "page" display.
+  // console.log("Current Page", currentPage); // This line is now irrelevant here.
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          {/* Master component will now handle rendering Home, Products, Wishlist etc. based on Redux state */}
+          <Route exact path="/" component={Master} />
+          {/* Admin routes remain as traditional URL routes */}
+          <Route exact path="/admin" component={AdminAuth} />
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          {/* Fallback route */}
+          <Route render={() => <Redirect to="/" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

@@ -1,0 +1,245 @@
+import * as faceapi from 'face-api.js';
+import { options } from 'ionicons/icons';
+
+export const extractGender = async (base64Image: string): Promise<string> => {
+  try {
+    // Load models if not already loaded
+    await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+    await faceapi.nets.ageGenderNet.loadFromUri('/models');
+
+    const img = new Image();
+    img.src = base64Image;
+
+    await new Promise((resolve) => {
+      img.onload = resolve;
+    });
+
+    const detection = await faceapi
+      .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
+      .withFaceLandmarks()
+      .withAgeAndGender();
+
+    if (detection && detection.gender) {
+      console.log('Detected Gender:', detection.gender);
+      return detection.gender;
+    } else {
+      console.log('Gender could not be detected');
+      return 'unknown';
+    }
+  } catch (error) {
+    console.error('Error during gender extraction:', error);
+    return 'unknown';
+  }
+};
+
+
+
+
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
+
+export interface SkinToneCategory {
+  name: string;
+  description: string;
+  minRGB: RGB;
+  maxRGB: RGB;
+}
+
+export const SKIN_TONE_CATEGORIES: SkinToneCategory[] = [
+  {
+    name: "Fair Skin",
+    description: "Fair, always burns, never tans",
+    minRGB: { r: 200, g: 170, b: 160 },
+    maxRGB: { r: 255, g: 230, b: 210 }
+  },
+  {
+    name: "Dusky Skin",
+    description: "Dusky, burns easily, tans minimally",
+    minRGB: { r: 140, g: 100, b: 80 },
+    maxRGB: { r: 200, g: 170, b: 140 }
+  },
+  {
+    name: "Dark Skin",
+    description: "Dark, burns moderately, tans gradually",
+    minRGB: { r: 60, g: 40, b: 30 },
+    maxRGB: { r: 130, g: 100, b: 90 }
+  },
+  // {
+  //   name: "Type IV",
+  //   description: "Olive, burns minimally, tans well",
+  //   minRGB: { r: 198, g: 134, b: 66 },
+  //   maxRGB: { r: 224, g: 172, b: 105 }
+  // },
+  // {
+  //   name: "Type V",
+  //   description: "Brown, rarely burns, tans profusely",
+  //   minRGB: { r: 141, g: 85, b: 36 },
+  //   maxRGB: { r: 198, g: 134, b: 66 }
+  // },
+  // {
+  //   name: "Type VI",
+  //   description: "Dark brown to black, never burns",
+  //   minRGB: { r: 70, g: 39, b: 23 },
+  //   maxRGB: { r: 141, g: 85, b: 36 }
+  // }
+];
+
+async function detectGenderFromImage(base64: string): Promise<string | undefined> {
+  const formData = new FormData();
+  const blob = await (await fetch(base64)).blob();
+  formData.append('image', blob);
+
+  const res = await fetch('https://api.deepai.org/api/gender-detection', {
+    method: 'POST',
+    headers: {
+      'api-key': '2192ee34-6c87-40f8-9246-e7423d48a720', // Replace with your actual API key
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+
+  return data?.output?.gender;
+}
+
+
+
+export function rgbToHex({ r, g, b }: RGB): string {
+  const toHex = (c: number) => {
+    const hex = c.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  };
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+export function getSkinToneCategory(color: RGB): SkinToneCategory | undefined {
+  return SKIN_TONE_CATEGORIES.find(category => {
+    return (
+      color.r >= category.minRGB.r && color.r <= category.maxRGB.r &&
+      color.g >= category.minRGB.g && color.g <= category.maxRGB.g &&
+      color.b >= category.minRGB.b && color.b <= category.maxRGB.b
+    );
+  });
+}
+
+export function isSkinTone(r: number, g: number, b: number): boolean {
+  const sum = r + g + b;
+  const rRatio = r / sum;
+  const gRatio = g / sum;
+  const bRatio = b / sum;
+
+  return (
+    rRatio > 0.3 && rRatio < 0.5 &&
+    gRatio > 0.28 && gRatio < 0.35 &&
+    bRatio > 0.2 && bRatio < 0.3 &&
+    r > g && g > b &&
+    r > 60 && r < 250 &&
+    g > 45 && g < 200 &&
+    b > 30 && b < 170
+  );
+}
+
+export function isClothingColor(r: number, g: number, b: number): boolean {
+  const brightness = (r + g + b) / 3;
+  const saturation = Math.max(r, g, b) - Math.min(r, g, b);
+
+  return (
+    brightness > 20 && brightness < 235 &&
+    saturation > 10
+  );
+}
+
+export async function extractPersonColors(imageUrl: string): Promise<{
+  skinTones: Array<{ rgb: RGB; category?: SkinToneCategory }>;
+  clothingColors: RGB[];
+  gender?: string;
+}> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    img.onload = async () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        reject(new Error('Could not get canvas context'));
+        return;
+      }
+
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const centerX = Math.floor(canvas.width * 0.2);
+      const centerWidth = Math.floor(canvas.width * 0.6);
+      const centerY = Math.floor(canvas.height * 0.1);
+      const centerHeight = Math.floor(canvas.height * 0.8);
+
+      const imageData = ctx.getImageData(centerX, centerY, centerWidth, centerHeight);
+      const pixels = imageData.data;
+
+      const skinTones = new Map<string, { rgb: RGB; count: number }>();
+      const clothingColors = new Map<string, { rgb: RGB; count: number }>();
+
+      for (let i = 0; i < pixels.length; i += 16) {
+        const r = pixels[i];
+        const g = pixels[i + 1];
+        const b = pixels[i + 2];
+        const a = pixels[i + 3];
+
+        if (a < 128) continue;
+
+        const key = `${r},${g},${b}`;
+
+        if (isSkinTone(r, g, b)) {
+          const existing = skinTones.get(key);
+          if (existing) {
+            existing.count++;
+          } else {
+            skinTones.set(key, { rgb: { r, g, b }, count: 1 });
+          }
+        } else if (isClothingColor(r, g, b)) {
+          const existing = clothingColors.get(key);
+          if (existing) {
+            existing.count++;
+          } else {
+            clothingColors.set(key, { rgb: { r, g, b }, count: 1 });
+          }
+        }
+      }
+
+      const topSkinTones = Array.from(skinTones.values())
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 2)
+        .map(item => ({
+          rgb: item.rgb,
+          category: getSkinToneCategory(item.rgb)
+        }));
+
+      const topClothingColors = Array.from(clothingColors.values())
+        .sort((a, b) => b.count - a.count)
+        .map(item => item.rgb)
+        .slice(0, 3);
+
+      const gender = await detectGenderFromImage(imageUrl);
+
+      resolve({
+        skinTones: topSkinTones,
+        clothingColors: topClothingColors,
+        gender
+      });
+    };
+
+    img.onerror = () => {
+      reject(new Error('Failed to load image'));
+    };
+
+    img.src = imageUrl;
+  });
+}

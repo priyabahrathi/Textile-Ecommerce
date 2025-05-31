@@ -1,0 +1,395 @@
+/* Works in Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  /* Track (the area behind the scrollbar thumb) */
+  ::-webkit-scrollbar-track {
+    /* background: #f1f1f100; */
+    border-radius: 10px;
+  }
+  
+  /* Handle (the draggable part) */
+  ::-webkit-scrollbar-thumb {
+    /* background: #88888800; */
+    border-radius: 10px;
+  }
+  
+
+
+/* Container Styling */
+.container {
+    
+    background: #a7aad300; /* Light transparent background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari Support */
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    max-width: 100%;
+    margin: auto;
+    /* box-shadow: 0 0 15px #7d7e7e; */
+}
+
+/* Navigation Styling */
+.nav-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-item h3 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    color: #3A3E6C;
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.6rem;
+}
+
+.nav-list {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.head-list{
+    color: #ffffff;
+}
+.nav-list li {
+    position: relative;
+    padding: 10px 15px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #ffffff;
+    background: transparent;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+.main-content h3,li{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+.nav-list li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    
+}
+
+
+/* Navigation Icon Button */
+.nav-icon {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* better spacing between icons */
+}
+
+.icon-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 60px; /* ensures consistent width */
+}
+
+.icon-with-label ion-button,
+.icon-with-label ion-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  width: 40px;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.icon-label {
+  font-size: 0.75rem;
+  color: #3A3E6C;
+  margin-top: 4px;
+  line-height: 1;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.active-icon ion-icon {
+  color: #E59866 !important; /* Active icon color (orange) */
+}
+
+.active-icon .icon-label {
+  color: #E59866 !important; /* Active label color */
+  font-weight: 600;
+}
+
+
+
+/* .nav-icon button:hover  {
+    color: #002642;
+} */
+
+/* Mobile Navigation */
+.menu-icon {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    display: none;
+    font-size: 40px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    z-index: 10;
+}
+
+  ion-menu {
+    --width:250px;
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    --ion-background-color: #FFF5ED !important;
+    --ion-text-color: #E59866 ;
+  }
+  .close-icon{
+    --color:#E59866;
+  }
+  
+  
+  ion-menu .menu-menu {
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    --background: #FFF5ED  !important;
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+  }
+  ion-menu .menu-menu:hover{
+    color: #FFF5ED ;
+  }
+  .head-list{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+   --background:  #FFF5ED;
+   /* --ion-text-color: #E59866 !important; */
+  }
+  .head-list.list-md { background: #FFF5ED; }
+
+  
+  /* .new:hover{
+    --color: #002642 !important;
+  } */
+   
+  .head-list .head-item{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    /* --background: #00a698  !important; */
+    --inner-border-width: 0px;
+    --background:#FFF5ED;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+   
+  }
+ .item{
+    background-color: #E59866;
+   
+ }
+ .menu-drop{
+    position:relative;
+    left:20%;
+ }
+  
+  .ion-icon {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    color:#E59866 !important;
+    font-size: 20px;
+  }
+
+  .color{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    --background:transparent;
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --border-style: none;
+    --border-color: transparent;
+    color: #ffffff;
+}
+
+.custom-item{
+    
+    font-size: 0.8rem;
+}
+
+.inner-icon{
+    color: #ffffff;
+}
+
+.custom-item:hover {
+    --background: #ffffff36;  
+    --color: #ffffff;                
+    /* transition: background-color 0.2s ease; */
+  }
+  
+  /* To target the ion-icon */
+  .custom-item:hover ion-icon {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    color: #ffffff !important;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+/* Style for the search bar in the header */
+.pro-header-search {
+    display: flex;
+    align-items: center;
+    background: #ffffff75;
+    border-radius: 8px;
+    padding: 4px 12px;
+    min-width: 260px;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(221, 138, 82, 0.08);
+    margin: 0 24px;
+    flex: 1 1 320px;
+}
+
+.pro-header-search ion-input {
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: #d45907;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 100%;
+}
+
+.pro-header-search ion-input::placeholder {
+    color: #d45907b0;
+    opacity: 1;
+}
+
+.pro-header-search ion-button {
+    --background: transparent;
+    --color: #d45907;
+    font-size: 1.3rem;
+    margin-left: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.pro-header-search ion-button:hover {
+    --background: #ffe5d0;
+}
+/* Style for the action icons on the right side of the header */
+.nav-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-icon ion-button {
+    --background: transparent;
+    --color: #3A3E6C;
+    font-size: 1.7rem;
+    border-radius: 50%;
+    transition: background 0.2s;
+    margin: 0 2px;
+    padding: 6px;
+}
+
+.nav-icon ion-button:hover {
+    --background:none
+    --color: #a33c00;
+}
+
+.nav-icon ion-icon {
+    font-size: 1.7rem;
+    color: #3A3E6C;
+    transition: color 0.2s;
+}
+
+
+@media screen and (max-width: 1057px) {
+    .container{
+        max-width: 100%;
+        margin: auto;
+    }
+    .nav-item h3 {
+        font-size: 2rem;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 5;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .nav-list.show-menu {
+        display: flex;
+    }
+
+    .nav-icon {
+        display: flex !important; /* Ensure nav-icon is visible */
+        align-items: center;
+    }
+    .nav-icon ion-button {
+        display: none; /* Hide icon buttons on mobile */
+    }
+    .menu-icon {
+        display: block !important; /* Ensure menu button is visible */
+    }
+
+    .dropdown {
+        left: 100%;
+        top: 0;
+        transform: translateX(10px);
+        width: auto;
+        min-width: 180px;
+       
+    }
+   
+}
+.icon-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.icon-label {
+  font-size: 0.75rem;
+  color: #3A3E6C;
+  margin-top: 4px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #ff5722;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 1px 4px #fbeee6;
+}

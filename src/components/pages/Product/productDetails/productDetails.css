@@ -1,0 +1,374 @@
+.product-detail-page {
+  padding: 0 0 40px 0;
+  position: relative;
+  overflow: auto;
+  background-color: #f1f1f1;
+}
+.back-btn {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  position: sticky;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  background: none;
+  border: 1px solid #3A3E6C;
+  color: #3A3E6C;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 18px;
+  box-shadow: 0 1px 5px #3A3E6C;
+}
+
+.gallery-info {
+  display: flex;
+  gap: 48px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 40px 48px 32px 48px;
+ 
+}
+
+.image-gallery {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-img {
+ 
+  object-fit: contain;
+  transition: border 0.2s;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 6px #ececec;
+}
+.thumb.active, .thumb:hover {
+  border: 2px solid #3A3E6C;
+  box-shadow: 0 2px 12px #3A3E6C;
+  transform: scale(1.05);
+  transition: transform 0.2s;
+  background: #fff;
+
+}
+
+.product-info {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  justify-content: flex-start;
+}
+
+.pro-name {
+  font-family: "Lobster", sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #3A3E6C;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.name-rating{
+  line-height: 0;
+}
+.price-rating {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.price-tag{
+  font-weight: 700;
+  color: #3A3E6C;
+  font-size: 25px;
+}
+.price {
+  color: green;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.rating {
+  color: #ffc107;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.reviews {
+  color: #888;
+  font-size: 16px;
+}
+
+.selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.selector {
+  margin: 0 6px;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s, box-shadow 0.2s;
+  font-size: 20px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px #fbeee6;
+}
+.selector.active, .selector:hover {
+  border: 2px solid #3A3E6C;
+  box-shadow: 0 0 7px #3A3E6C;
+}
+.p{
+  font-size: 20px;
+  color: black;
+  line-height: 1.2;
+  margin-top: 12px;
+}
+.desp-head{
+  color: #3A3E6C;
+  font-weight: bold;
+  font-size: 25px;
+}
+.action-buttons {
+  display: flex;
+  gap: 22px;
+}
+
+.add-cart,.buy,.tryon-btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 2px 8px #3A3E6C;
+  letter-spacing: 0.5px;
+}
+
+.add-cart {
+  background-color: #3A3E6C;
+  color: #fff;
+  box-shadow: 0 4px 16px #3A3E6C;
+}
+
+.tryon-btn {
+  background: #ffffff;
+  color: #3A3E6C;
+  border: 2px solid #3A3E6C;
+}
+
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin: 36px 0 0 0;
+  padding: 0 48px;
+}
+
+.tab {
+  padding: 14px 38px;
+  border: none;
+  background: #f8f8f8;
+  color: #3A3E6C;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+.tab.active, .tab:hover {
+  background: #ddd;
+  color: #3A3E6C;
+}
+
+.tab-content {
+  background: #f8f8f8;
+  border-radius: 0 0 12px 12px;
+  padding: 36px 48px;
+  min-height: 160px;
+  box-shadow: 0 1px 4px #fbeee6;
+  font-size: 1.08rem;
+}
+
+.tab-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3A3E6C;
+  margin-bottom: 14px;
+}
+
+.tryon-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tryon-modal-content, .review-modal-content {
+  background: #fff;
+  padding: 36px 32px 28px 32px;
+  border-radius: 14px;
+  position: relative;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: auto;
+  box-shadow: 0 8px 40px rgba(60, 72, 88, 0.18);
+  min-width: 340px;
+}
+
+.close-btn {
+  position: fixed;
+  top: 24px;
+  right: 180px;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: #3A3E6C;
+  transition: color 0.2s;
+  z-index: 1001;
+}
+.add-review-btn {
+  margin-top: 22px;
+  background: #3A3E6C;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px #3A3E6C;}
+
+.review-list {
+  margin-top: 18px;
+}
+.review-item {
+  background: #ddd;
+  border-radius: 8px;
+  padding: 16px 22px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.review-author {
+  font-weight: 700;
+  color: #3A3E6C;
+  font-size: 1.3rem;
+}
+.review-rating {
+  color: #ffc107;
+  margin-left: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.review-text {
+  margin-top: 4px;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #222;
+}
+.review-form input, .review-form textarea, .review-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1.5px solid #e0e0e0;
+  margin-bottom: 18px;
+  font-size: 1rem;
+  background: #f8f8f8;
+  transition: border 0.2s;
+}
+.review-form input:focus, .review-form textarea:focus, .review-form select:focus {
+  border: 1.5px solid #ff9800;
+  outline: none;
+}
+.review-form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+.review-form button {
+  background: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px #ffe0b2;
+}
+.review-form button:hover {
+  background: #d84315;
+}
+
+.product-highlights {
+  margin-top: 18px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px #fbeee6;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 20px;
+}
+.highlight-title {
+  font-weight: bold;
+  color: #3A3E6C;
+  margin-right: 8px;
+}
+
+@media (max-width: 900px) {
+  .gallery-info {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 18px 24px 18px;
+  }
+  .tabs, .tab-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .main-img {
+    width: 90vw;
+    max-width: 340px;
+    height: 340px;
+  }
+  .close-btn{
+    right: 24px;
+  }
+}

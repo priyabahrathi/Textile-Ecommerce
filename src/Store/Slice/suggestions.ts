@@ -1,0 +1,62 @@
+// src/Store/Slice/suggestionSlice.ts
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ref, get } from 'firebase/database';
+import { database } from '../Slice/firebase'; // Adjust if needed
+
+export interface Product {
+  skinTone: any;
+  id: string;
+  name: string;
+  img: string;
+  price: string;
+  gender: string; 
+  outfitName: string;
+}
+
+export const fetchSuggestedProducts = createAsyncThunk('products/fetch', async () => {
+  const dbRef = ref(database, 'products');
+  const snapshot = await get(dbRef);
+
+  if (!snapshot.exists()) {
+    return [];
+  }
+
+  const data = snapshot.val();
+  const products: Product[] = Object.entries(data).map(([key, value]: any) => ({
+    id: key,
+    ...value,
+    skinTone: value.skinTone || '', // Ensure skinTone is always defined
+  }));
+
+  return products;
+});
+
+const suggestionSlice = createSlice({
+  name: 'suggestions',
+  initialState: {
+    suggestions: [] as Product[],
+    loading: false,
+    error: null as string | null,
+  },
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      
+      .addCase(fetchSuggestedProducts.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSuggestedProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.suggestions = action.payload;
+      })
+      .addCase(fetchSuggestedProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Error fetching suggestions';
+      });
+  },
+});
+
+export default suggestionSlice.reducer;
+
+

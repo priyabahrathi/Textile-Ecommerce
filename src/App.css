@@ -1,0 +1,10 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+/* Add this CSS to Product.css */
+
+  ion-app{
+    overflow-y: auto;
+}
