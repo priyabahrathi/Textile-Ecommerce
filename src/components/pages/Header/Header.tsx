@@ -18,16 +18,13 @@ import {
   cart,
   search,
   home,
-} from "ionicons/icons";
+}from "ionicons/icons";
 import { IoMenu, IoRemove, IoAdd } from "react-icons/io5";
-
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from '../../../Store/Slice/pageSlice';
 import { RootState } from '../../../Store/store';
 import { addToCart, incrementQuantity, decrementQuantity } from '../../../Store/Slice/cartSlice';
-
 import "./Header.css";
-
 const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1057);
   const dispatch = useDispatch();

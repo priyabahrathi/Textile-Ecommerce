@@ -7,7 +7,6 @@ import "./imageuplode.css";
 interface ImageUploadProps {
   type: 'clothing' | 'avatar' | 'background';
   inputRef?: React.RefObject<HTMLInputElement | null>;
-
   preview: string | null;
   required?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>, type: string) => void;
@@ -26,18 +25,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   onRemove, 
   disabled = false,
 }) => {
-
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       try {
         const resizedBlob = await readAndCompressImage(file, imageResizeConfig);
         const resizedFile = new File([resizedBlob], file.name, { type: file.type, lastModified: Date.now() });
-  
         // Create a new input element to simulate a file change event
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(resizedFile);
-  
         const fakeEvent = {
           ...event,
           target: {
@@ -45,21 +41,16 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             files: dataTransfer.files,
           }
         };
-  
         onFileChange(fakeEvent as React.ChangeEvent<HTMLInputElement>, type);
       } catch (error) {
         console.error("Error resizing image:", error);
       }
     }
   };
-  
-  
-
   const handleRemove = () => {
     if (inputRef?.current) inputRef.current.value = '';
     onRemove?.(type);
   };
-
   return (
     <div className="image-upload-container">
       <label className="image-upload-label">
@@ -80,11 +71,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                   >
                     <X size={18} />
                   </button>
-                </div>
-                
+                </div>            
               ) : (
                 <Upload className="upload-icon" />
-                
               )}
               <div className="upload-input-wrapper">
                 {!preview && (

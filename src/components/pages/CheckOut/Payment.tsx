@@ -7,20 +7,16 @@ import { clearBuy } from '../../../Store/Slice/checkout';
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
 import { getDatabase, ref, push } from 'firebase/database';
 import { cart } from 'ionicons/icons';
-
 const Payment: React.FC = () => {
   const dispatch = useDispatch();
   const buyItems = useSelector((state: RootState) => state.buy.items);
   const cartItems = useSelector((state: RootState) => state.cart.items);
-
   const isBuyNow = buyItems.length > 0;
   const itemsToPay = isBuyNow ? buyItems : cartItems;
-
   const totalPrice = itemsToPay.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -28,14 +24,11 @@ const Payment: React.FC = () => {
     address: '',
     paymentMethod: '', // cod, upi, card
   });
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const order = {
       userName: form.name,
       items: itemsToPay.map(item => ({
@@ -54,11 +47,9 @@ const Payment: React.FC = () => {
       address: form.address,
       paymentMethod: form.paymentMethod,
     };
-
     try {
       const db = getDatabase(); 
       await push(ref(db, 'orders'), order);
-
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());
       dispatch(setPage('products'));
@@ -67,7 +58,6 @@ const Payment: React.FC = () => {
       alert('Something went wrong while submitting the order.');
     }
   };
-
   return (
     <div className="payment-page">
       <div className='cart-header'>
@@ -75,7 +65,7 @@ const Payment: React.FC = () => {
                 className="back-btn"
                  onClick={() => dispatch(goBack())}
               >
-                ← Back
+              ← Back
               </button>
               <h2 className='checkout-head'>Payment</h2>
               
@@ -93,13 +83,12 @@ const Payment: React.FC = () => {
                   <p className='bill-item'>  x {item.quantity}</p>
                 </div>
               ))}
-              <hr />
+              <hr/>
               <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
             </div>
           </IonCol>
           <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
             <form className="payment-form" onSubmit={handlePaymentSubmit}>
-
               <div className='name-phone'>
                 <div className='break'>
                   <label htmlFor="">Name</label>
@@ -114,15 +103,10 @@ const Payment: React.FC = () => {
                 <label htmlFor="">Email</label>
                 <input className='field-style' type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
               </div>
-
-
-
-
               <div className='break'>
                 <label htmlFor="">Address</label>
                 <textarea className='field-style' name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
               </div>
-
               <div className='break'>
                 <label htmlFor="">Payment Method</label>
                 <select name="paymentMethod" className='field-style' value={form.paymentMethod} onChange={handleInputChange}>
@@ -136,7 +120,6 @@ const Payment: React.FC = () => {
                   </div>
                 </select>
               </div>
-
               <button className='pay-btn' type="submit">Confirm & Pay ₹{totalPrice.toFixed(2)}</button>
             </form>
           </IonCol>
@@ -166,5 +149,4 @@ const Payment: React.FC = () => {
     </div>
   );
 };
-
 export default Payment;

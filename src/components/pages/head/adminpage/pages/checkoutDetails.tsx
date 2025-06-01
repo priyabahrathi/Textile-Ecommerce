@@ -4,7 +4,6 @@ import { getDatabase, ref, onValue, update } from 'firebase/database';
 import './checkoutDetails.css';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItemSliding, IonLabel, IonModal, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
 import { call } from 'ionicons/icons';
-
 type Order = {
     id: string;
     userName: string;
@@ -15,7 +14,6 @@ type Order = {
         price: number;
         quantity: number;
     }[];
-
     productName: string | string[];
     quantity: number;
     price: number;
@@ -26,9 +24,7 @@ type Order = {
     productImage?: string;
     size?: string;
     address?: string;
-
 };
-
 const CheckoutAdminPage: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [activeTab, setActiveTab] = useState<'approved' | 'unapproved' | 'cancelled'>('approved');
@@ -59,35 +55,26 @@ const CheckoutAdminPage: React.FC = () => {
     const handleApprove = (id: string) => {
         const confirm = window.confirm('Are you sure you want to approve this order?');
         if (!confirm) return;
-
         const order = orders.find(o => o.id === id);
         if (!order) return;
-
         if (!order.email) {
             alert('No email address found for this user.');
             return;
         }
-
         // Email content
         const bill = `
 Order Confirmation
-
 Hello ${order.userName},
-
 Thank you for your order!
-
 Order Details:
 Product: ${order.productName}
 Quantity: ${order.quantity}
 Price: $${order.price}
 Order Date: ${order.date}
 Total: $${order.price * order.quantity}
-
 Your order has been approved and is being processed.
-
 Thank you for shopping with us!
 `;
-
         // Send email via EmailJS
         emailjs.send(
             'service_to1ovkp',
@@ -111,7 +98,6 @@ Thank you for shopping with us!
                 alert('Failed to send email: ' + error.text);
             }
         );
-
         // Update status in Firebase
         const db = getDatabase();
         const orderRef = ref(db, `orders/${id}`);
@@ -552,5 +538,4 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
         </div>
     );
 };
-
 export default CheckoutAdminPage;

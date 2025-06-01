@@ -30,24 +30,19 @@ const Sample: React.FC = () => {
       else if (width >= 768) setCardsPerView(2);
       else setCardsPerView(1);
     };
-
     updateCardsPerView();
     window.addEventListener("resize", updateCardsPerView);
     return () => window.removeEventListener("resize", updateCardsPerView);
   }, []);
-
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + cardsPerView) % Products.length);
   };
-
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - cardsPerView + Products.length) % Products.length);
   };
-
   const cardWidth = sliderRef.current
     ? sliderRef.current.offsetWidth / cardsPerView
     : 300;
-
   return (
     <div className="arrival-body">
       <h2 className="name">New Arrivals</h2>

@@ -1,5 +1,4 @@
 import { fal } from "@fal-ai/client";
-
 export const tryOnWithFal = async (
   modelImage: string,
   garmentImage: string,

@@ -4,6 +4,8 @@ import { database } from '../Slice/firebase';
 import { ref, onValue } from 'firebase/database';
 
 interface Arrival {
+  image: string | undefined;
+  title: string | undefined;
   rating:number;
   id: string;
   name: string;

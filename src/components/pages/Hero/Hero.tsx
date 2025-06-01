@@ -89,9 +89,7 @@ const Hero: React.FC = () => {
             ]);
         });
     }, []);
-
     const currentSlide = heroSlides[currentSlideIndex];
-
     return (
         <>
             {/* Main Hero Section with Swiper Background */}
