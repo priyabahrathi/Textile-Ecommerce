@@ -491,6 +491,7 @@ ion-menu[menu-id="filterMenu"] {
 @media screen and (max-width:1025px) {
   .product-card{
     height:350px;
+    width: 100%;
   }
 }
 /* Desktop Specific (hide mobile filter button) */

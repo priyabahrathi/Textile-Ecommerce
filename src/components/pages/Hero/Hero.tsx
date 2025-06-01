@@ -180,19 +180,7 @@ const Hero: React.FC = () => {
                 </section>
             </div>
 
-           {/* features */}
-                        <div className="hero-features ">
-                <div className="hero-feature-item">
-                    <h3 className="hero-feature-title">Free Shipping</h3>
-                    
-                </div>
-                <div className="hero-feature-item">
-                    <h3 className="hero-feature-title">24/7 Customer Support</h3>
-                </div>
-                <div className="hero-feature-item">
-                    <h3 className="hero-feature-title">Secure Payments</h3>
-                </div>
-            </div>
+         
 
             {/* Social Media Sidebar (Fixed Overlay) */}
             <div className="social-media-sidebar">

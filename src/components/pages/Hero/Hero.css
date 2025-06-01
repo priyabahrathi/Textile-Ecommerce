@@ -269,6 +269,8 @@
     font-size: 0.9rem;
   }
   .social-media-sidebar {
+    top: 50%;
+    transform: translateY(-50%);
     right: 10px;
   }
   .social-icon-btn {
