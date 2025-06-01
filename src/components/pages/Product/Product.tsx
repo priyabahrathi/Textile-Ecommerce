@@ -471,7 +471,10 @@ const Product: React.FC = () => {
                             <span>&#8377;{product.price}</span>
                           </div>
                           <div className="card-header">
-                            <h3 className="product-name">{product.name}</h3>
+                            <h3 className="product-name" title={product.name}>
+                              {product.name.split(' ').slice(0, 2).join(' ')}
+                              {product.name.split(' ').length > 2 && '...'}
+                            </h3>
                             <button
                               className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
                               onClick={(e) => {
@@ -484,12 +487,9 @@ const Product: React.FC = () => {
                           </div>
                           <div className="product-details">
                           <p className="product-category">{product.category}</p>
-                          <div className='ratings'>
-                            <div className="stars">
+                          <div className="p-stars">
                               {getStarRating(product.rating)}
-                            </div>
-                            </div>
-                            
+                            </div>                            
                           </div>
 
                         </IonCardContent>
