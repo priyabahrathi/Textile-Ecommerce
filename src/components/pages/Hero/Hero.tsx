@@ -37,13 +37,13 @@ const Hero: React.FC = () => {
 
     const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
     const [loadingSlides, setLoadingSlides] = useState(true);
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // <-- Add this line
 
-    useEffect(() => {
+    const getBannerKey = () => window.innerWidth > 768 ? 'admin_banner_desktop' : 'admin_banner_mobile';
+
+    const fetchSlides = () => {
         const dbRef = ref(database);
-
-        // Fetch hero banner data from Firebase
-        get(child(dbRef, `banners/admin_banner`)).then(snapshot => {
+        get(child(dbRef, `banners/${getBannerKey()}`)).then(snapshot => {
             if (snapshot.exists()) {
                 const slidesData = snapshot.val();
                 if (Array.isArray(slidesData)) {
@@ -88,8 +88,18 @@ const Hero: React.FC = () => {
                 { image: 'https://placehold.co/1920x1080/002642/ffffff?text=New+Collections', heading: 'New Collections', paragraph: 'Stay ahead of the trend.' }
             ]);
         });
+    };
+
+    useEffect(() => {
+        fetchSlides();
+        const handleResize = () => {
+            fetchSlides();
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
-    const currentSlide = heroSlides[currentSlideIndex];
+
+    const currentSlide = heroSlides[currentSlideIndex] || heroSlides[0];
     return (
         <>
             {/* Main Hero Section with Swiper Background */}

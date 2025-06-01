@@ -39,7 +39,7 @@ const Master: React.FC = () => {
           <>
             <Hero />
             <Brand />
-            <Footer />
+            
           </>
         );
     }

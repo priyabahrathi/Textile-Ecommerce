@@ -12,7 +12,8 @@ interface HeroSlide {
     paragraph: string;
 }
 
-const ADMIN_ID = 'admin_banner';
+const ADMIN_ID_DESKTOP = 'admin_banner_desktop';
+const ADMIN_ID_MOBILE = 'admin_banner_mobile';
 
 const BannerImg: React.FC = () => {
     const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
@@ -20,24 +21,22 @@ const BannerImg: React.FC = () => {
     const [saveMessage, setSaveMessage] = useState<string | null>(null);
     const [messageType, setMessageType] = useState<'success' | 'error' | 'info' | null>(null);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768); // Example breakpoint
+    const [slideType, setSlideType] = useState<'desktop' | 'mobile'>('desktop');
 
     useEffect(() => {
         const dbRef = ref(database);
-        get(child(dbRef, `banners/${ADMIN_ID}`))
+        const adminId = slideType === 'desktop' ? ADMIN_ID_DESKTOP : ADMIN_ID_MOBILE;
+        get(child(dbRef, `banners/${adminId}`))
             .then(snapshot => {
                 if (snapshot.exists()) {
                     setHeroSlides(snapshot.val());
                 } else {
-                    // Default slides if none exist in Firebase
                     setHeroSlides([
-                        { image: '', heading: 'Welcome to Fashion', paragraph: 'Discover your perfect style.' },
-                        { image: '', heading: 'Deals Await', paragraph: 'Shop now and save big.' },
-                        { image: '', heading: 'New Collections', paragraph: 'Stay ahead of trends.' }
+                        { image: '', heading: 'Welcome', paragraph: 'Discover your perfect style.' }
                     ]);
                 }
             })
             .catch(error => {
-                console.error("Error fetching banner data:", error);
                 setSaveMessage("Failed to load banners.");
                 setMessageType('error');
             });
@@ -48,7 +47,7 @@ const BannerImg: React.FC = () => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [slideType]);
 
     const handleChange = (index: number, field: keyof HeroSlide, value: string) => {
         const updated = [...heroSlides];
@@ -86,11 +85,11 @@ const BannerImg: React.FC = () => {
         setSaveMessage("Saving changes...");
         setMessageType('info');
         try {
-            await set(ref(database, `banners/${ADMIN_ID}`), heroSlides);
+            const adminId = slideType === 'desktop' ? ADMIN_ID_DESKTOP : ADMIN_ID_MOBILE;
+            await set(ref(database, `banners/${adminId}`), heroSlides);
             setSaveMessage("Banners saved successfully!");
             setMessageType('success');
         } catch (e) {
-            console.error("Error saving slides:", e);
             setSaveMessage("Error saving banners. Please try again.");
             setMessageType('error');
         }
@@ -107,6 +106,17 @@ const BannerImg: React.FC = () => {
             <p className="banner-admin-description">
                 Customize the images, headings, and paragraphs for your website's main hero section.
             </p>
+
+            <div className="banner-type-toggle">
+                <button
+                    className={slideType === 'desktop' ? 'active' : ''}
+                    onClick={() => setSlideType('desktop')}
+                >Desktop Slides</button>
+                <button
+                    className={slideType === 'mobile' ? 'active' : ''}
+                    onClick={() => setSlideType('mobile')}
+                >Mobile Slides</button>
+            </div>
 
             <div className="banner-grid">
                 {heroSlides.map((slide, i) => (

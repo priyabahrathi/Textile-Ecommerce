@@ -1,5 +1,3 @@
-
-
 /* Base styles for the light theme */
 body {
     font-family: var(--admin-font-family-sans);
@@ -489,4 +487,45 @@ body.dark-theme .save-btn:hover {
         font-size: 1rem;
         padding: 0.8rem 1.5rem;
     }
+}
+
+/* --- Banner Type Toggle (Desktop/Mobile Switch) --- */
+.banner-type-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 2rem;
+}
+
+.banner-type-toggle button {
+    background: none;
+    border: 2px solid var(--admin-brand-primary, #52057b);
+    color: var(--admin-brand-primary, #52057b);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    outline: none;
+}
+
+.banner-type-toggle button.active,
+.banner-type-toggle button:focus {
+    background: var(--admin-brand-primary, #52057b);
+    color: #fff;
+    border-color: var(--admin-brand-primary, #52057b);
+}
+
+body.dark-theme .banner-type-toggle button {
+    border-color: var(--admin-brand-secondary, #880d8f);
+    color: var(--admin-brand-secondary, #880d8f);
+}
+
+body.dark-theme .banner-type-toggle button.active,
+body.dark-theme .banner-type-toggle button:focus {
+    background: var(--admin-brand-secondary, #880d8f);
+    color: #fff;
+    border-color: var(--admin-brand-secondary, #880d8f);
 }

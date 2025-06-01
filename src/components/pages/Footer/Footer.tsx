@@ -264,7 +264,7 @@
 // }
 // export default Footer;
 import React from "react";
-import './Footer.css';
+// import './Footer.css';
 const Footer: React.FC=()=>{
   return (
     <>
