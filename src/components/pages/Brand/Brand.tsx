@@ -9,11 +9,10 @@ import { RootState } from "../../../Store/store";
 import { easeOut, motion, useAnimation } from "framer-motion";
 import { useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
-
-const MotionCard = ({ children }: { children: React.ReactNode }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: false });
-  const controls = useAnimation();
+const MotionCard=({children}:{children:React.ReactNode})=>{
+  const ref=useRef(null);
+  const inView=useInView(ref,{ once: false });
+  const controls=useAnimation();
   useEffect(() => {
     if (inView) {
       controls.start({ opacity: 1, y: 0 });
@@ -28,15 +27,12 @@ const MotionCard = ({ children }: { children: React.ReactNode }) => {
       initial={{ opacity: 0, y: -100 }}
       animate={controls}
       transition={{ duration: 1, ease: "easeOut" }}
-
     >{children}</motion.div>
   )
 }
-
 const Brand: React.FC = () => {
   const Brands = useSelector((state: RootState) => state.brand.Brands);
   return (
-
     <div className="pagebrand">
       <div className="page-container">
         <div className="page-name">Famous Brands</div>
@@ -50,7 +46,6 @@ const Brand: React.FC = () => {
               1300: { slidesPerView: 5 },
               700: { slidesPerView: 3 },
               300: { slidesPerView: 1 }
-
             }}
           >
             {Brands.map((logo, index) => (
@@ -62,9 +57,6 @@ const Brand: React.FC = () => {
         </div>
       </div>
     </div>
-
-
   )
-
 };
 export default Brand;

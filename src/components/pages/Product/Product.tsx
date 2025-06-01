@@ -150,27 +150,20 @@ const Product: React.FC = () => {
       setSelectedColors((prev) => checked ? [...prev, value] : prev.filter((item) => item !== value));
     }
   };
-
-
-
   const applyFilter = () => {
     let result = Products;
-
     // Apply gender filter
     if (genderFilter !== 'both') {
       result = result.filter((product) => product.gender === genderFilter);
     }
-
     // Apply search text filter
     if (searchText) {
       result = result.filter((product) =>
         product.name.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-
     // Apply price range filter
     result = result.filter((product) => product.price >= lower && product.price <= upper);
-
     // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
 
 
@@ -181,7 +174,6 @@ const Product: React.FC = () => {
         product.fabricType && selectedFabricType.includes(product.fabricType)
       );
     }
-
     // Apply Outfit Name filter
     if (selectedOutfitNames.length > 0) {
       result = result.filter((product) =>
@@ -209,26 +201,29 @@ const Product: React.FC = () => {
         product.colors && selectedColors.some(color => product.colors!.includes(color))
       );
     }
-
     // Apply In Stock filter
     if (inStockOnly) {
       result = result.filter((product) => product.stock > 0);
     }
-
     // Apply sorting
-    if (sortBy === 'price-asc') {
+    if (sortBy === 'price-asc') 
+    {
       result.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-desc') {
+    } 
+    else if (sortBy === 'price-desc') 
+    {
       result.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'name-asc') {
+    } 
+    else if (sortBy === 'name-asc') 
+    {
       result.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortBy === 'name-desc') {
+    } 
+    else if (sortBy === 'name-desc') 
+    {
       result.sort((a, b) => b.name.localeCompare(a.name));
     }
-
     setFilteredItems(result);
   };
-
   const getStarRating = (rating: number = 4) => {
     return [...Array(5)].map((_, i) => (
       <IonIcon
@@ -239,24 +234,20 @@ const Product: React.FC = () => {
       />
     ));
   };
-
   const isInWishlist = (productId: string) => {
     return wishlist.some(item => item.id === productId);
   };
-
   return (
     <>
       <IonButton fill="clear" className="filter-toggle-btn" onClick={() => setDrawerOpen(true)}>
         <IonIcon icon={options} slot="icon-only" />
       </IonButton>
       <div id="main-content" className="main-content-wrapper">
-
         <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
           <div className="mobile-drawer-overlay" onClick={() => setDrawerOpen(false)} />
           <div className="mobile-drawer-content">
             <h3 className="filter-group-title">Filter Options</h3>
             <h4 className="filter-group-title">By Fabric Type</h4>
-
             <h4 className="filter-group-title">By Outfit Name</h4>
             <ul className="filter-option-list">
               {outfitNameOptions.map((outfit) => (
@@ -282,19 +273,13 @@ const Product: React.FC = () => {
                 </li>
               ))}
             </ul>
-
-
           </div>
         </div>
-
-        <div className="page-product">
+        <div      className="page-product">
           {/* Fixed Sidebar for Desktop */}
           <IonCol className="sidebar-col">
-            <div className="sidebar-filters">
+            <div  className="sidebar-filters">
               <h3 className="filter-group-title">Filter Options</h3>
-
-
-
               {/* By Outfit Name */}
               <h4 className="filter-group-title">By Outfit Name</h4>
               <ul className="filter-option-list">

@@ -67,9 +67,7 @@ const ProductDetail: React.FC = () => {
       })
     );
   };
-
   if (!selectedProduct) return <div>No product selected.</div>;
-
   return (<>
 
     <div className="product-detail-page">
@@ -139,11 +137,10 @@ const ProductDetail: React.FC = () => {
                 }
               }}
             >
-              Buy
+            Buy
             </button>
             <button className="tryon-btn" onClick={() => setShowTryOn(true)}>TryOn</button>
-          </div>
-
+            </div>
           <div className="product-highlights">
             <div>
               <span className="highlight-title">Fabric:</span> {selectedProduct.fabric || "Cotton Blend"}

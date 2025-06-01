@@ -13,7 +13,6 @@ import './tryon.css';
 import { cart, star, cloudUploadOutline } from 'ionicons/icons';
 import { tryOnWithFal } from '../../../new-api/utils/falApi';
 // import { Upload } from 'lucide-react';
-
 interface TryOnProps {
   clothingImage: string;
   modelImage?: string;
@@ -22,14 +21,12 @@ interface TryOnProps {
   genderFilter: string;
   outfitName: string;
 }
-
 const getSimpleSkinToneName = (rgb: RGB): string => {
   const brightness = (rgb.r + rgb.g + rgb.b) / 3;
   if (brightness < 85) return 'Dark';
   if (brightness <= 170) return 'Medium';
   return 'Fair';
 };
-
 const Tryon: React.FC<TryOnProps> = ({
   clothingImage, outfitType,
   modelImage: modelImageProp,
@@ -77,7 +74,6 @@ const Tryon: React.FC<TryOnProps> = ({
       setShowSuggestions(true);
     }
   }, [filteredSuggestions]);
-
   useEffect(() => {
     if (extractedSkinTones && extractedSkinTones.length > 0) {
       const enrichedSkinTones = extractedSkinTones.map((rgb) => ({
@@ -96,73 +92,57 @@ const Tryon: React.FC<TryOnProps> = ({
       }
     }
   }, [extractedSkinTones]);
-
   const dispatch = useDispatch<AppDispatch>();
-
   const { suggestions, loading: suggestionsLoading } = useSelector((state: RootState) => state.suggestions);
-
   const [showSuggestions, setShowSuggestions] = useState(false);
-
   useEffect(() => {
     setShowSuggestions(false);
   }, [selectedSkinTone]);
-
   useEffect(() => {
     dispatch(fetchSuggestedProducts());
     console.log("Fetching suggestions...");
   }, [dispatch]);
-
   const handleSuggestClick = () => {
     console.log("Button clicked");
     console.log("Selected Skin Tone:", selectedSkinTone);
     console.log("All Suggestions:", suggestions);
-  
     // Check if skin tone is selected and has a valid name
     if (!selectedSkinTone?.name) {
       console.log("Skin tone not detected or no name available.");
       return;
     }
-  
     // Filter products based on skin tone, gender, and outfitName
     const filtered = suggestions.filter(product => {
       const matchesSkinTone = Array.isArray(product.skinTone)
         ? product.skinTone.some((tone) => tone.toLowerCase().includes(selectedSkinTone.name.toLowerCase())) // Handle array case
         : product.skinTone?.toLowerCase().includes(selectedSkinTone.name.toLowerCase()); // Handle string case
-  
       const matchesGender = genderFilter === '' || product.gender === genderFilter; // Filter by gender
       const matchesOutfitName = outfitName === '' || product.outfitName === outfitName; // Filter by outfitName
-  
       return matchesSkinTone && matchesGender && matchesOutfitName; // Combine all conditions
     });
-  
     console.log("Filtered Suggestions:", filtered);
     setFilteredSuggestions(filtered);
     setShowSuggestions(true);
   };
-
   const [height, setHeight] = useState<number>();
   const [weight, setWeight] = useState<number>();
   const [chest, setChest] = useState<number>();
   const [shirtSize, setShirtSize] = useState<string>("");
-
   const handlePredict = () => {
     if (!height || !weight || !chest) {
       setShirtSize("Please fill in all fields.");
       return;
     }
-
     if (chest < 60) setShirtSize("S");
     else if (chest < 80) setShirtSize("M");
     else if (chest < 110) setShirtSize("L");
     else setShirtSize("XL");
   };
-
   useEffect(() => {
     if (height && weight && chest) {
       handlePredict();
     }
   }, [height, weight, chest]);
-
   useEffect(() => {
     if (clothingImage) {
       setPreviews((prev) => ({
@@ -171,7 +151,6 @@ const Tryon: React.FC<TryOnProps> = ({
       }));
     }
   }, [clothingImage]);
-
   const convertImageToBase64 = async (imagePath: string): Promise<string> => {
     const response = await fetch(imagePath);
     const blob = await response.blob();
@@ -182,7 +161,6 @@ const Tryon: React.FC<TryOnProps> = ({
       reader.readAsDataURL(blob);
     });
   };
-
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
     setImage: React.Dispatch<React.SetStateAction<string | null>>,
@@ -190,7 +168,6 @@ const Tryon: React.FC<TryOnProps> = ({
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result as string;
@@ -213,29 +190,24 @@ const Tryon: React.FC<TryOnProps> = ({
     };
     reader.readAsDataURL(file); // <-- This converts the image to Base64
   };
-
   const handlePromptChange = (value: string, type: string) => {
     setPrompts((prev) => ({
       ...prev,
       [type]: value,
     }));
   };
-
   const handleTryOn = async () => {
     if (!modelImage || !garmentImage) {
       alert("Please upload both images.");
       return;
     }
-
     setLoading(true);
     setResultImage(null);
-
     try {
       const base64Garment = garmentImage.startsWith('data:image')
         ? garmentImage
         : await convertImageToBase64(garmentImage);
       // Convert path to base64
-
       const response = await tryOnWithFal(modelImage, base64Garment, outfitType); // modelImage is already base64
       setResultImage(response.imageUrl);
     } catch (error) {
@@ -245,10 +217,8 @@ const Tryon: React.FC<TryOnProps> = ({
       setLoading(false);
     }
   };
-
   return (
-    <div className="tryon-page-wrapper">
-      
+    <div className="tryon-page-wrapper">  
       <div className="tryon-container">
         <IonGrid className="tryon-grid">
           <div className="tryon-container" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>

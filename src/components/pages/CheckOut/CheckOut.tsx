@@ -6,7 +6,7 @@ import {
   decrementQuantity,
   removeFromCart,
   CartItem,
-} from '../../../Store/Slice/cartSlice';
+}from'../../../Store/Slice/cartSlice';
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -16,22 +16,17 @@ import './CheckOut.css';
 import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
 import { cart, closeCircle } from 'ionicons/icons';
-
 const CheckOut: React.FC = () => {
   const dispatch = useDispatch();
-
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const buyItems = useSelector((state: RootState) => state.buy.items);
-
   const isBuyNow = buyItems.length > 0;
   const itemsToDisplay = isBuyNow ? buyItems : cartItems;
   const totalItems = itemsToDisplay.reduce((total, item) => total + item.quantity, 0);
-
   const totalPrice = itemsToDisplay.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
   const [expandedItem, setExpandedItem] = useState<CartItem | null>(null);
   // const subTotal=(item.price * item.quantity).toFixed(2);
   useEffect(() => {
@@ -39,26 +34,21 @@ const CheckOut: React.FC = () => {
       setExpandedItem(itemsToDisplay[0]);
     }
   }, [itemsToDisplay]);
-
-
   const handleIncrement = (item: CartItem) => {
     isBuyNow
       ? dispatch(increaseQuantity(item.id))
       : dispatch(incrementQuantity({ id: item.id, size: item.size }));
   };
-
   const handleDecrement = (item: CartItem) => {
     isBuyNow
       ? dispatch(decreaseQuantity(item.id))
       : dispatch(decrementQuantity({ id: item.id, size: item.size }));
   };
-
   const handleRemove = (item: CartItem) => {
     isBuyNow
       ? dispatch(removeFromBuy(item.id))
       : dispatch(removeFromCart({ id: item.id, size: item.size }));
   };
-
   return (
     <div className="c-cart-page">
       <div className='cart-header'>
@@ -66,19 +56,16 @@ const CheckOut: React.FC = () => {
           className="back-btn"
           onClick={() => dispatch(goBack())}
         >
-          ← Back
+        ←Back
         </button>
-
         <h2 className='checkout-head'>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
         
       </div>
-
-
       <IonGrid>
         <IonRow>
           <IonCol>
             <div className="buy-container">
-              {itemsToDisplay.length === 0 ? (
+              {itemsToDisplay.length===0?(
                 <p>Your cart is empty.</p>
               ) : (
                 <div className='card-content'>
@@ -119,7 +106,7 @@ const CheckOut: React.FC = () => {
                                   className="id-btn"
                                   disabled={item.quantity === 1}
                                 >
-                                  -
+                                -
                                 </button>
                                 <span className="quantity">{item.quantity}</span>
                                 <button
@@ -129,7 +116,7 @@ const CheckOut: React.FC = () => {
                                   }}
                                   className="id-btn"
                                 >
-                                  +
+                                +
                                 </button>
                               </div>
                               {/* <div className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. ratione, rem aliquam iste?</div> */}
@@ -144,8 +131,6 @@ const CheckOut: React.FC = () => {
                           >
                             <IonIcon icon={closeCircle} />
                           </button>
-
-
                           <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                       </IonCol>
@@ -155,14 +140,11 @@ const CheckOut: React.FC = () => {
                 </div>
 
               )}
-            </div>
-
-
+          </div>
           </IonCol>
-
           {/* <IonCol sizeXl="4" sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
             {expandedItem !== null && (
-              <div className="expanded-card">
+              <div  className="expanded-card">
                 <h3 className='expanded-name'>{expandedItem.name}</h3>
                 <img
                   src={
@@ -193,9 +175,6 @@ const CheckOut: React.FC = () => {
               </div>
             )}
           </IonCol> */}
-
-
-
         </IonRow>
         <IonRow>
           <IonCol>
@@ -206,7 +185,6 @@ const CheckOut: React.FC = () => {
                 {isBuyNow ? 'Proceed to Payment' : 'Proceed to Checkout'}
               </button>
             </div>
-
           </IonCol>
         </IonRow>
 
@@ -215,5 +193,4 @@ const CheckOut: React.FC = () => {
     </div>
   );
 };
-
 export default CheckOut;

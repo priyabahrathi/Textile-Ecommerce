@@ -9,7 +9,6 @@ import { arrowBackOutline } from "ionicons/icons";
 import "./arrival.css";
 import { setSelectedProduct } from "../../../Store/Slice/selectedProductSlice";
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
-
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -19,7 +18,6 @@ const getStars = (rating: number) => {
   }
   return stars;
 };
-
 const Arrival: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   // Changed selector to product.Products
@@ -27,11 +25,9 @@ const Arrival: React.FC = () => {
 
   const [showAll, setShowAll] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
-
   useEffect(() => {
     dispatch(fetchProductsFromFirebase());
   }, [dispatch]);
-
   useEffect(() => {
     const handleScroll = () => {
       setShowScroll(window.scrollY > 300);
@@ -39,7 +35,6 @@ const Arrival: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
