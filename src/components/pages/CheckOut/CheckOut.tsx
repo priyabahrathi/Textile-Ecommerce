@@ -6,14 +6,14 @@ import {
   decrementQuantity,
   removeFromCart,
   CartItem,
-}from'../../../Store/Slice/cartSlice';
+} from '../../../Store/Slice/cartSlice';
 import {
   increaseQuantity,
   decreaseQuantity,
   removeFromCart as removeFromBuy,
 } from '../../../Store/Slice/checkout';
 import './CheckOut.css';
-import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
+import { IonCardContent, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
 import { cart, closeCircle } from 'ionicons/icons';
 const CheckOut: React.FC = () => {
@@ -56,91 +56,105 @@ const CheckOut: React.FC = () => {
           className="back-btn"
           onClick={() => dispatch(goBack())}
         >
-        ←Back
+          ←Back
         </button>
         <h2 className='checkout-head'>{isBuyNow ? 'Product Purchase' : 'Your Cart'}</h2>
-        
+
       </div>
       <IonGrid>
         <IonRow>
           <IonCol>
             <div className="buy-container">
-              {itemsToDisplay.length===0?(
+              {itemsToDisplay.length === 0 ? (
                 <p>Your cart is empty.</p>
               ) : (
                 <div className='card-content'>
                   <IonGrid>
-                  <IonRow>
-                    {itemsToDisplay.map((item) => (
-                      <IonCol
-                      className='check-card-container'
-                        size="6"
-                        sizeMd="4"
-                        sizeLg="3"
-                        sizeXl='3'
-                        key={item.id + ('size' in item && item.size ? item.size : '')}
-                      >
-                        <div
-                          className="buy-card"
-                          onClick={() => setExpandedItem(item)}
+                    <IonRow>
+                      {itemsToDisplay.map((item) => (
+                        <IonCol
+                          className='check-card-container'
+                          size="6"
+                          sizeMd="4"
+                          sizeLg="3"
+                          sizeXl='3'
+                          key={item.id + ('size' in item && item.size ? item.size : '')}
                         >
-                          <div className='buy-data'>
-                            <img
-                              src={item.img || '/fallback.jpg'}
-                              alt={item.name}
-                              className="buy-img"
-                              style={{width:'100px'}}
-                            />
-                            <div className="buy-card-details">
-                              <div className='buy-price'>₹{item.price}</div>
-                              <div className='buy-name'>{item.name}</div>
-                              <div className='ratings-check'>★★★★☆ (4.2)</div>
-                                {'size' in item && item.size && <div className='buy-size'>Size: {item.size}</div>}
-                              <div></div>
-                              <div className="quantity-controls">
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDecrement(item);
-                                  }}
-                                  className="id-btn"
-                                  disabled={item.quantity === 1}
-                                >
-                                -
-                                </button>
-                                <span className="quantity">{item.quantity}</span>
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleIncrement(item);
-                                  }}
-                                  className="id-btn"
-                                >
-                                +
-                                </button>
-                              </div>
-                              {/* <div className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. ratione, rem aliquam iste?</div> */}
-                            </div>
-                          </div>
-                          <button
-                            className="remove-btn"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleRemove(item);
-                            }}
+                          <div
+                            className="buy-card"
+                            onClick={() => setExpandedItem(item)}
                           >
-                            <IonIcon icon={closeCircle} />
-                          </button>
-                          <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
-                        </div>
-                      </IonCol>
-                    ))}
-                  </IonRow>
-                </IonGrid>
+                            <div className='buy-data'>
+                              <div className="check-page-img">
+                                <div className="check-bg-style">
+                                  <img className="buy-img" src={item.img || '/fallback.jpg'} alt={item.name}
+                                  />
+                                </div>
+                              </div>
+                              <IonCardContent className="check-content">
+                                {/* <div className="check-price">
+                                  <div className='buy-price'>₹{item.price}</div>
+                                </div> */}
+
+
+                                <div className="buy-card-details">
+                                  {/* <div className='buy-price'>₹{item.price}</div> */}
+
+                                  <div className="buy-name" title={item.img}>
+                                    {item.name.split(' ').slice(0, 2).join(' ')}
+                                    {item.name.split(' ').length > 2 && '...'}
+
+                                  </div>
+                                  <div className='ratings-check'>★★★★ (4)</div>
+                                  {'size' in item && item.size && <div className='buy-size'>Size: {item.size}</div>}
+                                  <div></div>
+                                  <div className="quantity-controls">
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDecrement(item);
+                                      }}
+                                      className="id-btn"
+                                      disabled={item.quantity === 1}
+                                    >
+                                      -
+                                    </button>
+                                    <span className="quantity">{item.quantity}</span>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleIncrement(item);
+                                      }}
+                                      className="id-btn"
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+
+                                </div>
+                              </IonCardContent>
+
+
+                            </div>
+                            <button
+                              className="remove-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemove(item);
+                              }}
+                            >
+                              <IonIcon icon={closeCircle} />
+                            </button>
+                            <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
+                          </div>
+                        </IonCol>
+                      ))}
+                    </IonRow>
+                  </IonGrid>
                 </div>
 
               )}
-          </div>
+            </div>
           </IonCol>
           {/* <IonCol sizeXl="4" sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
             {expandedItem !== null && (
@@ -188,7 +202,7 @@ const CheckOut: React.FC = () => {
           </IonCol>
         </IonRow>
 
-       
+
       </IonGrid>
     </div>
   );
