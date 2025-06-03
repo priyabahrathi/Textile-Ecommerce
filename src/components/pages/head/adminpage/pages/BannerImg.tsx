@@ -16,7 +16,6 @@ const BannerImg: React.FC = () => {
     const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
     const [isSaving, setIsSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState<string | null>(null);
-
     useEffect(() => {
         const dbRef = ref(database);
         get(child(dbRef, `banners/${ADMIN_ID}`)).then(snapshot => {

@@ -19,7 +19,11 @@ const getStars = (rating: number) => {
 };
 const Arrival: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   const Products = useSelector((state: RootState) => state.arrival.Products);
+
+  // Changed selector to product.Products
+  const allProducts = useSelector((state: RootState) => state.product.Products); 
   const [showAll, setShowAll] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   useEffect(() => {
@@ -35,7 +39,17 @@ const Arrival: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const visibleProducts = showAll ? Products : Products.slice(0, 4);
+
+   const visibleProducts = showAll ? Products : Products.slice(0, 4);
+
+  // Sort products by ID (Firebase key) in descending order to get most recent, then take top 10
+  const recentProducts = [...allProducts]
+    .sort((a, b) => b.id.localeCompare(a.id)) // Sorts by Firebase ID (timestamp based)
+    .slice(0, 10); // Takes the top 10 recent products
+  // Visible products will now always be from the 'recentProducts' array.
+  // The 'Show More/Less' button will still function, but it will toggle
+  // between the first 4 of these 10, and all 10.
+  //   const visibleProducts = showAll ? recentProducts : recentProducts.slice(0, 4);
   return (
     <div className="arrival-page">
       <div className="arrival-body">
@@ -50,7 +64,7 @@ const Arrival: React.FC = () => {
               dispatch(setPage("productDetails")); // Navigate via Redux state
             }}>
               <img className="card-img" src={product.img} alt={product.name} />
-              <IonCardHeader className="card-head">
+               <IonCardHeader  className="card-head">
                 <IonCardTitle className="card-title">
                   <strong>{product.name}</strong>
                 </IonCardTitle>
@@ -66,7 +80,6 @@ const Arrival: React.FC = () => {
             </IonCard>
           ))}
         </div>
-
         {/* Show More / Show Less Button */}
         {Products.length > 4 && (
           <button className="toggle-btn" onClick={() => setShowAll(!showAll)}>
@@ -74,7 +87,6 @@ const Arrival: React.FC = () => {
           </button>
         )}
       </div>
-
       {/* Scroll to Top Button */}
       {showScroll && (
         <button className="scroll-top" onClick={scrollToTop}>
@@ -84,5 +96,4 @@ const Arrival: React.FC = () => {
     </div>
   );
 };
-
 export default Arrival;

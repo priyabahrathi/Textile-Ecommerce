@@ -1,5 +1,6 @@
-.container{
-    margin-top: -30px;
+.container
+{
+  margin-top: -30px;
 }
 .a{
     color:#3a3e6c;
@@ -7,14 +8,22 @@
 }
 .b{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 100px;
+}
+.c{
+  margin-left:auto;
+}
+.table{
+  margin-left:200px;
 }
 .text-justify{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-inline-start: 15px;
 }
 
 .site-footer
 {
-  background-color:#26272b;
+  background-color:#0f2a59;
   padding:45px 0 20px;
   font-size:15px;
   line-height:24px;
@@ -72,6 +81,7 @@
   color:RGB(233, 233, 233);
   text-decoration:none;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:gray;
 }
 .footer-links.inline li
 {
@@ -97,7 +107,8 @@
 }
 .copyright-text
 {
-  margin:0
+  margin:0;
+  text-align: center;
 }
 @media (max-width:991px)
 {
@@ -228,6 +239,7 @@
   .copyright-text {
     font-size: 12px;
     padding: 10px 5px;
+    text-align: center;
   }
   .Map {
     width: 100%;
@@ -281,6 +293,6 @@
     margin-right: 12px;
   }
   .Map {
-    width: 60%;
+    width: 60;
   }
 }

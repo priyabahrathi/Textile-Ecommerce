@@ -11,10 +11,9 @@ import {
     YAxis,
     CartesianGrid,
     ResponsiveContainer,
-} from 'recharts';
+}from 'recharts';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import './Dashboard.css'; // Import the stylesheet
-
 type Order = {
     id: string;
     userName: string;
