@@ -28,6 +28,8 @@ const OrderHistory: React.FC = () => {
     const [orders, setOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+    const [filterStatus, setFilterStatus] = useState<'All' | 'Pending' | 'Approved' | 'delivered'>('All');
+
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -64,7 +66,18 @@ const OrderHistory: React.FC = () => {
     return (
         <div className="order-history-page">
             <h2 className="history-title">Order History</h2>
-            
+            <div className="history-filter-buttons">
+                {['All', 'Pending', 'Approved', 'delivered'].map((status) => (
+                    <button
+                        key={status}
+                        className={`filter-btn ${filterStatus === status ? 'active' : ''}`}
+                        onClick={() => setFilterStatus(status as any)}
+                    >
+                        {status}
+                    </button>
+                ))}
+            </div>
+
             {loading ? (
                 <p>Loading orders...</p>
             ) : orders.length === 0 ? (
@@ -82,15 +95,18 @@ const OrderHistory: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className='history-table-body'>
-                            {orders.map((order) => (
-                                <tr key={order.id} className='history-table-row'>
-                                    <td>{order.date}</td>
-                                    <td>{order.price.toFixed(2)}</td>
-                                    <td>{order.status}</td>
-                                    <td>{order.paymentMethod}</td>
-                                    <td>
-                                        <button className='history-view-btn' onClick={() => setSelectedOrder(order)}>View</button>
-                                        {/* <table className="inner-items-table">
+                            {orders
+                                .filter(order => filterStatus === 'All' || order.status === filterStatus)
+                                .map((order) => (
+
+                                    <tr key={order.id} className='history-table-row'>
+                                        <td>{order.date}</td>
+                                        <td>{order.price.toFixed(2)}</td>
+                                        <td>{order.status}</td>
+                                        <td>{order.paymentMethod}</td>
+                                        <td>
+                                            <button className='history-view-btn' onClick={() => setSelectedOrder(order)}>View</button>
+                                            {/* <table className="inner-items-table">
                                             <thead>
                                                 <tr>
                                                     <th>Item</th>
@@ -108,9 +124,9 @@ const OrderHistory: React.FC = () => {
                                                 ))}
                                             </tbody>
                                         </table> */}
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
 
