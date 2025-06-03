@@ -9,6 +9,7 @@ import { getDatabase, ref, push, set, get, child } from 'firebase/database';
 import { cart } from 'ionicons/icons';
 import { auth, googleProvider, database } from '../../../Store/Slice/firebase';
 import { signInWithPopup } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Payment: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,15 +43,17 @@ const Payment: React.FC = () => {
       const dbRef = ref(database);
       const snapshot = await get(child(dbRef, `customers/${user.uid}`));
       if (snapshot.exists()) {
-        // User exists, load data
+        // User exists, load ALL data (name, email, phone, address)
         const data = snapshot.val();
         setForm((prev) => ({
           ...prev,
           name: data.name || user.displayName || "",
           email: data.email || user.email || "",
+          phone: data.phone || "",
+          address: data.address || "",
         }));
       } else {
-        // New user, save to DB
+        // New user, save to DB (only name/email/photoURL/uid for now)
         await set(ref(database, `customers/${user.uid}`), {
           name: user.displayName,
           email: user.email,
@@ -61,6 +64,8 @@ const Payment: React.FC = () => {
           ...prev,
           name: user.displayName || "",
           email: user.email || "",
+          phone: "",
+          address: "",
         }));
       }
       setStep(2); // Move to payment form
@@ -96,10 +101,16 @@ const Payment: React.FC = () => {
       userId: user?.uid || null,
     };
     try {
+
+      // Save order under global orders
+      await push(ref(database, 'orders'), order);
+
       // Save order only under this user's orders
       if (user?.uid) {
         await push(ref(database, `customers/${user.uid}/orders`), order);
       }
+
+
 
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());
@@ -109,6 +120,44 @@ const Payment: React.FC = () => {
       alert('Something went wrong while submitting the order.');
     }
   };
+
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        // Fetch customer data from DB
+        const dbRef = ref(database);
+        const snapshot = await get(child(dbRef, `customers/${firebaseUser.uid}`));
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setForm((prev) => ({
+            ...prev,
+            name: data.name || firebaseUser.displayName || "",
+            email: data.email || firebaseUser.email || "",
+            phone: data.phone || "",
+            address: data.address || "",
+          }));
+        } else {
+          // New user, save to DB
+          await set(ref(database, `customers/${firebaseUser.uid}`), {
+            name: firebaseUser.displayName,
+            email: firebaseUser.email,
+            photoURL: firebaseUser.photoURL,
+            uid: firebaseUser.uid,
+          });
+          setForm((prev) => ({
+            ...prev,
+            name: firebaseUser.displayName || "",
+            email: firebaseUser.email || "",
+            phone: "",
+            address: "",
+          }));
+        }
+        setStep(2); // Go to payment form
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="payment-page">
@@ -139,9 +188,15 @@ const Payment: React.FC = () => {
                   ))}
                   <hr />
                   <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
-                  <button className='pay-btn' onClick={handleGoogleSignIn}>
-                    Continue with Google
-                  </button>
+                  {user ? (
+                    <button className='pay-btn' onClick={() => setStep(2)}>
+                      Continue
+                    </button>
+                  ) : (
+                    <button className='pay-btn' onClick={handleGoogleSignIn}>
+                      Continue with Google
+                    </button>
+                  )}
                 </div>
               </IonCol>
             )}

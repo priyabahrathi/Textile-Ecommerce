@@ -67,12 +67,12 @@ thead th {
   border-bottom: 1px solid var(--color-elite-silver); /* Changed from #ccc to border_light from CheckOut.css */
 }
 
-tbody td {
+.wishlist-table-body td {
   padding: 15px;
   border-bottom: 1px solid var(--color-elite-silver); /* Changed from #eee to border_light from CheckOut.css */
   vertical-align: middle;
   font-size: 0.95rem;
-  color: var(--color-dark-text); /* Retained as no direct clear mapping, similar to general text in Checkout.css */
+   /* Retained as no direct clear mapping, similar to general text in Checkout.css */
 }
 
 tbody tr:last-child td {
