@@ -1,46 +1,4 @@
-/* arrival.css */
 
-:root {
-  /* 🎨 Backgrounds */
-  --color-primary-background: #dfeaeb;
-  --color-section-background: #EDEDED;
-  --color-panel-surface: #FFFFFF;
-
-  /* 🧭 Neutrals / Grays */
-  --color-elite-silver: #CCCCCC;
-  --color-light-gray: #F0F0F0;
-
-  /* 📝 Text */
-  --color-dark-text: #006D77;
-  --color-light-text: #666666;
-
-  /* 🔘 CTA (Buttons, Active Elements) */
-  --color-cta-accent: #006D77; /* This will map to the primary blue gradient */
-  --color-cta-hover: #045E65; /* This will map to the darker blue in gradients */
-  --color-cta-text: #FFFFFF;
-
-  /* ⭐ Ratings */
-  --color-yellow-star: #FFC107;
-
-  /* 💰 Price or Success Feedback */
-  --color-price-green: #2E7D32;
-
-  /* 🚨 Alerts, Errors */
-  --color-alert-red: #D32F2F;
-
-  /* ✨ Highlight / Hover Effects */
-  --color-highlight-hover: #F0F0F0;
-
-  /* 🔍 RGB fallback */
-  --rgb-cta-accent: 0, 109, 119;
-  --rgb-white: 255, 255, 255;
-  --rgb-dark-text: 26, 26, 26;
-}
-
-* {
-    /* Apply the new font globally for consistency with the card */
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
 .arrival-page {
   background-color: var(--color-primary-background);
@@ -94,7 +52,7 @@
 .arr-product {
     margin: auto;
     width: 230px; /* Further reduced width */
-    height: 380px; /* Further reduced height */
+    height: 300px; /* Further reduced height */
     background: var(--color-panel-surface);
     border-radius: 1rem;
     display: flex;

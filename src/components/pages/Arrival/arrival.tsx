@@ -5,10 +5,11 @@ import { RootState, AppDispatch } from "../../../Store/store";
 import { fetchProductsFromFirebase } from "../../../Store/Slice/ProductSlice"; // Changed import to productSlice
 import { IonCard, IonIcon } from "@ionic/react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { arrowBackOutline } from "ionicons/icons";
+import { arrowBackOutline, heart, star } from "ionicons/icons";
 import "./arrival.css";
 import { setSelectedProduct } from "../../../Store/Slice/selectedProductSlice";
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
+import { toggleWishlist } from "../../../Store/Slice/wishlistSlice";
 const getStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -21,7 +22,7 @@ const getStars = (rating: number) => {
 const Arrival: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   // Changed selector to product.Products
-  const allProducts = useSelector((state: RootState) => state.product.Products); 
+  const allProducts = useSelector((state: RootState) => state.product.Products);
 
   const [showAll, setShowAll] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
@@ -47,7 +48,22 @@ const Arrival: React.FC = () => {
   // Visible products will now always be from the 'recentProducts' array.
   // The 'Show More/Less' button will still function, but it will toggle
   // between the first 4 of these 10, and all 10.
+
   const visibleProducts = showAll ? recentProducts : recentProducts.slice(0, 4);
+  const wishlist = useSelector((state: RootState) => state.wishlist.items);
+  const isInWishlist = (productId: string) => {
+    return wishlist.some(item => item.id === productId);
+  };
+    const getStarRating = (rating: number = 4) => {
+      return [...Array(5)].map((_, i) => (
+        <IonIcon
+          key={i}
+          icon={star}
+          className="rating-icon"
+          style={{ color: i < rating ? "gold" : "#ccc", fontSize: '1.2rem' }}
+        />
+      ));
+    };
 
   return (
     <div className="arrival-page">
@@ -58,7 +74,7 @@ const Arrival: React.FC = () => {
           </button>
           <h2 className="product-head">New Arrivals</h2>
         </div>
-        
+
         <div className="grid-card-list">
           {visibleProducts.map((product, index) => (
             <IonCard
@@ -87,11 +103,21 @@ const Arrival: React.FC = () => {
                 <div className="action-btn">
                   <div className="ratings">
                     {/* Ensure product.rating exists, otherwise default to 0 */}
-                    <div className="stars">{getStars(product.rating || 0)}</div>
+                    <div className="p-stars">
+                      {getStarRating(product.rating)}
+                    </div>
                     <span>(reviews)</span> {/* Removed product.reviews reference */}
                   </div>
                   <div className="wishlist">
-                    <span>❤️</span>
+                    <button
+                      className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(toggleWishlist(product));
+                      }}
+                    >
+                      <IonIcon icon={heart} />
+                    </button>
                   </div>
                 </div>
               </div>
