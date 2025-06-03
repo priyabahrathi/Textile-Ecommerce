@@ -17,6 +17,15 @@ const Payment: React.FC = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // Remove item handler
+  const handleRemove = (itemToRemove: typeof itemsToPay[number]) => {
+    if (isBuyNow) {
+      dispatch({ type: 'buy/removeItem', payload: itemToRemove.id });
+    } else {
+      dispatch({ type: 'cart/removeItem', payload: itemToRemove.id });
+    }
+  };
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -48,7 +57,7 @@ const Payment: React.FC = () => {
       paymentMethod: form.paymentMethod,
     };
     try {
-      const db = getDatabase(); 
+      const db = getDatabase();
       await push(ref(db, 'orders'), order);
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());
@@ -58,93 +67,108 @@ const Payment: React.FC = () => {
       alert('Something went wrong while submitting the order.');
     }
   };
+
+  const [step, setStep] = useState(1);
+
+  const handleNext = () => setStep(2);
+  const handleBack = () => setStep(1);
+
   return (
     <div className="payment-page">
-      <div className='cart-header'>
-              <button
-                className="back-btn"
-                 onClick={() => dispatch(goBack())}
-              >
-              ← Back
-              </button>
-              <h2 className='checkout-head'>Payment</h2>
-              
-            </div>
-      
+      {/* Step Indicator */}
+      <div className="step-header">
+        <div className={`step-section ${step === 1 ? 'active' : ''}`}>
+          <span className="step-number">1</span> Order Summary
+        </div>
+        <div className={`step-section ${step === 2 ? 'active' : ''}`}>
+          <span className="step-number">2</span> Payment
+        </div>
+      </div>
+
+      {/* Step Content */}
       <div className='payment-page-card'>
         <IonGrid>
-        <IonRow>
-          <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
-            <div className="summary">
-              <h3 className='summary-head'>Order Summary</h3>
-              {itemsToPay.map(item => (
-                <div className='item-list' key={item.id}>
-                  <p>{item.name}  ({item.size})</p>
-                  <p className='bill-item'>  x {item.quantity}</p>
+          <IonRow>
+
+            {/* Step 1: Order Summary */}
+            {step === 1 && (
+              <IonCol size="12" className="summary-section">
+                <div className="summary">
+                  <h3 className='summary-head'>Order Summary</h3>
+                  {itemsToPay.map(item => (
+                    <div className='item-list' key={item.id}>
+                      <p>{item.name} ({item.size}) x {item.quantity}</p>
+                      {/* <button className='remove-btn' onClick={() => handleRemove(item)}>Remove</button> */}
+                      <div>{(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                  ))}
+                  <hr />
+                  <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
+                  <button className='pay-btn' onClick={() => setStep(2)}>Continue to Payment</button>
                 </div>
-              ))}
-              <hr/>
-              <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
-            </div>
-          </IonCol>
-          <IonCol sizeXl='4' sizeLg='4' sizeMd="12" sizeSm="12" sizeXs='12'>
-            <form className="payment-form" onSubmit={handlePaymentSubmit}>
-              <div className='name-phone'>
-                <div className='break'>
-                  <label htmlFor="">Name</label>
-                  <input type="text" className='field-style' name="name" placeholder='Enter Name' value={form.name} onChange={handleInputChange} required />
-                </div>
-                <div className='break'>
-                  <label htmlFor="">Phone</label>
-                  <input className='field-style' type="tel" name="phone" placeholder='Enter Phone Number' value={form.phone} onChange={handleInputChange} required />
-                </div>
-              </div>
-              <div className='break'>
-                <label htmlFor="">Email</label>
-                <input className='field-style' type="email" name="email" placeholder='Enter Email' value={form.email} onChange={handleInputChange} required />
-              </div>
-              <div className='break'>
-                <label htmlFor="">Address</label>
-                <textarea className='field-style' name="address" placeholder='Enter Address' value={form.address} onChange={handleInputChange} required />
-              </div>
-              <div className='break'>
-                <label htmlFor="">Payment Method</label>
-                <select name="paymentMethod" className='field-style' value={form.paymentMethod} onChange={handleInputChange}>
-                  <option value="" disabled hidden>
-                    Select a payment method
-                  </option>
-                  <div className='option-list'>
-                    <option value="cod">Cash on Delivery</option>
-                    <option value="upi">UPI</option>
-                    <option value="card">Credit/Debit Card</option>
+              </IonCol>
+            )}
+
+            {/* Step 2: Payment Form */}
+            {step === 2 && (
+              <>
+                <IonCol size="12" sizeMd="6">
+                  <form className="payment-form" onSubmit={handlePaymentSubmit}>
+                    <div className='name-phone'>
+                      <div className='break'>
+                        <label>Name</label>
+                        <input type="text" className='field-style' name="name" value={form.name} onChange={handleInputChange} required />
+                      </div>
+                      <div className='break'>
+                        <label>Phone</label>
+                        <input type="tel" className='field-style' name="phone" value={form.phone} onChange={handleInputChange} required />
+                      </div>
+                    </div>
+                    <div className='break'>
+                      <label>Email</label>
+                      <input type="email" className='field-style' name="email" value={form.email} onChange={handleInputChange} required />
+                    </div>
+                    <div className='break'>
+                      <label>Address</label>
+                      <textarea className='field-style' name="address" value={form.address} onChange={handleInputChange} required />
+                    </div>
+                    <div className='break'>
+                      <label>Payment Method</label>
+                      <select name="paymentMethod" className='field-style' value={form.paymentMethod} onChange={handleInputChange} required>
+                        <option value="" disabled hidden>Select a payment method</option>
+                        <option value="cod">Cash on Delivery</option>
+                        <option value="upi">UPI</option>
+                        <option value="card">Credit/Debit Card</option>
+                      </select>
+                    </div>
+                    <div className="step-buttons">
+                      <button type="button" className='pay-btn' onClick={() => setStep(1)}>← Back</button>
+                      <button type="submit" className='pay-btn'>Confirm & Pay ₹{totalPrice.toFixed(2)}</button>
+                    </div>
+                  </form>
+                </IonCol>
+
+                <IonCol size="12" sizeMd="6" className='offer-container'>
+                  <h1 className='offer-head'>Payment Offers</h1>
+                  <div className='offer-content'>
+                    <div className='offer'>
+                      <h2>Online Payment</h2>
+                      <p>5% Discount</p>
+                    </div>
+                    <div className='offer'>
+                      <h2>Credit/Debit Cards</h2>
+                      <p>10% Discount</p>
+                    </div>
+                    <div className='offer'>
+                      <h2>Membership</h2>
+                      <p>Upto 50% Offer & Exciting Gifts</p>
+                    </div>
                   </div>
-                </select>
-              </div>
-              <button className='pay-btn' type="submit">Confirm & Pay ₹{totalPrice.toFixed(2)}</button>
-            </form>
-          </IonCol>
-
-          <IonCol sizeXl='4' sizeLg='4' sizeMd='12' sizeSm='12' sizeXs='12'  className='offer-container'>
-            <h1 className='offer-head'>Payment Offers</h1>
-            <div className='offer-content'>
-              <div className='offer'>
-              <h2>Online Payment</h2>
-              <p>5% Discount</p>
-            </div>
-            <div className='offer'>
-              <h2>Credit/Debit Cards</h2>
-              <p>10% Discount</p>
-            </div>
-            <div className='offer'>
-              <h2>Membership</h2>
-              <p>Upto 50% Offer & Exciting Gifts</p>
-            </div>
-            </div>
-          </IonCol>
-
-
-        </IonRow>
-      </IonGrid>
+                </IonCol>
+              </>
+            )}
+          </IonRow>
+        </IonGrid>
       </div>
     </div>
   );
