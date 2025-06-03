@@ -1,0 +1,196 @@
+.order-history-page{
+  padding: 20px;
+}
+.history-items-detail td{
+  /* text-align: center !important; */
+}
+.history-title {
+  color: var(--color-main-text);
+  font-size: 45px;
+  font-family: "Oleo Script Swash Caps", system-ui;
+}
+
+.history-list-table {
+  /* margin-top: 10px; */
+  /* overflow-x: scroll; */
+  overflow-y: scroll;
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-dark-text) var(--color-light-sub-text);
+  max-height: 400px;
+}
+
+.history-detail-table{
+  text-align: center;
+}
+.order-list-table::-webkit-scrollbar {
+  height: 8px;
+}
+
+.order-list-table::-webkit-scrollbar-track {
+  background:var(--color-dark-text);
+}
+
+.order-list-table::-webkit-scrollbar-thumb {
+  background: var(--color-dark-text);
+}
+
+
+.admin-head {
+  text-align: center;
+  font-size: 30px;
+  font-family: "Bigshot One", serif;
+  color: var(--color-dark-text);
+}
+.history-table th{
+  background-color: var(--color-dark-text) !important;
+  border-bottom: none !important;
+  /* color: #0B2E33 !important; */
+  
+}
+.history-table th,
+.history-table-row td {
+  margin: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
+.order-status-approved {
+  color: rgb(6, 177, 6) !important;
+  font-weight: 700;
+}
+
+.order-status-pending {
+  color: rgb(226, 3, 3);
+  font-weight: 700;
+}
+
+.approve-btn {
+  background-color: rgb(6, 177, 6);
+  padding: 10px;
+  border-radius: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px !important;
+  min-width: 900px;
+  /* margin-bottom: 40px; */
+  font-family: 'Open Sans', sans-serif;
+}
+
+.customer-address {
+  width: 250px;
+  min-width: 250px;
+  white-space: pre-wrap;
+  /* ensures line breaks show */
+  word-wrap: break-word;
+
+}
+.history-view-btn{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: var(--color-dark-text);
+  color: var(--color-light-text);
+  font-weight: 700;
+}
+.delivery-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #93B1B5;
+  color: #0B2E33;
+  font-size: 20px;
+  font-weight: bold;
+}
+.history-table th,
+.history-table td {
+  padding: 18px 25px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.history-table thead th {
+  /* background: linear-gradient(90deg, var(--primary-purple) 0%, var(--secondary-purple) 100%); */
+
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  /* border-bottom: 2px solid var(--secondary-purple); */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-table thead tr th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.history-table thead tr th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.history-table tbody tr {
+  /* background-color: var(--card-bg); */
+  /* transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.history-table tbody tr:hover {
+  background-color: #f5e6ff;
+  /* Light purple hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.history-table td {
+  /* border-bottom: 1px solid var(--border); */
+  background-color: var(--color-panel-surface);
+  color: var(--color-main-text);
+}
+
+/* No products found message */
+.history-table .no-products {
+  text-align: center;
+  /* color: var(--light-text); */
+  padding: 20px;
+  font-style: italic;
+  /* background-color: var(--card-bg); */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+@media screen and (max-width:450px){
+  
+  .order-title{
+    font-size: 30px;
+    text-align: center;
+  }
+  .seg-label{
+    font-size: 12px;
+  }
+  .admin-head{
+    font-size: 20px;
+  }
+  .history-table thead th{
+    font-size: 13px;
+  }
+  .history-view-btn{
+    padding: 10px;
+    font-size: 15px;
+  }
+  .approve-btn{
+    font-size: 15px;
+  }
+  .delivery-btn{
+    font-size: 15px;
+  }
+}

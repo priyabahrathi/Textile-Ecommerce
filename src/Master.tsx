@@ -13,6 +13,7 @@ import "./Master.css";
 import Footer from "./components/pages/Footer/Footer";
 import CheckOut from "./components/pages/CheckOut/CheckOut";
 import Payment from "./components/pages/CheckOut/Payment";
+import OrderHistory from "./components/pages/OrderHistory/OrderHistory";
 
 const Master: React.FC = () => {
   const currentPage = useSelector((state: RootState) => state.page?.currentPage);
@@ -33,6 +34,8 @@ const Master: React.FC = () => {
         return <CheckOut />;
       case "payment":
         return <Payment />;
+        case "history":
+        return <OrderHistory />;
       case "home":
       default:
         return (
