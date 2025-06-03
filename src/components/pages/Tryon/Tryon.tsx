@@ -244,9 +244,9 @@ const Tryon: React.FC<TryOnProps> = ({
                           icon={cloudUploadOutline}
                           className="card-icon upload-icon"
                           onClick={() => modelInputRef.current?.click()}
-                          style={{ fontSize: 64, color: '#d45907', cursor: 'pointer', display: 'block', margin: '40px auto' }}
+                          style={{ fontSize: 64, cursor: 'pointer', display: 'block', margin: '40px auto' }}
                         />
-                        <div style={{ textAlign: 'center', color: '#d45907', fontWeight: 600, marginTop: 8 }}>Upload Your Photo</div>
+                        <div style={{ textAlign: 'center', fontWeight: 600, marginTop: 8 }}>Upload Your Photo</div>
                       </>
                     )}
                     {modelImage && (
