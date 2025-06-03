@@ -83,7 +83,7 @@ const CheckOut: React.FC = () => {
                           <div
                             className="buy-card"
                             onClick={() => setExpandedItem(item)}
-                          >
+                            >
                             <div className='buy-data'>
                               <div className="check-page-img">
                                 <div className="check-bg-style">
@@ -130,6 +130,7 @@ const CheckOut: React.FC = () => {
                                       +
                                     </button>
                                   </div>
+                                  <p className='subtotal'>Sub-Total:₹{(item.price * item.quantity).toFixed(2)}</p>
 
                                 </div>
                               </IonCardContent>
@@ -145,7 +146,7 @@ const CheckOut: React.FC = () => {
                             >
                               <IonIcon icon={closeCircle} />
                             </button>
-                            <p className='subtotal'>Sub-Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
+                            
                           </div>
                         </IonCol>
                       ))}
