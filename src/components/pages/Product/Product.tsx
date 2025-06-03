@@ -442,7 +442,7 @@ const Product: React.FC = () => {
                           dispatch(setSelectedProduct(product));
                           dispatch(setPage("productDetails"));
                         }}
-                      >
+                        >
 
                         <div className="product-page-img">
                           <div className="product-bg-style">
