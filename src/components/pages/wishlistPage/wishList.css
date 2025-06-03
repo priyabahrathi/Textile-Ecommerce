@@ -1,21 +1,34 @@
-.wishlist-container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+
+.continue-shopping-btn{
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 0.85rem;
+  color: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  border: 1px solid var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  --border-radius: 5px;
+  --background: transparent;
 }
 
-h2 {
+.continue-shopping-btn:hover {
+  --background: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  color: var(--color-cta-text);
+}
+
+.wishlist-title{
   font-size: 2rem;
-  font-weight: 700;
-  /* margin-bottom: 1.5rem; */ /* Adjust as per new layout */
-  /* text-align: center; */ /* Adjust as per new layout */
-  color: #3A3E6C; /* Changed from #222 to primary_dark from CheckOut.css */
+  font-weight: 600;
+  color: var(--color-dark-text); /* Changed from #3A3E6C to primary_dark from CheckOut.css */
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 /* Empty wishlist styling - Keep as is mostly */
 .empty-wishlist {
   text-align: center;
-  color: #777; /* Retained as no direct clear mapping in Checkout.css, similar to #a1a09f for text */
+  color: var(--color-light-text); /* Retained as no direct clear mapping in Checkout.css, similar to #a1a09f for text */
   margin-top: 5rem;
 }
 
@@ -32,7 +45,7 @@ h2 {
 
 /* New Table Specific Styles */
 .wishlist-table-wrapper {
-  background: #fff; /* Changed from #fff to light_background from CheckOut.css */
+  background: var(--color-panel-surface); /* Changed from #fff to light_background from CheckOut.css */
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
@@ -46,20 +59,20 @@ table {
 }
 
 thead th {
-  background-color: #fff; /* Changed from #f8f8f8 to light_background from CheckOut.css */
+  background-color: var(--color-panel-surface); /* Changed from #f8f8f8 to light_background from CheckOut.css */
   text-align: left;
   padding: 12px 15px;
   font-weight: 600;
-  color: #3A3E6C; /* Changed from #555 to primary_dark from CheckOut.css */
-  border-bottom: 1px solid #ccc; /* Changed from #eee to border_light from CheckOut.css */
+  color: var(--color-dark-text); /* Changed from #3A3E6C to primary_dark from CheckOut.css */
+  border-bottom: 1px solid var(--color-elite-silver); /* Changed from #ccc to border_light from CheckOut.css */
 }
 
-tbody td {
+.wishlist-table-body td {
   padding: 15px;
-  border-bottom: 1px solid #ccc; /* Changed from #eee to border_light from CheckOut.css */
+  border-bottom: 1px solid var(--color-elite-silver); /* Changed from #eee to border_light from CheckOut.css */
   vertical-align: middle;
   font-size: 0.95rem;
-  color: #333; /* Retained as no direct clear mapping, similar to general text in Checkout.css */
+   /* Retained as no direct clear mapping, similar to general text in Checkout.css */
 }
 
 tbody tr:last-child td {
@@ -83,46 +96,66 @@ tbody tr:last-child td {
   font-weight: 600;
   font-size: 1rem;
   margin: 0;
-  color: #333; /* Retained */
+  color: var(--color-dark-text); /* Retained */
 }
 
 .product-category-table {
     font-size: 0.85rem;
-    color: #777; /* Retained */
+    color: var(--color-light-text); /* Retained */
     margin-top: 5px;
 }
 
 .remove-from-wishlist-icon {
   font-size: 1.2rem;
-  color: #a1a09f; /* Changed from #aaa to medium_gray from CheckOut.css */
+  color: var(--color-light-text); /* Changed from #a1a09f to medium_gray from CheckOut.css */
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .remove-from-wishlist-icon:hover {
-  color: #ff5c5c; /* Changed from #e74c3c to danger_red from CheckOut.css */
+  color: var(--color-alert-red); /* Changed from #ff5c5c to danger_red from CheckOut.css */
 }
 
 .stock-status-cell .in-stock {
-  color: #3A3E6C; /* Changed from #28a745 to primary_dark from CheckOut.css */
+  color: var(--color-dark-text); /* Changed from #3A3E6C to primary_dark from CheckOut.css */
   font-weight: 600;
 }
 
 .stock-status-cell .out-of-stock {
-  color: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  color: var(--color-alert-red); /* Changed from #ff5c5c to danger_red from CheckOut.css */
   font-weight: 600;
 }
 
-.add-to-cart-table-btn {
+.remove-item-btn {
   --padding-start: 15px;
   --padding-end: 15px;
   --padding-top: 8px;
   --padding-bottom: 8px;
+  color: var(--color-alert-red); /* Changed from #ff5c5c to danger_red from CheckOut.css */
   font-size: 0.85rem;
   font-weight: 600;
-  --background: #3A3E6C; /* Changed from Ionic primary to primary_dark from CheckOut.css */
+  --background: transparent;
 }
-
+.remove-item-btn:hover {
+  --background: var(--color-alert-red); /* Changed from #dc3545 to danger_red from CheckOut.css */
+  color: var(--color-cta-text);
+  border: 1px solid var(--color-alert-red); /* Changed from #dc3545 to danger_red from CheckOut.css */
+}
+.view-product-btn {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  color: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  font-size: 0.85rem;
+  font-weight: 600;
+  --background: transparent; /* Changed from Ionic primary to primary_dark from CheckOut.css */
+}
+.view-product-btn:hover {
+  --background: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  color: var(--color-cta-text);
+  border: 1px solid var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+}
 /* Wishlist bottom actions */
 .wishlist-bottom-actions {
   display: flex;
@@ -142,17 +175,17 @@ tbody tr:last-child td {
 
 .wishlist-link-share label {
   font-weight: 600;
-  color: #555; /* Retained */
+  color: var(--color-light-text); /* Retained */
   white-space: nowrap;
 }
 
 .wishlist-link-share input[type="text"] {
   flex-grow: 1;
   padding: 8px 12px;
-  border: 1px solid #ccc; /* Changed from #ddd to border_light from CheckOut.css */
+  border: 1px solid var(--color-elite-silver); /* Changed from #ccc to border_light from CheckOut.css */
   border-radius: 5px;
   font-size: 0.9rem;
-  color: #333; /* Retained */
+  color: var(--color-dark-text); /* Retained */
   min-width: 200px;
 }
 
@@ -162,15 +195,15 @@ tbody tr:last-child td {
   --padding-top: 8px;
   --padding-bottom: 8px;
   font-size: 0.85rem;
-  color: #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
-  border: 1px solid #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
+  color: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  border: 1px solid var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
   --border-radius: 5px;
   --background: transparent;
 }
 
 .wishlist-link-share .copy-link-btn:hover {
-  --background: #3A3E6C; /* Changed from #007bff to primary_dark from CheckOut.css */
-  color: #fff;
+  --background: var(--color-dark-text); /* Changed from #007bff to primary_dark from CheckOut.css */
+  color: var(--color-cta-text);
 }
 
 .action-buttons-right {
@@ -185,15 +218,15 @@ tbody tr:last-child td {
   --padding-top: 8px;
   --padding-bottom: 8px;
   font-size: 0.85rem;
-  color: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
-  border: 1px solid #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
+  color: var(--color-alert-red); /* Changed from #ff5c5c to danger_red from CheckOut.css */
+  border: 1px solid var(--color-alert-red); /* Changed from #dc3545 to danger_red from CheckOut.css */
   --border-radius: 5px;
   --background: transparent;
 }
 
 .clear-wishlist-btn:hover {
-  --background: #ff5c5c; /* Changed from #dc3545 to danger_red from CheckOut.css */
-  color: #fff;
+  --background: var(--color-alert-red); /* Changed from #dc3545 to danger_red from CheckOut.css */
+  color: var(--color-cta-text);
 }
 
 .add-all-to-cart-btn {
@@ -203,7 +236,7 @@ tbody tr:last-child td {
   --padding-bottom: 8px;
   font-size: 0.85rem;
   --border-radius: 5px;
-  --background: #3A3E6C; /* Set to primary_dark from CheckOut.css */
+  --background: var(--color-dark-text); /* Set to primary_dark from CheckOut.css */
 }
 
 
@@ -237,7 +270,12 @@ tbody tr:last-child td {
   .product-name-table {
     font-size: 0.9rem;
   }
-  .add-to-cart-table-btn {
+  .remove-item-btn {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 0.75rem;
+  }
+  .view-product-btn {
     --padding-start: 10px;
     --padding-end: 10px;
     font-size: 0.75rem;

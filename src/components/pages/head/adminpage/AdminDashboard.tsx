@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { addCircle, statsChart, cart, settings, personCircle, camera, chevronBack, chevronForward, logOutOutline } from "ionicons/icons";
-import ManageProduct from "./pages/ManageProduct";
-
 import CheckoutAdminPage from "./pages/checkoutDetails";
 import ProfilePage from "./pages/profile";
 import Settings from "./pages/settings";
@@ -10,7 +8,7 @@ import BannerImg from "./pages/BannerImg";
 import "./AdminDashboard.css";
 import ProductManage from "./pages/productmanage";
 import Dashboard from "./pages/Dashboard";
-
+import "./pages/global css/adminGlobal.css"
 const tabs = [
   { name: "Dashboard", label: "Dashboard", icon: statsChart },
   { name: "ManageProduct", label: "Manage Products", icon: addCircle },
@@ -31,8 +29,7 @@ const removeItem = (key: string) => {
     switch (selectedTab) {
       case "profile":
         return <ProfilePage />;
-      case "Add Products":
-        return <ManageProduct />;
+      
      case "ManageProduct":
         return <ProductManage />;
       case "Dashboard":

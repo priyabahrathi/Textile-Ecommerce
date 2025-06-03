@@ -13,7 +13,12 @@ import {
     ResponsiveContainer,
 }from 'recharts';
 import { getDatabase, ref, onValue } from 'firebase/database';
+<<<<<<< HEAD
 import './Dashboard.css'; // Import the stylesheet
+=======
+import './Dashboard.css';
+
+>>>>>>> origin/tryon
 type Order = {
     id: string;
     userName: string;
@@ -121,7 +126,14 @@ const Dashboard: React.FC = () => {
                     // Ensure date is in YYYY-MM-DD for consistency if not already
                     date: value.date ? value.date.split('T')[0] : new Date().toISOString().split('T')[0],
                 }));
-                setRecentOrders(loadedOrders.reverse());
+                setRecentOrders(
+                    loadedOrders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                );
+                setFilteredRecentOrders(
+                    loadedOrders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                );
+                
+
                 updateOrderCounters(loadedOrders);
             } else {
                 setRecentOrders([]);
@@ -219,23 +231,27 @@ const Dashboard: React.FC = () => {
     };
 
     // Filter orders based on search term
+    // Filter orders based on search term and limit to 5 recent orders
     useEffect(() => {
-        if (!searchTerm) {
-            setFilteredRecentOrders(recentOrders);
-            return;
+        let filtered = recentOrders;
+
+        if (searchTerm) {
+            filtered = recentOrders.filter(
+                o =>
+                    o.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    o.status.toLowerCase().includes(searchTerm.toLowerCase())
+            );
         }
-        const filtered = recentOrders.filter(
-            o =>
-                o.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                o.status.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredRecentOrders(filtered);
+
+        // Take only the most recent 5 (after filtering)
+        setFilteredRecentOrders(filtered.slice(0, 5));
     }, [searchTerm, recentOrders]);
+
 
     return (
         <div className={`dashboard-wrapper ${darkMode ? 'dark' : ''}`}>
-            <header>
-                <h1>Dashboard</h1>
+            <div className="dashboard-header">
+                <div className='order-title'>Dashboard</div>
                 <div className="header-actions">
                     <div className="notification-bell" title="Notifications">
                         <svg
@@ -262,7 +278,7 @@ const Dashboard: React.FC = () => {
                         {darkMode ? 'Light Mode' : 'Dark Mode'}
                     </button>
                 </div>
-            </header>
+            </div>
 
             <div className="sales-overview">
                 {[
@@ -343,6 +359,7 @@ const Dashboard: React.FC = () => {
                 <table className="orders-table">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Order ID</th>
                             <th>Customer</th>
                             <th>Status</th>
@@ -350,19 +367,20 @@ const Dashboard: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRecentOrders.length === 0 ? (
+                        {filteredRecentOrders.slice(0, 5).length === 0 ? (
                             <tr>
                                 <td colSpan={4} style={{ textAlign: 'center', color: darkMode ? '#aaa' : '#666' }}>
                                     No matching orders found.
                                 </td>
                             </tr>
                         ) : (
-                            filteredRecentOrders.map(({ id, userName, status, price, quantity, items }) => {
+                            filteredRecentOrders.slice(0, 5).map(({ id, userName, status, price, quantity, items }) => {
                                 const orderTotal = items && items.length > 0
                                     ? items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
                                     : (price * quantity);
                                 return (
                                     <tr key={id}>
+                                        <td>{new Date().toLocaleDateString()}</td>
                                         <td>{id}</td>
                                         <td>{userName}</td>
                                         <td>
@@ -379,6 +397,7 @@ const Dashboard: React.FC = () => {
                             })
                         )}
                     </tbody>
+
                 </table>
             </section>
         </div>

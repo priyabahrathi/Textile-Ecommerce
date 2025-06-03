@@ -85,7 +85,6 @@ const Product: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [lower, setLower] = useState(500);
   const [upper, setUpper] = useState(5000);
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [selectedFabricType, setSelectedFabricType] = useState<string[]>([]);
   const [selectedOutfitNames, setSelectedOutfitNames] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -111,11 +110,10 @@ const Product: React.FC = () => {
     searchText,
     lower,
     upper,
-    selectedCategory,
+    selectedCategories,
     genderFilter,
     selectedFabricType,
     selectedOutfitNames,
-
     selectedColors,
     inStockOnly,
     sortBy,
@@ -128,10 +126,11 @@ const Product: React.FC = () => {
   };
 
   const handleCheckBox = (category: string, checked: boolean) => {
-    setSelectedCategory((prev) =>
+    setSelectedCategories((prev) =>
       checked ? [...prev, category] : prev.filter((c) => c !== category)
     );
   };
+
 
   const handleToggleFilter = (
     filterType: 'fabricType' | 'outfitName' | 'category' | 'colors',
@@ -166,6 +165,8 @@ const Product: React.FC = () => {
     // Apply price range filter
     result = result.filter((product) => product.price >= lower && product.price <= upper);
     // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
+
+
     // NEW FILTERS for dresses
     // Apply Fabric Type filter
     if (selectedFabricType.length > 0) {
@@ -179,12 +180,21 @@ const Product: React.FC = () => {
         product.outfitName && selectedOutfitNames.includes(product.outfitName)
       );
     }
-    // Apply Occasion filter
+
+
+    // Apply category filter (main categories like 'Dresses', 'Skirts', etc.)
+
     if (selectedCategories.length > 0) {
       result = result.filter((product) =>
         selectedCategories.includes(product.category)
       );
     }
+
+
+
+
+
+
     // Apply Color filter
     if (selectedColors.length > 0) {
       result = result.filter((product) =>
@@ -288,13 +298,13 @@ const Product: React.FC = () => {
               {/* By Fabric Type */}
               <h4 className="filter-group-title">By Fabric Type</h4>
               <ul className="filter-option-list">
-                {['Cotton', 'Silk', 'Linen', 'Polyester', 'Velvet', 'Denim'].map((type) => (
+                {['Cotton', 'Silk', 'Linen'].map((type) => (
                   <li key={type} className="filter-option-item">
                     <IonCheckbox
                       slot="start"
                       checked={selectedFabricType.includes(type)}
                       onIonChange={(e) => handleToggleFilter('fabricType', type, e.detail.checked)}
-                       className="filter-checkbox"
+                      className="filter-checkbox"
                     />
                     <IonLabel>{type}</IonLabel>
                   </li>
@@ -309,7 +319,7 @@ const Product: React.FC = () => {
                       slot="start"
                       checked={selectedCategories.includes(cat)}
                       onIonChange={(e) => handleToggleFilter('category', cat, e.detail.checked)}
-                       className="filter-checkbox"
+                      className="filter-checkbox"
                     />
                     <IonLabel>{cat}</IonLabel>
                   </li>
@@ -354,7 +364,7 @@ const Product: React.FC = () => {
                 ))}
               </div>
 
-             
+
             </div>
           </IonCol>
 
@@ -424,28 +434,34 @@ const Product: React.FC = () => {
             <IonGrid id="product-section">
               <IonRow>
                 {filteredItems.map((product) => (
-                  <IonCol className="ion-padding" sizeXs="6" sizeSm="6" sizeMd="4" sizeLg="4" sizeXl="3" key={product.id}>
+                  <IonCol sizeXs="6" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="3" key={product.id}>
                     <MotionCard>
                       <div
                         className="product-card"
-                        style={{ cursor: 'pointer', position: 'relative' }}
                         onClick={() => {
                           dispatch(setSelectedProduct(product));
-                          dispatch(setPage("productDetails")); // Navigate via Redux state
+                          dispatch(setPage("productDetails"));
                         }}
-                      >
-                        {product.isNew && <span className="product-badge">NEW</span>}
-                        <img className="product-image" src={product.img} alt={product.name} />
-                        <IonCardContent className="data">
-                          <div className="product-data">
-                            <div className="product-title">{product.name}</div>
-                            <div className="product-price">&#8377;{product.price}</div>
+                        >
+
+                        <div className="product-page-img">
+                          <div className="product-bg-style">
+                            <img className="card-img" src={product.img} alt={product.name} />
                           </div>
-                          <p className="product-category">{product.category}</p>
-                          <div className="rate-buy">
-                            <div className="ratings">{getStarRating(product.rating)}</div>
+                        </div>
+
+
+                        <IonCardContent className="product-content">
+                          <div className="product-price">
+                            <span>&#8377;{product.price}</span>
+                          </div>
+                          <div className="card-header">
+                            <h3 className="product-name" title={product.name}>
+                              {product.name.split(' ').slice(0, 2).join(' ')}
+                              {product.name.split(' ').length > 2 && '...'}
+                            </h3>
                             <button
-                              className={`add-to-wishlist ${isInWishlist(product.id) ? "active" : ""}`}
+                              className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 dispatch(toggleWishlist(product));
@@ -454,13 +470,22 @@ const Product: React.FC = () => {
                               <IonIcon icon={heart} />
                             </button>
                           </div>
+                          <div className="product-details">
+                          <p className="product-category">{product.category}</p>
+                          <div className="p-stars">
+                              {getStarRating(product.rating)}
+                            </div>                            
+                          </div>
+
                         </IonCardContent>
                       </div>
                     </MotionCard>
                   </IonCol>
+
                 ))}
               </IonRow>
             </IonGrid>
+
           </IonCol>
         </div>
       </div>

@@ -1,6 +1,11 @@
 import React from "react";
+<<<<<<< HEAD
 import './Footer.css';
 const Footer: React.FC = () => {
+=======
+// import './Footer.css';
+const Footer: React.FC=()=>{
+>>>>>>> origin/tryon
   return (
     <>
     <footer className="site-footer">

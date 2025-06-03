@@ -285,11 +285,11 @@ const Settings: React.FC = () => {
                 <div className="profile-info">
                     <h2 className="profile-name">{profile.fullName}</h2>
                     <div className="profile-role">{profile.role || 'Administrator'}</div>
-                    <div className="profile-contact">
+                    <div className="profile-contact-info">
                         <span><strong>Email:</strong> {profile.email}</span>
                         <span><strong>Phone:</strong> {profile.phone}</span>
                     </div>
-                    <div className="profile-dates">
+                    <div className="profile-dates-info">
                         <span><strong>Joined:</strong> {profile.joinDate || "Not set"}</span>
                         <span><strong>Last Login:</strong> {profile.lastLogin || "Not set"}</span>
                     </div>

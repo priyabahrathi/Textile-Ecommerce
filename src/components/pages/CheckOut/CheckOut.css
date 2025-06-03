@@ -1,10 +1,10 @@
-.cart-page {
+.c-cart-page {
   padding: 20px;
   background: fixed;
-  background-color: #f1f1f1;
+  background-color: var(--color-light-gray);
+  /* Changed from #f1f1f1 to light-gray */
   height: 1100px;
-  
-
+  padding-bottom: 140px; 
 }
 
 .cart-header {
@@ -15,8 +15,10 @@
 }
 
 .btn-cart {
-  background-color: #3A3E6C;
-  color: #ffffff;
+  background-color: var(--color-cta-accent);
+  /* Changed from #3A3E6C to cta-accent */
+  color: var(--color-cta-text);
+  /* Changed from #ffffff to cta-text */
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -29,10 +31,10 @@
 }
 
 .checkout-head {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: "Bigshot One", serif;
   font-size: 32px;
   font-weight: bold;
-  color: #3A3E6C;
+  color: var(--color-dark-text);
   margin: 0 auto;
 }
 
@@ -40,130 +42,267 @@
   padding: 10px;
 }
 
+
 ion-col {
   padding: 4px;
 }
 
+
+/*Product Card Starts*/
+
+#product-section {
+  padding: 0;
+  margin: 0;
+}
+
+/* Product Card Styling */
 .buy-card {
-
-  border-radius: 10px;
-  padding: 8px;
+  /* margin: auto; */
+  width: 100%;
+  height: 100%;
+  background: var(--color-panel-surface);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  /* filter: drop-shadow(2px 4px 6px rgba(var(--rgb-cta-accent), 0.3)); */
+  overflow: hidden;
+  transition: filter 0.3s ease;
+  cursor: pointer;
   position: relative;
-  transition: transform 0.2s ease-in-out;
-  background-color: #fff;
+  /* margin: 1rem 0; */
+  overflow: hidden;
+}
 
+
+
+.check-page-img {
+  height: 200px;
+  width: 130px;
+  background: linear-gradient(to top, #967a70, rgb(215 204 200));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.check-bg-style {
+  margin: 0 25px;
+  /* Further reduced margin */
+  background: linear-gradient(var(--color-cta-accent), var(--color-cta-hover));
+  height: 120%;
+  width: calc(100% - 50px);
+  /* Adjust width based on new margin */
+  border-radius: 0 0 50% 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  /* Further reduced padding */
+}
+
+.buy-img {
+  height: 150px;
+  width: 100%;
+  object-fit: contain;
+  transform: translateY(10px);
+  /* Adjusted image position */
+  transition: transform 0.3s ease;
+}
+
+
+.buy-card:hover .check-bg-style img {
+  transform: translateY(5px) scale(1.05);
+  /* Slight lift and scale on card hover */
 }
 
 .buy-data {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 10px;
 }
 
-.buy-card:hover {
-  transform: scale(1.02);
+.check-content {
+  /* height: 62%; */
+  display: flex;
+  flex-direction: column;
+  /* padding: 1.2rem 0 0.8rem 0; */
+  /* position: relative; */
+  /* z-index: 1; */
 }
 
 .buy-card-details {
-  font-weight: bold;
-  font-size: 18px;
-  margin-left: 20px;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 35px;
-  width: 100%;
-  color: #3A3E6C;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-.subtotal {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 20px;
-  color: #3A3E6C;
-  text-align: center;
-  border-top: #3A3E6C solid 2px;
-  padding-top: 15px;
-  margin-top: 0;
-  margin-bottom: -1px;
-  font-weight: bold;
+  justify-content: space-around;
+  text-align: left;
+  padding: 0 !important;
+  /* margin: 0 !important; */
 }
 
-.buy-img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  background-color: #f1f1f1;
-}
-
-
-.quantity-controls {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: baseline;
-}
-
-.quantity {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 20px;
-  color: #3A3E6C;
-  font-weight: bold;
-  text-align: center;
+.check-price {
+  background: linear-gradient(var(--color-cta-accent), var(--color-cta-hover));
+  width: 55%;
+  /* Slightly adjusted width */
+  border-radius: 0 2rem 2rem 0;
+  padding: 0.3rem 0;
+  /* Further reduced padding */
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-cta-text);
+  position: absolute;
+  top: -12px;
+  /* Adjusted overlap */
+  left: 0;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.id-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.product-price span {
+  font-size: 1.3rem;
+  /* Further reduced font size */
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+.buy-name {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 18px !important;
+  color: var(--color-dark-text);
+  font-weight: bold !important;
+  text-align: left !important;
+  /* padding: 10px; */
+}
+
+.ratings-check {
+  font-size: 15px;
+  color: var(--color-yellow-star);
+}
+
+.buy-size {
+  font-size: 17px;
+  color: var(--color-dark-text);
+}
+
+.quantity-controls {
+  display: flex;
+  gap: 10px;
+
 }
 
 .id-btn {
   background: none;
-  color: #3A3E6C;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  width: 30px;
-  height: 30px;
-  text-align: center;
+  font-size: 15px;
+}
+
+.quantity {
+  font-size: 15px;
+}
+
+.subtotal {
+  color: var(--color-dark-text);
+  font-size: 15px !important;
+  /* padding-top: 18px; */
+  font-weight: bold !important;
+}
+
+.buy-card-details {
+  padding: 8px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 95%;
+  margin: 10px auto;
+  padding: 0 11px;
+
 }
 
 .remove-btn {
   position: absolute;
-  top: -13px;
-  right: -5px;
+  top: 5px;
+  right: 5px;
   background: transparent;
   border: none;
-  color: red;
-  font-size: 22px;
+  padding: 0;
   cursor: pointer;
+  z-index: 2;
+  font-size: 1.5rem;
+  color: #ff4d4d;
+  transition: transform 0.2s ease;
 }
+
+.remove-btn:hover {
+  transform: scale(1.1);
+}
+
+.wishlist-btn {
+  background: none;
+  border: 0.1px solid transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.wishlist-btn.active {
+
+  color: #e57373;
+}
+
+.product-category {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.price-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+/*Product Card Ends*/
 
 
 .card-total {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-evenly;
   text-align: center;
   width: 100%;
   height: auto;
   box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 16px;
+  z-index: 1000;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+
 }
-
-
+.buy-container,
+.card-content {
+  overflow: visible !important;
+}
 
 .total {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 25px;
   font-weight: bold;
-  color: #3A3E6C;
+  color: var(--color-dark-text);
+  /* Changed from #3A3E6C to dark-text */
 }
 
 .checkout-btn {
@@ -171,8 +310,10 @@ ion-col {
   font-size: 20px;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #3A3E6C;
-  color: #ffffff;
+  background-color: var(--color-cta-accent);
+  /* Changed from #3A3E6C to cta-accent */
+  color: var(--color-cta-text);
+  /* Changed from #ffffff to cta-text */
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -184,7 +325,6 @@ ion-col {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 20px;
   text-align: center;
-
 }
 
 
@@ -193,13 +333,15 @@ ion-col {
   border: 0px solid;
   animation: fadeIn 0.3s ease-in-out;
   border-radius: 15px;
-  box-shadow: 0px 0px 5px #a1a09f;
+  box-shadow: 0px 0px 5px var(--color-elite-silver);
+  /* Changed from #a1a09f to elite-silver */
 }
 
 .expanded-name {
   text-align: center;
   font-weight: bold;
-  color: #3A3E6C;
+  color: var(--color-dark-text);
+  /* Changed from #3A3E6C to dark-text */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
@@ -210,7 +352,8 @@ ion-col {
   text-align: center;
   width: 100%;
   height: 100%;
-  color: #3A3E6C;
+  color: var(--color-dark-text);
+  /* Changed from #3A3E6C to dark-text */
 }
 
 .close-expanded-btn {
@@ -222,13 +365,13 @@ ion-col {
   height: 100%;
   box-sizing: border-box;
   text-align: center;
-  background-color: #ff5c5c;
-  color: white;
+  background-color: var(--color-alert-red);
+  /* Changed from #ff5c5c to alert-red */
+  color: var(--color-cta-text);
+  /* Changed from white to cta-text */
   border: none;
   cursor: pointer;
-
 }
-
 
 .expanded-img {
   width: 100%;
@@ -236,8 +379,6 @@ ion-col {
   object-fit: contain;
   margin-top: 10px;
 }
-
-
 
 @keyframes fadeIn {
   from {
@@ -252,173 +393,74 @@ ion-col {
 }
 
 @media screen and (max-width: 1024px) {
-  .cart-page {
+  .c-cart-page {
     padding: 0;
   }
+
   .buy-container {
     padding: 0;
   }
-
-  .checkout-head {
-    font-size: 28px;
+  .buy-name{
+    font-size: 16px !important;
   }
-
-  .buy-card {
-    padding: 12px;
-    border-radius: 8px;
-  }
-.buy-data {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  .subtotal, .buy-size{
+    font-size: 13px !important;
   }
   .buy-card-details {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-left: 0;
-  }
-.price-size{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    
-  }
-  .buy-img {
-    height: 180px;
-  }
-.quantity-controls{
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    margin-top: 1px;
-  }
-  .description {
-    font-size: 14px;
-  }
-  .id-btn {
-    font-size: 16px;
-  }
-  .subtotal {
-    font-size: 16px;
-    border-top: 1px solid #3A3E6C;
-    padding-top: 10px;
-  }
-  .card-total {
-    align-items: center;
-  }
-  .total {
-    font-size: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
-  .quantity {
-    margin-bottom: 15px;
-  }
-
-  .checkout-btn {
-    width: auto;
-    font-size: 18px;
-    padding: 10px;
-  }
+.total{
+  font-size: 20px !important;
+}
 
 }
 
 @media screen and (max-width: 992px) {
-  .cart-page {
+  .c-cart-page {
     padding: 0;
-
   }
   .buy-container {
     padding: 0;
   }
-  .checkout-head {
-    font-size: 26px;
-  }
-
-  .buy-card {
-    padding: 12px;
-    border-radius: 8px;
-  }
-.buy-data{
-    flex-direction: column;
-    align-items: center;
-    text-align: center
-}
-.price-size{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  .buy-card-details {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-left: 0;
-  }
-
-  .buy-img {
-    height: 180px;
-  }
-.quantity-controls{
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    margin-top: 1px;
-  }
-  .description {
-    font-size: 14px;
-  }
-  .id-btn {
-    font-size: 16px;
-  }
-  .subtotal {
-    font-size: 16px;
-    border-top: 1px solid #3A3E6C;
-    padding-top: 10px;
-  }
-  .card-total {
-    align-items: center;
-  }
-  .total {
-    font-size: 20px;
-}
-  .quantity {
-    margin-bottom: 15px;
-  }
-
-  .checkout-btn {
-    width: auto;
-    font-size: 18px;
-    padding: 10px;
-  }
-
 }
 
 @media screen and (max-width: 768px) {
-  .cart-page {
+  .c-cart-page {
     padding: 0;
   }
 
   .checkout-head {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .buy-card {
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 8px;
   }
-.buy-data {
+
+  .buy-data {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 0 !important;
   }
-  .buy-card-details {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-left: 0;
+
+  
+  .check-page-img{
+    width: 100%;
+    height: 100%;
+  }
+  .check-bg-style{
+    width: 100%;
+    
   }
 
   .buy-img {
     height: 150px;
   }
-  .price-size{
+
+  .price-size {
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -427,70 +469,80 @@ ion-col {
   .description {
     font-size: 14px;
   }
-.quantity-controls{
+
+  .quantity-controls {
     display: flex;
     align-items: baseline;
     justify-content: center;
     margin-top: 1px;
-}
+  }
+
   .quantity {
     margin-bottom: 10px;
     font-size: 16px;
   }
-.id-btn{
+
+  .id-btn {
     font-size: 16px;
   }
-  .subtotal{
-    font-size: 16px;
-    border-top: 1px solid #3A3E6C;
+
+  .subtotal {
+    font-size: 20px;
+    /* border-top: 1px solid var(--color-dark-text); */
     padding-top: 10px;
   }
-  .card-total{
-    flex-direction: column;
-    align-items: center;
+
+  .card-total {
+    align-items: baseline;
   }
+
   .total {
-    font-size: 20px;
-}
+    font-size: 22px;
+  }
+
   .checkout-btn {
-    width: 100%;
-    font-size: 18px;
+    /* width: 100%; */
+    font-size: 22px;
     padding: 8px;
+    /* margin: 0; */
   }
 
 }
 
 @media screen and (max-width: 576px) {
-  .cart-page {
-    padding: 0;
-  }
-  .buy-container{
+  .c-cart-page {
     padding: 0;
   }
 
-  .checkout-head {
-    font-size: 22px;
+  .buy-container {
+    padding: 0;
   }
 
   .buy-card {
-    padding: 8px;
+    /* padding: 8px; */
     border-radius: 8px;
   }
-.buy-data {
+
+  .buy-data {
     flex-direction: column;
     align-items: center;
   }
 
   .buy-card-details {
-    font-size: 11px;
+    align-items: center;
+    font-size: 12px;
     text-align: center;
     margin-left: 0;
   }
-.price-size{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-}
+
+  .buy-name {
+    font-size: 15px;
+  }
+
+  .ratings-check {
+    font-size: 10px;
+  }
+
   .buy-img {
     height: 120px;
   }
@@ -498,55 +550,67 @@ ion-col {
   .description {
     font-size: 12px;
   }
-.quantity-controls {
+
+  .quantity-controls {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    
-  }
-  .subtotal{
-    font-size: 13px;
-    border-top: 1px solid #3A3E6C;
-    padding-top: 10px;
-  }
-  .quantity {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
-  .id-btn{
-    font-size: 10px;
   }
 
-  .card-total{
+  .subtotal {
+    font-size: 13px;
+    /* border-top: 1px solid var(--color-dark-text); */
+    /* Changed from #3A3E6C to dark-text */
+    padding-top: 10px;
+  }
+
+  .quantity {
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
+
+  .id-btn {
+    font-size: 15px;
+  }
+
+  .card-total {
     flex-direction: column;
     align-items: center;
+    
   }
+
   .total {
     font-size: 18px;
+  }
+  .checkout-btn{
+    font-size: 18px;
+    margin: 0;
   }
 
 }
 
 @media screen and (max-width: 360px) {
-  .cart-page {
+  .c-cart-page {
     padding: 0;
   }
-  
-  .back-btn{
+
+  .back-btn {
     font-size: 14px;
     padding: 4px 8px;
     margin-bottom: 10px;
   }
+
   .btn-cart {
     font-size: 18px;
     padding: 6px 12px;
   }
+
   .checkout-head {
     font-size: 20px;
   }
 
   .buy-card {
-    padding: 6px;
+    /* padding: 6px; */
     border-radius: 8px;
   }
 
@@ -560,57 +624,12 @@ ion-col {
     text-align: center;
     margin-left: 0;
   }
-
-  .buy-img {
-    object-fit: contain;
+  .total{
+    font-size: 15px !important;
+  }
+  .checkout-btn{
+    margin: 0;
+    font-size: 15px;
   }
 
-  .description {
-    font-size: 12px;
-  }
-.quantity-controls{
-  display: flex;
-  align-items: baseline;
-
 }
-  .quantity {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
-  .id-btn {
-    font-size: 10px;
-  }
-  .subtotal{
-    font-size: 13px;
-    border-top: 1px solid #3A3E6C;
-    padding-top: 10px;
-  }
-  .card-total{
-    flex-direction: column;
-    align-items: center;
-  }
-  .price-size{
-    display: flex;
-    justify-content: space-around;
-  }
-  .total {
-    font-size: 18px;
-  }
-}
-.image{
-  width: 100px;
-  height: 100px;
-}
-.grid1{
-  background-color: white;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-/* .row1{
-  background-color: white;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-
-} */

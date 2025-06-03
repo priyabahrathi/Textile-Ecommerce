@@ -13,7 +13,7 @@ interface Product {
   img: string;
   gender: 'male' | 'female' | 'both'; // Correct type to match Product.tsx
   // outfitType?: string; // Keep this if you use it, or remove if not needed
-
+  description:string;
   // NEW PROPERTIES TO ADD/UPDATE FROM Product.tsx:
   rating?: number;       // Add this if your products have a rating
   isNew?: boolean;       // Add this if your products have an 'isNew' flag

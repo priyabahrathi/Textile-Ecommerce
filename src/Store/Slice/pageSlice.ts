@@ -7,7 +7,7 @@ interface PageState {
 }
 
 const initialState: PageState = {
-  currentPage: "",
+  currentPage: "home",
   previousPage: null,
 };
 

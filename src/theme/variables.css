@@ -1,2 +1,38 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+:root {
+  /* 🎨 Backgrounds */
+  --color-primary-background: #EFEBE9 !important;
+  --color-section-background: #BCAAA4 !important;
+  --color-panel-surface: #D7CCC8 !important;
+
+  /* 🧭 Neutrals / Grays */
+  --color-elite-silver: #CCCCCC !important;
+  --color-light-gray: #F0F0F0 !important;
+
+  /* 📝 Text */
+  --color-dark-text: #8D6E63 !important;
+  --color-main-text: #b8684b !important;
+  --color-light-text: #ffffff !important;
+  --color-light-sub-text: #c09585 !important;
+
+  /* 🔘 CTA (Buttons, Active Elements) */
+  --color-cta-accent: #8D6E63 !important;
+  --color-cta-hover: #A1887F !important;
+  --color-cta-text: #FFFFFF !important;
+
+  /* ⭐ Ratings */
+  --color-yellow-star: #FFC107 !important;
+
+  /* 💰 Price or Success Feedback */
+  --color-price-green: #2E7D32 !important;
+
+  /* 🚨 Alerts, Errors */
+  --color-alert-red: #D32F2F !important;
+
+  /* ✨ Highlight / Hover Effects */
+  --color-highlight-hover: #A1887F !important;
+
+  /* 🔍 RGB fallback */
+  --rgb-cta-accent: 0, 109, 119 !important;
+  --rgb-white: 255, 255, 255 !important;
+  --rgb-dark-text: 26, 26, 26 !important;
+}

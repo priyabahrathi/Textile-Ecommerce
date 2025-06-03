@@ -1,0 +1,81 @@
+/* --- Global & Variable Definitions --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    /* Light Theme Colors */
+    --admin-light-bg-primary: #f8f9fa; /* Very light grey */
+    --admin-light-bg-secondary: #ffffff; /* White for cards */
+    --admin-light-text-primary: #212529; /* Dark grey for main text */
+    --admin-light-text-secondary: #4F7C82; /* Medium grey for subtle text */
+    --admin-light-border-color: #e0e0e0;
+    --admin-light-shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* Dark Theme Colors */
+    --admin-dark-bg-primary: #1a1a2e; /* Deep dark blue */
+    --admin-dark-bg-secondary: #2c2c47; /* Slightly lighter dark blue for cards */
+    --admin-dark-text-primary: #e0e0e0; /* Light grey for main text */
+    --admin-dark-text-secondary: #a0a0a0; /* Muted light grey for subtle text */
+    --admin-dark-border-color: #3f3f5a;
+    --admin-dark-shadow-color: rgba(0, 0, 0, 0.4);
+
+    /* Accent Colors (Consistent across themes) */
+    --admin-brand-primary: #0B2E33; /* Deep rich purple */
+    --admin-brand-secondary: #0B2E33; /* Lighter purple / magenta */
+    --admin-accent-blue: #007bff; /* Standard blue for links/highlights */
+    --admin-status-pending: #ffc107; /* Amber */
+    --admin-status-completed: #28a745; /* Green */
+    --admin-status-cancelled: #dc3545; /* Red */
+    --admin-status-returned: #6f42c1; /* Deeper purple */
+    /* Typography */
+    --admin-font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --admin-font-size-base: 1rem;
+    --admin-line-height-base: 1.6;
+
+    /* Spacing */
+    --admin-spacing-xs: 0.5rem;
+    --admin-spacing-sm: 1rem;
+    --admin-spacing-md: 1.5rem;
+    --admin-spacing-lg: 2rem;
+    --admin-spacing-xl: 3rem;
+
+    /* border */
+    --admin-border: 1px;
+    --admin-border-sm: 0.5px;
+    
+    /* Border Radius */
+    --admin-border-radius-sm: 0.25rem;
+    --admin-border-radius-md: 0.5rem;
+    --admin-border-radius-lg: 0.75rem;
+
+    /* Transitions */
+    --admin-transition-fast: 0.15s ease-out;
+    --admin-transition-normal: 0.3s ease-in-out;
+
+    /* brand */
+    --admin-brand-primary: #0B2E33;
+    --admin-brand-secondary: #0B2E33;
+    /* bg */
+    --admin-bg-primary: #f8f9fa; /* Light background for light theme */
+    --admin-bg-secondary: #ffffff; /* White for cards in light theme */
+    --admin-bg-primary-dark: #1a1a2e; /* Dark background for dark theme */
+
+    /* card bg */
+    --admin-card-bg: #ffffff;
+
+    /* main */
+    --admin-main-bg: #f8f9fa; /* Light background for main content */
+    --admin-main-bg-dark: #1a1a2e; /* Dark background for main content in dark theme */
+    --admin-main-text: #212529; /* Dark text for main content */
+    --admin-main-text-dark: #e0e0e0; /* Light text for main content in dark theme */
+    --admin-shadow:var(--admin-brand-primary)
+    --admin-danger-red: #dc3545; /* Red for danger alerts */
+    --admin-success-green: #28a745; /* Green for success alerts */
+    --admin-warning-yellow: #ffc107; /* Yellow for warning alerts */
+    --admin-info-blue: #17a2b8; /* Blue for informational alerts */
+    --admin-border-color: #e0e0e0; /* Light border color */
+    --admin-border-color-dark: #3f3f5a; /* Dark border color for dark theme */
+
+
+}
+
+

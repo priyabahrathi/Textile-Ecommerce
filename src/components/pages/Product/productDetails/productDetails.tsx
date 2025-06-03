@@ -69,6 +69,7 @@ const ProductDetail: React.FC = () => {
   };
   if (!selectedProduct) return <div>No product selected.</div>;
   return (<>
+
     <div className="product-detail-page">
       <button
         className="back-btn"
@@ -99,13 +100,14 @@ const ProductDetail: React.FC = () => {
             <h2 className='pro-name' style={{ textAlign: 'left' }}>{selectedProduct.name}</h2>
             <span className="rating">★★★★☆ (4.2)</span>
           </div>
+
           <div className="selectors">
             <div className="price-rating">
-            <span className='price-tag'>Price :</span><span className="price"> &#8377;{selectedProduct.price}</span>
-            <span className="reviews">{reviews.length} reviews</span>
-          </div>
+              <span className='price-tag'></span><span className="price"> &#8377;{selectedProduct.price}</span>
+              {/* <span className="reviews">{reviews.length} reviews</span> */}
+            </div>
             <div>
-              <label className='price-tag'>Size:</label>
+              <label className='price-tag'></label>
               {['S', 'M', 'L', 'XL'].map(size => (
                 <button
                   key={size}
@@ -115,6 +117,7 @@ const ProductDetail: React.FC = () => {
               ))}
             </div>
           </div>
+
           <div className='desp'><span className='desp-head'>Description:</span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsum magni sit similique, assumenda blanditiis quaerat odio neque saepe cupiditate, ullam pariatur omnis unde quibusdam? Veniam illo error consectetur ex.</div>
           <div className="action-buttons">
             <button className="add-cart" onClick={handleAddToCart}>Add to Cart</button>
@@ -165,7 +168,7 @@ const ProductDetail: React.FC = () => {
         )} */}
         {activeTab === 'reviews' && (
           <div>
-            <h3>Reviews</h3>
+            <h3 className='review-head'>Reviews</h3>
             <div className="review-list">
               {reviews.length === 0 && <p>No reviews yet.</p>}
               {reviews.map((rev, idx) => (

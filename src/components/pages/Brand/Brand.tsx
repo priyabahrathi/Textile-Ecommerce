@@ -1,62 +1,55 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/autoplay";
-import "./Brand.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Store/store";
-import { easeOut, motion, useAnimation } from "framer-motion";
-import { useEffect, useRef } from 'react';
-import { useInView } from 'framer-motion';
-const MotionCard=({children}:{children:React.ReactNode})=>{
-  const ref=useRef(null);
-  const inView=useInView(ref,{ once: false });
-  const controls=useAnimation();
-  useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, y: 0 });
-    }
-    else {
-      controls.start({ opacity: 0, y: -100 })
-    }
-  }, [inView]);
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: -100 }}
-      animate={controls}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >{children}</motion.div>
-  )
-}
+import "./Brand.css";
+
 const Brand: React.FC = () => {
   const Brands = useSelector((state: RootState) => state.brand.Brands);
+
   return (
     <div className="pagebrand">
       <div className="page-container">
-        <div className="page-name">Famous Brands</div>
+        <h1 className="page-name">Famous Brands</h1>
+        <p className="brand-tagline">
+          Discover top brands trusted by millions. Shop your favorites and explore new trends!
+        </p>
         <div className="brand-container">
-          <Swiper
-            loop={Brands.length > 5}
-            slidesPerView={5}
-            autoplay={{ delay: 500, disableOnInteraction: false }}
-            modules={[Autoplay]}
-            breakpoints={{
-              1300: { slidesPerView: 5 },
-              700: { slidesPerView: 3 },
-              300: { slidesPerView: 1 }
-            }}
-          >
-            {Brands.map((logo, index) => (
-              <SwiperSlide key={index} className="logo-slide">
-                <img className="logo-img" src={logo.img} alt="" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <table className="brand-table">
+            <thead>
+              <tr>
+                <th>Brand Image</th>
+                <th>Brand Name</th>
+                <th>Brand Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Brands.map((brand, idx) => (
+                <tr key={brand.id || idx}>
+                  <td>
+                    <img
+                      src={brand.img}
+                      alt={brand.name}
+                      className="brand-table-img"
+                    />
+                  </td>
+                  <td className="brand-table-name">{brand.name}</td>
+                  <td>
+                    {brand.link ? (
+                      <a href={brand.link} target="_blank" rel="noopener noreferrer">
+                        Visit Brand
+                      </a>
+                    ) : (
+                      <span>No link</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  )
+  );
 };
+
 export default Brand;
