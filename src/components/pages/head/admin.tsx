@@ -22,7 +22,8 @@ const SignInForm: React.FC<{
   setPassword: (v: string) => void;
   error: string;
   onSubmit: (e: React.FormEvent) => void;
-}> = ({ userId, setUserId, password, setPassword, error, onSubmit }) => (
+  loading?: boolean;
+}> = ({ userId, setUserId, password, setPassword, error, onSubmit, loading }) => (
   <form onSubmit={onSubmit} style={{ width: "100%" }}>
     <IonItem>
       <IonLabel position="stacked">User ID / Email / Phone</IonLabel>
@@ -43,8 +44,8 @@ const SignInForm: React.FC<{
       />
     </IonItem>
     {error && <div style={{ color: "red", marginTop: 8 }}>{error}</div>}
-    <IonButton expand="block" type="submit" style={{ marginTop: 16 }}>
-      Sign In
+    <IonButton expand="block" type="submit" style={{ marginTop: 16 }} disabled={loading}>
+      {loading ? "Signing In..." : "Sign In"}
     </IonButton>
   </form>
 );
@@ -59,6 +60,7 @@ const AdminPanel: React.FC = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   // Sign In: Check user in Firebase with 3 options
@@ -68,6 +70,7 @@ const AdminPanel: React.FC = () => {
       setError("Please enter your User ID, Email, or Phone and Password.");
       return;
     }
+    setLoading(true);
     try {
       const dbRef = ref(database);
       // Try User ID first
@@ -78,7 +81,6 @@ const AdminPanel: React.FC = () => {
         history.push("/admin/dashboard");
         return;
       }
-
       // If not found, search by email or phone
       const usersSnap = await get(child(dbRef, "users"));
       if (usersSnap.exists()) {
@@ -96,10 +98,11 @@ const AdminPanel: React.FC = () => {
           }
         }
       }
-
       setError("Invalid credentials. Please try again.");
     } catch (err) {
       setError("Error signing in. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,6 +131,7 @@ const AdminPanel: React.FC = () => {
                   setPassword={setPassword}
                   error={error}
                   onSubmit={handleSignIn}
+                  loading={loading}
                 />
               </IonCardContent>
             </IonCard>
