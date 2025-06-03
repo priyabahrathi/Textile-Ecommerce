@@ -18,6 +18,8 @@ import {
   cart,
   search,
   home,
+  bagCheck,
+  shirt,
 }from "ionicons/icons";
 import { IoMenu, IoRemove, IoAdd } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -89,6 +91,10 @@ const Header: React.FC = () => {
             <IonItem button onClick={() => dispatch(setPage("checkout"))}>
               <IonIcon icon={cart} slot="start" />
               Cart
+            </IonItem>
+            <IonItem button onClick={() => dispatch(setPage("history"))}>
+              <IonIcon icon={cart} slot="start" />
+              History
             </IonItem>
           </IonList>
 
@@ -185,10 +191,17 @@ const Header: React.FC = () => {
 
                   <div className={`icon-with-label ${activePage === "products" ? "active-icon" : ""}`} onClick={() => dispatch(setPage("products"))}>
                     <IonButton fill="clear">
-                      <IonIcon icon={bag} size="large" />
+                      <IonIcon icon={shirt} size="large" />
                     </IonButton>
                     <span className="icon-label">Products</span>
                   </div>
+               
+                  <div className={`icon-with-label ${activePage === "history" ? "active-icon" : ""}`} onClick={() => dispatch(setPage("history"))}>
+                    <IonButton fill="clear">
+                      <IonIcon icon={bagCheck} size="large" />
+                    </IonButton>
+                    <span className="icon-label">My Orders</span>
+                  </div>   
                 </>
               )}
 
