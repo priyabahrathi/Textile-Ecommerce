@@ -293,12 +293,12 @@ const ProductManage: React.FC = () => {
         const csvContent = [
             [
                 "Product ID", "Product Name", "Product Image (Base64)", "Price", "Status",
-                "Category", "Gender", "Outfit Name", "Outfit Type", "Skin Tone",
+                "Category", "Gender", "Outfit Name", "Outfit Type", 
                 "Description", "Brand", "Fabric Type", "Color",
             ],
             ...filteredProducts.map((p) => [
                 p.id, p.name, p.img, p.price, p.status, p.category, p.gender,
-                p.outfitName, p.outfitType, p.skinTone.join("; "), // Join array elements for CSV
+                p.outfitName, p.outfitType,  // Join array elements for CSV
                 p.description, p.brand, p.fabricType, p.color,
             ]),
         ]
@@ -314,38 +314,109 @@ const ProductManage: React.FC = () => {
         link.click();
         document.body.removeChild(link);
     };
-
+const [pdfExportFilter, setPdfExportFilter] = useState<'all' | 'category' | 'status'>('all');
+const [selectedCategory, setSelectedCategory] = useState<string>('All');
+const [selectedStatus, setSelectedStatus] = useState<string>('All');
     // PDF export
-    const exportPDF = () => {
-        const doc = new jsPDF();
-        doc.text("Product List", 14, 16);
+const exportPDF = () => {
+    let exportProducts = products;
+    if (pdfExportFilter === 'category' && selectedCategory !== 'All') {
+        exportProducts = products.filter(p => p.category === selectedCategory);
+    }
+    if (pdfExportFilter === 'status' && selectedStatus !== 'All') {
+        exportProducts = products.filter(p => p.status === selectedStatus);
+    }
 
-        const tableColumn = [
-            "ID", "Name", "Price", "Status", "Category", "Gender",
-            "Outfit Name", "Outfit Type", "Skin Tone", "Description", "Brand",
-            "Fabric Type", "Color",
-        ];
+    const doc = new jsPDF({ orientation: 'landscape' }); // 👉 Landscape mode
+    const dateStr = new Date().toLocaleDateString();
 
-        const tableRows = filteredProducts.map((p) => [
-            p.id, p.name, p.price.toString(), p.status, p.category, p.gender,
-            p.outfitName, p.outfitType, p.skinTone.join(", "),
-            p.description, p.brand, p.fabricType, p.color,
-        ]);
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(92, 64, 51); // Dark brown
+    doc.text("StyleSync", 14, 15);
 
-        autoTable(doc, {
-            head: [tableColumn],
-            body: tableRows,
-            startY: 20,
-            styles: { fontSize: 8, cellWidth: "wrap" },
-            // Removed image column from PDF as it's not directly displayable in jspdf-autotable without further processing
-            columnStyles: {
-                8: { cellWidth: 30 }, // Skin Tone
-                9: { cellWidth: 40 }, // Description
-            },
-        });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text("Product Inventory Report", 14, 22);
+    doc.text(`Generated on: ${dateStr}`, 14, 28);
+    if (pdfExportFilter === 'category' && selectedCategory !== 'All') {
+        doc.text(`Category Filter: ${selectedCategory}`, 270, 22, { align: 'right' });
+    } else if (pdfExportFilter === 'status' && selectedStatus !== 'All') {
+        doc.text(`Status Filter: ${selectedStatus}`, 270, 22, { align: 'right' });
+    }
 
-        doc.save("products.pdf");
-    };
+    // Table Columns
+    const tableColumn = [
+        "ID", "Name", "Price", "Status", "Category",
+        "Outfit Name", "Outfit Type", "Brand", "Fabric Type",
+    ];
+
+    // Table Rows
+    const tableRows = exportProducts.map(p => [
+        p.id,
+        p.name,
+        `₹${p.price.toFixed(2)}`,
+        p.status,
+        p.category,
+        p.outfitName,
+        p.outfitType,
+        p.brand,
+        p.fabricType,
+    ]);
+
+    autoTable(doc, {
+        head: [tableColumn],
+        body: tableRows,
+        startY: 34,
+        styles: {
+            fontSize: 10,
+            cellPadding: 4,
+            textColor: [60, 60, 60],
+            lineColor: [180, 180, 180],
+            lineWidth: 0.1,
+            valign: 'middle',
+        },
+        headStyles: {
+            fillColor: [141, 110, 99], // Brand brown
+            textColor: [255, 255, 255],
+            fontStyle: 'bold',
+            fontSize: 11,
+        },
+        alternateRowStyles: {
+            fillColor: [250, 245, 242], // Soft beige
+        },
+        bodyStyles: {
+            fillColor: [255, 255, 255],
+        },
+        columnStyles: {
+            0: { cellWidth: 18 },
+            1: { cellWidth: 40 },
+            2: { cellWidth: 22 },
+            3: { cellWidth: 24 },
+            4: { cellWidth: 30 },
+            5: { cellWidth: 34 },
+            6: { cellWidth: 30 },
+            7: { cellWidth: 28 },
+            8: { cellWidth: 30 },
+        },
+        margin: { top: 34, left: 10, right: 10 },
+        didDrawPage: (data) => {
+            const pageCount = doc.getNumberOfPages();
+            doc.setFontSize(9);
+            doc.setTextColor(120);
+            doc.text(
+                `Page ${data.pageNumber} of ${pageCount}`,
+                data.settings.margin.left,
+                doc.internal.pageSize.height - 10
+            );
+        },
+    });
+
+    doc.save("StyleSync_Product_Report_Landscape.pdf");
+};
+
 
     // Pagination navigation
     const handlePageChange = (page: number) => {
@@ -403,7 +474,7 @@ const ProductManage: React.FC = () => {
                     <div className="search-container">
                         <input
                             type="search"
-                            placeholder="Search by product name..."
+                            placeholder="Search by product name"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="search-input"
@@ -462,7 +533,7 @@ const ProductManage: React.FC = () => {
                                 <td>{indexOfFirstProduct + index + 1}</td>
                                 <td>{product.id}</td>
                                 <td>{product.name}</td>
-                                <td>${product.price.toFixed(2)}</td> {/* Format price */}
+                                <td>{product.price.toFixed(2)}</td> {/* Format price */}
                                 <td>{product.status}</td>
                                 <td>{product.category}</td> {/* Display category */}
                                 <td>
@@ -652,6 +723,53 @@ const ProductManage: React.FC = () => {
                         </form>
                     </IonContent>
                 </IonModal>
+
+                <div className="pdf-export-filter">
+                    <label>
+                        <input
+                            type="radio"
+                            name="pdfExport"
+                            value="all"
+                            checked={pdfExportFilter === 'all'}
+                            onChange={() => setPdfExportFilter('all')}
+                        />
+                        Download All
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="pdfExport"
+                            value="category"
+                            checked={pdfExportFilter === 'category'}
+                            onChange={() => setPdfExportFilter('category')}
+                        />
+                        Download by Category
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="pdfExport"
+                            value="status"
+                            checked={pdfExportFilter === 'status'}
+                            onChange={() => setPdfExportFilter('status')}
+                        />
+                        Download by Status
+                    </label>
+                    {pdfExportFilter === 'category' && (
+                        <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
+                            {uniqueCategories.map(cat => (
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                        </select>
+                    )}
+                    {pdfExportFilter === 'status' && (
+                        <select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
+                            {uniqueStatuses.map(stat => (
+                                <option key={stat} value={stat}>{stat}</option>
+                            ))}
+                        </select>
+                    )}
+                </div>
             </div>
         </>
     );

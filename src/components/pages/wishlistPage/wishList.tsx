@@ -62,7 +62,7 @@ const WishList: React.FC = () => {
                   <th></th> 
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="wishlist-table-body">
                 {wishlist.map((product) => (
                   <tr key={product.id}>
                     
