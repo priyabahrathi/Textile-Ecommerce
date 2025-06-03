@@ -101,12 +101,16 @@ const Payment: React.FC = () => {
       userId: user?.uid || null,
     };
     try {
+
+      // Save order under global orders
+      await push(ref(database, 'orders'), order);
+
       // Save order only under this user's orders
       if (user?.uid) {
         await push(ref(database, `customers/${user.uid}/orders`), order);
       }
 
-    
+
 
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());

@@ -33,14 +33,22 @@ const CheckoutAdminPage: React.FC = () => {
 
     useEffect(() => {
         const db = getDatabase();
-        const ordersRef = ref(db, 'orders');
-        const unsubscribe = onValue(ordersRef, (snapshot) => {
+        const customersRef = ref(db, 'customers');
+        const unsubscribe = onValue(customersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                const loadedOrders: Order[] = Object.entries(data).map(([id, value]: [string, any]) => ({
-                    id,
-                    ...value,
-                }));
+                // Flatten all orders from all users
+                const loadedOrders: Order[] = [];
+                Object.entries(data).forEach(([userId, userData]: [string, any]) => {
+                    if (userData.orders) {
+                        Object.entries(userData.orders).forEach(([orderId, orderData]: [string, any]) => {
+                            loadedOrders.push({
+                                id: orderId,
+                                ...orderData,
+                            });
+                        });
+                    }
+                });
                 setOrders(loadedOrders);
             } else {
                 setOrders([]);
