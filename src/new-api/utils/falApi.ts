@@ -5,7 +5,7 @@ export const tryOnWithFal = async (
   outfitType: string
 ): Promise<{ imageUrl: string; requestId: string }> => {
   fal.config({
-    credentials: import.meta.env.VITE_FAL_KEY || "",
+    credentials: "b0d7d925-d312-4ff5-ad4b-9dc8b25fe128:7df8a92dc61990d442b9f946b0a1e921",
   });
 
   const mapOutfitToCategory = (outfitType: string): "tops" | "bottoms" | "one-pieces" => {
@@ -17,25 +17,38 @@ export const tryOnWithFal = async (
     return "tops"; // Default to "tops"
   };
 
-  const result = await fal.subscribe("fashn/tryon", {
-    input: {
-      model_image: modelImage,
-      garment_image: garmentImage,
-      category: mapOutfitToCategory(outfitType),
-      nsfw_filter: true, // Enable NSFW filtering
-      guidance_scale: 2, // Adjust guidance scale
-      timesteps: 50, // Number of timesteps
-      seed: 42, // Seed for reproducibility
-      num_samples: 1, // Number of samples to generate
-    },
-  });
+  try {
+    const result = await fal.subscribe("fal-ai/fashn/tryon/v1.5", {
+      input: {
+        model_image: modelImage,
+        garment_image: garmentImage,
+        category: mapOutfitToCategory(outfitType),
+        nsfw_filter: true,
+        guidance_scale: 2,
+        timesteps: 50,
+        seed: 42,
+        num_samples: 1,
+      },
+    });
 
-  console.log("FAL API Response:", result);
-  console.log("Category sent to FAL API:", mapOutfitToCategory(outfitType));
-  
+    console.log("FAL API Response:", result);
 
-  return {
-    imageUrl: result.data.images[0].url, // <-- correct plural
-    requestId: result.requestId,         // <-- correct camelCase
-  };
+    if (
+      result &&
+      result.data &&
+      Array.isArray(result.data.images) &&
+      result.data.images[0] &&
+      result.data.images[0].url
+    ) {
+      return {
+        imageUrl: result.data.images[0].url,
+        requestId: result.requestId,
+      };
+    } else {
+      throw new Error("No image returned from FAL API");
+    }
+  } catch (error) {
+    console.error("Try-On failed", error);
+    throw error;
+  }
 };
