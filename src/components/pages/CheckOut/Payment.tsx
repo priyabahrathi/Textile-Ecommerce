@@ -5,8 +5,11 @@ import './Payment.css';
 import { IonGrid, IonRow, IonCol, IonIcon } from '@ionic/react';
 import { clearBuy } from '../../../Store/Slice/checkout';
 import { goBack, setPage } from "../../../Store/Slice/pageSlice";
-import { getDatabase, ref, push } from 'firebase/database';
+import { getDatabase, ref, push, set, get, child } from 'firebase/database';
 import { cart } from 'ionicons/icons';
+import { auth, googleProvider, database } from '../../../Store/Slice/firebase';
+import { signInWithPopup } from "firebase/auth";
+
 const Payment: React.FC = () => {
   const dispatch = useDispatch();
   const buyItems = useSelector((state: RootState) => state.buy.items);
@@ -18,24 +21,59 @@ const Payment: React.FC = () => {
     0
   );
 
-  // Remove item handler
-  const handleRemove = (itemToRemove: typeof itemsToPay[number]) => {
-    if (isBuyNow) {
-      dispatch({ type: 'buy/removeItem', payload: itemToRemove.id });
-    } else {
-      dispatch({ type: 'cart/removeItem', payload: itemToRemove.id });
-    }
-  };
+  const [user, setUser] = useState<any>(null);
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
     address: '',
-    paymentMethod: '', // cod, upi, card
+    paymentMethod: '',
   });
+
+  // Google Sign-In Handler
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      setUser(user);
+
+      // Check if user exists in DB
+      const dbRef = ref(database);
+      const snapshot = await get(child(dbRef, `customers/${user.uid}`));
+      if (snapshot.exists()) {
+        // User exists, load data
+        const data = snapshot.val();
+        setForm((prev) => ({
+          ...prev,
+          name: data.name || user.displayName || "",
+          email: data.email || user.email || "",
+        }));
+      } else {
+        // New user, save to DB
+        await set(ref(database, `customers/${user.uid}`), {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        });
+        setForm((prev) => ({
+          ...prev,
+          name: user.displayName || "",
+          email: user.email || "",
+        }));
+      }
+      setStep(2); // Move to payment form
+    } catch (error) {
+      alert("Google Sign-In failed.");
+      console.error(error);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const order = {
@@ -55,10 +93,14 @@ const Payment: React.FC = () => {
       phone: form.phone,
       address: form.address,
       paymentMethod: form.paymentMethod,
+      userId: user?.uid || null,
     };
     try {
-      const db = getDatabase();
-      await push(ref(db, 'orders'), order);
+      // Save order only under this user's orders
+      if (user?.uid) {
+        await push(ref(database, `customers/${user.uid}/orders`), order);
+      }
+
       alert('Payment submitted and order stored successfully!');
       dispatch(clearBuy());
       dispatch(setPage('products'));
@@ -67,11 +109,6 @@ const Payment: React.FC = () => {
       alert('Something went wrong while submitting the order.');
     }
   };
-
-  const [step, setStep] = useState(1);
-
-  const handleNext = () => setStep(2);
-  const handleBack = () => setStep(1);
 
   return (
     <div className="payment-page">
@@ -89,7 +126,6 @@ const Payment: React.FC = () => {
       <div className='payment-page-card'>
         <IonGrid>
           <IonRow>
-
             {/* Step 1: Order Summary */}
             {step === 1 && (
               <IonCol size="12" className="summary-section">
@@ -98,13 +134,14 @@ const Payment: React.FC = () => {
                   {itemsToPay.map(item => (
                     <div className='item-list' key={item.id}>
                       <p>{item.name} ({item.size}) x {item.quantity}</p>
-                      {/* <button className='remove-btn' onClick={() => handleRemove(item)}>Remove</button> */}
                       <div>{(item.price * item.quantity).toFixed(2)}</div>
                     </div>
                   ))}
                   <hr />
                   <h4 className='pay-total'>Total: ₹{totalPrice.toFixed(2)}</h4>
-                  <button className='pay-btn' onClick={() => setStep(2)}>Continue to Payment</button>
+                  <button className='pay-btn' onClick={handleGoogleSignIn}>
+                    Continue with Google
+                  </button>
                 </div>
               </IonCol>
             )}
