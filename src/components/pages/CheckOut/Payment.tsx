@@ -208,24 +208,24 @@ const Payment: React.FC = () => {
                   <form className="payment-form" onSubmit={handlePaymentSubmit}>
                     <div className='name-phone'>
                       <div className='break'>
-                        <label>Name</label>
+                        <label className="pay-label">Name</label>
                         <input type="text" className='field-style' name="name" value={form.name} onChange={handleInputChange} required />
                       </div>
                       <div className='break'>
-                        <label>Phone</label>
+                        <label className="pay-label">Phone</label>
                         <input type="tel" className='field-style' name="phone" value={form.phone} onChange={handleInputChange} required />
                       </div>
                     </div>
                     <div className='break'>
-                      <label>Email</label>
+                      <label className="pay-label">Email</label>
                       <input type="email" className='field-style' name="email" value={form.email} onChange={handleInputChange} required />
                     </div>
                     <div className='break'>
-                      <label>Address</label>
+                      <label className="pay-label">Address</label>
                       <textarea className='field-style' name="address" value={form.address} onChange={handleInputChange} required />
                     </div>
                     <div className='break'>
-                      <label>Payment Method</label>
+                      <label className="pay-label">Payment Method</label>
                       <select name="paymentMethod" className='field-style' value={form.paymentMethod} onChange={handleInputChange} required>
                         <option value="" disabled hidden>Select a payment method</option>
                         <option value="cod">Cash on Delivery</option>

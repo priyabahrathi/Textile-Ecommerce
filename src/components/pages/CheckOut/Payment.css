@@ -127,7 +127,7 @@
   color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
 }
 
-label {
+.pay-label {
   color: var(--color-dark-text); /* Changed from #3A3E6C to var(--color-dark-text) */
   font-weight: bold;
   font-size: 20px;

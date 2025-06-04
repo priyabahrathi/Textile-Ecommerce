@@ -52,15 +52,6 @@ interface Product {
     brand: string;
 }
 
-const salesData = [
-    { month: 'Jan', sales: 4000 },
-    { month: 'Feb', sales: 3000 },
-    { month: 'Mar', sales: 5000 },
-    { month: 'Apr', sales: 4780 },
-    { month: 'May', sales: 5890 },
-    { month: 'Jun', sales: 4390 },
-    { month: 'Jul', sales: 4490 },
-];
 
 const pieData = [
     { name: 'Online', value: 6000 },
@@ -95,6 +86,7 @@ const Dashboard: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [recentOrders, setRecentOrders] = useState<Order[]>([]);
     const [filteredRecentOrders, setFilteredRecentOrders] = useState<Order[]>([]);
+    const [dailySalesData, setDailySalesData] = useState<{ date: string, sales: number }[]>([]);
 
     const unreadNotifications = recentOrders.filter(o => o.status === 'Pending').length;
 
@@ -243,6 +235,23 @@ const Dashboard: React.FC = () => {
         setFilteredRecentOrders(filtered.slice(0, 5));
     }, [searchTerm, recentOrders]);
 
+    useEffect(() => {
+        // Group orders by date and sum sales
+        const salesByDate: Record<string, number> = {};
+        recentOrders.forEach(order => {
+            const orderDate = order.date;
+            const orderTotal = order.items && order.items.length > 0
+                ? order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+                : (order.price * order.quantity);
+            if (!salesByDate[orderDate]) salesByDate[orderDate] = 0;
+            salesByDate[orderDate] += orderTotal;
+        });
+        // Convert to array and sort by date
+        const salesArr = Object.entries(salesByDate)
+            .map(([date, sales]) => ({ date, sales }))
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        setDailySalesData(salesArr);
+    }, [recentOrders]);
 
     return (
         <div className={`dashboard-wrapper ${darkMode ? 'dark' : ''}`}>
@@ -297,25 +306,24 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="chart-section">
-                <section className="chart-card">
-                    <h3>Monthly Sales</h3>
-                    <ResponsiveContainer width="100%" height="90%">
-                        <LineChart data={salesData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#444' : '#ccc'} />
-                            <XAxis dataKey="month" stroke={darkMode ? '#bbb' : '#666'} />
-                            <YAxis stroke={darkMode ? '#bbb' : '#666'} />
-                            <RechartsTooltip />
-                            <Line
-                                type="monotone"
-                                dataKey="sales"
-                                stroke="#8884d8"
-                                strokeWidth={3}
-                                activeDot={{ r: 8 }}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </section>
-
+                  <section className="chart-card">
+                <h3>Daily Sales</h3>
+                <ResponsiveContainer width="100%" height="90%">
+                    <LineChart data={dailySalesData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#444' : '#ccc'} />
+                        <XAxis dataKey="date" stroke={darkMode ? '#bbb' : '#666'} />
+                        <YAxis stroke={darkMode ? '#bbb' : '#666'} />
+                        <RechartsTooltip />
+                        <Line
+                            type="monotone"
+                            dataKey="sales"
+                            stroke="#8884d8"
+                            strokeWidth={3}
+                            activeDot={{ r: 8 }}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </section>
                 <section className="chart-card">
                     <h3>Sales by Channel</h3>
                     <ResponsiveContainer width="100%" height="90%">
@@ -341,7 +349,9 @@ const Dashboard: React.FC = () => {
                 </section>
             </div>
 
-            <section className="recent-orders-section">
+          
+
+            {/* <section className="recent-orders-section">
                 <h3>Recent Orders</h3>
 
                 <input
@@ -395,7 +405,7 @@ const Dashboard: React.FC = () => {
                     </tbody>
 
                 </table>
-            </section>
+            </section> */}
         </div>
     );
 };
