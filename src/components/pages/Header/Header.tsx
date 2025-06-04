@@ -157,7 +157,7 @@ const Header: React.FC = () => {
 
       {/* Header */}
       <div id="main-content">
-        <div className="container">
+        <div className="header-container">
           <div className="nav-item" style={{ alignItems: "center" }}>
             <div>
               <h3 style={{ margin: 0, cursor: 'pointer' }} onClick={() => dispatch(setPage("home"))}>StyleSync</h3>

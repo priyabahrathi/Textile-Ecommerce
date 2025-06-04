@@ -17,7 +17,7 @@
 
 
 /* Container Styling */
-.container {
+.header-container {
     background: rgba(var(--rgb-white), 0.2); /* Using primary background for transparent container */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari Support */
