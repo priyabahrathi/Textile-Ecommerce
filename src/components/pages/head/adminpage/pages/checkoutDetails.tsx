@@ -255,7 +255,6 @@ If Your Order was not delivered yet, Please contact the Customer Care !!!
                                     </table>
                                 </div>
                             )}
-
                             {selectedOrder && (
                                 <IonModal isOpen={true} onDidDismiss={() => setSelectedOrder(null)}>
                                     <IonHeader>

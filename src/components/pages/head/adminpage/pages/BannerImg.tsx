@@ -19,13 +19,11 @@ const BannerImg: React.FC = () => {
     const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
     const [isSaving, setIsSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState<string | null>(null);
-<<<<<<< HEAD
-=======
     const [messageType, setMessageType] = useState<'success' | 'error' | 'info' | null>(null);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768); // Example breakpoint
     const [slideType, setSlideType] = useState<'desktop' | 'mobile'>('desktop');
 
->>>>>>> origin/tryon
+
     useEffect(() => {
         const dbRef = ref(database);
         const adminId = slideType === 'desktop' ? ADMIN_ID_DESKTOP : ADMIN_ID_MOBILE;

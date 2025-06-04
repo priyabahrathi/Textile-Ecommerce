@@ -13,12 +13,12 @@ import {
     ResponsiveContainer,
 }from 'recharts';
 import { getDatabase, ref, onValue } from 'firebase/database';
-<<<<<<< HEAD
+
 import './Dashboard.css'; // Import the stylesheet
-=======
+
 import './Dashboard.css';
 
->>>>>>> origin/tryon
+
 type Order = {
     id: string;
     userName: string;
