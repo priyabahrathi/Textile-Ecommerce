@@ -1,5 +1,10 @@
+.ion-page{
+  justify-content:flex-start;
+}
 .order-history-page{
-  padding: 20px;
+ padding: 20px;
+  margin: 0;
+  justify-content: flex-start !important;
 }
 .history-items-detail td{
   /* text-align: center !important; */
@@ -12,11 +17,11 @@
 
 .history-list-table {
   /* margin-top: 10px; */
-  /* overflow-x: scroll; */
+  overflow-x: scroll;
   overflow-y: scroll;
   scrollbar-width: auto;
   scrollbar-color: var(--color-dark-text) var(--color-light-sub-text);
-  max-height: 400px;
+  max-height: 100%;
 }
 
 .history-detail-table{
@@ -74,6 +79,25 @@
   font-size: 20px;
   color: #fff;
   font-weight: 700;
+}
+.history-filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px 0; /* adds space above and below */
+}
+
+.filter-btn {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: var(--color-dark-text);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background-color: #B0885A; /* highlight active status */
 }
 
 .history-table {

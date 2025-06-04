@@ -93,8 +93,8 @@ const Header: React.FC = () => {
               Cart
             </IonItem>
             <IonItem button onClick={() => dispatch(setPage("history"))}>
-              <IonIcon icon={cart} slot="start" />
-              History
+              <IonIcon icon={bagCheck} slot="start" />
+              My Orders
             </IonItem>
           </IonList>
 

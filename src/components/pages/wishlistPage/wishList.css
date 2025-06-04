@@ -51,7 +51,14 @@
   padding: 1.5rem;
   overflow-x: auto; /* For responsive table */
 }
-
+.fav-list-table {
+  /* margin-top: 10px; */
+  overflow-x: scroll;
+  overflow-y: scroll;
+  scrollbar-width: auto;
+  scrollbar-color:var(--color-dark-text) var(--color-section-background);
+  max-height: 100%;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -68,7 +75,7 @@ thead th {
 }
 
 .wishlist-table-body td {
-  padding: 15px;
+  /* padding: 15px; */
   border-bottom: 1px solid var(--color-elite-silver); /* Changed from #eee to border_light from CheckOut.css */
   vertical-align: middle;
   font-size: 0.95rem;
@@ -82,7 +89,8 @@ tbody tr:last-child td {
 .product-info-cell {
   display: flex;
   align-items: center;
-  gap: 15px;
+  margin:0 !important;
+  /* gap: 15px; */
 }
 
 .wishlist-table-img {
@@ -159,11 +167,13 @@ tbody tr:last-child td {
 /* Wishlist bottom actions */
 .wishlist-bottom-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1.5rem;
+  margin-bottom:20px !important;
+  
 }
 
 .wishlist-link-share {
@@ -255,6 +265,39 @@ tbody tr:last-child td {
 */
 
 /* Responsive adjustments for the table */
+
+@media (max-width: 1024px) {
+  .fav-list-table {
+    margin: 0 1rem;
+  }
+  thead th, tbody td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+ .wishlist-table-img {
+    width: 60px;
+    height: 60px;
+  }
+  .product-name-table {
+    font-size: 0.9rem;
+  }
+  .remove-item-btn {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 0.75rem;
+  }
+  .view-product-btn {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 0.75rem;
+  }
+  
+  .wishlist-link-share input[type="text"] {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .wishlist-table-wrapper {
     padding: 1rem;
@@ -279,14 +322,6 @@ tbody tr:last-child td {
     --padding-start: 10px;
     --padding-end: 10px;
     font-size: 0.75rem;
-  }
-  .wishlist-bottom-actions {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .wishlist-link-share, .action-buttons-right {
-    width: 100%;
-    justify-content: flex-start;
   }
   .wishlist-link-share input[type="text"] {
     min-width: unset;
