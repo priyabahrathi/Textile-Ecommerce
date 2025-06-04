@@ -1,6 +1,10 @@
 .payment-page {
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
   padding: 20px;
   background: fixed;
+  height:100%;
   background-color: var(--color-primary-background); /* Changed from #ddd to var(--color-section-background) */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -198,12 +202,15 @@ textarea::placeholder {
   font-weight: bold;
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width:768px) {
   .payment-page{
     padding: 0;
   }
   .item-list{
     font-size: 15px;
+  }
+  .pay-btn{
+    font-size:15px;
   }
   .offer-content{
     font-size: 15px;
@@ -212,4 +219,14 @@ textarea::placeholder {
   font-size: 18px;
 }
 }
+
+@media screen and (max-width:360px) {
+  
+  .pay-btn{
+    font-size:13px;
+    padding:8px;
+  }
+  
+}
+
 

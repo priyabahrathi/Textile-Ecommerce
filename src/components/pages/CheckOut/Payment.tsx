@@ -171,6 +171,15 @@ const Payment: React.FC = () => {
         </div>
       </div>
 
+      <div className='cart-header'>
+        <button
+          className="back-btn"
+          onClick={() => dispatch(goBack())}
+        >
+          ←Back
+        </button>
+      </div>
+
       {/* Step Content */}
       <div className='payment-page-card'>
         <IonGrid>

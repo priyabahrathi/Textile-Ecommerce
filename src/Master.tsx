@@ -9,7 +9,7 @@ import Hero from "./components/pages/Hero/Hero";
 import Arrival from "./components/pages/Arrival/arrival";
 import WishList from "./components/pages/wishlistPage/wishList";
 import { IonApp } from "@ionic/react";
-import "./Master.css";
+// import "./Master.css";
 import Footer from "./components/pages/Footer/Footer";
 import CheckOut from "./components/pages/CheckOut/CheckOut";
 import Payment from "./components/pages/CheckOut/Payment";

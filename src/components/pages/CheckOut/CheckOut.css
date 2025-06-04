@@ -2,9 +2,8 @@
   padding: 20px;
   background: fixed;
   background-color: var(--color-light-gray);
-  /* Changed from #f1f1f1 to light-gray */
-  height: 1100px;
-  padding-bottom: 140px; 
+  padding-bottom: 180px; /* make room for the fixed footer */
+  overflow-y: auto; /* ensure page is scrollable */
 }
 
 .cart-header {
@@ -275,13 +274,6 @@ ion-col {
 
 
 .card-total {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-evenly;
-  text-align: center;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -290,8 +282,12 @@ ion-col {
   padding: 16px;
   z-index: 1000;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
+
 .buy-container,
 .card-content {
   overflow: visible !important;
