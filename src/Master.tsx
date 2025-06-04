@@ -34,7 +34,7 @@ const Master: React.FC = () => {
         return <CheckOut />;
       case "payment":
         return <Payment />;
-        case "history":
+      case "history":
         return <OrderHistory />;
       case "home":
       default:
@@ -42,7 +42,7 @@ const Master: React.FC = () => {
           <>
             <Hero />
             <Brand />
-            
+            <Footer />
           </>
         );
     }
